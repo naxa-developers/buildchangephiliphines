@@ -1,4 +1,5 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
+import SecondPage from './src/SecondPage'
 
-AppRegistry.registerComponent('guide', () => App);
+AppRegistry.registerComponent('guide', () => SecondPage);
