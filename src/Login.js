@@ -50,9 +50,9 @@ class Login extends Component {
 			.then((responseData) => {
 // change the argument of the function if you want to store the token value under any other key name
 				this.onValueChange('token', responseData.token);
-				Alert.alert('Login Success!');
+		Alert.alert(responseData.token);
 //change the scene
-				Actions.Homepage();
+				Actions.Successful_Login();
 			})
 			.catch((error) => console.log(error))
 

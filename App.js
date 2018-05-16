@@ -3,7 +3,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import SecondPage from './src/SecondPage';
 import SchoolList from './src/SchoolList';
 import Login from './src/Login';
-
+import SuccessfulLogin from './src/SuccessfulLogin';
 
 class App extends Component {
 
@@ -32,6 +32,12 @@ class App extends Component {
                           key="Login"
                           component={Login}
                           title="Login"
+                        />
+
+                        <Scene
+                          key="Successful_Login"
+                          component={SuccessfulLogin}
+                          title="Successful Login"
                         />
 
                   </Scene>
