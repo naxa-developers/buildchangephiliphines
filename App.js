@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import SecondPage from './src/SecondPage';
 import SchoolList from './src/SchoolList';
 import reducers from './src/reducers';
-import Ram from './src/Ram';
+import StepList from './src/StepList';
 
 class App extends Component {
 
@@ -30,8 +30,8 @@ class App extends Component {
 
                 <Scene
                   key="Sita"
-                  component={Ram}
-                  title="Hari"
+                  component={StepList}
+                  title="Sitelist"
                   initial
                   hideNavBar
                 />
