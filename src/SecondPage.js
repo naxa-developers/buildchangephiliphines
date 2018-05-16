@@ -1,11 +1,25 @@
-import React from 'react';
-import { View, Button, Text } from 'react-native';
+import React, { Component } from 'react';
+import { View, Button, Text, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Header from './Header';
 
-const Secondpage = () => {
 
-  const { mainContainer, subContainer, textStyle, buttonStyle } = styles;
-  return (
+class SecondPage extends Component {
+
+
+  communityMemberLogin() {
+      Actions.SchoolList();
+  }
+
+  authorizedMemberLogin() {
+    Alert.alert('This feature is still in the making!');
+  }
+
+
+  render() {
+    const { mainContainer, subContainer, textStyle } = styles;
+    return (
+
     <View style={mainContainer}>
               <Header headerText={'Construction Monitoring App'} />
 
@@ -13,14 +27,11 @@ const Secondpage = () => {
                         <View
                         style={subContainer}
                         >
-
                                 <Button
                                 title='Continue Without Login'
                                 color='#90C341'
-                                style={buttonStyle}
+                                onPress={this.communityMemberLogin}
                                 />
-
-                                <Text style={textStyle}>IF YOU ARE A COMMUNITY MEMBER</Text>
 
                         </View>
 
@@ -31,17 +42,18 @@ const Secondpage = () => {
                                 <Button
                                 title='Login'
                                 color='#4B84B2'
-                                style={buttonStyle}
+                                onPress={this.authorizedMemberLogin}
                                 />
 
                                 <Text style={textStyle}>IF YOU ARE AN AUTHORIZED ENGINEER</Text>
 
                         </View>
     </View>
-  );
-};
+    );
+  }
+}
 
-export default Secondpage;
+export default SecondPage;
 
 const styles = {
   mainContainer: {
