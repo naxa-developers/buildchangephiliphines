@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import SecondPage from './src/SecondPage';
 import SchoolList from './src/SchoolList';
+import Login from './src/Login';
+
 
 class App extends Component {
 
@@ -24,6 +26,12 @@ class App extends Component {
                           title="SecondPage"
                           initial
                           hideNavBar
+                        />
+
+                        <Scene
+                          key="Login"
+                          component={Login}
+                          title="Login"
                         />
 
                   </Scene>

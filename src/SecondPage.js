@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text, Alert } from 'react-native';
+import { View, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Header from './Header';
 
@@ -12,7 +12,7 @@ class SecondPage extends Component {
   }
 
   authorizedMemberLogin() {
-    Alert.alert('This feature is still in the making!');
+    Actions.Login();
   }
 
 

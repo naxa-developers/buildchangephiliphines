@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 export default class SchoolList extends Component {
 
@@ -39,7 +38,7 @@ export default class SchoolList extends Component {
 
   GetListViewItem(site_name) {
 
-   Alert.alert(site_name);
+   Alert.alert(site_name.name);
 
   }
 
@@ -100,7 +99,10 @@ export default class SchoolList extends Component {
 
             style={styles.rowViewContainer}
 
-          onPress={this.GetListViewItem.bind(this, rowData.name)} >{rowData.name}</Text>}
+            onPress={this.GetListViewItem.bind(this, rowData)}
+          >
+           {rowData.name}
+           </Text>}
 
           enableEmptySections
 
@@ -140,11 +142,3 @@ const styles = StyleSheet.create({
    }
 
 });
-
-// import React from 'react';
-// import { Text } from 'react-native';
-//
-// const SchoolList = () => <Text>Ram</Text>;
-//
-//
-// export default SchoolList;
