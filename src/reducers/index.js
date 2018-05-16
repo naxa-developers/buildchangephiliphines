@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import APIReducer from './APIReducer';
 
 export default combineReducers({
-    banana: () => []
+    api_data: APIReducer
 });
