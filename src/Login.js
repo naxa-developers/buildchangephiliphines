@@ -32,21 +32,26 @@ class Login extends Component {
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
+			//change the url
 			fetch('http://kc.naxa.com.np//users/api/get-auth-token/', {
 				method: "POST",
+				// change the properties of header if required usually not required
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
+					//change the name of the properties email_or_username and password as per api
 					email_or_username: this.state.username,
 					password: this.state.password,
 				})
 			})
 			.then((response) => response.json())
 			.then((responseData) => {
+// change the argument of the function if you want to store the token value under any other key name
 				this.onValueChange('token', responseData.token);
 				Alert.alert('Login Success!');
+//change the scene
 				Actions.Homepage();
 			})
 			.catch((error) => console.log(error))
