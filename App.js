@@ -29,6 +29,7 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
+                  initial
                 />
 
                         <Scene
@@ -38,11 +39,9 @@ class App extends Component {
                         />
 
                 <Scene
-                  key="Sita"
+                  key="StepList"
                   component={StepList}
-                  title="Sitelist"
-                  initial
-                  hideNavBar
+                  title="Site List"
                 />
                 <Scene
                   key="Successful_Login"

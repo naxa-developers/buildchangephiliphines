@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class SuccessfulLogin extends Component {
 
@@ -47,7 +48,8 @@ export default class SuccessfulLogin extends Component {
 
   GetListViewItem(site_name) {
 
-   Alert.alert(site_name.name);
+   //Alert.alert(site_name.name);
+   Actions.StepList();
 
   }
 

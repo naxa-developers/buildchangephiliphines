@@ -4,14 +4,14 @@ import { Header } from './components/common';
 import LibraryList from './components/LibraryList';
 import ImageList from './components/ImageList';
 
-const Ram = () => {
+const StepList = () => {
 return (
     <View style={{ flex: 1 }}>
     <ScrollView>
         <LibraryList />
         <Text style={styles.centerHeader}> Recent Photographs Submitted </Text>
         <ImageList />
-    </ScrollView> 
+    </ScrollView>
 </View >
 );
 };
@@ -20,4 +20,4 @@ const styles = {
     centerHeader: { marginTop: 10, fontSize: 16, alignSelf: 'center' }
   };
 
-export default Ram;
+export default StepList;
