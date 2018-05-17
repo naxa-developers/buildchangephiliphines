@@ -6,12 +6,15 @@ import SecondPage from './src/SecondPage';
 import SchoolList from './src/SchoolList';
 import reducers from './src/reducers';
 import StepList from './src/StepList';
+import Login from './src/Login';
+import SuccessfulLogin from './src/SuccessfulLogin';
 
 class App extends Component {
 
 
   render() {
       return (
+
         <Provider store={createStore(reducers)}>
           <Router>
             <Scene key="root">
@@ -28,12 +31,23 @@ class App extends Component {
                   hideNavBar
                 />
 
+                        <Scene
+                          key="Login"
+                          component={Login}
+                          title="Login"
+                        />
+
                 <Scene
                   key="Sita"
                   component={StepList}
                   title="Sitelist"
                   initial
                   hideNavBar
+                />
+                <Scene
+                  key="Successful_Login"
+                  component={SuccessfulLogin}
+                  title="Successful Login"
                 />
                 </Scene>
           </Router>
