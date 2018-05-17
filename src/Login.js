@@ -33,7 +33,7 @@ class Login extends Component {
 	userLogin() {
 		if (this.state.username && this.state.password) {
 			//change the url
-			fetch('http://kc.naxa.com.np//users/api/get-auth-token/', {
+			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', {
 				method: "POST",
 				// change the properties of header if required usually not required
 				headers: {
@@ -42,7 +42,7 @@ class Login extends Component {
 				},
 				body: JSON.stringify({
 					//change the name of the properties email_or_username and password as per api
-					email_or_username: this.state.username,
+					username: this.state.username,
 					password: this.state.password,
 				})
 			})

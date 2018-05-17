@@ -1,0 +1,59 @@
+{
+    "id": 1,
+    "name": "Build Change",
+    "sites": [
+        {
+            "id": 3,
+            "name": "Camayse Elementary School",
+            "steps": [
+                {
+                    "id": 4,
+                    "name": "Arun",
+                    "site": 3,
+                    "project": null,
+                    "order": 3,
+                    "localname": "No language chosen yet.",
+                    "checklists": [
+                        {
+                            "id": 3,
+                            "text": "one",
+                            "step": 4,
+                            "localtext": "No language chosen yet.",
+                            "materials": {},
+                            "material": null,
+                            "last_submission": {}
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "name": "Foundationo",
+                    "site": 3,
+                    "project": null,
+                    "order": 2,
+                    "localname": "No language chosen yet.",
+                    "checklists": []
+                },
+                {
+                    "id": 2,
+                    "name": "Materialo",
+                    "site": 3,
+                    "project": null,
+                    "order": 1,
+                    "localname": "No language chosen yet.",
+                    "checklists": [
+                        {
+                            "id": 2,
+                            "text": "Quality",
+                            "step": 2,
+                            "localtext": "No language chosen yet.",
+                            "materials": {},
+                            "material": null,
+                            "last_submission": {}
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
