@@ -46,10 +46,10 @@ export default class SuccessfulLogin extends Component {
 
   }
 
-  GetListViewItem(site_name) {
+  GetListViewItem(school) {
 
    //Alert.alert(site_name.name);
-   Actions.StepList();
+   Actions.StepList(school);
 
   }
 

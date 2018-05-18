@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import { Header } from './components/common';
+import { View, ScrollView, Text, Alert } from 'react-native';
 import LibraryList from './components/LibraryList';
 import ImageList from './components/ImageList';
 
-const StepList = () => {
+const StepList = (props) => {
+
 return (
     <View style={{ flex: 1 }}>
     <ScrollView>
-        <LibraryList />
-        <Text style={styles.centerHeader}> Recent Photographs Submitted </Text>
+        <LibraryList list={props} />
+        <Text style={styles.centerHeader}>{props.id}</Text>
         <ImageList />
     </ScrollView>
 </View >
