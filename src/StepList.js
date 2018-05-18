@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, ScrollView, Text, Alert } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import LibraryList from './components/LibraryList';
 import ImageList from './components/ImageList';
 
 const StepList = (props) => {
-
 return (
     <View style={{ flex: 1 }}>
     <ScrollView>
@@ -18,6 +17,6 @@ return (
 
 const styles = {
     centerHeader: { marginTop: 10, fontSize: 16, alignSelf: 'center' }
-  };
+};
 
 export default StepList;
