@@ -17,11 +17,13 @@ class SignUp extends Component {
 		this.state = {
 			username: null,
       email: null,
-			password: null
+			password: null,
+      repassword: null
 		};
 	}
 
 	userSignup() {
+    if ( this.state.password === this.state.repassword) {
 		if (this.state.username && this.state.email && this.state.password) {
 			//change the url
 			fetch('http://139.59.67.104:4001/core/api/users/', {
@@ -41,6 +43,7 @@ class SignUp extends Component {
         switch (response.status) {
           case 201:
             Alert.alert('Successful Signup');
+            Actions.Login();
             break;
             case 400:
               Alert.alert('Username Already Exists');
@@ -53,6 +56,11 @@ class SignUp extends Component {
 
 			.done();
 		}
+  }
+  else {
+    Alert.alert('Password did not match!')
+
+  }
 	}
 
 	render() {
@@ -93,6 +101,16 @@ class SignUp extends Component {
 						style={styles.inputText}
 						value={this.state.password}
 					/>
+          <TextInput
+						editable
+						onChangeText={(repassword) => this.setState({ repassword })}
+						placeholder='Retype Password'
+						ref='repassword'
+						returnKeyType='next'
+						secureTextEntry
+						style={styles.inputText}
+						value={this.state.repassword}
+		       />
 					<TouchableOpacity
 						style={styles.buttonWrapper}
 						onPress={this.userSignup.bind(this)}

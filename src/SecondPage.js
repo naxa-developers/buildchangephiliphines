@@ -28,7 +28,7 @@ class SecondPage extends Component {
                         style={subContainer}
                         >
                                 <Button
-                                title='Continue Without Login'
+                                title='Sign Up'
                                 color='#90C341'
                                 onPress={this.communityMemberLogin}
                                 />
@@ -40,7 +40,7 @@ class SecondPage extends Component {
                         >
 
                                 <Button
-                                title='Login'
+                                title='Log in'
                                 color='#4B84B2'
                                 onPress={this.authorizedMemberLogin}
                                 />
