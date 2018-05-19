@@ -9,6 +9,7 @@ import StepList from './src/StepList';
 import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
+import ReportForm from './src/components/ReportForm';
 
 class App extends Component {
 
@@ -54,6 +55,13 @@ class App extends Component {
                   key="CheckList"
                   component={CheckList}
                   title="CheckList"
+                />
+                <Scene
+                  key="ReportForm"
+                  component={ReportForm}
+                  title="ReportForm"
+                  
+                  
                 />
                 </Scene>
           </Router>
