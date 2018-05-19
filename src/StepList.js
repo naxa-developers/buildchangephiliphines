@@ -8,7 +8,7 @@ return (
     <View style={{ flex: 1 }}>
     <ScrollView>
         <LibraryList list={props} />
-        <Text style={styles.centerHeader}>Some Recent Photographs</Text>
+        <Text style={styles.centerHeader}>Some Recent Photograph</Text>
         <ImageList />
     </ScrollView>
 </View >

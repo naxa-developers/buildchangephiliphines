@@ -3,7 +3,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import SecondPage from './src/SecondPage';
-import SchoolList from './src/SchoolList';
+import SignUp from './src/SignUp';
 import reducers from './src/reducers';
 import StepList from './src/StepList';
 import Login from './src/Login';
@@ -20,9 +20,9 @@ class App extends Component {
           <Router>
             <Scene key="root">
                 <Scene
-                  key="SchoolList"
-                  component={SchoolList}
-                  title="School List"
+                  key="SignUp"
+                  component={SignUp}
+                  title="SignUp"
                 />
 
                 <Scene

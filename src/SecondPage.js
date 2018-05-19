@@ -8,7 +8,7 @@ class SecondPage extends Component {
 
 
   communityMemberLogin() {
-      Actions.SchoolList();
+      Actions.SignUp();
   }
 
   authorizedMemberLogin() {
