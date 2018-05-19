@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
 	AsyncStorage,
 	Image,
-	Alert,
 	Text,
 	TextInput,
 	TouchableOpacity,
@@ -34,8 +33,7 @@ class Login extends Component {
 		if (this.state.username && this.state.password) {
 			//change the url
 			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', {
-				method: "POST",
-				// change the properties of header if required usually not required
+				method: 'POST',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json'
@@ -48,10 +46,7 @@ class Login extends Component {
 			})
 			.then((response) => response.json())
 			.then((responseData) => {
-// change the argument of the function if you want to store the token value under any other key name
 				this.onValueChange('token', responseData.token);
-		Alert.alert(responseData.token);
-//change the scene
 				Actions.Successful_Login();
 			})
 			.catch((error) => console.log(error))

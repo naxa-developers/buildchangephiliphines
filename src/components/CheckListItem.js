@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
-import { View, 
-    TouchableWithoutFeedback, 
+import { View,
+    TouchableWithoutFeedback,
     Text,
     Alert
  } from 'react-native';
-import { connect } from 'react-redux';
-import { Icon, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, ToggleCircle, Card } from './common';
 
 class CheckListItem extends Component {
-    
+
     render() {
         const { titleStyle, cointainerStyle } = styles;
-        //const { id, title } = this.props.rowItem;
-        
-        return (     
-        <TouchableWithoutFeedback
-            onPress={() => Alert.alert('duck')}
-        >         
+
+        return (
+        <TouchableWithoutFeedback>
             <View>
-                <CardSection>    
+                <CardSection>
                     <ToggleCircle />
                     <View style={cointainerStyle}>
-                        <Text style={titleStyle} >{this.props.rowData.text}</Text>
+                        <Text style={titleStyle} >{this.props.data.text}</Text>
                     </View>
                 </CardSection>
                 <Card>
                 <Button
-                    buttonStyle={{  
+                    buttonStyle={{
                     backgroundColor: 'rgba(92, 99,216, 1)',
                     borderColor: 'transparent',
                     borderWidth: 0,
@@ -36,10 +32,10 @@ class CheckListItem extends Component {
                     }}
                         onPress={() => Actions.ReportForm()}
                         title='Report'
-                    />
+                />
                     <Button
-                          buttonStyle={{  
-                            marginTop: 5,  
+                          buttonStyle={{
+                            marginTop: 5,
                             backgroundColor: 'rgba(92, 99,216, 1)',
                             borderColor: 'transparent',
                             borderWidth: 0,
@@ -77,4 +73,4 @@ const styles = {
     }
 };
 
-export default connect(null)(CheckListItem); 
+export default CheckListItem;

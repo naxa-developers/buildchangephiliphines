@@ -8,6 +8,7 @@ import reducers from './src/reducers';
 import StepList from './src/StepList';
 import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
+import CheckList from './src/components/CheckList';
 
 class App extends Component {
 
@@ -47,7 +48,12 @@ class App extends Component {
                 <Scene
                   key="Successful_Login"
                   component={SuccessfulLogin}
-                  title="Successful Login"
+                  title="Site List"
+                />
+                <Scene
+                  key="CheckList"
+                  component={CheckList}
+                  title="CheckList"
                 />
                 </Scene>
           </Router>

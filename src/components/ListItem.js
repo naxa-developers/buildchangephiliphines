@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { View,
     TouchableOpacity,
     Text
  } from 'react-native';
 import { CardSection, Circle } from './common';
 
+
 class ListItem extends Component {
+  onSiteTapped() {
+    Actions.CheckList(this.props.item);
+  }
 
     render() {
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { id, name } = this.props.item;
+        const firstLetter = name.charAt(0);
 
         return (
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={this.onSiteTapped.bind(this)}
+        >
             <View>
                 <CardSection>
-                    <Circle text={id} />
+                    <Circle text={firstLetter} />
                     <View style={cointainerStyle}>
                         <Text style={titleStyle} >{name}</Text>
                         <Text style={subtitleStyle} >{name}</Text>
