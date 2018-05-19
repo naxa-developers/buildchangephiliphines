@@ -9,6 +9,7 @@ import { CardSection, Circle } from './common';
 
 class ListItem extends Component {
   onSiteTapped() {
+    console.log(this.props.item);
     Actions.CheckList(this.props.item);
   }
 

@@ -13,6 +13,8 @@ class CheckListItem extends Component {
     render() {
         const { titleStyle, cointainerStyle } = styles;
 
+        console.log(this.props.data);
+
         return (
         <TouchableWithoutFeedback>
             <View>

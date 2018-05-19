@@ -80,7 +80,7 @@ class ReportForm extends Component {
                     color: 'white'
                   }}
                     onPress={this.selectPhotoTapped.bind(this)} 
-                    title="Open Camera"
+                    title="Select a photo"
                     buttonStyle={{   
                         width: 200,
                         height: 45,
