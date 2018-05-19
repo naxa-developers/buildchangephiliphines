@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import PlaceholderListItem from './components/PlaceholderListItem';
 
 export default class SuccessfulLogin extends Component {
 
@@ -106,14 +107,15 @@ export default class SuccessfulLogin extends Component {
 
           renderSeparator={this.ListViewItemSeparator}
 
-          renderRow={(rowData) => <Text
+          renderRow={(rowData) => <PlaceholderListItem
+            rowData={rowData}
 
             style={styles.rowViewContainer}
 
             onPress={this.GetListViewItem.bind(this, rowData)}
           >
            {rowData.name}
-           </Text>}
+           </PlaceholderListItem>}
 
           enableEmptySections
 

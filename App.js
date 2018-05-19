@@ -32,17 +32,18 @@ class App extends Component {
                   initial
                 />
 
-                        <Scene
-                          key="Login"
-                          component={Login}
-                          title="Login"
-                        />
+                <Scene
+                  key="Login"
+                  component={Login}
+                  title="Login"
+                />
 
                 <Scene
                   key="StepList"
                   component={StepList}
                   title="Site List"
                 />
+
                 <Scene
                   key="Successful_Login"
                   component={SuccessfulLogin}
