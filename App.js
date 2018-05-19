@@ -43,23 +43,23 @@ class App extends Component {
                 <Scene
                   key="StepList"
                   component={StepList}
-                  title="Site List"
+                  title="Step list"
                 />
 
                 <Scene
                   key="Successful_Login"
                   component={SuccessfulLogin}
-                  title="Site List"
+                  title="Site list"
                 />
                 <Scene
                   key="CheckList"
                   component={CheckList}
-                  title="CheckList"
+                  title="Checklist"
                 />
                 <Scene
                   key="ReportForm"
                   component={ReportForm}
-                  title="ReportForm"
+                  title="Report form"
                   
                   
                 />
