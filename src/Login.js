@@ -28,6 +28,14 @@ class Login extends Component {
 		}
 	}
 
+	async onUserIdChange(item, selectedValue) {
+		try {
+			await AsyncStorage.setItem(item, selectedValue);
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
@@ -47,6 +55,16 @@ class Login extends Component {
 			.then((response) => response.json())
 			.then((responseData) => {
 				this.onValueChange('token', responseData.token);
+				this.onUserIdChange('user_id', responseData.user_id);
+											// 				try {
+											//   const value = await AsyncStorage.getItem(');
+											//   if (value !== null){
+											//     // We have data!!
+											//     console.log(value);
+											//   }
+											// } catch (error) {
+											//   // Error retrieving data
+											// }
 				Actions.Successful_Login();
 			})
 			.catch((error) => console.log(error))

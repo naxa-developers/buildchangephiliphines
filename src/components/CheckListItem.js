@@ -1,62 +1,47 @@
 import React, { Component } from 'react';
-import { View,
-    TouchableWithoutFeedback,
-    Text,
-    Alert
- } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { CardSection, ToggleCircle, Card } from './common';
+import { ToggleCircle, Card } from './common';
 
 class CheckListItem extends Component {
 
     render() {
-        const { titleStyle, cointainerStyle } = styles;
+        const { titleStyle, } = styles;
 
         console.log(this.props.data);
 
         return (
-        <TouchableWithoutFeedback>
-            <View>
-                <CardSection>
-                    <ToggleCircle />
-                    <View style={cointainerStyle}>
-                        <Text style={titleStyle} >{this.props.data.text}</Text>
-                    </View>
-                </CardSection>
-                <Card>
-                <Button
-                    buttonStyle={{
-                    backgroundColor: 'rgba(92, 99,216, 1)',
-                    borderColor: 'transparent',
-                    borderWidth: 0,
-                    borderRadius: 5
-                    }}
-                        onPress={() => Actions.ReportForm()}
-                        title='Report'
-                />
-                    <Button
-                          buttonStyle={{
-                            marginTop: 5,
-                            backgroundColor: 'rgba(92, 99,216, 1)',
-                            borderColor: 'transparent',
-                            borderWidth: 0,
-                            borderRadius: 5
-                          }}
-                        onPress={() => Alert.alert('Downloading')}
-                        title='Materials'
-                    />
-                    </Card>
+            <Card>
 
+                <View style={styles.container}>
+                      <View style={{ flexDirection: 'row' }}>
+                                      <ToggleCircle />
+
+                                      <View style={{ paddingTop: 27 }}>
+                                      <Text style={titleStyle} >     {this.props.data.text}</Text>
+                                      </View>
+                      </View>
+                                      <View style={{ paddingTop: 23 }}>
+                                            <Button
+                                                buttonStyle={{
+                                                backgroundColor: 'rgba(92, 99,216, 1)',
+                                                borderColor: 'transparent',
+                                                borderWidth: 0,
+                                                borderRadius: 5
+                                                }}
+                                                onPress={() => Actions.ReportForm()}
+                                                title='Report'
+                                            />
+                                        </View>
             </View>
-        </TouchableWithoutFeedback>
+          </Card>
        );
     }
 }
 
 const styles = {
     titleStyle: {
-        paddingLeft: 16,
         fontSize: 20,
         color: '#000'
     },
@@ -67,12 +52,17 @@ const styles = {
 
     },
     cointainerStyle: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         borderBottomWidth: 0,
         backgroundColor: '#fff',
-        flexDirection: 'column',
+        flexDirection: 'row',
         position: 'relative'
+    },
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     }
+
 };
 
 export default CheckListItem;
