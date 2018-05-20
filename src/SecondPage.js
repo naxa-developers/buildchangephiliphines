@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Header from './Header';
 
@@ -17,37 +17,43 @@ class SecondPage extends Component {
 
 
   render() {
-    const { mainContainer, subContainer, textStyle } = styles;
+    const { mainContainer, subContainer } = styles;
     return (
 
     <View style={mainContainer}>
               <Header headerText={'Construction Monitoring App'} />
+                                                <View
+                                                style={{
+                                                  flex: 1,
+                                                  flexDirection: 'column',
+                                                  justifyContent: 'space-around',
+                                                }}
+                                                >
 
+                                            <View
+                                            style={subContainer}
+                                            >
+                                                <Button
+                                                title='Log in'
+                                                color='#4B84B2'
+                                                onPress={this.authorizedMemberLogin}
+                                                />
 
-                        <View
-                        style={subContainer}
-                        >
-                                <Button
-                                title='Sign Up'
-                                color='#90C341'
-                                onPress={this.communityMemberLogin}
-                                />
+                                            </View>
 
-                        </View>
+                                            <View
+                                            style={subContainer}
+                                            >
+                                                <Button
+                                                title='Sign Up'
+                                                color='#90C341'
+                                                onPress={this.communityMemberLogin}
+                                                />
 
-                        <View
-                        style={subContainer}
-                        >
+                                            </View>
 
-                                <Button
-                                title='Log in'
-                                color='#4B84B2'
-                                onPress={this.authorizedMemberLogin}
-                                />
+                            </View>
 
-                                <Text style={textStyle}>IF YOU ARE AN AUTHORIZED ENGINEER</Text>
-
-                        </View>
     </View>
     );
   }
@@ -57,17 +63,11 @@ export default SecondPage;
 
 const styles = {
   mainContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
+    flex: 1
   },
   subContainer: {
     marginLeft: 10,
     marginRight: 10
 
-  },
-  textStyle: {
-    fontSize: 20,
-    textAlign: 'center'
-  },
-
+  }
 };
