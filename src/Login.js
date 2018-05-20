@@ -59,7 +59,7 @@ class Login extends Component {
 		return (
 			<View style={styles.container}>
 				<Image
-						source={require('../app_images/construction.png')}
+						source={require('../app_images/buildchange.jpeg')}
 						style={styles.image}
 				/>
 				<View style={styles.form}>
