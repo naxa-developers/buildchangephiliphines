@@ -1,23 +1,40 @@
 import React, { Component } from 'react';
+import { AsyncStorage, View } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import store from './src/reducers/store';
 import SecondPage from './src/SecondPage';
 import SignUp from './src/SignUp';
-import reducers from './src/reducers';
 import StepList from './src/StepList';
 import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
 
+
 class App extends Component {
 
+  constructor() {
+    super();
+    this.state = { hasToken: false, isTokenLoaded: false };
+  }
 
+  componentWillMount() {
+    AsyncStorage.getItem('token')
+    .then((token) => {
+      this.setState({ hasToken: token !== null, isTokenLoaded: true });
+    });
+  }
   render() {
+    console.log(this.state.isTokenLoaded);
+    if (!this.state.isTokenLoaded) {
       return (
+        <View />
+      );
+    } 
+    return (
 
-        <Provider store={createStore(reducers)}>
+        <Provider store={store}>
           <Router>
             <Scene key="root">
                 <Scene
@@ -31,7 +48,7 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
-                  initial
+                  initial={!this.state.hasToken}
                 />
 
                 <Scene
@@ -50,6 +67,7 @@ class App extends Component {
                   key="Successful_Login"
                   component={SuccessfulLogin}
                   title="Site list"
+                  initial={this.state.hasToken}
                 />
                 <Scene
                   key="CheckList"
@@ -68,6 +86,7 @@ class App extends Component {
         </Provider>
       );
     }
+  
   }
 
 export default App;
