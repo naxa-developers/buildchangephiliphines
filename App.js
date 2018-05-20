@@ -32,6 +32,7 @@ class App extends Component {
                   title="SecondPage"
                   hideNavBar
                   initial
+
                 />
 
                 <Scene
@@ -60,8 +61,6 @@ class App extends Component {
                   key="ReportForm"
                   component={ReportForm}
                   title="Report form"
-                  
-                  
                 />
                 </Scene>
           </Router>
