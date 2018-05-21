@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { Button, FormLabel, FormInput, } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
+import { Actions } from 'react-native-router-flux';
 
 class ReportForm extends Component {
 
@@ -86,10 +87,8 @@ class ReportForm extends Component {
                         }}
                     />
                     <Button
-                        onPress={this.toggleUploadAnim.bind(this)}
-                        loading={this.state.uploading}
+                        onPress={() => Actions.pop()}
                         title="Cancel"
-                        loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
                         titleStyle={{ fontWeight: '700' }}
                         buttonStyle={{
                             backgroundColor: '#E8656A',

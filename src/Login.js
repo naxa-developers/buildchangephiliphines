@@ -9,6 +9,7 @@ import {
 	Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
 import styles from './styles';
 
 class Login extends Component {
@@ -41,31 +42,23 @@ class Login extends Component {
 	userLogin() {
 		if (this.state.username && this.state.password) {
 
-			console.log(this.state);
-			const body = {};
-			body.username = this.state.username;
-			body.password = this.state.password;
+			const formdata = new FormData();
+			formdata.append('username', this.state.username);
+			formdata.append('password', this.state.password);
 
-
+		
 			const req = {
 				method: 'POST',
 				headers: {
-				  'Content-Type': 'application/json',
+					'Content-Type': 'multipart/form-data',
 				},
-				body: JSON.stringify({
-				  username: this.state.username,
-				  password: this.state.password,
-				}),
-			  };
-
-			console.log(req);
-
+				body: formdata,
+			};
 
 			//change the url
 			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', req)
 			.then((response => {
-				console.log(this.state.username.concat(' ', this.state.password));
-				console.log(response.json());
+		
 				if (response.ok) {
 					return response;
 				} 
@@ -77,7 +70,7 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-				console.log(responseData);
+				
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id);
 											// 				try {
