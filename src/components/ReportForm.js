@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, FormLabel, FormInput, } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import { Input, CardSection } from './common';
 
 class ReportForm extends Component {
 
     state = {
         avatarSource: null,
-        videoSource: null,
+        comments: '',
         uploading: false,
       };
 
@@ -54,90 +53,58 @@ class ReportForm extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
-            <ScrollView
-                style={{ backgroundColor: '#fff' }}
-            >
-        
-              <Text style={styles.centerHeader}>
-               Please fill up the form and send your report 
-               </Text>
-        
-                <CardSection>
-                    <Input 
-                        label="Your Name" 
+            <ScrollView style={{ backgroundColor: '#fff' }} >
+                <View style={{ flex: 1 }}>
+                    <Text style={styles.centerHeader}>
+                       Please fill up the form and send your report 
+                    </Text>
+                    
+                    <FormLabel>Comments</FormLabel>
+                    <FormInput multiline ref="comments"	onChangeText={(comments) => this.setState({ ...this.state, comments })} />
+
+                    <Button    
+                        icon={{
+                            name: 'camera',
+                            size: 24,
+                            color: 'white'
+                        }}
+                        onPress={this.selectPhotoTapped.bind(this)} 
+                        title="Take a photo"
+                        titleStyle={{ fontWeight: '700' }}
+                        containerStyle={{ marginTop: 20 }}
                     />
-                </ CardSection>
-                
-                <CardSection>
-                    <Input label="Your Comment" />
-                </ CardSection>
-                <CardSection>
-                <Button
-                 icon={{
-                    name: 'camera',
-                    size: 24,
-                    color: 'white'
-                  }}
-                    onPress={this.selectPhotoTapped.bind(this)} 
-                    title="Select a photo"
-                    buttonStyle={{   
-                        width: 200,
-                        height: 45,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        borderRadius: 5
-                    }}
-                    titleStyle={{ fontWeight: '700' }}
-                    containerStyle={{ marginTop: 20 }}
-                />
-                </CardSection>
-                <CardSection
-                styles={{ marginTop: 120 }}
-                >
-                <Button
-                    title="Cancel"
-                
-                    loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
-                    titleStyle={{ fontWeight: '700' }}
-                    buttonStyle={{
-                        
-                        width: 200,
-                        height: 45,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        borderRadius: 5
-                    }}
-                    containerStyle={{ marginTop: 20 }}
-                />
-                <Button
-                    onPress={this.toggleUploadAnim.bind(this)}
-                    loading={this.state.uploading}
-                    title="Report"
-                    loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
-                    titleStyle={{ fontWeight: '700' }}
-                    buttonStyle={{
-                        backgroundColor: '#8CC63E',
-                        width: 200,
-                        height: 45,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        borderRadius: 5
-                    }}
-                    containerStyle={{ marginTop: 20 }}
-                />
-                </CardSection>    
-            
-            </ScrollView> 
-        </View >
-        );
+
+                    <Button
+                        onPress={this.toggleUploadAnim.bind(this)}
+                        loading={this.state.uploading}
+                        title="Report"
+                        loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
+                        titleStyle={{ fontWeight: '700' }}
+                        buttonStyle={{
+                            backgroundColor: '#8CC63E',
+                            marginTop: 10
+                        }}
+                    />
+                    <Button
+                        onPress={this.toggleUploadAnim.bind(this)}
+                        loading={this.state.uploading}
+                        title="Cancel"
+                        loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
+                        titleStyle={{ fontWeight: '700' }}
+                        buttonStyle={{
+                            backgroundColor: '#E8656A',
+                            marginTop: 10
+                        }}
+                    />
+                </View >
+            </ScrollView>
+           );
     }
 }
 
 const styles = {
     centerHeader: { marginTop: 10, fontSize: 16, alignSelf: 'center' },
-    buttonStyle: {
-                        
+    buttonStyle: {                        
         width: 200,
         height: 45,
         borderColor: 'transparent',
