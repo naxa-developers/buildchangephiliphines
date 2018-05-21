@@ -16,8 +16,8 @@ class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			username: null,
-			password: null
+			username: 'arun@bc',
+			password: '@naxa123'
 		};
 	}
 
@@ -40,21 +40,31 @@ class Login extends Component {
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
-			//change the url
-			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', {
+
+			console.log(this.state);
+			const body = {};
+			body.username = this.state.username;
+			body.password = this.state.password;
+
+
+			const req = {
 				method: 'POST',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json'
+				  'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					//change the name of the properties email_or_username and password as per api
-					username: this.state.username,
-					password: this.state.password,
-				})
-			})
-			.then((response => {
+				  username: this.state.username,
+				  password: this.state.password,
+				}),
+			  };
 
+			console.log(req);
+
+
+			//change the url
+			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', req)
+			.then((response => {
+				console.log(this.state.username.concat(' ', this.state.password));
 				console.log(response.json());
 				if (response.ok) {
 					return response;
@@ -105,6 +115,7 @@ class Login extends Component {
 						value={this.state.username}
 					/>
 					<TextInput
+						
 						editable
 						onChangeText={(password) => this.setState({ password })}
 						placeholder='Password'
