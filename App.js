@@ -10,7 +10,7 @@ import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
-
+import ComparePhotosScene from './src/components/scenes/ComparePhotosScene';
 
 class App extends Component {
 
@@ -26,7 +26,6 @@ class App extends Component {
     });
   }
   render() {
-    console.log(this.state.isTokenLoaded);
     if (!this.state.isTokenLoaded) {
       return (
         <ActivityIndicator />
@@ -48,7 +47,7 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
-                  initial={!this.state.hasToken}
+                  // initial={!this.state.hasToken}
                 />
 
                 <Scene
@@ -67,7 +66,7 @@ class App extends Component {
                   key="Successful_Login"
                   component={SuccessfulLogin}
                   title="Site list"
-                  initial={this.state.hasToken}
+                  // initial={this.state.hasToken}
                 />
                 <Scene
                   key="CheckList"
@@ -79,6 +78,13 @@ class App extends Component {
                   component={ReportForm}
                   title="Report form"
                 />
+                <Scene
+                  initial
+                  key="ComparePhotos"
+                  component={ComparePhotosScene}
+                  title="Compare photos"
+                />
+  
                 </Scene>
           </Router>
         </Provider>
