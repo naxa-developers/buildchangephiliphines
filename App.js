@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View } from 'react-native';
+import { AsyncStorage, ActivityIndicator } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import store from './src/reducers/store';
@@ -29,7 +29,7 @@ class App extends Component {
     console.log(this.state.isTokenLoaded);
     if (!this.state.isTokenLoaded) {
       return (
-        <View />
+        <ActivityIndicator />
       );
     }
     return (

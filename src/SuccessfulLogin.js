@@ -19,7 +19,7 @@ export default class SuccessfulLogin extends Component {
 
   componentDidMount() {
     return AsyncStorage.getItem('token').then((token) => {
-    fetch('http://139.59.67.104:4001/core/api/project/1/', {
+    fetch('http://139.59.67.104:4001/core/api/project/2/', {
         method: 'GET',
         headers: {
           Authorization: 'token '+ token

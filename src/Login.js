@@ -5,7 +5,8 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	View
+	View,
+	Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
@@ -52,8 +53,21 @@ class Login extends Component {
 					password: this.state.password,
 				})
 			})
+			.then((response => {
+
+				console.log(response.json());
+				if (response.ok) {
+					return response;
+				} 
+			
+				Alert.alert('Failed to login');
+				const error = new Error(response.statusText);
+				error.response = response;
+				throw error;
+			}))
 			.then((response) => response.json())
 			.then((responseData) => {
+				console.log(responseData);
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id);
 											// 				try {
@@ -65,7 +79,7 @@ class Login extends Component {
 											// } catch (error) {
 											//   // Error retrieving data
 											// }
-				Actions.Successful_Login();
+				Actions.Successful_Login({ type: 'replace' });
 			})
 			.catch((error) => console.log(error))
 
