@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View,
+    Modal
  } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import { Tile } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import ImageViewer from 'react-native-image-zoom-viewer';
+
 
 class ComparePhotosScene extends Component {
 
@@ -16,38 +19,70 @@ class ComparePhotosScene extends Component {
         };
     }
 
-    render() {
-        console.log(this.props.guideline.good_photo);
+    showImageViewer(index){
+        this.setState({ ...this.state, imageViewerCurIndex: index });
+        this.setState({ ...this.state, imageViewerShown: true });
+    }
+
+    renderImageList() {
+
+        const images = [{
+            url: this.props.guideline.good_photo,
+            props: {
+                // headers: ...
+            }
+        },
+        {
+            url: this.props.guideline.bad_photo,
+            props: {
+                // headers: ...
+            }
+        }];
+
         return (
-
-            // <Gallery
-            // style={{ flex: 1, backgroundColor: 'black' }}
-            // images={[
-            //   { source: { uri: 'http://i.imgur.com/XP2BE7q.jpg' } },
-            //   { source: { uri: 'http://i.imgur.com/5nltiUd.jpg' } },
-            //   { source: { uri: 'http://i.imgur.com/6vOahbP.jpg' } },
-            //   { source: { uri: 'http://i.imgur.com/kj5VXtG.jpg' } }
-            // ]}
-            // />
-
-            <View
-                 style={styles.container}
+            <View 
+                style={styles.container}
             >
+
+                <Modal 
+
+                    visible={this.state.imageViewerShown} 
+                    transparent 
+                    onRequestClose={() => {
+                    this.setState({ ...this.state, imageViewerShown: false });
+                    }}
+                >
+                    <ImageViewer 
+                        index={this.state.imageViewerCurIndex}
+                        imageUrls={images} />
+                </Modal>
+
                 <Tile
+                    onPress={() => this.showImageViewer(0)}
+                    activeOpacity={0.9}
+                    icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
                     imageSrc={{ uri: this.props.guideline.good_photo }}
                     title="Good photo"
                     caption="Tap to open"
                     featured
                 />
-
                 <Tile
+                     onPress={() => this.showImageViewer(1)}
+                    activeOpacity={0.9}
+                    icon={{ name: 'highlight-off', type: 'material-community', color: '#E8656A' }}
                     imageSrc={{ uri: this.props.guideline.bad_photo }}
                     title="Bad photo"
                     caption="Tap to open"
                     featured
                 />
+       </View>
+        );
+    }
 
-            </View>
+    render() {
+        
+        return (
+            this.renderImageList()
         );
     }
 }

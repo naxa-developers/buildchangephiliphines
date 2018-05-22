@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
+
 export default class GuidelinesListScene extends React.Component {
 
 constructor(){
@@ -27,6 +28,7 @@ render() {
           data={this.props.guidelines}
           renderItem={({ item }) => 
             <ListItem
+            
                 onPress={this.onGuidelineTapped.bind(this, item)}
                 title={item.title}
                 subtitle={item.description}
