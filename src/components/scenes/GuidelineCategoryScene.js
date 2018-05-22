@@ -57,7 +57,7 @@ export default class GuidelineCategoryScene extends Component {
  }
 
 GetListViewItem(categoryName) {
-    Actions.GuidelinesListScene({ categoryName, 
+    Actions.GuidelinesListScene({ title: categoryName, 
         guidelines: this.getItemByCategory(this.state.materials_list, categoryName) });
 }
 

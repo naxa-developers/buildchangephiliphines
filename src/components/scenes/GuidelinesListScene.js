@@ -14,13 +14,13 @@ constructor(){
 
 
 onGuidelineTapped(guideline){
-    this.setState({ ...this.state, selectedGuideline: guideline });
     console.log(guideline);
-    Actions.ComparePhotosScene({ guideline });
-
+    Actions.ComparePhotosScene({ title: guideline.title, guideline });
 }
 
 render() {
+    // Actions.refresh({ title: this.props.categoryName });
+
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
         <FlatList

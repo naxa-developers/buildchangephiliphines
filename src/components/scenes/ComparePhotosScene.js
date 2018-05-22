@@ -16,10 +16,6 @@ class ComparePhotosScene extends Component {
         };
     }
 
-    componentDidMount() {
-        Actions.refresh({ title: 'Compare photos' });
-    }
-
     render() {
         console.log(this.props.guideline.good_photo);
         return (
