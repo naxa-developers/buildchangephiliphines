@@ -10,6 +10,7 @@ import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
+import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
 
 
 class App extends Component {
@@ -48,7 +49,7 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
-                  initial={!this.state.hasToken}
+                  // initial={!this.state.hasToken}
                 />
 
                 <Scene
@@ -67,7 +68,7 @@ class App extends Component {
                   key="Successful_Login"
                   component={SuccessfulLogin}
                   title="Site list"
-                  initial={this.state.hasToken}
+                  // initial={this.state.hasToken}
                 />
                 <Scene
                   key="CheckList"
@@ -78,6 +79,13 @@ class App extends Component {
                   key="ReportForm"
                   component={ReportForm}
                   title="Report form"
+                />
+
+                <Scene
+                  initial
+                  key="GuidelineCategoryScene"
+                  component={GuidelineCategoryScene}
+                  title="Guideline Catergories"
                 />
                 </Scene>
           </Router>
