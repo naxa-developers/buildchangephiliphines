@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View,
+    Modal
  } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import { Tile } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import ImageViewer from 'react-native-image-zoom-viewer';
+
 
 class ComparePhotosScene extends Component {
 
@@ -30,6 +33,29 @@ class ComparePhotosScene extends Component {
         );
     }
 
+    renderImageViewer2() {
+
+        const images = [{
+            url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+            props: {
+                // headers: ...
+            }
+        },
+        {
+            url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+            props: {
+                // headers: ...
+            }
+        }];
+        
+
+        return (
+            <Modal visible transparent >
+            <ImageViewer imageUrls={images} />
+        </Modal>
+        );
+    }
+
     renderImageList() {
         return (
             <View 
@@ -44,6 +70,7 @@ class ComparePhotosScene extends Component {
                     featured
                 />
                 <Tile
+                    activeOpacity={0.9}
                     icon={{ name: 'highlight-off', type: 'material-community', color: '#E8656A' }}
                     imageSrc={{ uri: this.props.guideline.bad_photo }}
                     title="Bad photo"
@@ -57,7 +84,7 @@ class ComparePhotosScene extends Component {
     render() {
         
         return (
-            this.renderImageList()
+            this.renderImageViewer2()
         );
     }
 }
