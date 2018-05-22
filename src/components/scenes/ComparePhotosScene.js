@@ -14,9 +14,14 @@ class ComparePhotosScene extends Component {
     constructor() {
         super();
         this.state = {
-            imageViewerShown: true,
+            imageViewerShown: false,
             imageViewerCurIndex: 0
         };
+    }
+
+    showImageViewer(index){
+        this.setState({ ...this.state, imageViewerCurIndex: index });
+        this.setState({ ...this.state, imageViewerShown: true });
     }
 
     renderImageList() {
@@ -40,16 +45,20 @@ class ComparePhotosScene extends Component {
             >
 
                 <Modal 
+
                     visible={this.state.imageViewerShown} 
                     transparent 
                     onRequestClose={() => {
                     this.setState({ ...this.state, imageViewerShown: false });
                     }}
                 >
-                    <ImageViewer imageUrls={images} />
+                    <ImageViewer 
+                        index={this.state.imageViewerCurIndex}
+                        imageUrls={images} />
                 </Modal>
 
                 <Tile
+                    onPress={() => this.showImageViewer(0)}
                     activeOpacity={0.9}
                     icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
                     imageSrc={{ uri: this.props.guideline.good_photo }}
@@ -58,6 +67,7 @@ class ComparePhotosScene extends Component {
                     featured
                 />
                 <Tile
+                     onPress={() => this.showImageViewer(1)}
                     activeOpacity={0.9}
                     icon={{ name: 'highlight-off', type: 'material-community', color: '#E8656A' }}
                     imageSrc={{ uri: this.props.guideline.bad_photo }}
