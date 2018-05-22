@@ -1,3 +1,4 @@
+// https://ilikekillnerds.com/2016/05/removing-duplicate-objects-array-property-name-javascript/
 import React, { Component } from 'react';
 import { Text, 
     StyleSheet,
@@ -15,6 +16,9 @@ export default class GuidelineCategoryScene extends Component {
    this.state = {
      isLoading: true,
      text: '',
+     materials_list: [],
+     categories_list: [],
+     selectedCatergoryId: null, 
    };
    this.arrayholder = [];
  }
@@ -32,16 +36,18 @@ export default class GuidelineCategoryScene extends Component {
        let ds = new ListView.DataSource({
          rowHasChanged: (r1, r2) => r1 !== r2,
        });
-        
 
-       this.setState(
-         {
-           isLoading: false,
-           dataSource: ds.cloneWithRows(responseJson),
-         },
-         function() { 
-           this.arrayholder = responseJson;
-         }
+        this.setState({ ...this.state, materials_list: responseJson });
+        this.setState({ ...this.state, 
+            categories_list: this.removeDuplicates(responseJson, 'category')
+        });
+        this.setState({
+            isLoading: false,
+            dataSource: ds.cloneWithRows(this.state.categories_list),
+            },
+            function() { // do something with new state\
+              this.arrayholder = responseJson;
+            }
        );
      })
      .catch(error => { console.error(error); });
@@ -51,6 +57,13 @@ export default class GuidelineCategoryScene extends Component {
  GetListViewItem(fruit_name){
   Alert.alert(fruit_name);
  }
+
+ removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+}
+
 
 SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function(item){

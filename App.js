@@ -53,6 +53,7 @@ class App extends Component {
                 />
 
                 <Scene
+                  type="replace"
                   key="Login"
                   component={Login}
                   title="Login"
