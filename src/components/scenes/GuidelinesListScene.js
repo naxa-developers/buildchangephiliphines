@@ -27,6 +27,7 @@ render() {
           data={this.props.guidelines}
           renderItem={({ item }) => 
             <ListItem
+            checkmark
                 onPress={this.onGuidelineTapped.bind(this, item)}
                 title={item.title}
                 subtitle={item.description}
