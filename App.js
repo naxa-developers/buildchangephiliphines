@@ -11,6 +11,7 @@ import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
 import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
+import GuidelinesListScene from './src/components/scenes/GuidelinesListScene';
 
 
 class App extends Component {
@@ -88,7 +89,28 @@ class App extends Component {
                   component={GuidelineCategoryScene}
                   title="Guideline Catergories"
                 />
-                </Scene>
+
+                <Scene
+                  initial
+                  key="GuidelineCategoryScene"
+                  component={GuidelineCategoryScene}
+                  title="Guideline Catergories"
+                />
+
+                <Scene
+                  initial
+                  key="GuidelineCategoryScene"
+                  component={GuidelineCategoryScene}
+                  title="Guideline Catergories"
+                />
+
+                <Scene
+                  
+                  key="GuidelinesListScene"
+                  component={GuidelinesListScene}
+                  title="Guidelines "
+                />
+              </Scene>
           </Router>
         </Provider>
       );

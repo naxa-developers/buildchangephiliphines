@@ -8,6 +8,7 @@ import { Text,
     ActivityIndicator, 
     Alert,
     AsyncStorage } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class GuidelineCategoryScene extends Component {
 
@@ -54,13 +55,20 @@ export default class GuidelineCategoryScene extends Component {
    });
  }
 
- GetListViewItem(fruit_name){
-  Alert.alert(fruit_name);
- }
+GetListViewItem(categoryName) {
+    Actions.GuidelinesListScene({ categoryName, 
+        guidelines: this.getItemByCategory(this.state.materials_list, categoryName) });
+}
 
- removeDuplicates(myArr, prop) {
+removeDuplicates(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
         return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+}
+
+getItemByCategory(myArr, prop ) {
+    return myArr.filter((obj) => {
+        return obj.category === prop;
     });
 }
 
