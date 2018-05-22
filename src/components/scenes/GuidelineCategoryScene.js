@@ -8,6 +8,7 @@ import { Text,
     ActivityIndicator, 
     Alert,
     AsyncStorage } from 'react-native';
+import { ListItem } from 'react-native-elements';    
 import { Actions } from 'react-native-router-flux';
 
 export default class GuidelineCategoryScene extends Component {
@@ -66,7 +67,7 @@ removeDuplicates(myArr, prop) {
     });
 }
 
-getItemByCategory(myArr, prop ) {
+getItemByCategory(myArr, prop) {
     return myArr.filter((obj) => {
         return obj.category === prop;
     });
@@ -111,24 +112,25 @@ SearchFilterFunction(text) {
 
      <View style={styles.MainContainer}>
 
-     <TextInput
-      style={styles.TextInputStyleClass}
-      onChangeText={(text) => this.SearchFilterFunction(text)}
-      value={this.state.text}
-      underlineColorAndroid='transparent'
-      placeholder="Search Here"
-       />
+        <TextInput
+            style={styles.TextInputStyleClass}
+            onChangeText={(text) => this.SearchFilterFunction(text)}
+            value={this.state.text}
+            underlineColorAndroid='transparent'
+            placeholder="Search Here"
+        />
 
        <ListView
-
          dataSource={this.state.dataSource}
-         renderSeparator={this.ListViewItemSeparator}
-         renderRow={(rowData) => <Text 
-            style={styles.rowViewContainer}
-            onPress={this.GetListViewItem.bind(this, rowData.category)}>
-            {rowData.category
-        }</Text>}
-         enableEmptySections
+         renderRow={(rowData) => 
+            <ListItem
+        
+                onPress={this.GetListViewItem.bind(this, rowData.category)}
+                title={rowData.category}
+               
+            />
+     }
+         
          style={{ marginTop: 10 }}
 
        />

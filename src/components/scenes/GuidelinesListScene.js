@@ -1,19 +1,35 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-
+import { ListItem } from 'react-native-elements';
 
 export default class GuidelinesListScene extends React.Component {
 
+constructor(){
+    super();
+    this.state = {
+        selectedGuideline: null,
+    };
+}
+
+
+onGuidelineTapped(guideline){
+    this.setState({ ...this.state, selectedGuideline: guideline });
+    console.log(guideline.good_photo);
+}
+
 render() {
-    console.log(this.props.guidelines);
-    
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
-        {/* <FlatList
-          data={this.props.checklists}
-          renderItem={({ item }) => <CheckListItem data={item} />}
-          keyExtractor={(item, index) => index}
-        /> */}
+        <FlatList
+          data={this.props.guidelines}
+          renderItem={({ item }) => 
+            <ListItem
+                onPress={this.onGuidelineTapped.bind(this, item)}
+                title={item.title}
+                subtitle={item.description}
+            />}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   }
