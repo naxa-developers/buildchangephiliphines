@@ -10,13 +10,10 @@ import Login from './src/Login';
 import SuccessfulLogin from './src/SuccessfulLogin';
 import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
-<<<<<<< HEAD
 import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './src/components/scenes/GuidelinesListScene';
 
-=======
 import ComparePhotosScene from './src/components/scenes/ComparePhotosScene';
->>>>>>> feature-compare-photos
 
 class App extends Component {
 
@@ -85,7 +82,6 @@ class App extends Component {
                   component={ReportForm}
                   title="Report form"
                 />
-<<<<<<< HEAD
 
                 <Scene
                   initial
@@ -114,17 +110,15 @@ class App extends Component {
                   component={GuidelinesListScene}
                   title="Guidelines "
                 />
-              </Scene>
-=======
+    
                 <Scene
-                  initial
-                  key="ComparePhotos"
+                  
+                  key="ComparePhotosScene"
                   component={ComparePhotosScene}
                   title="Compare photos"
                 />
   
                 </Scene>
->>>>>>> feature-compare-photos
           </Router>
         </Provider>
       );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 export default class GuidelinesListScene extends React.Component {
 
@@ -15,6 +16,8 @@ constructor(){
 onGuidelineTapped(guideline){
     this.setState({ ...this.state, selectedGuideline: guideline });
     console.log(guideline);
+    Actions.ComparePhotosScene({ guideline });
+
 }
 
 render() {
