@@ -14,7 +14,7 @@ constructor(){
 
 onGuidelineTapped(guideline){
     this.setState({ ...this.state, selectedGuideline: guideline });
-    console.log(guideline.good_photo);
+    console.log(guideline);
 }
 
 render() {
