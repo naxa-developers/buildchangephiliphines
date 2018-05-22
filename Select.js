@@ -9,14 +9,14 @@ class Select extends Component {
       <View>
 
           <Tile
-            imageSrc={require('./app_images/login_screen_background2.jpg')}
+            imageSrc={require('./app_images/schools_background.jpg')}
             title="View Schools"
             featured
             caption="Click to see schools in this project"
             onPress={() => Actions.Successful_Login()}
           />
           <Tile
-            imageSrc={{ require: './app_images/login_screen_background2.jpg' }}
+            imageSrc={require('./app_images/guidelines_background.jpg')}
             title="View Guidelines"
             featured
             caption="Click to explore safe construction guidelines"

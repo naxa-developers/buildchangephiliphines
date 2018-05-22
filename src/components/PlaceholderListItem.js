@@ -27,6 +27,7 @@ class PlaceholderListItem extends Component {
                     <Circle text={firstLetter} color='green' />
                     <View style={cointainerStyle}>
                         <Text numberOfLines={2} style={titleStyle} >{name}</Text>
+
                         <Text style={subtitleStyle} >Contains {this.props.rowData.steps.length} steps </Text>
                     </View>
 
