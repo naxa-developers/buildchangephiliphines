@@ -73,7 +73,7 @@ export default class SuccessfulLogin extends Component {
         style={{
           height: .5,
           width: "100%",
-          backgroundColor: "#000",
+          backgroundColor: "#ddd",
         }}
       />
     );
