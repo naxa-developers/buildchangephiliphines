@@ -13,6 +13,8 @@ import ReportForm from './src/components/ReportForm';
 import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './src/components/scenes/GuidelinesListScene';
 
+import Select from './Select';
+
 import ComparePhotosScene from './src/components/scenes/ComparePhotosScene';
 
 class App extends Component {
@@ -50,14 +52,15 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
-                  // initial={!this.state.hasToken}
                 />
 
                 <Scene
+                  initial={!this.state.hasToken}
                   type="replace"
                   key="Login"
                   component={Login}
                   title="Login"
+                  type="replace"
                 />
 
                 <Scene
@@ -70,7 +73,7 @@ class App extends Component {
                   key="Successful_Login"
                   component={SuccessfulLogin}
                   title="Site list"
-                  // initial={this.state.hasToken}
+                  
                 />
                 <Scene
                   key="CheckList"
@@ -82,23 +85,8 @@ class App extends Component {
                   component={ReportForm}
                   title="Report form"
                 />
-
                 <Scene
-                  initial
-                  key="GuidelineCategoryScene"
-                  component={GuidelineCategoryScene}
-                  title="Guideline Catergories"
-                />
-
-                <Scene
-                  initial
-                  key="GuidelineCategoryScene"
-                  component={GuidelineCategoryScene}
-                  title="Guideline Catergories"
-                />
-
-                <Scene
-                  initial
+                  
                   key="GuidelineCategoryScene"
                   component={GuidelineCategoryScene}
                   title="Guideline Catergories"
@@ -118,6 +106,16 @@ class App extends Component {
                   title="Compare photos"
                 />
   
+
+                <Scene
+                  initial={this.state.hasToken}
+                  key="Select"
+                  component={Select}
+                  title="Select"
+                  hideNavBar
+                  
+                />
+
                 </Scene>
           </Router>
         </Provider>
