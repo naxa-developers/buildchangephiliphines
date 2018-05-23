@@ -31,6 +31,7 @@ class Login extends Component {
 	}
 
 	async onUserIdChange(item, selectedValue) {
+		
 		try {
 			await AsyncStorage.setItem(item, selectedValue);
 		} catch (error) {
@@ -70,9 +71,9 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-				
+			
 				this.onValueChange('token', responseData.token);
-				this.onUserIdChange('user_id', responseData.user_id);
+				this.onUserIdChange('user_id', responseData.user_id.toString());
 											// 				try {
 											//   const value = await AsyncStorage.getItem(');
 											//   if (value !== null){

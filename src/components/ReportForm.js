@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, 
     ScrollView, 
     Text,
-    AsyncStorage } from 'react-native';
+    AsyncStorage,
+    Alert
+} from 'react-native';
 import { Button, FormLabel, FormInput, } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
@@ -53,18 +55,69 @@ class ReportForm extends Component {
     uploadComment(checklist) {
         const { id } = checklist;
         console.log(id);
+        
+        this.setState({ ...this.state, uploading: true });
+ 
 
         AsyncStorage.getItem('user_id')
         .then((userID) => {
+            const url = 'http://139.59.67.104:4001/core/api/report/';
+
             const formdata = new FormData();
             formdata.append('comment', this.state.comments);
             formdata.append('user', userID);
             formdata.append('checklist', id);
-            // formdata.append('checklist',checklist)
-            console.log(formdata);
 
+            // formdata.append('photo', {
+            //     uri: this.state.avatarSource,
+            //     type: 'image/jpeg', 
+            //     name: 'comment'
+            //   });
+            
+            const req = {
+				method: 'POST',
+				headers: {
+                     Authorization: 'token 74df16fd3d41f6779ee127d1b0baed86bcd947fc',
+                    'Content-Type': 'multipart/form-data',
+                },
+                
+				body: formdata,
+            };
+
+            fetch(url, req)
+            .then((response => {
+				if (response.ok) {
+                    console.log('response ok');
+                    this.setState({ ...this.state, uploading: false });
+                    this.setState({ ...this.state, comments: '' });
+                    Alert.alert('Uploaded Sucess'
+                    , 'Your report has been recorded. ',
+                    [
+                        { text: 'Close', onPress: () => Actions.pop(), style: 'cancel' },
+                    ],
+                );
+                    return response;
+                } 
+                this.setState({ ...this.state, uploading: false });
+                Alert.alert('Uploaded Failed'
+                , 'Check your internet connection and try again',
+                [
+                    {text: 'Close', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+            );
+           
+                console.log('response error');
+				const error = new Error(response.statusText);
+				error.response = response;
+				throw error;
+            }))
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+            })
+            .catch((error) => console.log(error));
+            console.log(req);
         });
-
     }
       
     toggleUploadAnim() {
