@@ -5,7 +5,7 @@ import { View,
     AsyncStorage,
     Alert
 } from 'react-native';
-import { Button, FormLabel, FormInput, } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 
@@ -58,9 +58,11 @@ class ReportForm extends Component {
         const { id } = checklist;
         console.log(id);
         
+        if (!this.state.comments){
+            return;  
+        }
+        
         this.setState({ ...this.state, uploading: true });
- 
-
         AsyncStorage.getItem('user_id')
         .then((userID) => {
             const url = 'http://139.59.67.104:4001/core/api/report/';
@@ -93,20 +95,22 @@ class ReportForm extends Component {
                     this.setState({ ...this.state, uploading: false });
                     this.setState({ ...this.state, comments: '' });
                     Alert.alert('Uploaded Sucess'
-                    , 'Your report has been recorded. ',
-                    [
-                        { text: 'Close', onPress: () => Actions.pop(), style: 'cancel' },
-                    ],
-                );
+                        , 'Your report has been recorded. ',
+                        [
+                            { text: 'Close', onPress: () => Actions.pop(), style: 'cancel' },
+                        ],
+                    );
                     return response;
                 } 
+                
+
                 this.setState({ ...this.state, uploading: false });
                 Alert.alert('Uploaded Failed'
                 , 'Check your internet connection and try again',
                 [
                     {text: 'Close', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 ],
-            );
+                );
            
                 console.log('response error');
 				const error = new Error(response.statusText);
@@ -141,6 +145,7 @@ class ReportForm extends Component {
                         ref="comments"	
                         onChangeText={(comments) => this.setState({ ...this.state, comments })}
                     />
+                    < FormValidationMessage containerStyle={{marginBottom: 4 }}> Comments cannot be empty </FormValidationMessage>
                     <Button    
                         icon={{
                             name: 'camera',
