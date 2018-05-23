@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View,
-    Modal
+    Modal,
+    Text
  } from 'react-native';
 import Gallery from 'react-native-image-gallery';
-import { Tile } from 'react-native-elements';
+import { Tile, Card } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
@@ -20,11 +21,16 @@ class ComparePhotosScene extends Component {
     }
 
     showImageViewer(index){
-        this.setState({ ...this.state, imageViewerCurIndex: index });
-        this.setState({ ...this.state, imageViewerShown: true });
+        console.log(index);
+        this.setState({ ...this.state, imageViewerCurIndex: index, imageViewerShown: true });
     }
 
     renderImageList() {
+
+      
+        const { description, title } = this.props.guideline; 
+        console.log(description);
+
 
         const images = [{
             url: this.props.guideline.good_photo,
@@ -54,10 +60,18 @@ class ComparePhotosScene extends Component {
                 >
                     <ImageViewer 
                         index={this.state.imageViewerCurIndex}
-                        imageUrls={images} />
+                        imageUrls={images} 
+                    />
                 </Modal>
 
+                <Card 
+                    style={{ flex: 0.4 }}
+                    title={description}
+                    
+                />
+
                 <Tile
+                    containerStyle={{ flex: 1 }}
                     onPress={() => this.showImageViewer(0)}
                     activeOpacity={0.9}
                     icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
@@ -67,9 +81,10 @@ class ComparePhotosScene extends Component {
                     featured
                 />
                 <Tile
-                     onPress={() => this.showImageViewer(1)}
+                    containerStyle={{ flex: 1 }}
+                    onPress={() => this.showImageViewer(1)}
                     activeOpacity={0.9}
-                    icon={{ name: 'highlight-off', type: 'material-community', color: '#E8656A' }}
+                    icon={{ name: 'close-outline', type: 'material-community', color: '#E8656A' }}
                     imageSrc={{ uri: this.props.guideline.bad_photo }}
                     title="Bad photo"
                     caption="Tap to open"

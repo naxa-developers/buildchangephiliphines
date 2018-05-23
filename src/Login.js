@@ -83,7 +83,7 @@ class Login extends Component {
 											// } catch (error) {
 											//   // Error retrieving data
 											// }
-				Actions.Successful_Login({ type: 'replace' });
+				Actions.Select({ type: 'replace' });
 			})
 			.catch((error) => console.log(error))
 

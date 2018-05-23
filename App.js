@@ -49,6 +49,7 @@ class App extends Component {
                 />
 
                 <Scene
+                  initial={!this.state.hasToken}
                   key="SecondPage"
                   component={SecondPage}
                   title="SecondPage"
@@ -56,7 +57,6 @@ class App extends Component {
                 />
 
                 <Scene
-                  initial={!this.state.hasToken}
                   type="replace"
                   key="Login"
                   component={Login}
