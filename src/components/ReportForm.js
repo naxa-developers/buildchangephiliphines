@@ -15,6 +15,7 @@ class ReportForm extends Component {
         avatarSource: null,
         comments: '',
         uploading: false,
+        uri: null
       };
 
       selectPhotoTapped() {  
@@ -41,7 +42,8 @@ class ReportForm extends Component {
           }
           else {
             let source = { uri: response.uri };
-    
+            this.setState({ ...this.state, uri: response.uri });
+ 
             // You can also display the image using data:
             // let source = { uri: 'data:image/jpeg;base64,' + response.data };
     
@@ -68,11 +70,11 @@ class ReportForm extends Component {
             formdata.append('user', userID);
             formdata.append('checklist', id);
 
-            // formdata.append('photo', {
-            //     uri: this.state.avatarSource,
-            //     type: 'image/jpeg', 
-            //     name: 'comment'
-            //   });
+            formdata.append('photo', {
+                uri: this.state.uri,
+                type: 'image/jpeg', 
+                name: 'comment.jpeg'
+              });
             
             const req = {
 				method: 'POST',
