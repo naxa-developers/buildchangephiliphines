@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, 
+    ScrollView, 
+    Text,
+    AsyncStorage } from 'react-native';
 import { Button, FormLabel, FormInput, } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
@@ -45,14 +48,31 @@ class ReportForm extends Component {
             });
           }
         });
-      }
+    }
 
+    uploadComment(checklist) {
+        const { id } = checklist;
+        console.log(id);
 
+        AsyncStorage.getItem('user_id')
+        .then((userID) => {
+            const formdata = new FormData();
+            formdata.append('comment', this.state.comments);
+            formdata.append('user', userID);
+            formdata.append('checklist', id);
+            // formdata.append('checklist',checklist)
+            console.log(formdata);
+
+        });
+
+    }
+      
     toggleUploadAnim() {
         this.setState({ ...this.state, uploading: !this.state.uploading });
     }  
 
     render() {
+
         return (
             <ScrollView style={{ backgroundColor: '#fff' }} >
                 <View style={{ flex: 1 }}>
@@ -61,8 +81,11 @@ class ReportForm extends Component {
                     </Text>
                     
                     <FormLabel>Comments</FormLabel>
-                    <FormInput multiline ref="comments"	onChangeText={(comments) => this.setState({ ...this.state, comments })} />
-
+                    <FormInput 
+                        multiline 
+                        ref="comments"	
+                        onChangeText={(comments) => this.setState({ ...this.state, comments })}
+                    />
                     <Button    
                         icon={{
                             name: 'camera',
@@ -76,7 +99,7 @@ class ReportForm extends Component {
                     />
 
                     <Button
-                        onPress={this.toggleUploadAnim.bind(this)}
+                        onPress={this.uploadComment.bind(this, this.props.checklist)}
                         loading={this.state.uploading}
                         title="Report"
                         loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}

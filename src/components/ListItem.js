@@ -40,12 +40,12 @@ class ListItem extends Component {
 const styles = {
     titleStyle: {
         paddingLeft: 16,
-        fontSize: 20,
+        fontSize: 14,
         color: '#000'
     },
     subtitleStyle: {
         paddingLeft: 16,
-        fontSize: 18,
+        fontSize: 12,
         color: '#ddd'
 
     },

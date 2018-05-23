@@ -9,6 +9,7 @@ class Select extends Component {
       <View>
 
           <Tile
+            activeOpacity={0.9}
             imageSrc={require('./app_images/schools_background.jpg')}
             title="View Schools"
             featured
@@ -16,6 +17,7 @@ class Select extends Component {
             onPress={() => Actions.Successful_Login()}
           />
           <Tile
+            activeOpacity={0.9}
             imageSrc={require('./app_images/guidelines_background.jpg')}
             title="View Guidelines"
             featured

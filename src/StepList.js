@@ -10,6 +10,7 @@ return (
         <LibraryList list={props} />
         <Text style={styles.centerHeader}>Some Recent Photograph</Text>
         <ImageList />
+        
     </ScrollView>
 </View >
 );

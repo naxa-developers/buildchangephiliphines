@@ -30,7 +30,7 @@ class CheckListItem extends Component {
                                                 borderWidth: 0,
                                                 borderRadius: 5
                                                 }}
-                                                onPress={() => Actions.ReportForm()}
+                                                onPress={() => Actions.ReportForm({ checklist: this.props.data })}
                                                 title='Report'
                                             />
                                         </View>
