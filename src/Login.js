@@ -17,8 +17,10 @@ class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			username: 'arun@bc',
-			password: '@naxa123'
+			// username: 'arun@bc',
+			// password: '@naxa123'
+			username: null,
+			password: null
 		};
 	}
 
@@ -31,7 +33,7 @@ class Login extends Component {
 	}
 
 	async onUserIdChange(item, selectedValue) {
-		
+
 		try {
 			await AsyncStorage.setItem(item, selectedValue);
 		} catch (error) {
@@ -47,7 +49,7 @@ class Login extends Component {
 			formdata.append('username', this.state.username);
 			formdata.append('password', this.state.password);
 
-		
+
 			const req = {
 				method: 'POST',
 				headers: {
@@ -59,11 +61,11 @@ class Login extends Component {
 			//change the url
 			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', req)
 			.then((response => {
-		
+
 				if (response.ok) {
 					return response;
-				} 
-			
+				}
+
 				Alert.alert('Failed to login');
 				const error = new Error(response.statusText);
 				error.response = response;
@@ -71,7 +73,7 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-			
+
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id.toString());
 											// 				try {
@@ -109,7 +111,7 @@ class Login extends Component {
 						value={this.state.username}
 					/>
 					<TextInput
-						
+
 						editable
 						onChangeText={(password) => this.setState({ password })}
 						placeholder='Password'
