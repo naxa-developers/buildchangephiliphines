@@ -36,12 +36,7 @@ class SecondPage extends Component {
                                       onPress={this.communityMemberLogin}
                                       />
                     </View>
-                    <View style={subContainer2}>
-                      <Text
-                      style={{ fontSize: 25 }}
-                      onPress={this.forgotCredentials.bind(this)}
-                      >Forgot Credentials</Text>
-                    </View>
+                  
                 </ImageBackground>
     );
   }
