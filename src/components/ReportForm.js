@@ -57,7 +57,7 @@ class ReportForm extends Component {
     uploadComment(checklist) {
         const { id } = checklist;
       
-        if (!this.state.comments){
+        if (!this.state.comments || !this.state.uri) {
             return;  
         }
         
@@ -81,7 +81,7 @@ class ReportForm extends Component {
             console.log(userID);
             console.log(token);
             
-            const url = 'http://139.59.67.104:4001/core/api/report/';
+            const url = 'http://bccms.naxa.com.np/core/api/report/';
 
             const formdata = new FormData();
             formdata.append('comment', this.state.comments);

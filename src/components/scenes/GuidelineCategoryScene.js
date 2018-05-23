@@ -27,7 +27,7 @@ export default class GuidelineCategoryScene extends Component {
 
  componentDidMount() {
    return AsyncStorage.getItem('token').then((token) => {
-   fetch('http://139.59.67.104:4001/core/api/material-list/2/', {
+   fetch('http://bccms.naxa.com.np/core/api/material-list/2/', {
        method: 'GET',
        headers: {
          Authorization: 'token '+ token

@@ -12,9 +12,9 @@ class CheckListItem extends Component {
         console.log(this.props.data);
 
         return (
-            <Card>
+            <Card style={styles.container}>
 
-                <View style={styles.container}>
+                <View >
                       <View style={{ flexDirection: 'row' }}>
                                       <ToggleCircle />
 
@@ -42,11 +42,11 @@ class CheckListItem extends Component {
 
 const styles = {
     titleStyle: {
-        fontSize: 20,
+        fontSize: 14,
         color: '#000'
     },
     subtitleStyle: {
-        paddingLeft: 16,
+        paddingLeft: 12,
         fontSize: 18,
         color: '#ddd'
 

@@ -26,8 +26,9 @@ class ComparePhotosScene extends Component {
     }
 
     renderImageList() {
-
-      
+        
+        console.log(this.props.guideline);
+        
         const { description, title } = this.props.guideline; 
         console.log(description);
 
