@@ -9,7 +9,7 @@ import { CardSection, Circle } from './common';
 
 class PlaceholderListItem extends Component {
 
-    onSiteTapped(){
+    onSiteTapped() {
         Actions.StepList(this.props.rowData);
     }
 
@@ -27,6 +27,7 @@ class PlaceholderListItem extends Component {
                     <Circle text={firstLetter} color='green' />
                     <View style={cointainerStyle}>
                         <Text numberOfLines={2} style={titleStyle} >{name}</Text>
+
                         <Text style={subtitleStyle} >Contains {this.props.rowData.steps.length} steps </Text>
                     </View>
 
@@ -40,13 +41,13 @@ class PlaceholderListItem extends Component {
 const styles = {
     titleStyle: {
         paddingLeft: 16,
-        fontSize: 20,
+        fontSize: 16,
         color: '#000'
     },
     subtitleStyle: {
         paddingLeft: 16,
-        fontSize: 18,
-        color: '#ddd'
+        fontSize: 14,
+        color: '#908989'
 
     },
     cointainerStyle: {

@@ -66,14 +66,14 @@ class App extends Component {
                 <Scene
                   key="StepList"
                   component={StepList}
-                  title="Step list"
+                  title="Steps"
                 />
 
                 <Scene
                   key="Successful_Login"
                   component={SuccessfulLogin}
-                  title="Site list"
-                  
+                  title="Schools"
+
                 />
                 <Scene
                   key="CheckList"
@@ -86,26 +86,26 @@ class App extends Component {
                   title="Report form"
                 />
                 <Scene
-                  
+
                   key="GuidelineCategoryScene"
                   component={GuidelineCategoryScene}
                   title="Guideline Catergories"
                 />
 
                 <Scene
-                  
+
                   key="GuidelinesListScene"
                   component={GuidelinesListScene}
                   title="Guidelines "
                 />
-    
+
                 <Scene
-                  
+
                   key="ComparePhotosScene"
                   component={ComparePhotosScene}
                   title="Compare photos"
                 />
-  
+
 
                 <Scene
                   initial={this.state.hasToken}
@@ -113,7 +113,7 @@ class App extends Component {
                   component={Select}
                   title="Select"
                   hideNavBar
-                  
+
                 />
 
                 </Scene>

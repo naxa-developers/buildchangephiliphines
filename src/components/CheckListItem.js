@@ -25,7 +25,7 @@ class CheckListItem extends Component {
                                       <View style={{ paddingTop: 23 }}>
                                             <Button
                                                 buttonStyle={{
-                                                backgroundColor: 'rgba(92, 99,216, 1)',
+                                                backgroundColor: '#6383aa',
                                                 borderColor: 'transparent',
                                                 borderWidth: 0,
                                                 borderRadius: 5
