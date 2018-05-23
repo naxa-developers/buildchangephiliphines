@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ActivityIndicator } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { AsyncStorage, ActivityIndicator, Alert } from 'react-native';
+import { Actions, Router, Scene } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import store from './src/reducers/store';
 import SecondPage from './src/SecondPage';
@@ -31,6 +31,16 @@ class App extends Component {
       this.setState({ hasToken: token !== null, isTokenLoaded: true });
     });
   }
+
+  async userLogout() {
+			try {
+				await AsyncStorage.removeItem('token');
+				Actions.SecondPage();
+			} catch (error) {
+				console.log(error.message);
+			}
+		}
+
   render() {
     if (!this.state.isTokenLoaded) {
       return (
@@ -54,14 +64,16 @@ class App extends Component {
                   component={SecondPage}
                   title="SecondPage"
                   hideNavBar
+                  initial={!this.state.hasToken}
                 />
 
                 <Scene
-                  type="replace"
+                  
                   key="Login"
                   component={Login}
                   title="Login"
                   type="replace"
+
                 />
 
                 <Scene
@@ -74,6 +86,10 @@ class App extends Component {
                   key="Successful_Login"
                   component={SuccessfulLogin}
                   title="Schools"
+                  onRight={() => {
+                    this.userLogout();
+                  }}
+                  rightTitle='Log Out'
 
                 />
                 <Scene
@@ -109,11 +125,12 @@ class App extends Component {
 
 
                 <Scene
-                  initial={this.state.hasToken}
+                 initial={this.state.hasToken}
                   key="Select"
                   component={Select}
                   title="Select"
                   hideNavBar
+
 
                 />
 

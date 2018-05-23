@@ -56,17 +56,31 @@ class ReportForm extends Component {
 
     uploadComment(checklist) {
         const { id } = checklist;
-        console.log(id);
-        
+      
         if (!this.state.comments){
             return;  
         }
         
         this.setState({ ...this.state, uploading: true });
         AsyncStorage.multiGet(['user_id', 'token'])
-        .then((userID) => {
-            console.log(userID);
+        .then((user) => {
+            
+            let userID,token;
+          
+            if (user[0][0] === 'user_id') {
+                userID = user[0][1];
+            } else if (user[1][0] === 'user_id'){
+                userID = user[1][1];
+            }
 
+            if (user[0][0] === 'token') {
+                userID = user[0][1];
+            } else if (user[1][0] === 'token'){
+                token = user[1][1];
+            }
+            console.log(userID);
+            console.log(token);
+            
             const url = 'http://139.59.67.104:4001/core/api/report/';
 
             const formdata = new FormData();
@@ -83,7 +97,7 @@ class ReportForm extends Component {
             const req = {
 				method: 'POST',
 				headers: {
-                     Authorization: 'token 74df16fd3d41f6779ee127d1b0baed86bcd947fc',
+                     Authorization: 'token' + token,
                     'Content-Type': 'multipart/form-data',
                 },
                 
