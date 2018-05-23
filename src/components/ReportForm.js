@@ -63,8 +63,10 @@ class ReportForm extends Component {
         }
         
         this.setState({ ...this.state, uploading: true });
-        AsyncStorage.getItem('user_id')
+        AsyncStorage.multiGet(['user_id', 'token'])
         .then((userID) => {
+            console.log(userID);
+
             const url = 'http://139.59.67.104:4001/core/api/report/';
 
             const formdata = new FormData();
