@@ -97,7 +97,7 @@ class ReportForm extends Component {
             const req = {
 				method: 'POST',
 				headers: {
-                     Authorization: 'token' + token,
+                     Authorization: 'token ' + token,
                     'Content-Type': 'multipart/form-data',
                 },
                 
