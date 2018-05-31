@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, AsyncStorage } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { language, languages } from 'react-native-languages';
-import { strings } from './locales/locale';
+import Realm from 'realm';
 
+import { strings } from './locales/locale';
 import { i18nString } from './locales/i18n';
+
 
 class Select extends Component {
 
+  state = {
+    isLoadingLocale: true
+  };
+
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      console.log('Setting value to ' + value);
+      strings.setLanguage(value);
+      this.setState({
+        isLoading: false
+      });
+    });
+}
+
+  componentDidMount() {
+    this.getLocale();
+  }
+
   render() {
-    console.log('language', language);
-    console.log('languages', languages);
-
     const { height } = Dimensions.get('window');
+   
+    // strings.setLanguage(this.getLocale());
 
-    strings.setLanguage('ne');
-    console.log('duck', strings.getLanguage());
-    
     return (
       <View>
           <Tile

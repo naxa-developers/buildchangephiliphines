@@ -12,6 +12,8 @@ import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
 import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './src/components/scenes/GuidelinesListScene';
+import SettingsComponent from './src/components/SettingsComponent';
+
 
 import Select from './Select';
 
@@ -87,10 +89,15 @@ class App extends Component {
                   component={SuccessfulLogin}
                   title="Schools"
                   onRight={() => {
-                    this.userLogout();
+                    Actions.SettingsComponent();
                   }}
-                  rightTitle='Log Out'
+                  rightTitle='Setting'
+                />
 
+                <Scene
+                  key="SettingsComponent"
+                  component={SettingsComponent}
+                  title="Setting"
                 />
                 <Scene
                   key="CheckList"

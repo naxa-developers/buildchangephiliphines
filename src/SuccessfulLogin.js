@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
+import { StyleSheet, View, ListView, TextInput, ActivityIndicator, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import PlaceholderListItem from './components/PlaceholderListItem';
+
 
 export default class SuccessfulLogin extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-
       isLoading: true,
       text: '',
-
     };
 
     this.arrayholder = [];
   }
 
   componentDidMount() {
-    return AsyncStorage.getItem('token').then((token) => {
+    return AsyncStorage.getItem('token')
+    .then((token) => {
     fetch('http://bccms.naxa.com.np/core/api/project/2/', {
         method: 'GET',
         headers: {
@@ -38,6 +38,7 @@ export default class SuccessfulLogin extends Component {
           },
           function() { // do something with new state\
             this.arrayholder = responseJson.sites;
+            console.log(this.arrayholder);
           }
         );
       })
@@ -71,9 +72,9 @@ export default class SuccessfulLogin extends Component {
     return (
       <View
         style={{
-          height: .5,
-          width: "100%",
-          backgroundColor: "#ddd",
+          height: 0.5,
+          width: '100%',
+          backgroundColor: '#ddd',
         }}
       />
     );
@@ -95,7 +96,7 @@ export default class SuccessfulLogin extends Component {
 
       <TextInput
        style={styles.TextInputStyleClass}
-       onChangeText={(text) => this.SearchFilterFunction(text)}
+
        value={this.state.text}
        underlineColorAndroid='transparent'
        placeholder="Search Here"

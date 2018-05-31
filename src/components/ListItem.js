@@ -5,6 +5,7 @@ import { View,
     Text
  } from 'react-native';
 import { CardSection, Circle } from './common';
+import { strings } from '../../locales/locale';
 
 
 class ListItem extends Component {
@@ -15,7 +16,12 @@ class ListItem extends Component {
 
     render() {
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
-        const { id, name } = this.props.item;
+        const { id } = this.props.item;
+        
+        const name = (strings.getLanguage().trim() === 'wa') 
+        ? this.props.item.localname 
+        : this.props.item.name;
+        
         const firstLetter = name.charAt(0);
 
         return (

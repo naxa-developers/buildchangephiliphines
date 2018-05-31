@@ -3,11 +3,15 @@ import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { ToggleCircle, Card } from './common';
+import { strings } from '../../locales/locale';
 
 class CheckListItem extends Component {
 
     render() {
         const { titleStyle, } = styles;
+        const name = (strings.getLanguage().trim() === 'wa') 
+        ? this.props.data.localtext 
+        : this.props.data.text;
 
         console.log(this.props.data);
 
@@ -19,7 +23,7 @@ class CheckListItem extends Component {
                                       <ToggleCircle />
 
                                       <View style={{ paddingTop: 27 }}>
-                                      <Text style={titleStyle} >     {this.props.data.text}</Text>
+                                      <Text style={titleStyle} >{name}</Text>
                                       </View>
                       </View>
                                       <View style={{ paddingTop: 23 }}>

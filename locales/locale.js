@@ -13,7 +13,7 @@ export const strings = new LocalizedStrings({
       view_guidelines_title: 'View Guidelines',
       view_guidelines_subtitle: 'Tap to explore safe construction guidelines'
     },
-    ne: {
+    wa: {
       view_schools_title: 'विद्यालयहरू हेर्नुहोस्',
       view_schools_subtitle: 'यो परियोजनामा विद्यालयहरू हेर्न ट्याप गर्नुहोस्',
       view_guidelines_title: 'दिशानिर्देशहरू हेर्नुहोस्',
