@@ -148,6 +148,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-localization')
+    compile project(':react-native-languages')
+    compile project(':react-native-i18n')
     compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')

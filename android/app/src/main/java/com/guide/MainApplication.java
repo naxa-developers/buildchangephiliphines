@@ -2,6 +2,9 @@ package com.guide;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import com.reactcommunity.rnlanguages.RNLanguagesPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -25,6 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeLocalizationPackage(),
+            new RNLanguagesPackage(),
+            new RNI18nPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage()
