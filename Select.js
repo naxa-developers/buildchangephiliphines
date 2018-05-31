@@ -12,19 +12,23 @@ class Select extends Component {
       <View>
 
           <Tile
+            titleStyle={{fontSize: 40}}
+            captionStyle={{fontSize: 20}}
             imageSrc={require('./app_images/schools_background.jpg')}
             title="View Schools"
             height={height * 0.5}
             featured
-            caption="Click to see schools in this project"
+            caption="Tap to see schools in this project"
             onPress={() => Actions.Successful_Login()}
           />
           <Tile
+            titleStyle={{fontSize: 40}}
+            captionStyle={{fontSize: 20}}
             imageSrc={require('./app_images/guidelines_background.jpg')}
             title="View Guidelines"
             height={height * 0.5}
             featured
-            caption="Click to explore safe construction guidelines"
+            caption="Tap to explore safe construction guidelines"
             onPress={() => Actions.GuidelineCategoryScene()}
           />
       </View>
