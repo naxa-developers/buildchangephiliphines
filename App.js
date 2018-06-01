@@ -18,6 +18,7 @@ import SettingsComponent from './src/components/SettingsComponent';
 import Select from './Select';
 
 import ComparePhotosScene from './src/components/scenes/ComparePhotosScene';
+import { strings } from './locales/strings';
 
 class App extends Component {
 
@@ -91,7 +92,7 @@ class App extends Component {
                   onRight={() => {
                     Actions.SettingsComponent();
                   }}
-                  rightTitle='Setting'
+                  rightTitle={strings.action_setting}
                 />
 
                 <Scene

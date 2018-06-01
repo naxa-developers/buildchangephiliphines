@@ -5,13 +5,12 @@ import { View,
     Text
  } from 'react-native';
 import { CardSection, Circle } from './common';
-import { strings } from '../../locales/locale';
+import { strings } from '../../locales/strings';
 
 
 class ListItem extends Component {
   onSiteTapped() {
-    console.log(this.props.item);
-    Actions.CheckList(this.props.item);
+    Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
   }
 
     render() {

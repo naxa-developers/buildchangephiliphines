@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { ToggleCircle, Card } from './common';
-import { strings } from '../../locales/locale';
+import { strings } from '../../locales/strings';
 
 class CheckListItem extends Component {
 

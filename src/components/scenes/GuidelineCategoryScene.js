@@ -30,7 +30,7 @@ export default class GuidelineCategoryScene extends Component {
    fetch('http://bccms.naxa.com.np/core/api/material-list/2/', {
        method: 'GET',
        headers: {
-         Authorization: 'token '+ token
+         Authorization: 'token '  + token
        }
      })
      .then(response => response.json())
@@ -39,9 +39,11 @@ export default class GuidelineCategoryScene extends Component {
          rowHasChanged: (r1, r2) => r1 !== r2,
        });
 
+      //  console.log(responseJson);
         this.setState({ ...this.state, materials_list: responseJson });
         this.setState({ ...this.state, 
             categories_list: this.removeDuplicates(responseJson, 'category')
+
         });
         this.setState({
             isLoading: false,

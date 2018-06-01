@@ -5,7 +5,37 @@ export const strings = new LocalizedStrings({
       view_schools_title: 'View Schools',
       view_schools_subtitle: 'Tap to see schools in this project',
       view_guidelines_title: 'View Guidelines',
-      view_guidelines_subtitle: 'Tap to explore safe construction guidelines'
+      view_guidelines_subtitle: 'Tap to explore safe construction guidelines',
+      
+      action_search_here: 'Search here',
+      title_schools: 'Schools',
+      action_setting: 'Setting',
+
+      title_steps: 'steps',
+      title_checklist: 'Checklist',
+
+      title_guideline_categories: 'Guideline Categories',
+      view_good_photo_title: 'Good Photo',
+      view_bad_photo_title: 'Bad Photo',
+      view_tap_to_open: 'Tap to open',
+
+      text_contains_steps: 'Contains steps',
+      action_report: 'Report',
+
+      event_upload_sucess_title: 'Uploaded Sucess',
+      event_upload_sucess_text: 'Your report has been recorded.',
+
+      event_upload_failed_title: 'Uploaded Failed',
+      event_no_intenet_text: 'Check your internet connection and try again',
+
+      action_close: 'Close',
+      action_cancel: 'cancel',
+
+      view_take_photo: 'Take a photo',
+      view_upload_reprot: 'Report',
+
+      
+
     },
     en: {
       view_schools_title: 'View Schools',

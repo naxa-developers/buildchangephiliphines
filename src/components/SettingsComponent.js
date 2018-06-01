@@ -6,7 +6,7 @@ import {
         }
  from 'react-native-settings-components';
  import { ScrollView, Platform, AsyncStorage, Alert } from 'react-native';
- import { strings } from './../../locales/locale';
+ import { strings } from './../../locales/strings';
 
 
 export default class SuccessfulLogin extends Component {

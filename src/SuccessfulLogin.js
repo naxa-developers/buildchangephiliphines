@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ListView, TextInput, ActivityIndicator, AsyncStorage } from 'react-native';
+import { StyleSheet, 
+  View, 
+  ListView, 
+  TextInput, 
+  ActivityIndicator, 
+  AsyncStorage } from 'react-native';
+  
 import { Actions } from 'react-native-router-flux';
 import PlaceholderListItem from './components/PlaceholderListItem';
+import { strings } from './../locales/strings';
 
 
 export default class SuccessfulLogin extends Component {
@@ -22,7 +29,7 @@ export default class SuccessfulLogin extends Component {
     fetch('http://bccms.naxa.com.np/core/api/project/2/', {
         method: 'GET',
         headers: {
-          Authorization: 'token '+ token
+          Authorization: ' token ' + token
         }
       })
       .then(response => response.json())
@@ -44,32 +51,26 @@ export default class SuccessfulLogin extends Component {
       })
       .catch(error => { console.error(error); });
     });
-
-
   }
 
   GetListViewItem(school) {
-
    //Alert.alert(site_name.name);
    Actions.StepList(school);
-
   }
 
-   SearchFilterFunction(text){
-
+   SearchFilterFunction(text) {
      const newData = this.arrayholder.filter(function(item){
          const itemData = item.name.toUpperCase()
          const textData = text.toUpperCase()
          return itemData.indexOf(textData) > -1
-     })
+     });
      this.setState({
          dataSource: this.state.dataSource.cloneWithRows(newData),
-         text: text
-     })
+         text
+     });
  }
 
-  ListViewItemSeparator = () => {
-    return (
+  ListViewItemSeparator = () => (
       <View
         style={{
           height: 0.5,
@@ -77,8 +78,7 @@ export default class SuccessfulLogin extends Component {
           backgroundColor: '#ddd',
         }}
       />
-    );
-  }
+    )
 
 
   render() {
@@ -99,7 +99,7 @@ export default class SuccessfulLogin extends Component {
 
        value={this.state.text}
        underlineColorAndroid='transparent'
-       placeholder="Search Here"
+       placeholder={strings.search_here}
       />
 
         <ListView
