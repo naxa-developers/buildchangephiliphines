@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
-import APIReducer from './APIReducer';
-import LibaryReducer from './LibraryReducer';
-
+import SchoolReducer from './schoolsreducer';
 
 export default combineReducers({
-    api_data: APIReducer,
-    libraries: LibaryReducer,
-
+  schoolList: SchoolReducer
 });
