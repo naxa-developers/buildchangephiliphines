@@ -26,7 +26,10 @@ getLocalizedText(localtext, text) {
 }
 
 render() {
-  const title = this.getLocalizedText(this.props.item.local_title, this.props.item.title);
+
+  console.log(this.props.guidelines);
+  const title = this.getLocalizedText(this.props.guidelines.local_title,
+     this.props.guidelines.title);
 
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
