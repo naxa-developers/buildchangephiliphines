@@ -2,26 +2,31 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { Circle } from '../common/Circle';
+import { strings } from './../../../locales/strings';
 
 
 export default class GuidelinesListScene extends React.Component {
 
-constructor(){
+constructor() {
     super();
     this.state = {
         selectedGuideline: null,
     };
 }
 
-
-onGuidelineTapped(guideline){
+onGuidelineTapped(guideline) {
     console.log(guideline);
     Actions.ComparePhotosScene({ title: guideline.title, guideline });
 }
 
+getLocalizedText(localtext, text) {
+  return (strings.getLanguage().trim() === 'wa')
+  ? localtext
+  : text;
+}
+
 render() {
-    // Actions.refresh({ title: this.props.categoryName });
+  const title = this.getLocalizedText(this.props.item.local_title, this.props.item.title);
 
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
@@ -30,7 +35,7 @@ render() {
           renderItem={({ item }) => 
             <ListItem
                 onPress={this.onGuidelineTapped.bind(this, item)}
-                title={item.title}
+                title={title}
                 subtitle={item.description}
             />}
           keyExtractor={(item, index) => index.toString()}

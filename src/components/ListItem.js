@@ -25,7 +25,7 @@ class ListItem extends Component {
 
         return (
         <TouchableOpacity
-        onPress={this.onSiteTapped.bind(this)}
+            onPress={this.onSiteTapped.bind(this)}
         >
             <View>
                 <CardSection>

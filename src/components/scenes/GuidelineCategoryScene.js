@@ -39,7 +39,7 @@ export default class GuidelineCategoryScene extends Component {
          rowHasChanged: (r1, r2) => r1 !== r2,
        });
 
-      //  console.log(responseJson);
+        console.log(responseJson);
         this.setState({ ...this.state, materials_list: responseJson });
         this.setState({ ...this.state, 
             categories_list: this.removeDuplicates(responseJson, 'category')
