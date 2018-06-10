@@ -34,7 +34,6 @@ export const strings = new LocalizedStrings({
       view_take_photo: 'Take a photo',
       view_upload_reprot: 'Report',
 
-      
 
     },
     en: {

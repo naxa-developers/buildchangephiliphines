@@ -4,8 +4,7 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import io.realm.react.RealmReactPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import com.reactcommunity.rnlanguages.RNLanguagesPackage;
-import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -31,8 +30,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RealmReactPackage(),
             new ReactNativeLocalizationPackage(),
-            new RNLanguagesPackage(),
-            new RNI18nPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage()

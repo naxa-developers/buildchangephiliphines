@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { View, Dimensions, AsyncStorage } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { language, languages } from 'react-native-languages';
-import Realm from 'realm';
 import { strings } from './locales/strings';
-import { i18nString } from './locales/i18n';
-// FIXME: remove unused imports
+
 
 class Select extends Component {
 
