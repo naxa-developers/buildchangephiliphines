@@ -12,6 +12,7 @@ import CheckList from './src/components/CheckList';
 import ReportForm from './src/components/ReportForm';
 import GuidelineCategoryScene from './src/components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './src/components/scenes/GuidelinesListScene';
+import DownloadDataScene from './src/components/scenes/DownloadDataScene';
 import SettingsComponent from './src/components/SettingsComponent';
 
 
@@ -133,12 +134,19 @@ class App extends Component {
 
 
                 <Scene
-                 initial={this.state.hasToken}
+                  
                   key="Select"
                   component={Select}
                   title="Select"
                   hideNavBar
 
+                />
+
+                <Scene
+                  initial={this.state.hasToken}
+                  key="DownloadDataScene"
+                  component={DownloadDataScene}
+                  hideNavBar
 
                 />
 

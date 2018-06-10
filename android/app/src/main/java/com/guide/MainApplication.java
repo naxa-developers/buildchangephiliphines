@@ -2,6 +2,7 @@ package com.guide;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import io.realm.react.RealmReactPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
             new RealmReactPackage(),
             new ReactNativeLocalizationPackage(),
             new ImagePickerPackage(),
