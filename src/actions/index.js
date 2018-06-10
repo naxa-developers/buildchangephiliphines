@@ -15,3 +15,35 @@ export const tappedOnViewSchools = (token) => {
     });
   };
 };
+
+export const openedGuidelinesCategoryScene = (token) => {
+  return (dispatch) => {
+    fetch('http://bccms.naxa.com.np/core/api/material-list/2/', {
+      method: 'GET',
+      headers: {
+        Authorization: 'token '+token
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      dispatch({ type: 'opened_guidelines_category_scene', payload: responseJson });
+    })
+   .catch((error) => {
+      console.error(error);
+    });
+  };
+};
+
+export const userSearched = (text) => {
+  return {
+    type: 'user_searched',
+    payload: text
+  };
+};
+
+export const intelliSearch = (text) => {
+  return {
+    type: 'intelli_search',
+    payload: text
+  };
+};

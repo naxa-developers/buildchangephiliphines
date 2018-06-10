@@ -1,72 +1,24 @@
-// https://ilikekillnerds.com/2016/05/removing-duplicate-objects-array-property-name-javascript/
 import React, { Component } from 'react';
-import { Text, 
+import { connect } from 'react-redux';
+import {
     StyleSheet,
-    View, 
+    View,
     ListView,
-    TextInput, 
-    ActivityIndicator, 
-    Alert,
+    TextInput,
+    ActivityIndicator,
     AsyncStorage } from 'react-native';
-import { ListItem } from 'react-native-elements';    
+import { ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import { openedGuidelinesCategoryScene, userSearched } from '../../actions';
 
-export default class GuidelineCategoryScene extends Component {
 
- constructor(props) {
-   super(props);
-   this.state = {
-     isLoading: true,
-     text: '',
-     materials_list: [],
-     categories_list: [],
-     selectedCatergoryId: null, 
-   };
-   this.arrayholder = [];
- }
+class GuidelineCategoryScene extends Component {
 
  componentDidMount() {
-   return AsyncStorage.getItem('token').then((token) => {
-   fetch('http://bccms.naxa.com.np/core/api/material-list/2/', {
-       method: 'GET',
-       headers: {
-         Authorization: 'token '  + token
-       }
-     })
-     .then(response => response.json())
-     .then(responseJson => {
-       let ds = new ListView.DataSource({
-         rowHasChanged: (r1, r2) => r1 !== r2,
-       });
-
-        console.log(responseJson);
-        this.setState({ ...this.state, materials_list: responseJson });
-        this.setState({ ...this.state, 
-            categories_list: this.removeDuplicates(responseJson, 'category')
-
-        });
-        this.setState({
-            isLoading: false,
-            dataSource: ds.cloneWithRows(this.state.categories_list),
-            },
-            function() { // do something with new state\
-              this.arrayholder = responseJson;
-            }
-       );
-     })
-     .catch(error => { console.error(error); });
+   console.log('component did mount ko start ma');
+    AsyncStorage.getItem('token').then((token) => {
+      this.props.openedGuidelinesCategoryScene(token);
    });
- }
-
-GetListViewItem(categoryName) {
-    Actions.GuidelinesListScene({ title: categoryName, 
-        guidelines: this.getItemByCategory(this.state.materials_list, categoryName) });
-}
-
-removeDuplicates(myArr, prop) {
-    return myArr.filter((obj, pos, arr) => {
-        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-    });
 }
 
 getItemByCategory(myArr, prop) {
@@ -75,17 +27,14 @@ getItemByCategory(myArr, prop) {
     });
 }
 
+GetListViewItem(categoryName) {
+    Actions.GuidelinesListScene({ title: categoryName,
+        guidelines: this.getItemByCategory(this.props.data, categoryName) });
+}
+
 
 SearchFilterFunction(text) {
-    const newData = this.arrayholder.filter(function(item){
-        const itemData = item.category.toUpperCase()
-        const textData = text.toUpperCase()
-        return itemData.indexOf(textData) > -1
-    })
-    this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(newData),
-        text: text
-    });
+  this.props.userSearched(text);
 }
 
  ListViewItemSeparator = () => {
@@ -102,45 +51,90 @@ SearchFilterFunction(text) {
 
 
  render() {
-   if (this.state.isLoading) {
-     return (
-       <View style={{ flex: 1, paddingTop: 20 }}>
-         <ActivityIndicator />
-       </View>
-     );
-   }
 
-   return (
-
-     <View style={styles.MainContainer}>
-
-        <TextInput
-            style={styles.TextInputStyleClass}
-            onChangeText={(text) => this.SearchFilterFunction(text)}
-            value={this.state.text}
-            underlineColorAndroid='transparent'
-            placeholder="Search Here"
-        />
-
-       <ListView
-         dataSource={this.state.dataSource}
-         renderRow={(rowData) => 
-            <ListItem
-        
-                onPress={this.GetListViewItem.bind(this, rowData.category)}
-                title={rowData.category}
-               
-            />
-     }
-         
-         style={{ marginTop: 10 }}
-
-       />
-
-     </View>
-   );
- }
+   console.log('render bhitra');
+console.log(this.props.dataWithoutDuplicates);
+if (this.props.isLoading) {
+return (
+<View style={{ flex: 1, paddingTop: 20 }}>
+<ActivityIndicator />
+</View>
+);
 }
+
+return (
+
+<View style={styles.MainContainer}>
+
+<TextInput
+   style={styles.TextInputStyleClass}
+   onChangeText={(text) => this.SearchFilterFunction(text)}
+   value={this.props.typedText}
+   underlineColorAndroid='transparent'
+   placeholder="Search Here"
+/>
+
+<ListView
+dataSource={this.props.list.cloneWithRows(this.props.hasTyped ? this.props.newData : this.props.dataWithoutDuplicates)}
+
+renderRow={(rowData) =>
+   <ListItem
+
+       onPress={this.GetListViewItem.bind(this, rowData.category)}
+       title={rowData.category}
+
+   />
+}
+
+style={{ marginTop: 10 }}
+
+/>
+
+</View>
+);
+}
+
+}
+
+const mapStateToProps = (state) => {
+  console.log('map state to props ko bhitra');
+
+
+const dataWithoutDuplicates = state.guideLineCategory.data.filter((obj, pos, arr) => {
+  return arr.map(mapObj => mapObj['category']).indexOf(obj['category']) === pos;
+});
+
+const newData = dataWithoutDuplicates.filter(function(item){
+    const itemData = item.category.toUpperCase();
+    const textData = state.searchReducer.typedText.toUpperCase();
+    return itemData.indexOf(textData) > -1;
+});
+
+console.log('below is newData');
+console.log(newData);
+
+  let ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2,
+  });
+console.log('below is searchreducer state');
+  console.log(state.searchReducer);
+
+  console.log('below is guidelinecatefory reducer state');
+    console.log(state.guideLineCategory);
+
+  return {
+            data: state.guideLineCategory.data,
+            isLoading: state.guideLineCategory.isLoading,
+            list: ds,
+            dataWithoutDuplicates,
+            newData,
+            typedText: state.searchReducer.typedText,
+            hasTyped: state.searchReducer.hasTyped
+ };
+};
+
+
+export default connect(mapStateToProps, { openedGuidelinesCategoryScene, userSearched })(GuidelineCategoryScene);
 
 const styles = StyleSheet.create({
 

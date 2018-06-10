@@ -1,6 +1,13 @@
 import { combineReducers } from 'redux';
 import SchoolReducer from './schoolsreducer';
+import GuidelineCategoryReducer from './guidelinecategoryreducer';
+import SearchReducer from './searchreducer';
+import SchoolSearchReducer from './schoolsearchreducer';
+
 
 export default combineReducers({
-  schoolList: SchoolReducer
+  schoolList: SchoolReducer,
+  guideLineCategory: GuidelineCategoryReducer,
+  searchReducer: SearchReducer,
+  schoolSearchReducer: SchoolSearchReducer
 });
