@@ -1,17 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Text,
-  StyleSheet,
-  View,
-  ListView,
-  TextInput,
-  ActivityIndicator,
-  Alert,
-  AsyncStorage
-} from "react-native";
-import { ListItem, Button } from "react-native-elements";
-import { Actions } from "react-native-router-flux";
-import RNFS from "react-native-fs";
+  View
+} from 'react-native';
+import { Button } from 'react-native-elements';
+import RNFS from 'react-native-fs';
+
 
 export default class DownloadDataScene extends Component {
   constructor(props) {
@@ -23,13 +17,45 @@ export default class DownloadDataScene extends Component {
   }
 
   onDownloadButtonPress() {
+
     this.setState({ msg: 'Download Starting' });
     RNFS.downloadFile({
-      fromUrl: 'https://facebook.github.io/react-native/img/header_logo.png',
-      toFile: `${RNFS.DocumentDirectoryPath}/react-native.png`
+      fromUrl: 'http://bccms.naxa.com.np/core/project-material-photos/1',
+      toFile: `${RNFS.DocumentDirectoryPath}/photos.zip`
     }).promise.then(r => {
       this.setState({ msg: 'Download Completed' });
     });
+  }
+
+  onFileSystemButtonPress() {
+    // get a list of files and directories in the main bundle
+RNFS.readDir(RNFS.DocumentDirectoryPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
+  .then((result) => {
+    console.log('GOT RESULT', result);
+console.log(RNFS.stat(result[0].path));
+    // stat the first file
+   console.log(Promise.all([RNFS.stat(result[0].path), result[0].path]));
+  //  return Promise.all([RNFS.stat(result[0].path), result[0].path]);
+  return result;
+  })
+  .then((statResult) => {
+    console.log(statResult[0]);
+    if (statResult[0].isFile()) {
+      // if we have a file, read it
+      // return RNFS.readFile(statResult[1], 'utf8');
+      console.log('ram');
+     //RNFS.readFile(statResult[1], 'utf8');
+     console.log(RNFS.readFile(statResult[1], 'utf8'));
+    }
+    return 'no file';
+  })
+  .then((contents) => {
+    // log the file contents
+    console.log(contents);
+  })
+  .catch((err) => {
+    console.log(err.message, err.code);
+  });
   }
 
   render() {
@@ -41,7 +67,10 @@ export default class DownloadDataScene extends Component {
           title="DOWNLOAD"
           onPress={this.onDownloadButtonPress.bind(this)}
         />
-
+        <Button
+          title='filesystem'
+          onPress={this.onFileSystemButtonPress.bind(this)}
+        />
 
       </View>
     );

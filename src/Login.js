@@ -17,10 +17,10 @@ class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			username: 'arun@bc',
-			password: '@naxa123'
-			// username: null,
-			// password: null
+			// username: 'arun@bc',
+			// password: '@naxa123'
+			username: null,
+			password: null
 		};
 	}
 

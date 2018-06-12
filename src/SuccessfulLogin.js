@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+console.log('mapStateToProps ko bhitra');
+console.log(state);
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
   });
@@ -122,7 +124,7 @@ const mapStateToProps = (state) => {
       const textData = state.schoolSearchReducer.typedText.toUpperCase();
       return itemData.indexOf(textData) > -1;
   });
-
+console.log(newData);
   return {
             isLoading: state.schoolList.isLoading,
             data: state.schoolList.data,
