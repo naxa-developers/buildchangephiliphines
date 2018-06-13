@@ -20,6 +20,7 @@
     "react-native-settings-components": "0.0.1",
     "react-native-splash-screen": "3.0.6",
     "react-native-vector-icons": "^4.6.0",
+    "react-native-zip-archive": "^2.2.6",
     "react-redux": "^5.0.7",
     "realm": "^2.7.0",
     "redux": "^4.0.0",

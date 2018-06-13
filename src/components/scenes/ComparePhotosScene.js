@@ -1,7 +1,9 @@
+//<Image source={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }} style={{ height: 200, width: 200 }}/>
 import React, { Component } from 'react';
 import { View,
     Modal,
-    Text
+    Text,
+    Image
  } from 'react-native';
 import Gallery from 'react-native-image-gallery';
 import { Tile, Card } from 'react-native-elements';
@@ -26,10 +28,12 @@ class ComparePhotosScene extends Component {
     }
 
     renderImageList() {
-        
+
         console.log(this.props.guideline);
-        
-        const { description, title } = this.props.guideline; 
+        console.log(this.props.guideline.bad_photo);
+        console.log(this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
+
+        const { description, title } = this.props.guideline;
         console.log(description);
 
 
@@ -47,28 +51,28 @@ class ComparePhotosScene extends Component {
         }];
 
         return (
-            <View 
+            <View
                 style={styles.container}
             >
 
-                <Modal 
+                <Modal
 
-                    visible={this.state.imageViewerShown} 
-                    transparent 
+                    visible={this.state.imageViewerShown}
+                    transparent
                     onRequestClose={() => {
                     this.setState({ ...this.state, imageViewerShown: false });
                     }}
                 >
-                    <ImageViewer 
+                    <ImageViewer
                         index={this.state.imageViewerCurIndex}
-                        imageUrls={images} 
+                        imageUrls={images}
                     />
                 </Modal>
 
-                <Card 
+                <Card
                     style={{ flex: 0.4 }}
                     title={description}
-                    
+
                 />
 
                 <Tile
@@ -84,19 +88,22 @@ class ComparePhotosScene extends Component {
                 <Tile
                     containerStyle={{ flex: 1 }}
                     onPress={() => this.showImageViewer(1)}
-                    activeOpacity={0.9}
+                    activeOpacity={0.5}
                     icon={{ name: 'close-outline', type: 'material-community', color: '#E8656A' }}
-                    imageSrc={{ uri: this.props.guideline.bad_photo }}
+                    imageStyle={{ height: 200, width: 200 }}
+                    imageSrc={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }}
                     title="Bad photo"
                     caption="Tap to open"
                     featured
+
                 />
+                  <Image source={{ uri: this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }} style={{ height: 200, width: 200 }}/>
        </View>
         );
     }
 
     render() {
-        
+
         return (
             this.renderImageList()
         );
@@ -104,10 +111,15 @@ class ComparePhotosScene extends Component {
 }
 
 const styles = {
-    container: { 
-        flex: 1, 
-        justifyContent: 'space-between' 
+    container: {
+        flex: 1,
+        justifyContent: 'space-between'
     }
 };
 
 export default ComparePhotosScene;
+
+
+
+
+//file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg

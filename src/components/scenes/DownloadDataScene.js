@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import RNFS from 'react-native-fs';
+import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive';
+import { MainBundlePath, DocumentDirectoryPath } from 'react-native-fs';
 
 
 export default class DownloadDataScene extends Component {
@@ -20,7 +23,7 @@ export default class DownloadDataScene extends Component {
 
     this.setState({ msg: 'Download Starting' });
     RNFS.downloadFile({
-      fromUrl: 'http://bccms.naxa.com.np/core/project-material-photos/1',
+      fromUrl: 'http://bccms.naxa.com.np/core/project-material-photos/2',
       toFile: `${RNFS.DocumentDirectoryPath}/photos.zip`
     }).promise.then(r => {
       this.setState({ msg: 'Download Completed' });
@@ -28,6 +31,28 @@ export default class DownloadDataScene extends Component {
   }
 
   onFileSystemButtonPress() {
+    console.log(`${DocumentDirectoryPath}/photos.zip`);
+
+    const sourcePath = `${DocumentDirectoryPath}/photos.zip`
+    const targetPath = DocumentDirectoryPath
+
+    unzip(sourcePath, targetPath)
+    .then((path) => {
+      console.log(`unzip completed at ${path}`)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+
+
+
+
+
+
+
+
+
     // get a list of files and directories in the main bundle
 RNFS.readDir(RNFS.DocumentDirectoryPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
   .then((result) => {
@@ -71,6 +96,8 @@ console.log(RNFS.stat(result[0].path));
           title='filesystem'
           onPress={this.onFileSystemButtonPress.bind(this)}
         />
+<Image source={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }} style={{ height: 200, width: 200 }}/>
+<Image source={{ uri: 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/20/18/drone.png' }} style={{ height: 200, width: 200 }}/>
 
       </View>
     );
