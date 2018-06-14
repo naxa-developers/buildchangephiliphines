@@ -1,13 +1,8 @@
-//<Image source={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }} style={{ height: 200, width: 200 }}/>
 import React, { Component } from 'react';
 import { View,
     Modal,
-    Text,
-    Image
  } from 'react-native';
-import Gallery from 'react-native-image-gallery';
 import { Tile, Card } from 'react-native-elements';
-import { Actions } from 'react-native-router-flux';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 
@@ -18,24 +13,45 @@ class ComparePhotosScene extends Component {
         super();
         this.state = {
             imageViewerShown: false,
-            imageViewerCurIndex: 0
+            imageViewerCurIndex: 0,
+            good_photo: {},
+            bad_photo: {}
         };
     }
+componentWillMount() {
+  if (this.props.guideline.good_photo === null) {
+    this.setState({
+      good_photo: require('../../../app_images/no_image.png')
+    });
+  }
+  else if (this.props.guideline.good_photo !== null) {
+    this.setState({
+      good_photo: { uri: this.props.guideline.good_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }
+    });
+  }
+  if (this.props.guideline.bad_photo === null) {
+    this.setState({
+      bad_photo: require('../../../app_images/no_image.png')
+    });
+  }
+  else if (this.props.guideline.bad_photo !== null) {
+    this.setState({
+      bad_photo: { uri: this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }
 
-    showImageViewer(index){
+    });
+  }
+}
+    showImageViewer(index) {
         console.log(index);
         this.setState({ ...this.state, imageViewerCurIndex: index, imageViewerShown: true });
     }
 
     renderImageList() {
+      console.log('inside renderImageList');
+      console.log(this.props.guideline.good_photo === null ? 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg' : this.props.guideline.good_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
+      console.log(this.props.guideline.bad_photo === null ? 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg' : this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
 
-        console.log(this.props.guideline);
-        console.log(this.props.guideline.bad_photo);
-        console.log(this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
-
-        const { description, title } = this.props.guideline;
-        console.log(description);
-
+        const { description } = this.props.guideline;
 
         const images = [{
             url: this.props.guideline.good_photo,
@@ -80,7 +96,7 @@ class ComparePhotosScene extends Component {
                     onPress={() => this.showImageViewer(0)}
                     activeOpacity={0.9}
                     icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
-                    imageSrc={{ uri: this.props.guideline.good_photo }}
+                    imageSrc={this.state.good_photo}
                     title="Good photo"
                     caption="Tap to open"
                     featured
@@ -91,19 +107,17 @@ class ComparePhotosScene extends Component {
                     activeOpacity={0.5}
                     icon={{ name: 'close-outline', type: 'material-community', color: '#E8656A' }}
                     imageStyle={{ height: 200, width: 200 }}
-                    imageSrc={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }}
-                    title="Bad photo"
+                    imageSrc={this.state.bad_photo}
                     caption="Tap to open"
+                    title='Bad photo'
                     featured
-
                 />
-                  <Image source={{ uri: this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }} style={{ height: 200, width: 200 }}/>
+
        </View>
         );
     }
 
     render() {
-
         return (
             this.renderImageList()
         );
@@ -118,8 +132,3 @@ const styles = {
 };
 
 export default ComparePhotosScene;
-
-
-
-
-//file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg

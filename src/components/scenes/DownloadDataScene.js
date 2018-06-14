@@ -96,7 +96,7 @@ console.log(RNFS.stat(result[0].path));
           title='filesystem'
           onPress={this.onFileSystemButtonPress.bind(this)}
         />
-<Image source={{ uri: 'file:///data/user/0/com.guide/files/react-native.png' }} style={{ height: 200, width: 200 }}/>
+<Image source={{ uri: 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg' }} style={{ height: 200, width: 200 }}/>
 <Image source={{ uri: 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/20/18/drone.png' }} style={{ height: 200, width: 200 }}/>
 
       </View>
