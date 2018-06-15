@@ -153,6 +153,7 @@ dependencies {
     compile project(':react-native-zip-archive')
     compile project(':react-native-localization')
     compile project(':react-native-image-picker')
+    compile project(':react-native-fetch-blob')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile fileTree(dir: "libs", include: ["*.jar"])

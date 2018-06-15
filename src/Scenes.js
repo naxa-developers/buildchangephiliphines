@@ -120,7 +120,7 @@ class Scenes extends Component {
 
 
                 <Scene
-               initial={this.state.hasToken}
+              initial={this.state.hasToken}
                   key="Select"
                   component={Select}
                   title="Select"
@@ -129,7 +129,7 @@ class Scenes extends Component {
 
 
                 <Scene
-                  // initial
+              //   initial
                   key="DownloadDataScene"
                   component={DownloadDataScene}
                   hideNavBar

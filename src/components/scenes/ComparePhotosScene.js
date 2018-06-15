@@ -4,6 +4,7 @@ import { View,
  } from 'react-native';
 import { Tile, Card } from 'react-native-elements';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 
 class ComparePhotosScene extends Component {
@@ -18,39 +19,68 @@ class ComparePhotosScene extends Component {
             bad_photo: {}
         };
     }
-componentWillMount() {
-  if (this.props.guideline.good_photo === null) {
-    this.setState({
-      good_photo: require('../../../app_images/no_image.png')
-    });
-  }
-  else if (this.props.guideline.good_photo !== null) {
-    this.setState({
-      good_photo: { uri: this.props.guideline.good_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }
-    });
-  }
-  if (this.props.guideline.bad_photo === null) {
-    this.setState({
-      bad_photo: require('../../../app_images/no_image.png')
-    });
-  }
-  else if (this.props.guideline.bad_photo !== null) {
-    this.setState({
-      bad_photo: { uri: this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files') }
 
-    });
-  }
+componentWillMount() {
+  RNFetchBlob.fs.exists('/storage/emulated/0/DCIM/build_change_philippines')
+      .then((exist) => {
+          console.log(`file ${exist ? '' : 'not'} exists`)
+          if (this.props.guideline.good_photo === null) {
+            this.setState({
+              good_photo: require('../../../app_images/no_image.png')
+            });
+          }
+          else if (this.props.guideline.good_photo !== null) {
+            this.setState({
+              good_photo: { uri: this.props.guideline.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/DCIM/build_change_philippines') }
+            });
+          }
+          if (this.props.guideline.bad_photo === null) {
+            this.setState({
+              bad_photo: require('../../../app_images/no_image.png')
+            });
+          }
+          else if (this.props.guideline.bad_photo !== null) {
+            this.setState({
+              bad_photo: { uri: this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/DCIM/build_change_philippines') }
+
+            });
+          }
+      })
+      .catch(() => {
+          console.log('error while checking file');
+          if (this.props.guideline.good_photo === null) {
+            this.setState({
+              good_photo: require('../../../app_images/no_image.png')
+            });
+          }
+          else if (this.props.guideline.good_photo !== null) {
+            this.setState({
+              good_photo: { uri: this.props.guideline.good_photo }
+            });
+          }
+          if (this.props.guideline.bad_photo === null) {
+            this.setState({
+              bad_photo: require('../../../app_images/no_image.png')
+            });
+          }
+          else if (this.props.guideline.bad_photo !== null) {
+            this.setState({
+              bad_photo: { uri: this.props.guideline.bad_photo }
+
+            });
+          }
+
+
+      });
 }
+
+
     showImageViewer(index) {
         console.log(index);
         this.setState({ ...this.state, imageViewerCurIndex: index, imageViewerShown: true });
     }
 
     renderImageList() {
-      console.log('inside renderImageList');
-      console.log(this.props.guideline.good_photo === null ? 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg' : this.props.guideline.good_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
-      console.log(this.props.guideline.bad_photo === null ? 'file:///data/user/0/com.guide/files/media/material/bad_photo/2018/05/05/23/18/Steel_Plate_with_rust.jpg' : this.props.guideline.bad_photo.replace('http://bccms.naxa.com.np', 'file:///data/user/0/com.guide/files'));
-
         const { description } = this.props.guideline;
 
         const images = [{
