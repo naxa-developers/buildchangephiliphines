@@ -17,7 +17,7 @@ class ListItem extends Component {
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { id } = this.props.item;
 
-        console.log(this.props.item);
+        console.log(this.props.item.checklists);
         
         const name = (strings.getLanguage().trim() === 'wa') 
         ? this.props.item.localname 

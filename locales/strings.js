@@ -40,7 +40,10 @@ export const strings = new LocalizedStrings({
     action_cancel: 'cancel',
 
     view_take_photo: 'Take a photo',
-    view_upload_reprot: 'Report'
+    view_upload_reprot: 'Report',
+    view_comments: 'comments',
+
+    error_field_cannot_be_empty: 'This field cannot be empty'
   },
   en: {
     view_schools_title: 'View Schools',
