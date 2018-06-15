@@ -4,6 +4,8 @@ import { Button, CheckBox, Card } from "react-native-elements";
 import { Actions } from "react-native-router-flux";
 import { ToggleCircle } from "./common";
 import { strings, getLocalizedText } from "../../locales/strings";
+import DropdownAlert from 'react-native-dropdownalert';
+
 
 class CheckListItem extends Component {
   constructor() {
@@ -11,6 +13,13 @@ class CheckListItem extends Component {
     this.state = {
       checked: false
     };
+  }
+
+  // ...
+  onClose(data) {
+    // data = {type, title, message, action}
+    // action means how the alert was closed.
+    // returns: automatic, programmatic, tap, pan or cancel
   }
 
   render() {
@@ -29,7 +38,11 @@ class CheckListItem extends Component {
           uncheckedIcon="close-outline"
           uncheckedColor="red"
           onPress={() => {
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+            this.dropdown.alertWithType(
+              "info",
+              "Information",
+              "Active internet connection required"
+            );
             this.setState({ checked: !this.state.checked });
           }}
           checked={this.state.checked}
@@ -40,6 +53,10 @@ class CheckListItem extends Component {
           }}
           onPress={() => Actions.ReportForm({ checklist: this.props.data })}
           title={strings.action_report}
+        />
+        <DropdownAlert
+          ref={ref => (this.dropdown = ref)}
+          onClose={data => this.onClose(data)}
         />
       </Card>
     );
