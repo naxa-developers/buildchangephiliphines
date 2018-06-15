@@ -4,6 +4,7 @@ import { View,
  } from 'react-native';
 import { Tile, Card } from 'react-native-elements';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import { strings, getLocalizedText } from '../../../locales/strings';
 
 
 class ComparePhotosScene extends Component {
@@ -97,8 +98,8 @@ componentWillMount() {
                     activeOpacity={0.9}
                     icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
                     imageSrc={this.state.good_photo}
-                    title="Good photo"
-                    caption="Tap to open"
+                    title={strings.view_good_photo_title}
+                    caption={strings.view_tap_to_open}
                     featured
                 />
                 <Tile
@@ -108,8 +109,8 @@ componentWillMount() {
                     icon={{ name: 'close-outline', type: 'material-community', color: '#E8656A' }}
                     imageStyle={{ height: 200, width: 200 }}
                     imageSrc={this.state.bad_photo}
-                    caption="Tap to open"
-                    title='Bad photo'
+                    title={strings.view_bad_photo_title}
+                    caption={strings.view_tap_to_open}
                     featured
                 />
 

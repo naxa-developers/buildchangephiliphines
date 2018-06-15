@@ -13,6 +13,7 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
+import { strings, getLocalizedText } from '../locales/strings';
 
 class Scenes extends Component {
 
@@ -101,14 +102,14 @@ class Scenes extends Component {
 
                   key="GuidelineCategoryScene"
                   component={GuidelineCategoryScene}
-                  title="Guideline Catergories"
+                  title={strings.title_guideline_categories}
                 />
 
                 <Scene
 
                   key="GuidelinesListScene"
                   component={GuidelinesListScene}
-                  title="Guidelines "
+                  title={strings.title_guideline_details}
                 />
 
                 <Scene
