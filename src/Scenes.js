@@ -46,120 +46,6 @@ class Scenes extends Component {
       return <ActivityIndicator />;
     }
     return (
-<<<<<<< HEAD
-
-          <Router>
-            <Scene key="root">
-                <Scene
-
-                  key="SignUp"
-                  component={SignUp}
-                  title="SignUp"
-                />
-
-                <Scene
-                initial={!this.state.hasToken}
-                  key="SecondPage"
-                  component={SecondPage}
-                  title="SecondPage"
-                  hideNavBar
-                />
-
-                <Scene
-
-                  key="Login"
-                  component={Login}
-                  title="Login"
-                  type="replace"
-
-                />
-
-                <Scene
-                  key="StepList"
-                  component={StepList}
-                  title="Steps"
-                />
-
-                <Scene
-                  key="Successful_Login"
-                  component={SuccessfulLogin}
-                  title="Schools"
-                  onRight={() => {
-                    this.userLogout();
-                  }}
-                  rightTitle='Log Out'
-
-                />
-                <Scene
-                  key="CheckList"
-                  component={CheckList}
-                  title="Checklist"
-                />
-                <Scene
-                  key="ReportForm"
-                  component={ReportForm}
-                  title="Report form"
-                />
-                <Scene
-
-                  key="GuidelineCategoryScene"
-                  component={GuidelineCategoryScene}
-                  title={strings.title_guideline_categories}
-                />
-
-                <Scene
-
-                  key="GuidelinesListScene"
-                  component={GuidelinesListScene}
-                  title={strings.title_guideline_details}
-                />
-
-                <Scene
-
-                  key="ComparePhotosScene"
-                  component={ComparePhotosScene}
-                  title="Compare photos"
-                />
-
-
-                <Scene
-              initial={this.state.hasToken}
-                  key="Select"
-                  component={Select}
-                  title="Select"
-                  hideNavBar
-                />
-
-
-                <Scene
-                //initial
-                  key="DownloadDataScene"
-                  component={DownloadDataScene}
-                  hideNavBar
-                />
-                <Scene
-               //initial
-                  key="ShowDocuments"
-                  component={ShowDocuments}
-                  hideNavBar
-                />
-                <Scene
-              component={ShowMap}
-              key="ShowMap"
-              title="Site Location on Map"
-                />
-            <Scene
-          component={DocumentList}
-          key="DocumentList"
-          title="List of Documents"
-            />
-
-                </Scene>
-          </Router>
-      );
-    }
-
-=======
       <Router>
         <Scene key='root'>
           <Scene key='SignUp' component={SignUp} title='SignUp' />
@@ -243,7 +129,6 @@ class Scenes extends Component {
         </Scene>
       </Router>
     );
->>>>>>> 473a2f81304b83b478175c128d760490cd5cfa92
   }
 }
 
