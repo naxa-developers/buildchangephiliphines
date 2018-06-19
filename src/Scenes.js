@@ -134,12 +134,13 @@ class Scenes extends Component {
 
 
                 <Scene
+                //initial
                   key="DownloadDataScene"
                   component={DownloadDataScene}
                   hideNavBar
                 />
                 <Scene
-              //  initial
+               //initial
                   key="ShowDocuments"
                   component={ShowDocuments}
                   hideNavBar
@@ -148,12 +149,12 @@ class Scenes extends Component {
               component={ShowMap}
               key="ShowMap"
               title="Site Location on Map"
-            />
+                />
             <Scene
           component={DocumentList}
           key="DocumentList"
           title="List of Documents"
-        />
+            />
 
                 </Scene>
           </Router>

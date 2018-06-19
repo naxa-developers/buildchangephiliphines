@@ -13,7 +13,7 @@ import Pdf from 'react-native-pdf';
 
 export default class ShowDocuments extends React.Component {
     render() {
-        const source = { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf' };
+        const source = { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true };
         //const source = require('./test.pdf');  // ios only
         //const source = {uri:'bundle-assets://test.pdf'};
 

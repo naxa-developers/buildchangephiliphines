@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
-import MapView from 'react-native-maps';
 
 export default class DocumentList extends Component {
 
@@ -9,25 +9,41 @@ export default class DocumentList extends Component {
   render() {
     const list = [
   {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    name: 'First Document',
+    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
     subtitle: 'Vice President'
   },
   {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    name: 'Second Document',
+    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
     subtitle: 'Vice Chairman'
+  },
+  {
+    name: 'Third Document',
+    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
+    subtitle: 'Vice President'
+  },
+  {
+    name: 'Fourth Document',
+    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
+    subtitle: 'Vice Chairman'
+  },
+  {
+    name: 'Fifth Document',
+    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
+    subtitle: 'Vice President'
   }
 
 ];
     return (
       <View>
-      <List containerStyle={{marginBottom: 20}}>
+      <List containerStyle={{ marginBottom: 20 }}>
 {
   list.map((l, i) => (
     <ListItem
       roundAvatar
-      avatar={{uri:l.avatar_url}}
+      avatar={{ uri: l.avatar_url }}
+      onPress={Actions.ShowDocuments()}
       key={i}
       title={l.name}
     />
