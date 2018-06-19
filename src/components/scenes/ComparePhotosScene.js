@@ -25,7 +25,8 @@ class ComparePhotosScene extends Component {
 componentWillMount() {
   RNFetchBlob.fs.exists('/storage/emulated/0/DCIM/build_change_philippines')
       .then((exist) => {
-          console.log(`file ${exist ? '' : 'not'} exists`)
+          console.log(exist);
+        if (exist) {
           if (this.props.guideline.good_photo === null) {
             this.setState({
               good_photo: require('../../../app_images/no_image.png')
@@ -47,32 +48,33 @@ componentWillMount() {
 
             });
           }
+      }
+      else if (!exist) {
+        if (this.props.guideline.good_photo === null) {
+          this.setState({
+            good_photo: require('../../../app_images/no_image.png')
+          });
+        }
+        else if (this.props.guideline.good_photo !== null) {
+          this.setState({
+            good_photo: { uri: this.props.guideline.good_photo }
+          });
+        }
+        if (this.props.guideline.bad_photo === null) {
+          this.setState({
+            bad_photo: require('../../../app_images/no_image.png')
+          });
+        }
+        else if (this.props.guideline.bad_photo !== null) {
+          this.setState({
+            bad_photo: { uri: this.props.guideline.bad_photo }
+
+          });
+        }
+      }
       })
       .catch(() => {
           console.log('error while checking file');
-          if (this.props.guideline.good_photo === null) {
-            this.setState({
-              good_photo: require('../../../app_images/no_image.png')
-            });
-          }
-          else if (this.props.guideline.good_photo !== null) {
-            this.setState({
-              good_photo: { uri: this.props.guideline.good_photo }
-            });
-          }
-          if (this.props.guideline.bad_photo === null) {
-            this.setState({
-              bad_photo: require('../../../app_images/no_image.png')
-            });
-          }
-          else if (this.props.guideline.bad_photo !== null) {
-            this.setState({
-              bad_photo: { uri: this.props.guideline.bad_photo }
-
-            });
-          }
-
-
       });
 }
 

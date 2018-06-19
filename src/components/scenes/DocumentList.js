@@ -42,8 +42,8 @@ export default class DocumentList extends Component {
   list.map((l, i) => (
     <ListItem
       roundAvatar
-      avatar={{ uri: l.avatar_url }}
-      onPress={Actions.ShowDocuments()}
+      avatar={require('../../../app_images/pdf.png')}
+      onPressRightIcon={() => Actions.ShowDocuments()}
       key={i}
       title={l.name}
     />
