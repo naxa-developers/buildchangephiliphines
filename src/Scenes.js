@@ -13,6 +13,9 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
+import ShowDocuments from './components/scenes/ShowDocuments';
+import ShowMap from './components/scenes/ShowMap';
+import DocumentList from './components/scenes/DocumentList';
 
 class Scenes extends Component {
 
@@ -55,7 +58,7 @@ class Scenes extends Component {
                 />
 
                 <Scene
-                 initial={!this.state.hasToken}
+                initial={!this.state.hasToken}
                   key="SecondPage"
                   component={SecondPage}
                   title="SecondPage"
@@ -129,11 +132,26 @@ class Scenes extends Component {
 
 
                 <Scene
-              //   initial
                   key="DownloadDataScene"
                   component={DownloadDataScene}
                   hideNavBar
                 />
+                <Scene
+              //  initial
+                  key="ShowDocuments"
+                  component={ShowDocuments}
+                  hideNavBar
+                />
+                <Scene
+              component={ShowMap}
+              key="ShowMap"
+              title="Site Location on Map"
+            />
+            <Scene
+          component={DocumentList}
+          key="DocumentList"
+          title="List of Documents"
+        />
 
                 </Scene>
           </Router>

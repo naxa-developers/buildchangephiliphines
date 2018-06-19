@@ -1,29 +1,53 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Button } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import LibraryList from './components/LibraryList';
-import ImageList from './components/ImageList';
+import { CardSection, Card } from '../src/components/common';
 
-const StepList = (props) => {
-return (
+class StepList extends React.Component {
 
-                    // <View style={{ flex: 1 }}>
-                    // <ScrollView>
-                    //     <LibraryList list={props} />
-                    //     <Text style={styles.centerHeader}>Some Recent Photograph</Text>
-                    //     <ImageList />
-                    // </ScrollView>
-                    // </View >
-                    <View style={{ flex: 1 }}>
-                    <ScrollView>
-                     <LibraryList list={props} />
-                    </ScrollView>
-                    </View >
+  onViewMap() {
+    Actions.ShowMap();
+  }
+  onViewDocumentList() {
+    Actions.DocumentList();
+  }
+  render() {
+  return (
+            <View style={{ flex: 1 }}>
+                <Card>
+                    <CardSection>
+                            <Text style={{ fontSize: 20, paddingLeft: 15, color: 'red' }}>{this.props.name}</Text>
+                    </CardSection>
+                    <CardSection>
+                            <Text style={{ fontSize: 20, paddingLeft: 15, color: 'red' }}>{this.props.address}</Text>
+                    </CardSection>
+                </Card>
+                <Card>
+                <Card>
 
-);
-};
+                      <Button
+                        title="View Map"
+                        onPress={this.onViewMap.bind(this)}
+                      />
+                      </Card>
+                      <Card>
 
-const styles = {
-    centerHeader: { marginTop: 10, fontSize: 16, alignSelf: 'center' }
+                      <Button
+                        title="View Documents"
+                        onPress={this.onViewDocumentList.bind(this)}
+                      />
+                      </Card>
+
+                </Card>
+
+                <ScrollView style={{ paddingTop: 10 }}>
+                  <LibraryList list={this.props} />
+                </ScrollView>
+            </View >
+
+  );
+}
 };
 
 export default StepList;

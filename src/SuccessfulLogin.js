@@ -119,7 +119,7 @@ console.log(state);
     rowHasChanged: (r1, r2) => r1 !== r2,
   });
 
-  const newData = state.schoolList.data.sites.filter(function(item){
+  const newData = state.schoolList.data.sites.filter(function (item) {
       const itemData = item.name.toUpperCase();
       const textData = state.schoolSearchReducer.typedText.toUpperCase();
       return itemData.indexOf(textData) > -1;

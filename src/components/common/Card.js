@@ -1,9 +1,7 @@
 import React from 'react';
-import {  View } from 'react-native';
+import { View } from 'react-native';
 
 const Card = (props) => {
-
-
   return (
     <View style={styles.cointainerStyle}>
       {props.children}
@@ -14,19 +12,19 @@ const Card = (props) => {
 
 const styles = {
   cointainerStyle: {
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 2,
     borderColor: '#ddd',
-    borderBottomWidth: 0,
+    borderBottomWidth: 1,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 1,
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
-
   }
 };
 

@@ -2,12 +2,14 @@ package com.guide;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
+
+import org.wonday.pdf.RCTPdfView;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.rnfs.RNFSPackage;
 import io.realm.react.RealmReactPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -31,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTPdfView(),
             new RNFetchBlobPackage(),
             new RNZipArchivePackage(),
             new RNFSPackage(),
@@ -38,7 +41,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeLocalizationPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new SplashScreenReactPackage()
+            new SplashScreenReactPackage(),
+            new MapsPackage()
       );
     }
 
