@@ -5,7 +5,7 @@ import { View,
     Text
  } from 'react-native';
 import { CardSection, Circle } from './common';
-import { strings } from '../../locales/strings';
+import { strings, getLocalizedText } from '../../locales/strings';
 
 
 class ListItem extends Component {

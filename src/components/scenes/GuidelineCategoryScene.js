@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -7,15 +7,15 @@ import {
   TextInput,
   ActivityIndicator,
   AsyncStorage
-} from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { Actions } from 'react-native-router-flux';
-import { openedGuidelinesCategoryScene, userSearched } from '../../actions';
-import { strings } from '../../../locales/strings';
+} from "react-native";
+import { ListItem } from "react-native-elements";
+import { Actions } from "react-native-router-flux";
+import { openedGuidelinesCategoryScene, userSearched } from "../../actions";
+import { strings, getLocalizedText } from "../../../locales/strings";
 
 class GuidelineCategoryScene extends Component {
   componentDidMount() {
-    AsyncStorage.getItem('token').then(token => {
+    AsyncStorage.getItem("token").then(token => {
       this.props.openedGuidelinesCategoryScene(token);
     });
   }
@@ -42,15 +42,15 @@ class GuidelineCategoryScene extends Component {
       <View
         style={{
           height: 0.5,
-          width: '100%',
-          backgroundColor: '#000'
+          width: "100%",
+          backgroundColor: "#000"
         }}
       />
     );
   };
 
   render() {
-    console.log('render bhitra');
+    console.log("render bhitra");
     console.log(this.props.dataWithoutDuplicates);
     if (this.props.isLoading) {
       return (
@@ -60,13 +60,14 @@ class GuidelineCategoryScene extends Component {
       );
     }
 
+
     return (
       <View style={styles.MainContainer}>
         <TextInput
           style={styles.TextInputStyleClass}
           onChangeText={text => this.SearchFilterFunction(text)}
           value={this.props.typedText}
-          underlineColorAndroid='transparent'
+          underlineColorAndroid="transparent"
           placeholder={strings.action_search_here}
         />
 
@@ -79,7 +80,7 @@ class GuidelineCategoryScene extends Component {
           renderRow={rowData => (
             <ListItem
               onPress={this.GetListViewItem.bind(this, rowData.category)}
-              title={rowData.category}
+              title={getLocalizedText(rowData.local_category, rowData.category)}
             />
           )}
           style={{ marginTop: 10 }}
@@ -90,12 +91,12 @@ class GuidelineCategoryScene extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('map state to props ko bhitra');
+  console.log("map state to props ko bhitra");
 
   const dataWithoutDuplicates = state.guideLineCategory.data.filter(
     (obj, pos, arr) => {
       return (
-        arr.map(mapObj => mapObj['category']).indexOf(obj['category']) === pos
+        arr.map(mapObj => mapObj["category"]).indexOf(obj["category"]) === pos
       );
     }
   );
@@ -106,16 +107,16 @@ const mapStateToProps = state => {
     return itemData.indexOf(textData) > -1;
   });
 
-  console.log('below is newData');
+  console.log("below is newData");
   console.log(newData);
 
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
   });
-  console.log('below is searchreducer state');
+  console.log("below is searchreducer state");
   console.log(state.searchReducer);
 
-  console.log('below is guidelinecatefory reducer state');
+  console.log("below is guidelinecatefory reducer state");
   console.log(state.guideLineCategory);
 
   return {
@@ -136,7 +137,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   MainContainer: {
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
     margin: 7
   },
@@ -146,11 +147,11 @@ const styles = StyleSheet.create({
   },
 
   TextInputStyleClass: {
-    textAlign: 'center',
+    textAlign: "center",
     height: 40,
     borderWidth: 1,
-    borderColor: '#009688',
+    borderColor: "#009688",
     borderRadius: 7,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: "#FFFFFF"
   }
 });
