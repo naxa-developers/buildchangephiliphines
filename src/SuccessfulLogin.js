@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ListView, TextInput, ActivityIndicator, AsyncStorage
+import { StyleSheet, View, NetInfo, Alert, ListView, TextInput, ActivityIndicator, AsyncStorage
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import PlaceholderListItem from './components/PlaceholderListItem';
-import { tappedOnViewSchools, intelliSearch } from './actions';
+import { tappedOnViewSchools, intelliSearch, checkOnline } from './actions';
 import { strings } from './../locales/strings';
 
 class SuccessfulLogin extends Component {
 
   componentDidMount() {
-    AsyncStorage.getItem('token')
-    .then((token) => {
-      this.props.tappedOnViewSchools(token);
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        AsyncStorage.getItem('token')
+        .then((token) => {
+          this.props.tappedOnViewSchools(token);
+        });
+      }
+      else if (!isConnected) {
+        Alert.alert('No internet Connection!');
+      }
     });
   }
 
   GetListViewItem(school) {
-   Actions.StepList(school);
+    console.log('console.logko bhitra');
+    console.log(school.name);
+   Actions.StepList({
+     id: school.id,
+     realName: school.name,
+     address: school.address,
+     location: school.address,
+     steps: school.steps
+   });
   }
 
    SearchFilterFunction(text) {
@@ -36,6 +51,7 @@ class SuccessfulLogin extends Component {
 
 
   render() {
+    console.log('render_bhitra');
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -113,7 +129,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-console.log('mapStateToProps ko bhitra');
+console.log('mapstatetoprops_ko_bhitra');
 console.log(state);
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
@@ -124,15 +140,15 @@ console.log(state);
       const textData = state.schoolSearchReducer.typedText.toUpperCase();
       return itemData.indexOf(textData) > -1;
   });
-console.log(newData);
   return {
             isLoading: state.schoolList.isLoading,
             data: state.schoolList.data,
             list: ds,
             typedText: state.schoolSearchReducer.typedText,
             hasTyped: state.schoolSearchReducer.hasTyped,
-            newData
+            newData,
+            hasInternetConnection: state.checkOnline.hasInternetConnection
          };
 };
 
-export default connect(mapStateToProps, { tappedOnViewSchools, intelliSearch })(SuccessfulLogin);
+export default connect(mapStateToProps, { tappedOnViewSchools, intelliSearch, checkOnline })(SuccessfulLogin);

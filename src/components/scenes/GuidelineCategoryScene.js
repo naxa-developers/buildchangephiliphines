@@ -4,6 +4,8 @@ import {
   StyleSheet,
   View,
   ListView,
+  Alert,
+  NetInfo,
   TextInput,
   ActivityIndicator,
   AsyncStorage
@@ -15,8 +17,16 @@ import { strings } from '../../../locales/strings';
 
 class GuidelineCategoryScene extends Component {
   componentDidMount() {
-    AsyncStorage.getItem('token').then(token => {
-      this.props.openedGuidelinesCategoryScene(token);
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        AsyncStorage.getItem('token')
+        .then((token) => {
+          this.props.openedGuidelinesCategoryScene(token);
+        });
+      }
+      else if (!isConnected) {
+        Alert.alert('No internet Connection!');
+      }
     });
   }
 

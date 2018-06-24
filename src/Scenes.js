@@ -19,6 +19,7 @@ import SettingsScene from './components/SettingsComponent';
 import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
 import { strings, getLocalizedText } from '../locales/strings';
+import InternetStatus from './components/scenes/InternetStatus';
 
 class Scenes extends Component {
   constructor() {
@@ -125,6 +126,13 @@ class Scenes extends Component {
             component={SettingsScene}
             key='SettingsScene'
             title='Settings'
+          />
+          <Scene
+          //initial
+          hideNavBar
+            component={InternetStatus}
+            key='InternetStatus'
+            //title='Internet Status Page'
           />
         </Scene>
       </Router>

@@ -1,3 +1,5 @@
+import { NetInfo } from 'react-native';
+
 export const tappedOnViewSchools = (token) => {
   return (dispatch) => {
     fetch('http://139.59.67.104:4001/core/api/project/2/', {
@@ -45,5 +47,17 @@ export const intelliSearch = (text) => {
   return {
     type: 'intelli_search',
     payload: text
+  };
+};
+
+export const checkOnline = () => {
+  return (dispatch) => {
+    NetInfo.isConnected.fetch()
+    .then(isConnected => {
+      if (isConnected) {
+        dispatch({ type: 'check_online', payload: isConnected });
+      }
+      dispatch({ type: 'check_online', payload: isConnected });
+    });
   };
 };

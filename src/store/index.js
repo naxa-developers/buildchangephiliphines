@@ -8,6 +8,7 @@ import reducers from '../reducers';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['checkOnline']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
