@@ -1,4 +1,5 @@
-import { NetInfo } from 'react-native';
+import _ from 'lodash';
+import { NetInfo, AsyncStorage } from 'react-native';
 
 export const tappedOnViewSchools = (token) => {
   return (dispatch) => {
@@ -60,4 +61,83 @@ export const checkOnline = () => {
       dispatch({ type: 'check_online', payload: isConnected });
     });
   };
+};
+
+
+
+
+
+export const requestPerson = (data) => {
+  return (dispatch, getState) => {
+    AsyncStorage.getItem('token').then(token => {
+      const { isConnected } = getState();
+      if (_.isEmpty(data.checklistItemData.last_submission)) {
+        const url = 'http://bccms.naxa.com.np/core/api/report/';
+        const formdata = new FormData();
+        formdata.append('report_status', data.checklistItemValue);
+        formdata.append('checklist', data.checklistItemData.id);
+        formdata.append('comment', 'USAGE OF POST');
+
+        const req = {
+          method: 'POST',
+          headers: {
+            Authorization: 'token ' + token,
+            'Content-Type': 'multipart/form-data'
+          },
+          body: formdata
+        };
+        if (isConnected) {
+          fetch(url, req)
+            .then(() => {
+              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, req } });
+            });
+        } else {
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, req } });
+        }
+      }
+      else if (!_.isEmpty(data.checklistItemData.last_submission)) {
+        const url = 'http://bccms.naxa.com.np/core/api/report/{data.checklistItemData.last_submission.id}/';
+        const formdata = new FormData();
+        formdata.append('report_status', data.checklistItemValue);
+        formdata.append('checklist', data.checklistItemData.id);
+        formdata.append('comment', 'USAGE OF PUT');
+
+        const req = {
+          method: 'PUT',
+          headers: {
+            Authorization: 'token ' + token,
+            'Content-Type': 'multipart/form-data'
+          },
+          body: formdata
+        };
+        if (isConnected) {
+          fetch(url, req)
+            .then((res) => res.json())
+            .then((res) => {
+              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: url });
+            });
+        } else {
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, req } });
+        }
+      }
+  });
+  };
+};
+
+
+
+
+
+export const requestPersonByUrl = (eachElement) => {
+  return (dispatch) => {
+    fetch(eachElement.url, eachElement.req)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, req: eachElement.req } });
+      });
+  };
+};
+
+export const connectionState = ({ status }) => {
+  return { type: 'CHANGE_CONNECTION_STATUS', isConnected: status };
 };

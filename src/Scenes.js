@@ -13,7 +13,6 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
-
 import ShowDocuments from './components/scenes/ShowDocuments';
 import SettingsScene from './components/SettingsComponent';
 import ShowMap from './components/scenes/ShowMap';

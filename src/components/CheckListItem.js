@@ -1,27 +1,46 @@
+//value of checklist item yet to be implemented from server
+
 import React, { Component } from 'react';
-import { Button, View, Text, LayoutAnimation, StyleSheet } from 'react-native';
-import {  CheckBox, Card, Icon } from 'react-native-elements';
+import { Button, View, StyleSheet, NetInfo } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { ToggleCircle } from './common';
-import { strings, getLocalizedText } from '../../locales/strings';
-import DropdownAlert from 'react-native-dropdownalert';
+import { getLocalizedText } from '../../locales/strings';
+import { connectionState, requestPersonByUrl, requestPerson } from '../actions';
 
 class CheckListItem extends Component {
   constructor() {
+    console.log('constructor');
     super();
     this.state = {
       checked: false
     };
   }
+  componentDidMount() {
+    this.setState({ checked: this.props.data.last_submission.report_status });
+  NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
+}
 
-  // ...
-  onClose(data) {
-    // data = {type, title, message, action}
-    // action means how the alert was closed.
-    // returns: automatic, programmatic, tap, pan or cancel
+componentWillUnmount() {
+  NetInfo.isConnected.removeEventListener('connectionChange', this._handleConnectionChange);
+}
+
+_handleConnectionChange = (isConnected) => {
+  const { dispatch, actionQueue } = this.props;
+  dispatch(connectionState({ status: isConnected }));
+
+  if (isConnected && actionQueue.length > 0) {
+    actionQueue.forEach((eachElement) => {
+      this.props.dispatch(requestPersonByUrl({ eachElement }));
+    });
   }
+};
 
   render() {
+    console.log('render_bhitra');
+    console.log('below_is_this.props');
+    console.log(this.props.data.last_submission);
+    console.log(this.state.checked);
     const name = getLocalizedText(
       this.props.data.localtext,
       this.props.data.text
@@ -36,11 +55,15 @@ class CheckListItem extends Component {
           uncheckedIcon='close-outline'
           uncheckedColor='red'
           onPress={() => {
+            //checkmarkId not defined yet
+            this.props.dispatch(requestPerson({ checklistItemData: this.props.data, checklistItemValue: !this.state.checked }));
             this.setState({ checked: !this.state.checked });
           }}
           checked={this.state.checked}
         />
-        <Button title='REPORT' style={{ justifyContent: 'flex-end' }} />
+        <Button
+        onPress={() => Actions.ReportForm()}
+         title='REPORT' style={{ justifyContent: 'flex-end' }} />
       </View>
     );
   }
@@ -53,4 +76,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CheckListItem;
+const mapStateToProps = (state) => {
+  return {
+    actionQueue: state.actionQueue,
+    isConnected: state.isConnected,
+  };
+};
+
+export default connect(mapStateToProps)(CheckListItem);

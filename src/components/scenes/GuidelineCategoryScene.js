@@ -17,7 +17,6 @@ import { strings, getLocalizedText } from "../../../locales/strings";
 
 class GuidelineCategoryScene extends Component {
   componentDidMount() {
-<<<<<<< HEAD
     NetInfo.isConnected.fetch().then(isConnected => {
       if (isConnected) {
         AsyncStorage.getItem('token')
@@ -28,10 +27,6 @@ class GuidelineCategoryScene extends Component {
       else if (!isConnected) {
         Alert.alert('No internet Connection!');
       }
-=======
-    AsyncStorage.getItem("token").then(token => {
-      this.props.openedGuidelinesCategoryScene(token);
->>>>>>> 30b7ab2e6375d92de91396a129f091a6344ff697
     });
   }
 
