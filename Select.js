@@ -30,7 +30,6 @@ class Select extends Component {
 reactNativeFetchBlob() {
   RNFetchBlob.fs.exists('/storage/emulated/0/DCIM/build_change_philippines')
       .then((exist) => {
-          console.log(`file ${exist ? '' : 'not'} exists`);
           if (!exist) {
             RNFetchBlob
             .config({
@@ -45,8 +44,6 @@ reactNativeFetchBlob() {
             .then((resp) => {
               const sourcePath = resp.path();
               const targetPath = resp.path().replace('.zip', '');
-              console.log(resp.path());
-              console.log(resp.path().replace('.zip', ''));
 
               unzip(sourcePath, targetPath)
               .then((path) => {

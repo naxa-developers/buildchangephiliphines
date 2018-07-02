@@ -68,6 +68,8 @@ export const checkOnline = () => {
 
 
 export const requestPerson = (data) => {
+  console.log('request_person_bhirta');
+  console.log(data);
   return (dispatch, getState) => {
     AsyncStorage.getItem('token').then(token => {
       const { isConnected } = getState();
@@ -87,16 +89,19 @@ export const requestPerson = (data) => {
           body: formdata
         };
         if (isConnected) {
+          console.log({ url, req });
           fetch(url, req)
-            .then(() => {
+            .then((res) => {
+              console.log(res);
               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, req } });
-            });
+            })
+            .catch((error) => console.log(error));
         } else {
           dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, req } });
         }
       }
       else if (!_.isEmpty(data.checklistItemData.last_submission)) {
-        const url = 'http://bccms.naxa.com.np/core/api/report/{data.checklistItemData.last_submission.id}/';
+        const url = 'http://bccms.naxa.com.np/core/api/report/'+data.checklistItemData.last_submission.id+'/';
         const formdata = new FormData();
         formdata.append('report_status', data.checklistItemValue);
         formdata.append('checklist', data.checklistItemData.id);
@@ -111,11 +116,13 @@ export const requestPerson = (data) => {
           body: formdata
         };
         if (isConnected) {
+          console.log({ url, req });
           fetch(url, req)
-            .then((res) => res.json())
             .then((res) => {
-              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: url });
-            });
+              console.log(res);
+               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, req } });
+            })
+            .catch((error) => console.log(error));
         } else {
           dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, req } });
         }

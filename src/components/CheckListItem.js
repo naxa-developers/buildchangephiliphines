@@ -1,10 +1,9 @@
-//value of checklist item yet to be implemented from server
-
 import React, { Component } from 'react';
 import { Button, View, StyleSheet, NetInfo } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import _ from 'lodash';
 import { getLocalizedText } from '../../locales/strings';
 import { connectionState, requestPersonByUrl, requestPerson } from '../actions';
 
@@ -17,7 +16,9 @@ class CheckListItem extends Component {
     };
   }
   componentDidMount() {
-    this.setState({ checked: this.props.data.last_submission.report_status });
+    if (!_.isEmpty(this.props.data.last_submission)) {
+      this.setState({ checked: this.props.data.last_submission.report_status });
+    }
   NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
 }
 
@@ -38,7 +39,7 @@ _handleConnectionChange = (isConnected) => {
 
   render() {
     console.log('render_bhitra');
-    console.log('below_is_this.props');
+    console.log('render_bhitra_last_submissionko_value');
     console.log(this.props.data.last_submission);
     console.log(this.state.checked);
     const name = getLocalizedText(
@@ -77,6 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToPropsko_bhitra');
+  console.log(state);
   return {
     actionQueue: state.actionQueue,
     isConnected: state.isConnected,

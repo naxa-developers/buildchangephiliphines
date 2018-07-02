@@ -13,7 +13,6 @@ class StepList extends React.Component {
     Actions.DocumentList();
   }
   render() {
-    console.log(this.props);
   return (
             <View style={{ flex: 1 }}>
                 <Card>

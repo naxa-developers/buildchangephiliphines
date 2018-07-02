@@ -24,8 +24,6 @@ class SuccessfulLogin extends Component {
   }
 
   GetListViewItem(school) {
-    console.log('console.logko bhitra');
-    console.log(school.name);
    Actions.StepList({
      id: school.id,
      realName: school.name,
@@ -51,7 +49,6 @@ class SuccessfulLogin extends Component {
 
 
   render() {
-    console.log('render_bhitra');
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -129,8 +126,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-console.log('mapstatetoprops_ko_bhitra');
-console.log(state);
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
   });
