@@ -8,13 +8,26 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_TO_ACTION_QUEUE':
     console.log('ADD_TO_ACTION_QUEUE');
+    state.actionQueue.concat([action.payload]);
+    state.actionQueue.filter((thing, index, self) =>
+      index === self.findIndex((t) => (
+        _.isEqual(t, thing)
+      ))
+    );
       return Object.assign({}, state, {
-        actionQueue: state.actionQueue.concat([action.payload]),
+        actionQueue: state.actionQueue,
       });
     case 'REMOVE_FROM_ACTION_QUEUE':
     console.log('REMOVE_FROM_ACTION_QUEUE');
+    console.log('action.payloadko_value');
     console.log(action.payload);
-    console.log(state.actionQueue[0] !== state.actionQueue[3]);
+    console.log('actionQueueko_value');
+    console.log(state.actionQueue.filter((thing, index, self) =>
+      index === self.findIndex((t) => (
+        _.isEqual(t, thing)
+      ))
+    ));
+
       return Object.assign({}, state, {
         actionQueue: _.without(state.actionQueue, action.payload),
       });
