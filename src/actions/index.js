@@ -93,11 +93,11 @@ export const requestPerson = (data) => {
           fetch(url, req)
             .then((res) => {
               console.log(res);
-              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST' } });
+              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
             })
             .catch((error) => console.log(error));
         } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST' } });
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
         }
       }
       else if (!_.isEmpty(data.checklistItemData.last_submission)) {
@@ -120,11 +120,11 @@ export const requestPerson = (data) => {
           fetch(url, req)
             .then((res) => {
               console.log(res);
-               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT' } });
+               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
             })
             .catch((error) => console.log(error));
         } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT' } });
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
         }
       }
   });
@@ -135,11 +135,28 @@ export const requestPerson = (data) => {
 
 export const requestPersonByUrl = (eachElement) => {
   return (dispatch) => {
-    fetch(eachElement.url, eachElement.req)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, req: eachElement.req } });
-      });
+    AsyncStorage.getItem('token').then(token => {
+      const formdata = new FormData();
+      formdata.append('report_status', eachElement.report_status);
+      formdata.append('checklist', eachElement.checklist);
+      formdata.append('comment', eachElement.comment);
+
+      const req = {
+        method: eachElement.method,
+        headers: {
+          Authorization: 'token ' + token,
+          'Content-Type': 'multipart/form-data'
+        },
+        body: formdata
+      };
+      fetch(eachElement.url, req)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, report_status: eachElement.report_status, checklist: eachElement.checklist, comment: eachElement.comment, method: eachElement.method } });
+        })
+        .catch((error) => console.log(error));
+    });
   };
 };
 

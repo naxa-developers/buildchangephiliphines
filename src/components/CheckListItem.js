@@ -32,7 +32,7 @@ _handleConnectionChange = (isConnected) => {
 
   if (isConnected && actionQueue.length > 0) {
     actionQueue.forEach((eachElement) => {
-      this.props.dispatch(requestPersonByUrl({ eachElement }));
+      this.props.dispatch(requestPersonByUrl(eachElement));
     });
   }
 };
