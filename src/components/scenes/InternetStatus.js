@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, NetInfo } from 'react-native';
+import { Text, NetInfo, Alert } from 'react-native';
 
 
 class InternetStatus extends Component {
@@ -14,6 +14,7 @@ class InternetStatus extends Component {
   componentDidMount() {
     NetInfo.isConnected.fetch().then(isConnected => {
       console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+      Alert.alert(isConnected ? 'online' : 'offline');
       if (!isConnected) {
         this.setState({ internetAvailable: false })
       }

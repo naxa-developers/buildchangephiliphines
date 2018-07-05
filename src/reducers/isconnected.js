@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
 
     case 'CHANGE_CONNECTION_STATUS':
       return Object.assign({}, state, {
-        isConnected: action.isConnected,
+        isConnected: action.payload,
       });
 
     default:

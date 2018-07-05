@@ -81,8 +81,8 @@ const mapStateToProps = (state) => {
   console.log('mapStateToPropsko_bhitra');
   console.log(state);
   return {
-    actionQueue: state.actionQueue,
-    isConnected: state.isConnected,
+    actionQueue: state.actionQueue.actionQueue,
+    isConnected: state.isConnected.isConnected,
   };
 };
 

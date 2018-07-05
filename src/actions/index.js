@@ -70,9 +70,12 @@ export const checkOnline = () => {
 export const requestPerson = (data) => {
   console.log('request_person_bhirta');
   console.log(data);
+
   return (dispatch, getState) => {
     AsyncStorage.getItem('token').then(token => {
       const { isConnected } = getState();
+      console.log('isConnectedko_value');
+      console.log(isConnected);
       if (_.isEmpty(data.checklistItemData.last_submission)) {
         const url = 'http://bccms.naxa.com.np/core/api/report/';
         const formdata = new FormData();
@@ -160,6 +163,6 @@ export const requestPersonByUrl = (eachElement) => {
   };
 };
 
-export const connectionState = ({ status }) => {
-  return { type: 'CHANGE_CONNECTION_STATUS', isConnected: status };
+export const connectionState = (status) => {
+  return { type: 'CHANGE_CONNECTION_STATUS', payload: status.isConnected };
 };
