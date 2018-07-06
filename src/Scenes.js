@@ -51,7 +51,7 @@ class Scenes extends Component {
           <Scene key='SignUp' component={SignUp} title='SignUp' />
 
           <Scene
-          //  initial={!this.state.hasToken}
+            initial={!this.state.hasToken}
             key='SecondPage'
             component={SecondPage}
             title='SecondPage'
@@ -92,7 +92,7 @@ class Scenes extends Component {
           />
 
           <Scene
-          //  initial={this.state.hasToken}
+            initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'
@@ -127,12 +127,8 @@ class Scenes extends Component {
             title='Settings'
           />
           <Scene
-          //initial
-          hideNavBar
-            initial
             component={InternetStatus}
             key='InternetStatus'
-            //title='Internet Status Page'
           />
         </Scene>
       </Router>

@@ -91,7 +91,7 @@ export const requestPerson = (data) => {
           },
           body: formdata
         };
-        if (isConnected) {
+        if (isConnected.isConnected) {
           console.log({ url, req });
           fetch(url, req)
             .then((res) => {
@@ -118,7 +118,7 @@ export const requestPerson = (data) => {
           },
           body: formdata
         };
-        if (isConnected) {
+        if (isConnected.isConnected) {
           console.log({ url, req });
           fetch(url, req)
             .then((res) => {

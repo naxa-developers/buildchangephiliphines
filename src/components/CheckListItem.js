@@ -3,6 +3,7 @@ import { Button, View, StyleSheet, NetInfo } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { checkInternetConnection } from 'react-native-offline';
 import _ from 'lodash';
 import { getLocalizedText } from '../../locales/strings';
 import { connectionState, requestPersonByUrl, requestPerson } from '../actions';
@@ -19,23 +20,20 @@ class CheckListItem extends Component {
     if (!_.isEmpty(this.props.data.last_submission)) {
       this.setState({ checked: this.props.data.last_submission.report_status });
     }
-  NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
-}
-
-componentWillUnmount() {
-  NetInfo.isConnected.removeEventListener('connectionChange', this._handleConnectionChange);
-}
-
-_handleConnectionChange = (isConnected) => {
-  const { dispatch, actionQueue } = this.props;
-  dispatch(connectionState({ status: isConnected }));
-
-  if (isConnected && actionQueue.length > 0) {
-    actionQueue.forEach((eachElement) => {
-      this.props.dispatch(requestPersonByUrl(eachElement));
+    checkInternetConnection().then(res => {
+      console.log('checkInternetConnectionko_bhitra');
+      console.log('internetko_awastha');
+      console.log(res);
+      const { dispatch, actionQueue } = this.props;
+      dispatch(connectionState({ status: res }));
+      if (res && actionQueue.length > 0) {
+        actionQueue.forEach((eachElement) => {
+          this.props.dispatch(requestPersonByUrl(eachElement));
+        });
+      }
     });
-  }
-};
+}
+
 
   render() {
     console.log('render_bhitra');
