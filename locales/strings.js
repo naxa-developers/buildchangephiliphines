@@ -52,10 +52,40 @@ export const strings = new LocalizedStrings({
     view_guidelines_subtitle: 'Tap to explore safe construction guidelines'
   },
   wa: {
-    view_schools_title: 'विद्यालयहरू हेर्नुहोस्',
-    view_schools_subtitle: 'यो परियोजनामा विद्यालयहरू हेर्न ट्याप गर्नुहोस्',
-    view_guidelines_title: 'दिशानिर्देशहरू हेर्नुहोस्',
-    view_guidelines_subtitle:
-      'सुरक्षित निर्माण निर्देशनहरू पत्ता लगाउन ट्याप गर्नुहोस्'
+      view_schools_title: 'Kitaon it eskwelahan',
+      view_schools_subtitle: 'Pindota para makita an eskwelaha dinhi ha proyekto',
+      view_guidelines_title: 'Kitaa an mga pamaagi',
+      view_guidelines_subtitle: 'Pindota para maka kita an mga paagi han sakto na konstruksyon',
+
+      action_search_here: 'Pag biling',
+      title_schools: 'Mga eskwelahan',
+      action_setting: 'Settings',
+
+      title_steps: 'Mga Pama-agi',
+      title_checklist: 'Listahan',
+
+      title_guideline_categories: 'Guideline Categories',
+      title_guideline_details: 'Mga pamaagi',
+      view_good_photo_title: 'Maupay nga Litrato',
+      view_bad_photo_title: 'Diri Maupay nga Litrato',
+      view_tap_to_open: 'Pindota para umabri',
+
+      text_contains_steps: 'Mayda na pamaagi',
+      action_report: 'Report',
+
+      event_upload_sucess_title: 'Manilampuson nga pagupload',
+      event_upload_sucess_text: 'Nakarawat na an imo report',
+
+      event_upload_failed_title: 'Waray ka upload',
+      event_no_intenet_text: 'Kitaa it imo internet koneksyon ngan utroha',
+
+      action_close: 'Pag-sara',
+      action_cancel: 'Pag kansela',
+
+      view_take_photo: 'Kumuha hin litrato',
+      view_upload_reprot: 'Report',
+      view_comments: 'comments',
+
+      error_field_cannot_be_empty: 'This field cannot be empty'
   }
 });

@@ -164,5 +164,10 @@ export const requestPersonByUrl = (eachElement) => {
 };
 
 export const connectionState = (status) => {
-  return { type: 'CHANGE_CONNECTION_STATUS', payload: status.isConnected };
+  console.log('connectionStateko_bhitra');
+  console.log('statusko_value');
+  console.log(status);
+  console.log('returned_action_ko_value');
+  console.log({ type: 'CHANGE_CONNECTION_STATUS', payload: status.status });
+  return { type: 'CHANGE_CONNECTION_STATUS', payload: status.status };
 };
