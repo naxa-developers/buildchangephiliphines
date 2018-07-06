@@ -1,12 +1,87 @@
+// import React, { Component } from 'react';
+// import { Button, View, StyleSheet, NetInfo } from 'react-native';
+// import { CheckBox } from 'react-native-elements';
+// import { connect } from 'react-redux';
+// import { Actions } from 'react-native-router-flux';
+// import { checkInternetConnection } from 'react-native-offline';
+// import _ from 'lodash';
+// import { getLocalizedText } from '../../locales/strings';
+// import { connectionState, requestPersonByUrl, requestPerson } from '../actions';
+//
+// class CheckListItem extends Component {
+//   constructor() {
+//     console.log('constructor');
+//     super();
+//     this.state = {
+//       checked: false
+//     };
+//   }
+//   componentDidMount() {
+//     if (!_.isEmpty(this.props.data.last_submission)) {
+//       this.setState({ checked: this.props.data.last_submission.report_status });
+//     }
+// }
+//
+//
+//   render() {
+//     console.log('render_bhitra');
+//     console.log('render_bhitra_last_submissionko_value');
+//     console.log(this.props.data.last_submission);
+//     console.log(this.state.checked);
+//     const name = getLocalizedText(
+//       this.props.data.localtext,
+//       this.props.data.text
+//     );
+//
+//     return (
+//       <View style={styles.container}>
+//         <CheckBox
+//           title={name}
+//           iconType='material-community'
+//           checkedIcon='check-outline'
+//           uncheckedIcon='close-outline'
+//           uncheckedColor='red'
+//           onPress={() => {
+//             //checkmarkId not defined yet
+//             this.props.dispatch(requestPerson({ checklistItemData: this.props.data, checklistItemValue: !this.state.checked }));
+//             this.setState({ checked: !this.state.checked });
+//           }}
+//           checked={this.state.checked}
+//         />
+//         <Button
+//         onPress={() => Actions.ReportForm()}
+//          title='REPORT' style={{ justifyContent: 'flex-end' }} />
+//       </View>
+//     );
+//   }
+// }
+//
+// const styles = StyleSheet.create({
+//   container: {
+//     flexDirection: 'column',
+//     flex: 1
+//   }
+// });
+//
+// const mapStateToProps = (state) => {
+//   console.log('checklistitemko_mapStateToPropsko_bhitra');
+//   console.log(state);
+//   return {
+//     actionQueue: state.actionQueue.actionQueue,
+//     isConnected: state.isConnected.isConnected,
+//   };
+// };
+//
+// export default connect(mapStateToProps)(CheckListItem);
+
 import React, { Component } from 'react';
-import { Button, View, StyleSheet, NetInfo } from 'react-native';
+import { Button, View, StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { checkInternetConnection } from 'react-native-offline';
 import _ from 'lodash';
 import { getLocalizedText } from '../../locales/strings';
-import { connectionState, requestPersonByUrl, requestPerson } from '../actions';
+import { requestPerson } from '../actions';
 
 class CheckListItem extends Component {
   constructor() {
@@ -20,18 +95,6 @@ class CheckListItem extends Component {
     if (!_.isEmpty(this.props.data.last_submission)) {
       this.setState({ checked: this.props.data.last_submission.report_status });
     }
-    checkInternetConnection().then(res => {
-      console.log('checkInternetConnectionko_bhitra');
-      console.log('internetko_awastha');
-      console.log(res);
-      const { dispatch, actionQueue } = this.props;
-      dispatch(connectionState({ status: res }));
-      if (res && actionQueue.length > 0) {
-        actionQueue.forEach((eachElement) => {
-          this.props.dispatch(requestPersonByUrl(eachElement));
-        });
-      }
-    });
 }
 
 
@@ -75,13 +138,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  console.log('mapStateToPropsko_bhitra');
-  console.log(state);
-  return {
-    actionQueue: state.actionQueue.actionQueue,
-    isConnected: state.isConnected.isConnected,
-  };
-};
-
-export default connect(mapStateToProps)(CheckListItem);
+export default connect()(CheckListItem);

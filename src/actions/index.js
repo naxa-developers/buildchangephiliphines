@@ -153,7 +153,6 @@ export const requestPersonByUrl = (eachElement) => {
         body: formdata
       };
       fetch(eachElement.url, req)
-        .then((res) => res.json())
         .then((res) => {
           console.log(res);
           dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, report_status: eachElement.report_status, checklist: eachElement.checklist, comment: eachElement.comment, method: eachElement.method } });

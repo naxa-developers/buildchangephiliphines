@@ -23,6 +23,7 @@ class SuccessfulLogin extends Component {
     });
   }
 
+
   GetListViewItem(school) {
    Actions.StepList({
      id: school.id,
