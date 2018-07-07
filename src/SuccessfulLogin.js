@@ -3,6 +3,7 @@ import { StyleSheet, View, NetInfo, Alert, ListView, TextInput, ActivityIndicato
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { checkInternetConnection } from 'react-native-offline';
 import PlaceholderListItem from './components/PlaceholderListItem';
 import { tappedOnViewSchools, intelliSearch, checkOnline } from './actions';
 import { strings } from './../locales/strings';
@@ -10,16 +11,19 @@ import { strings } from './../locales/strings';
 class SuccessfulLogin extends Component {
 
   componentDidMount() {
-    NetInfo.isConnected.fetch().then(isConnected => {
-      if (isConnected) {
+    checkInternetConnection().then(res => {
+      if (res) {
         AsyncStorage.getItem('token')
-        .then((token) => {
+        .then(token => {
+          console.log('AsyncStorageko_bhitra');
           this.props.tappedOnViewSchools(token);
         });
+      } else if (!res) {
+        Alert.alert('No internet connection!');
       }
-      else if (!isConnected) {
-        Alert.alert('No internet Connection!');
-      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }
 
@@ -127,6 +131,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToPropsko_bhitra');
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
   });
