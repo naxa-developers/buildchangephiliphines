@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, NetInfo, Alert, ListView, TextInput, ActivityIndicator, AsyncStorage
+import { StyleSheet, View, Alert, ListView, TextInput, ActivityIndicator, AsyncStorage
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';

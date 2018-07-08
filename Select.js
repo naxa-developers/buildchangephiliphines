@@ -63,9 +63,6 @@ reactNativeFetchBlob() {
   render() {
     const { height } = Dimensions.get('window');
     this.reactNativeFetchBlob();
-
-    // strings.setLanguage(this.getLocale());
-
     return (
       <View>
           <Tile
@@ -98,34 +95,3 @@ reactNativeFetchBlob() {
 }
 
 export default Select;
-
-
-//
-//
-//
-// reactNativeFetchBlob() {
-//   RNFetchBlob
-//   .config({
-//       addAndroidDownloads: {
-//           useDownloadManager: true,
-//           path: RNFetchBlob.fs.dirs.DCIMDir + '/build_change_philippines.zip',
-//           description: 'Images Zip',
-//           mediaScannable: true
-//       }
-//   })
-//   .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/2')
-//   .then((resp) => {
-//     const sourcePath = resp.path();
-//     const targetPath = resp.path().replace('.zip', '');
-//     console.log(resp.path());
-//     console.log(resp.path().replace('.zip', ''));
-//
-//     unzip(sourcePath, targetPath)
-//     .then((path) => {
-//       console.log(`unzip completed at ${path}`);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-//   });
-// }
