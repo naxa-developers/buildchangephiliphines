@@ -3,10 +3,10 @@ import {
   SettingsCategoryHeader,
   SettingsPicker
 } from 'react-native-settings-components';
+import { Actions } from 'react-native-router-flux';
 import { ScrollView, Platform, AsyncStorage, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { strings } from './../../locales/strings';
-import { Actions } from 'react-native-router-flux';
 
 export default class SettingsScene extends Component {
   constructor() {

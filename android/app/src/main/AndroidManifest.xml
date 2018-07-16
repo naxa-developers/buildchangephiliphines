@@ -22,9 +22,6 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
-        <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAKgRpvwGqrC489tTbhsqyspUQGO9oLN2A"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme"
@@ -44,6 +41,9 @@
             />
 
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBpOTkLDEVDanyTdtHBrsdG1cfo-aiNmpM"/>
 
     </application>
 

@@ -32,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new MainReactPackage(),
+            new MapsPackage(),
             new RCTPdfView(),
             new RNFetchBlobPackage(),
             new RNZipArchivePackage(),
@@ -41,8 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeLocalizationPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new SplashScreenReactPackage(),
-            new MapsPackage()
+            new SplashScreenReactPackage()
+
       );
     }
 
