@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ActivityIndicator, Image } from 'react-native';
+import { AsyncStorage, ActivityIndicator, View } from 'react-native';
 import { Actions, Router, Scene } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import SecondPage from './SecondPage';
 import SignUp from './SignUp';
 import StepList from './StepList';
@@ -19,6 +20,19 @@ import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
 import { strings, getLocalizedText } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
+
+
+class TabIcon extends Component {
+  render() {
+    var color = this.props.selected ? '#00f240' : '#301c2a';
+
+    return (
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center', justifyContent: 'center' }}>
+        <Icon style={{ color: color }} name={this.props.iconName || "circle"} size={18} />
+      </View>
+    );
+  }
+}
 
 class Scenes extends Component {
   constructor() {
@@ -130,6 +144,15 @@ class Scenes extends Component {
             component={InternetStatus}
             key='InternetStatus'
           />
+          <Scene
+          key="tabbar"
+          tabs
+          tabBarPosition='bottom'
+          >
+          <Scene key='StepList' title='Steps' icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
+            <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
+            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
+          </Scene>
         </Scene>
       </Router>
     );

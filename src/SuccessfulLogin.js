@@ -29,13 +29,14 @@ class SuccessfulLogin extends Component {
 
 
   GetListViewItem(school) {
-   Actions.StepList({
-     id: school.id,
-     realName: school.name,
-     address: school.address,
-     location: school.address,
-     steps: school.steps
-   });
+    Actions.ShowMap();
+   // Actions.ShowMap({
+   //   id: school.id,
+   //   realName: school.name,
+   //   address: school.address,
+   //   location: school.address,
+   //   steps: school.steps
+   // });
   }
 
    SearchFilterFunction(text) {

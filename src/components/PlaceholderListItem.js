@@ -10,7 +10,9 @@ import { CardSection, Circle } from './common';
 class PlaceholderListItem extends Component {
 
     onSiteTapped() {
-        Actions.StepList(this.props.rowData);
+      console.log('on_site_tapped');
+      console.log(this.props.rowData);
+        Actions.jump('tabbar', this.props.rowData);
     }
 
     render() {

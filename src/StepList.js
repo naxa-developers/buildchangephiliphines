@@ -13,34 +13,10 @@ class StepList extends React.Component {
     Actions.DocumentList();
   }
   render() {
+    console.log('steplistbhitra');
+    console.log(this.props);
   return (
             <View style={{ flex: 1 }}>
-                <Card>
-                    <CardSection>
-                            <Text style={{ fontSize: 20, paddingLeft: 15, color: 'red' }}>{this.props.name}</Text>
-                    </CardSection>
-                    <CardSection>
-                            <Text style={{ fontSize: 20, paddingLeft: 15, color: 'red' }}>{this.props.address}</Text>
-                    </CardSection>
-                </Card>
-                <Card>
-                <Card>
-
-                      <Button
-                        title="View Map"
-                        onPress={this.onViewMap.bind(this)}
-                      />
-                      </Card>
-                      <Card>
-
-                      <Button
-                        title="View Documents"
-                        onPress={this.onViewDocumentList.bind(this)}
-                      />
-                      </Card>
-
-                </Card>
-
                 <ScrollView style={{ paddingTop: 10 }}>
                   <LibraryList list={this.props} />
                 </ScrollView>
@@ -48,6 +24,6 @@ class StepList extends React.Component {
 
   );
 }
-};
+}
 
 export default StepList;

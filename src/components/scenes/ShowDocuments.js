@@ -1,11 +1,3 @@
-/**
- * Copyright (c) 2017-present, Wonday (@wonday.org)
- * All rights reserved.
- *
- * This source code is licensed under the MIT-style license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
 
@@ -24,11 +16,10 @@ export default class ShowDocuments extends React.Component {
             <View style={styles.container}>
                 <Pdf
                     source={source}
-                    onLoadComplete={(numberOfPages, filePath) => {
+                    onLoadComplete={(numberOfPages) => {
                         console.log(`number of pages: ${numberOfPages}`);
-                        console.log(filePath);
                     }}
-                    onPageChanged={(page, numberOfPages) => {
+                    onPageChanged={(page) => {
                         console.log(`current page: ${page}`);
                     }}
                     onError={(error) => {
@@ -45,8 +36,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 25,
+        alignItems: 'center'
     },
     pdf: {
         flex: 1,
