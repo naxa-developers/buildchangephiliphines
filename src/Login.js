@@ -109,9 +109,9 @@ class Login extends Component {
 						returnKeyType='next'
 						style={styles.inputText}
 						value={this.state.username}
+						autoCapitalize='none'
 					/>
 					<TextInput
-
 						editable
 						onChangeText={(password) => this.setState({ password })}
 						placeholder='Password'
@@ -120,6 +120,7 @@ class Login extends Component {
 						secureTextEntry
 						style={styles.inputText}
 						value={this.state.password}
+						autoCapitalize='none'
 					/>
 					<TouchableOpacity
 						style={styles.buttonWrapper}

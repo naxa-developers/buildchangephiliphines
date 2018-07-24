@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Dimensions, AsyncStorage } from 'react-native';
+import { View, Dimensions, AsyncStorage, Text, Image, TouchableOpacity } from 'react-native';
 import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive';
 import RNFetchBlob from 'react-native-fetch-blob';
-
-import { Tile } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 import { Actions } from 'react-native-router-flux';
 import { strings } from './locales/strings';
 
@@ -61,35 +60,35 @@ reactNativeFetchBlob() {
 }
 
   render() {
-    const { height } = Dimensions.get('window');
+    const { height, width } = Dimensions.get('window');
     this.reactNativeFetchBlob();
     return (
-      <View>
-          <Tile
-            titleStyle={{ fontSize: 40 }}
-            captionStyle={{ fontSize: 20 }}
-            imageSrc={require('./app_images/schools_background.jpg')}
-            title={strings.view_schools_title}
-            titleStyle={{ fontSize: 40 }}
-            height={height * 0.5}
-            featured
-            caption={strings.view_schools_subtitle}
-            onPress={() => Actions.Successful_Login()}
-            captionStyle={{ fontSize: 25 }}
-          />
-          <Tile
-            titleStyle={{ fontSize: 40 }}
-            captionStyle={{ fontSize: 20 }}
-            imageSrc={require('./app_images/guidelines_background.jpg')}
-            title={strings.view_guidelines_title}
-            height={height * 0.5}
-            titleStyle={{ fontSize: 40 }}
-            featured
-            caption={strings.view_guidelines_subtitle}
-            onPress={() => Actions.GuidelineCategoryScene()}
-            captionStyle={{ fontSize: 25 }}
-          />
+      <View style={{ position: 'relative', overflow: 'hidden' }}>
+        <View style={{ height: 30, position: 'absolute', left: -5, right: -5, top: height / 2 - 15, backgroundColor: '#FFF', zIndex: 10, transform: [{ rotate: '4deg'}] }} />
+        <TouchableOpacity onPress={() => Actions.Successful_Login()}>
+                    <View style={{ position: 'relative', height: height / 2, width }}>
+                          <View style={{ position: 'absolute', zIndex: 9, left: 0, right: 0, top: 0, bottom: 0, backgroundColor: '#00A2E8', opacity: 0.7}} />
+                           <Image style={{ height: height / 2, width }} source={require('./app_images/schools_background.jpg')} blurRadius={5} />
+                           <View style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 30, color: 'white'}}>VIEW SCHOOLS</Text>
+                            <Text style={{ color: 'white', fontSize: 20 }}>Tap to view schools</Text>
+                           </View>
+
+                    </View>
+                    </TouchableOpacity>
+                  <TouchableOpacity onPress={() => Actions.GuidelineCategoryScene()}>
+        <View style={{ position: 'relative', height: height / 2, width }}>
+              <View style={{ position: 'absolute', zIndex: 9, left: 0, right: 0, top: 0, bottom: 0, backgroundColor: '#22B14C', opacity: 0.7}} />
+              <Image style={{ height: height / 2, width }} source={require('./app_images/guidelines_background.jpg')} blurRadius={5} />
+              <View style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, alignItems: 'center', justifyContent: 'center'}}>
+               <Text style={{ fontWeight: 'bold', fontSize: 30, color: 'white'}}>VIEW GUIDELINES</Text>
+               <Text style={{ color: 'white', fontSize: 20 }}>Tap to view construction guidelines</Text>
+              </View>
+
+        </View>
+        </TouchableOpacity>
       </View>
+
     );
   }
 }

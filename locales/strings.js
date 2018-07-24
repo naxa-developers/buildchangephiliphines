@@ -9,9 +9,9 @@ export function getLocalizedText(localText, text) {
 
 export const strings = new LocalizedStrings({
   'en-US': {
-    view_schools_title: 'View Schools',
+    view_schools_title: 'VIEW SCHOOLS',
     view_schools_subtitle: 'Tap to see schools in this project',
-    view_guidelines_title: 'View Guidelines',
+    view_guidelines_title: 'VIEW GUIDELINES',
     view_guidelines_subtitle: 'Tap to explore safe construction guidelines',
 
     action_search_here: 'Search here',

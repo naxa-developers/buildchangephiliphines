@@ -80,6 +80,7 @@ class SignUp extends Component {
             returnKeyType='next'
             style={styles.inputText}
             value={this.state.username}
+            autoCapitalize='none'
           />
 
 					<TextInput
@@ -100,6 +101,7 @@ class SignUp extends Component {
 						//secureTextEntry
 						style={styles.inputText}
 						value={this.state.password}
+            autoCapitalize='none'
 					/>
           <TextInput
 						editable
@@ -110,6 +112,7 @@ class SignUp extends Component {
 						//secureTextEntry
 						style={styles.inputText}
 						value={this.state.repassword}
+            autoCapitalize='none'
 		       />
 					<TouchableOpacity
 						style={styles.buttonWrapper}

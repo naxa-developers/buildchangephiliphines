@@ -5,6 +5,8 @@ import MapView from 'react-native-maps';
 export default class ShowMap extends Component {
 
   render() {
+    console.log('showmap_ko_bhitra');
+    console.log(this.props);
     return (
             <MapView
             style={styles.map}
