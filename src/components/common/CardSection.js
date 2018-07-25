@@ -12,12 +12,12 @@ const CardSection = (props) => {
 
 const styles = {
   cointainerStyle: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 5,
     padding: 5,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    borderColor: '#ddd',
+    borderColor: '#EFEFF4',
     position: 'relative'
   }
 };

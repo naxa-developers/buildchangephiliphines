@@ -13,7 +13,7 @@ const styles = {
         borderWidth: 1,
         color: '#8CC63E',
         borderColor: '#8CC63E',
-        fontSize: 36,
+        fontSize: 30,
         textAlign: 'center',
         marginLeft: 16,
         marginTop: 16,
@@ -23,17 +23,19 @@ const styles = {
         borderRadius: 55 / 2
     },
     circleRed: {
-        borderWidth: 1,
+        borderWidth: 2,
         color: '#E8656A',
         borderColor: '#E8656A',
-        fontSize: 36,
+        fontSize: 25,
         textAlign: 'center',
+        justifyContent: 'center',
         marginLeft: 16,
         marginTop: 16,
         marginBottom: 16,
-        width: 55,
-        height: 55,
-        borderRadius: 55 / 2
+        width: 45,
+        height: 45,
+        borderRadius: 45 / 2,
+        paddingTop: 4
      }
 };
 

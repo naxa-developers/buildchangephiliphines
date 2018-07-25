@@ -43,12 +43,13 @@ class PlaceholderListItem extends Component {
 const styles = {
     titleStyle: {
         paddingLeft: 16,
-        fontSize: 14,
+        fontSize: 17,
+        fontWeight: 'bold',
         color: '#000'
     },
     subtitleStyle: {
         paddingLeft: 16,
-        fontSize: 12,
+        fontSize: 15,
         color: '#908989'
 
     },

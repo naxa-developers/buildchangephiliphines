@@ -84,6 +84,7 @@ class Scenes extends Component {
               Actions.SettingsScene();
             }}
             rightButtonImage={require('../app_images/settingsicon.png')}
+            rightButtonStyle={{ paddingLeft: 4 }}
           />
           <Scene key='CheckList' component={CheckList} title='Checklist' />
           <Scene key='ReportForm' component={ReportForm} title='Report form' />

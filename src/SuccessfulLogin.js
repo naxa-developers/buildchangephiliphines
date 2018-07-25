@@ -120,12 +120,14 @@ const styles = StyleSheet.create({
 
   TextInputStyleClass: {
 
-   textAlign: 'center',
+   textAlign: 'left',
    height: 40,
    borderWidth: 1,
-   borderColor: '#009688',
-   borderRadius: 7,
-   backgroundColor: '#FFFFFF'
+   borderColor: 'rgba(0, 0, 0, 0.2)',
+   borderRadius: 0,
+   backgroundColor: '#FFFFFF',
+   paddingLeft: 15,
+   paddingRight: 15
 
    }
 
