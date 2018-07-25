@@ -37,7 +37,7 @@ export default class DocumentList extends Component {
 ];
     return (
       <View>
-      <List containerStyle={{ marginBottom: 20 }}>
+      <List containerStyle={{ borderTopWidth: 0, marginBottom: 20, marginLeft: 10, marginRight: 10, borderWidth: 0 }}>
 {
   list.map((l, i) => (
     <ListItem
@@ -46,6 +46,8 @@ export default class DocumentList extends Component {
       onPressRightIcon={() => Actions.ShowDocuments()}
       key={i}
       title={l.name}
+      containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0}}
+
     />
   ))
 }

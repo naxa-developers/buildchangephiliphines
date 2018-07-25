@@ -89,6 +89,7 @@ class Scenes extends Component {
           <Scene key='CheckList' component={CheckList} title='Checklist' />
           <Scene key='ReportForm' component={ReportForm} title='Report form' />
           <Scene
+
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}
             title={strings.title_guideline_categories}
@@ -120,7 +121,6 @@ class Scenes extends Component {
             hideNavBar
           />
           <Scene
-            //  initial
             key='ShowDocuments'
             component={ShowDocuments}
             hideNavBar
@@ -140,6 +140,7 @@ class Scenes extends Component {
             component={SettingsScene}
             key='SettingsScene'
             title='Settings'
+            back
           />
           <Scene
             component={InternetStatus}

@@ -26,14 +26,15 @@ render(){
      this.props.guidelines.title);
 
     return (
-      <View style={{ flex: 1, paddingTop: 20 }}>
+      <View style={{ flex: 1, paddingTop: 10 }}>
         <FlatList
           data={this.props.guidelines}
-          renderItem={({ item }) => 
+          renderItem={({ item }) =>
             <ListItem
                 onPress={this.onGuidelineTapped.bind(this, item)}
                 title={title}
                 subtitle={item.description}
+                containerStyle={{ backgroundColor: 'white', borderBottomWidth: 5, borderBottomColor: '#EFEFF4' }}
             />}
           keyExtractor={(item, index) => index.toString()}
         />

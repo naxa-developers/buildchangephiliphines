@@ -53,7 +53,7 @@ export default class SettingsScene extends Component {
         }}
       >
         <SettingsCategoryHeader
-          title={'Settings'}
+          title={''}
           textStyle={Platform.OS === 'android' ? { color: colors.monza } : null}
         />
 
@@ -93,6 +93,7 @@ export default class SettingsScene extends Component {
           onPress={this.userLogout.bind(this)}
           style={{ width: 10 }}
           title='LOGOUT'
+          backgroundColor='red'
         />
       </ScrollView>
     );

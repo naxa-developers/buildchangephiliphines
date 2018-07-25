@@ -24,8 +24,8 @@ const styles = {
     },
     circleRed: {
         borderWidth: 2,
-        color: '#E8656A',
-        borderColor: '#E8656A',
+        color: '#00A2E8',
+        borderColor: '#00A2E8',
         fontSize: 25,
         textAlign: 'center',
         justifyContent: 'center',

@@ -87,13 +87,15 @@ class GuidelineCategoryScene extends Component {
               ? this.props.newData
               : this.props.dataWithoutDuplicates
           )}
+          containerStyle={{ marginTop: 5 }}
           renderRow={rowData => (
             <ListItem
               onPress={this.GetListViewItem.bind(this, rowData.category)}
               title={getLocalizedText(rowData.local_category, rowData.category)}
+              containerStyle={{ borderBottomWidth: 5, borderBottomColor: '#EFEFF4', backgroundColor: 'white' }}
             />
           )}
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 7 }}
         />
       </View>
     );
@@ -157,11 +159,13 @@ const styles = StyleSheet.create({
   },
 
   TextInputStyleClass: {
-    textAlign: "center",
+    textAlign: 'left',
     height: 40,
     borderWidth: 1,
-    borderColor: "#009688",
-    borderRadius: 7,
-    backgroundColor: "#FFFFFF"
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    borderRadius: 0,
+    backgroundColor: '#FFFFFF',
+    paddingLeft: 15,
+    paddingRight: 15
   }
 });
