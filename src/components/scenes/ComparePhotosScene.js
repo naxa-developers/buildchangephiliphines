@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View,
     Modal,
+    Text,
+    Image,
+    Dimensions,
+    TouchableOpacity
  } from 'react-native';
-import { Tile, Card } from 'react-native-elements';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import RNFetchBlob from 'react-native-fetch-blob';
-import { strings, getLocalizedText } from '../../../locales/strings';
-
-
 
 class ComparePhotosScene extends Component {
 
@@ -86,6 +86,8 @@ componentWillMount() {
 
     renderImageList() {
         const { description } = this.props.guideline;
+        const { width } = Dimensions.get('window');
+
 
         const images = [{
             url: this.props.guideline.good_photo,
@@ -101,53 +103,37 @@ componentWillMount() {
         }];
 
         return (
-            <View
-                style={styles.container}
-            >
-
-                <Modal
-
-                    visible={this.state.imageViewerShown}
-                    transparent
-                    onRequestClose={() => {
-                    this.setState({ ...this.state, imageViewerShown: false });
-                    }}
-                >
-                    <ImageViewer
-                        index={this.state.imageViewerCurIndex}
-                        imageUrls={images}
-                    />
+          <View>
+              <Modal
+                 visible={this.state.imageViewerShown}
+                 transparent
+                 onRequestClose={() => {
+                 this.setState({ ...this.state, imageViewerShown: false });
+                 }}
+              >
+                      <ImageViewer
+                          index={this.state.imageViewerCurIndex}
+                          imageUrls={images}
+                      />
                 </Modal>
-
-                <Card
-                    style={{ flex: 0.4 }}
-                    title={description}
-
-                />
-
-                <Tile
-                    containerStyle={{ flex: 1 }}
-                    onPress={() => this.showImageViewer(0)}
-                    activeOpacity={0.9}
-                    icon={{ name: 'check-outline', type: 'material-community', color: '#8CC63E' }}
-                    imageSrc={this.state.good_photo}
-                    title={strings.view_good_photo_title}
-                    caption={strings.view_tap_to_open}
-                    featured
-                />
-                <Tile
-                    containerStyle={{ flex: 1 }}
-                    onPress={() => this.showImageViewer(1)}
-                    activeOpacity={0.5}
-                    icon={{ name: 'close-outline', type: 'material-community', color: '#E8656A' }}
-                    imageStyle={{ height: 200, width: 200 }}
-                    imageSrc={this.state.bad_photo}
-                    title={strings.view_bad_photo_title}
-                    caption={strings.view_tap_to_open}
-                    featured
-                />
-
-       </View>
+                <View style={{ backgroundColor: '#FFF', padding: 20 }}>
+                  <Text style={{ fontSize: 16 }}>{description}</Text>
+                </View>
+                <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, padding: 10, position: 'relative' }}>
+                  <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10, marginLeft: 25 }}>Good</Text>
+                  <TouchableOpacity onPress={() => this.showImageViewer(0)}>
+                  <Image style={{ height: 193, width: width - 50 }} source={this.state.good_photo} />
+                  </TouchableOpacity>
+                  <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'green', position: 'absolute', left: 10, top: 15 }} />
+                </View>
+                <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, padding: 10, position: 'relative' }}>
+                  <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10, marginLeft: 25 }}>Bad</Text>
+                  <TouchableOpacity onPress={() => this.showImageViewer(1)}>
+                  <Image style={{ height: 193, width: width - 50 }} source={this.state.bad_photo} />
+                  </TouchableOpacity >
+                  <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'red', position: 'absolute', left: 10, top: 15 }} />
+                </View>
+          </View>
         );
     }
 
@@ -157,12 +143,5 @@ componentWillMount() {
         );
     }
 }
-
-const styles = {
-    container: {
-        flex: 1,
-        justifyContent: 'space-between'
-    }
-};
 
 export default ComparePhotosScene;

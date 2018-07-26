@@ -65,7 +65,7 @@ class Scenes extends Component {
           <Scene key='SignUp' component={SignUp} title='SignUp' />
 
           <Scene
-            initial={!this.state.hasToken}
+            //initial={!this.state.hasToken}
             key='SecondPage'
             component={SecondPage}
             title='SecondPage'
@@ -89,7 +89,7 @@ class Scenes extends Component {
           <Scene key='CheckList' component={CheckList} title='Checklist' />
           <Scene key='ReportForm' component={ReportForm} title='Report form' />
           <Scene
-
+          initial
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}
             title={strings.title_guideline_categories}
@@ -108,7 +108,7 @@ class Scenes extends Component {
           />
 
           <Scene
-            initial={this.state.hasToken}
+            //initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'
