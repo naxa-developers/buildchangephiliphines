@@ -104,12 +104,13 @@ class Login extends Component {
 					<TextInput
 						editable
 						onChangeText={(username) => this.setState({ username })}
-						placeholder='Email'
+						placeholder='Username'
 						ref='username'
 						returnKeyType='next'
 						style={styles.inputText}
 						value={this.state.username}
 						autoCapitalize='none'
+						autoFocus
 					/>
 					<TextInput
 						editable

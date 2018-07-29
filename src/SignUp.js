@@ -23,7 +23,7 @@ class SignUp extends Component {
 	}
 
 	userSignup() {
-    if ( this.state.password === this.state.repassword) {
+    if (this.state.password === this.state.repassword) {
 		if (this.state.username && this.state.email && this.state.password) {
 			//change the url
 			fetch('http://139.59.67.104:4001/core/api/users/', {
@@ -91,6 +91,7 @@ class SignUp extends Component {
 						returnKeyType='next'
 						style={styles.inputText}
 						value={this.state.email}
+            autoCapitalize='none'
 					/>
 					<TextInput
 						editable

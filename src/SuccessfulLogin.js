@@ -74,7 +74,7 @@ class SuccessfulLogin extends Component {
        onChangeText={(text) => this.SearchFilterFunction(text)}
 
        underlineColorAndroid='transparent'
-       placeholder={strings.search_here}
+       placeholder={strings.action_search_here}
       />
 
         <ListView

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, StyleSheet } from 'react-native';
+import { Button, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -36,20 +36,23 @@ class CheckListItem extends Component {
       <View style={styles.container}>
         <CheckBox
           title={name}
-          iconType='material-community'
-          checkedIcon='check-outline'
-          uncheckedIcon='close-outline'
+          checkedIcon='check-square-o'
+          uncheckedIcon='square-o'
           uncheckedColor='red'
           onPress={() => {
-            //checkmarkId not defined yet
             this.props.dispatch(requestPerson({ checklistItemData: this.props.data, checklistItemValue: !this.state.checked }));
             this.setState({ checked: !this.state.checked });
           }}
           checked={this.state.checked}
+          containerStyle={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0 }}
+          textStyle={{ fontSize: 16 }}
         />
-        <Button
-        onPress={() => Actions.ReportForm()}
-         title='REPORT' style={{ justifyContent: 'flex-end' }} />
+        <TouchableOpacity
+          onPress={() => Actions.ReportForm()}
+          style={{ backgroundColor: 'white', height: 40, color: 'black', borderWidth: 0, borderTopWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -57,8 +60,11 @@ class CheckListItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    margin: 10,
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)'
   }
 });
 
