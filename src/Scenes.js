@@ -14,6 +14,7 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
+import Onboarding from './components/scenes/Onboarding';
 import ShowDocuments from './components/scenes/ShowDocuments';
 import SettingsScene from './components/SettingsComponent';
 import ShowMap from './components/scenes/ShowMap';
@@ -62,10 +63,15 @@ class Scenes extends Component {
     return (
       <Router>
         <Scene key='root'>
+        <Scene
+        initial={!this.state.hasToken}
+          component={Onboarding}
+          key='Onboarding'
+          hideNavBar
+        />
           <Scene key='SignUp' component={SignUp} title='SignUp' />
 
           <Scene
-            initial={!this.state.hasToken}
             key='SecondPage'
             component={SecondPage}
             title='SecondPage'
@@ -154,6 +160,7 @@ class Scenes extends Component {
             <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
             <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
           </Scene>
+
         </Scene>
       </Router>
     );

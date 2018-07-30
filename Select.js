@@ -71,7 +71,7 @@ reactNativeFetchBlob() {
                            <Image style={{ height: height / 2, width }} source={require('./app_images/schools_background.jpg')} blurRadius={5} />
                            <View style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={{ fontWeight: 'bold', fontSize: 30, color: 'white'}}>{strings.view_schools_title}</Text>
-                            <Text style={{ color: 'white', fontSize: 20 }}>{strings.view_schools_subtitle}</Text>
+                            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{strings.view_schools_subtitle}</Text>
                            </View>
 
                     </View>
@@ -82,7 +82,7 @@ reactNativeFetchBlob() {
               <Image style={{ height: height / 2, width }} source={require('./app_images/guidelines_background.jpg')} blurRadius={5} />
               <View style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 10, alignItems: 'center', justifyContent: 'center'}}>
                <Text style={{ fontWeight: 'bold', fontSize: 30, color: 'white'}}>{strings.view_guidelines_title}</Text>
-               <Text style={{ color: 'white', fontSize: 20 }}>{strings.view_guidelines_subtitle}</Text>
+               <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>{strings.view_guidelines_subtitle}</Text>
               </View>
 
         </View>

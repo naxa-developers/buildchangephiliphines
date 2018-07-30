@@ -12,7 +12,7 @@ export const strings = new LocalizedStrings({
     view_schools_title: 'VIEW SCHOOLS',
     view_schools_subtitle: 'Tap to view schools',
     view_guidelines_title: 'VIEW GUIDELINES',
-    view_guidelines_subtitle: 'Tap to view construction guidelines',
+    view_guidelines_subtitle: 'Tap to view safe construction guidelines',
 
     action_search_here: 'Search here',
     title_schools: 'Schools',
@@ -44,12 +44,6 @@ export const strings = new LocalizedStrings({
     view_comments: 'comments',
 
     error_field_cannot_be_empty: 'This field cannot be empty'
-  },
-  en: {
-    view_schools_title: 'View Schools',
-    view_schools_subtitle: 'Tap to see schools in this project',
-    view_guidelines_title: 'View Guidelines',
-    view_guidelines_subtitle: 'Tap to explore safe construction guidelines'
   },
   wa: {
       view_schools_title: 'Kitaon it eskwelahan',

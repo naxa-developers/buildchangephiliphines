@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -44,12 +44,12 @@ class CheckListItem extends Component {
             this.setState({ checked: !this.state.checked });
           }}
           checked={this.state.checked}
-          containerStyle={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0 }}
+          containerStyle={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
           textStyle={{ fontSize: 16 }}
         />
         <TouchableOpacity
           onPress={() => Actions.ReportForm()}
-          style={{ backgroundColor: 'white', height: 40, color: 'black', borderWidth: 0, borderTopWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+          style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center' }}
         >
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
         </TouchableOpacity>
