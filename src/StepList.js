@@ -6,12 +6,6 @@ import { CardSection, Card } from '../src/components/common';
 
 class StepList extends React.Component {
 
-  onViewMap() {
-    Actions.ShowMap();
-  }
-  onViewDocumentList() {
-    Actions.DocumentList();
-  }
   render() {
     console.log('steplistbhitra');
     console.log(this.props);

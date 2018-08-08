@@ -7,6 +7,9 @@ export default class DocumentList extends Component {
 
 
   render() {
+    console.log('DocumentList_bhitra');
+    console.log('this.propsko_value');
+    console.log(this.props);
     const list = [
   {
     name: 'First Document',
@@ -46,7 +49,7 @@ export default class DocumentList extends Component {
       onPressRightIcon={() => Actions.ShowDocuments()}
       key={i}
       title={l.name}
-      containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0}}
+      containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0 }}
 
     />
   ))

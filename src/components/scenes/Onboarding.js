@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import AppIntro from 'react-native-app-intro';
 
@@ -49,17 +49,16 @@ export default class Onboarding extends Component {
 
   onSkipBtnHandle = (index) => {
     console.log(index);
-    Actions.Login();
+    Actions.SecondPage();
   }
   onSlideChangeHandle = (index, total) => {
     console.log(index, total);
   }
   nextBtnHandle = (index) => {
-    Alert.alert('Next');
     console.log(index);
   }
   doneBtnHandle = () => {
-    Actions.Login();
+    Actions.SecondPage();
   }
 
   render() {
