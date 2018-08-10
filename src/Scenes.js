@@ -21,6 +21,11 @@ import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
 import { strings, getLocalizedText } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
+import Page1 from './test/page1';
+import Page2 from './test/page2';
+import Page3 from './test/page3';
+import Page4 from './test/page4';
+
 
 
 class TabIcon extends Component {
@@ -63,8 +68,30 @@ class Scenes extends Component {
     return (
       <Router>
         <Scene key='root'>
+
         <Scene
-        initial={!this.state.hasToken}
+
+          component={Page1}
+          key='Page1'
+          hideNavBar
+        />
+
+
+
+        <Scene
+        key="testtabbar"
+        tabs
+        tabBarPosition='bottom'
+        >
+        <Scene key='Page2' title='Steps' icon={TabIcon} back component={Page2} iconName="list-ul" swipeEnabled />
+          <Scene key="Page3" title="See Site on Map" icon={TabIcon} back component={Page3} iconName="map-marker" swipeEnabled />
+        </Scene>
+
+
+
+
+        <Scene
+        //initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -93,7 +120,7 @@ class Scenes extends Component {
             rightButtonStyle={{ paddingLeft: 4 }}
           />
           <Scene key='CheckList' component={CheckList} title='Checklist' />
-          <Scene key='ReportForm' component={ReportForm} title='Report form' />
+          <Scene initial key='ReportForm' component={ReportForm} title='Report form' />
           <Scene
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}
@@ -113,7 +140,7 @@ class Scenes extends Component {
           />
 
           <Scene
-            initial={this.state.hasToken}
+            //initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'

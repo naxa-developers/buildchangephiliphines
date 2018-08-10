@@ -150,14 +150,14 @@ class ReportForm extends Component {
           <Text style={styles.centerHeader}>
             Please fill up the form and send your report
           </Text>
-
-          <FormLabel>{strings.view_comments}</FormLabel>
           <FormInput
             multiline
-            ref='comments'
             onChangeText={comments =>
               this.setState({ ...this.state, comments })
             }
+            autoFocus
+            containerStyle={{ minHeight: 100 }}
+            inputStyle={{ minHeight: 150, borderWidth: 3, borderColor: 'red ', textAlignVertical: 'top', padding: 10, paddingBotton: 0 }}
           />
           <FormValidationMessage containerStyle={{ marginBottom: 4 }}>
             {' '}
