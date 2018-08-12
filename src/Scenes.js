@@ -185,7 +185,7 @@ class Scenes extends Component {
           >
           <Scene key='StepList' title='Steps' icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
             <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
-            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={ShowDocuments} iconName="file-pdf-o" swipeEnabled />
+            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
           </Scene>
 
         </Scene>

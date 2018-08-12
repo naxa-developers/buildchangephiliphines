@@ -15,8 +15,8 @@ class ShowMap extends Component {
             initialRegion={{
              latitude: latitude,
              longitude: longitude,
-             latitudeDelta: 0.0922,
-             longitudeDelta: 0.0421,
+             latitudeDelta: 0.0043,
+             longitudeDelta: 0.0034
             }}
             />
     );

@@ -7,7 +7,7 @@ class ShowDocuments extends React.Component {
     render() {
       console.log('ShowDocumentsko_render_bhitra');
       console.log(this.props.selectedSchoolId);
-        const source = { uri: 'http://bccms.naxa.com.np/core/api/site-documents/'+this.props.selectedSchoolId+'/', cache: true };
+        const source = { uri: this.props.path, cache: true };
 
         //const source = require('./test.pdf');  // ios only
         //const source = {uri:'bundle-assets://test.pdf'};
