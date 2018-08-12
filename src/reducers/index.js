@@ -6,6 +6,7 @@ import SchoolSearchReducer from './schoolsearchreducer';
 import CheckOnline from './checkonline';
 import ActionQueue from './actionqueue';
 import IsConnected from './isconnected';
+import CurrentSelectedSchool from './currentselectedschool';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   schoolSearchReducer: SchoolSearchReducer,
   checkOnline: CheckOnline,
   actionQueue: ActionQueue,
-  isConnected: IsConnected
+  isConnected: IsConnected,
+  currentSelectedSchool: CurrentSelectedSchool
 });

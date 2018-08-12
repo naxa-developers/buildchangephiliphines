@@ -3,7 +3,7 @@ import { NetInfo, AsyncStorage } from 'react-native';
 
 export const tappedOnViewSchools = (token) => {
   return (dispatch) => {
-    fetch('http://139.59.67.104:4001/core/api/project/2/', {
+    fetch('http://bccms.naxa.com.np/core/api/project/1/', {
       method: 'GET',
       headers: {
         Authorization: 'token '+token
@@ -169,4 +169,11 @@ export const connectionState = (status) => {
   console.log('returned_action_ko_value');
   console.log({ type: 'CHANGE_CONNECTION_STATUS', payload: status.status });
   return { type: 'CHANGE_CONNECTION_STATUS', payload: status.status };
+};
+
+export const storeCurrentSelectedSchool = (status) => {
+  console.log('storeCurrentSelectedSchool_ko_bhitra');
+  console.log('statusko_value');
+  console.log(status);
+  return { type: 'REMEMBER_SELECTED_SCHOOL', payload: status.schoolId };
 };

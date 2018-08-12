@@ -59,7 +59,7 @@ class Login extends Component {
 			};
 
 			//change the url
-			fetch('http://139.59.67.104:4001/core/api/api-token-auth/', req)
+			fetch('http://bccms.naxa.com.np/core/api/api-token-auth/', req)
 			.then((response => {
 
 				if (response.ok) {

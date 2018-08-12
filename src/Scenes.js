@@ -91,7 +91,7 @@ class Scenes extends Component {
 
 
         <Scene
-        //initial={!this.state.hasToken}
+          initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -120,7 +120,7 @@ class Scenes extends Component {
             rightButtonStyle={{ paddingLeft: 4 }}
           />
           <Scene key='CheckList' component={CheckList} title='Checklist' />
-          <Scene initial key='ReportForm' component={ReportForm} title='Report form' />
+          <Scene key='ReportForm' component={ReportForm} title='Report form' />
           <Scene
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}
@@ -140,7 +140,7 @@ class Scenes extends Component {
           />
 
           <Scene
-            //initial={this.state.hasToken}
+            initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'
@@ -185,7 +185,7 @@ class Scenes extends Component {
           >
           <Scene key='StepList' title='Steps' icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
             <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
-            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
+            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={ShowDocuments} iconName="file-pdf-o" swipeEnabled />
           </Scene>
 
         </Scene>

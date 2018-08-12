@@ -26,7 +26,7 @@ class SignUp extends Component {
     if (this.state.password === this.state.repassword) {
 		if (this.state.username && this.state.email && this.state.password) {
 			//change the url
-			fetch('http://139.59.67.104:4001/core/api/users/', {
+			fetch('http://bccms.naxa.com.np/core/api/users/', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

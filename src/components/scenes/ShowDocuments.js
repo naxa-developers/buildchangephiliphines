@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
-
+import { connect } from 'react-redux';
 import Pdf from 'react-native-pdf';
 
-export default class ShowDocuments extends React.Component {
+class ShowDocuments extends React.Component {
     render() {
-        const source = { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true };
+      console.log('ShowDocumentsko_render_bhitra');
+      console.log(this.props.selectedSchoolId);
+        const source = { uri: 'http://bccms.naxa.com.np/core/api/site-documents/'+this.props.selectedSchoolId+'/', cache: true };
+
         //const source = require('./test.pdf');  // ios only
         //const source = {uri:'bundle-assets://test.pdf'};
 
@@ -28,9 +31,19 @@ export default class ShowDocuments extends React.Component {
                     style={styles.pdf}
                 />
             </View>
-        )
+        );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log('ShowDocumentsko_mapstatetoprops_bhitra');
+  console.log(state);
+return {
+  selectedSchoolId: state.currentSelectedSchool.selectedSchoolId
+};
+};
+
+export default connect(mapStateToProps)(ShowDocuments);
 
 const styles = StyleSheet.create({
     container: {

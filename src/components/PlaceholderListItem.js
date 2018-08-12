@@ -5,6 +5,7 @@ import { View,
  } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { storeCurrentSelectedSchool } from '../actions';
 import { CardSection, Circle } from './common';
 
 class PlaceholderListItem extends Component {
@@ -12,6 +13,8 @@ class PlaceholderListItem extends Component {
     onSiteTapped() {
       console.log('on_site_tapped');
       console.log(this.props.rowData);
+      const { dispatch } = this.props;
+      dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
         Actions.jump('tabbar', this.props.rowData);
     }
 
