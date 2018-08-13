@@ -21,7 +21,7 @@ export const tappedOnViewSchools = (token) => {
 
 export const openedGuidelinesCategoryScene = (token) => {
   return (dispatch) => {
-    fetch('http://bccms.naxa.com.np/core/api/material-list/2/', {
+    fetch('http://bccms.naxa.com.np/core/api/material-list/1/', {
       method: 'GET',
       headers: {
         Authorization: 'token '+token

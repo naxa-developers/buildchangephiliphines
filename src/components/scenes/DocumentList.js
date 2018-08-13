@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -8,11 +8,12 @@ class DocumentList extends Component {
 constructor() {
   super();
   this.state = {
+    isLoading: true,
     documentList: []
   };
 }
-  componentWillMount() {
-    console.log('component_will_mount_bhitraaaaaaa');
+  componentDidMount() {
+    console.log('component_did_mount_bhitraaaaaaa');
     fetch('http://bccms.naxa.com.np/core/api/site-documents/'+this.props.selectedSchoolId+'/')
       .then((res) => res.json())
       .then((array) => {
@@ -20,6 +21,7 @@ constructor() {
         console.log(array);
         this.setState({
           documentList: array,
+          isLoading: false
         });
       });
   }
@@ -29,34 +31,14 @@ constructor() {
     console.log('DocumentList_bhitra');
     console.log('this.propsko_value');
     console.log(this.props);
-    const list = [
-  {
-    name: 'First Document',
-    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
-    subtitle: 'Vice President'
-  },
-  {
-    name: 'Second Document',
-    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
-    subtitle: 'Vice Chairman'
-  },
-  {
-    name: 'Third Document',
-    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
-    subtitle: 'Vice President'
-  },
-  {
-    name: 'Fourth Document',
-    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
-    subtitle: 'Vice Chairman'
-  },
-  {
-    name: 'Fifth Document',
-    avatar_url: 'https://developers.zamzar.com/assets/app/img/convert/pdf.png',
-    subtitle: 'Vice President'
-  }
+    if (this.props.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
 
-];
     return (
       <View>
       <List containerStyle={{ borderTopWidth: 0, marginBottom: 20, marginLeft: 10, marginRight: 10, borderWidth: 0 }}>

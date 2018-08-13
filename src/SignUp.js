@@ -99,7 +99,7 @@ class SignUp extends Component {
 						placeholder='Password'
 						ref='password'
 						returnKeyType='next'
-						//secureTextEntry
+						secureTextEntry
 						style={styles.inputText}
 						value={this.state.password}
             autoCapitalize='none'
@@ -110,7 +110,7 @@ class SignUp extends Component {
 						placeholder='Retype Password'
 						ref='repassword'
 						returnKeyType='next'
-						//secureTextEntry
+						secureTextEntry
 						style={styles.inputText}
 						value={this.state.repassword}
             autoCapitalize='none'

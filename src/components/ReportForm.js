@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert } from 'react-native';
+import { View, ScrollView, Text, AsyncStorage, Alert, TextInput } from 'react-native';
 import {
-  Button,
-  FormLabel,
-  FormInput,
-  FormValidationMessage
+  Button
 } from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
@@ -150,19 +147,21 @@ class ReportForm extends Component {
           <Text style={styles.centerHeader}>
             Please fill up the form and send your report
           </Text>
-          <FormInput
+          <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
+          <TextInput
+            editable
+            onChangeText={(comments) => this.setState({ ...this.state, comments })}
+            placeholder='Type your comments here...'
+            ref='comments'
+            returnKeyType='next'
+            value={this.state.comments}
+            autoCapitalize='none'
+            underlineColorAndroid='transparent'
+            style={{ textAlignVertical: 'top', minHeight: 100, lineHeight: 24, fontWeight: 'normal', fontSize: 16 }}
             multiline
-            onChangeText={comments =>
-              this.setState({ ...this.state, comments })
-            }
             autoFocus
-            containerStyle={{ minHeight: 100 }}
-            inputStyle={{ minHeight: 150, borderWidth: 3, borderColor: 'red ', textAlignVertical: 'top', padding: 10, paddingBotton: 0 }}
           />
-          <FormValidationMessage containerStyle={{ marginBottom: 4 }}>
-            {' '}
-            {strings.error_field_cannot_be_empty}{' '}
-          </FormValidationMessage>
+          </View>
           <Button
             icon={{
               name: 'camera',
@@ -174,7 +173,6 @@ class ReportForm extends Component {
             titleStyle={{ fontWeight: '700' }}
             containerStyle={{ marginTop: 20 }}
           />
-
           <Button
             onPress={this.uploadComment.bind(this, this.props.checklist)}
             loading={this.state.uploading}
@@ -202,7 +200,7 @@ class ReportForm extends Component {
 }
 
 const styles = {
-  centerHeader: { marginTop: 10, fontSize: 16, alignSelf: 'center' },
+  centerHeader: { marginTop: 10, fontSize: 16, marginLeft: 15 },
   buttonStyle: {
     width: 200,
     height: 45,

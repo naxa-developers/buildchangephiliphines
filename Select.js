@@ -39,7 +39,7 @@ reactNativeFetchBlob() {
                     mediaScannable: true
                 }
             })
-            .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/2')
+            .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
             .then((resp) => {
               const sourcePath = resp.path();
               const targetPath = resp.path().replace('.zip', '');

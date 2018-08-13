@@ -37,7 +37,7 @@ export const strings = new LocalizedStrings({
     event_no_intenet_text: 'Check your internet connection and try again',
 
     action_close: 'Close',
-    action_cancel: 'cancel',
+    action_cancel: 'Cancel',
 
     view_take_photo: 'Take a photo',
     view_upload_reprot: 'Report',
