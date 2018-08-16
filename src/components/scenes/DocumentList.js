@@ -49,7 +49,7 @@ constructor() {
       avatar={require('../../../app_images/pdf.png')}
       onPressRightIcon={() => Actions.ShowDocuments({ path: l.file })}
       key={i}
-      title={l.document_name}
+      title={l.file.replace('http://bccms.naxa.com.np/media/site/documents/', '').replace('.pdf', '')}
       containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0 }}
 
     />

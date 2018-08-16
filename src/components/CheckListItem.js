@@ -48,7 +48,7 @@ class CheckListItem extends Component {
           textStyle={{ fontSize: 16 }}
         />
         <TouchableOpacity
-          onPress={() => Actions.ReportForm()}
+          onPress={() => Actions.ReportForm(this.props.data)}
           style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center' }}
         >
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>

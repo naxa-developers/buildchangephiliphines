@@ -49,6 +49,8 @@ class ReportForm extends Component {
   }
 
   uploadComment(checklist) {
+    console.log('uploadCommentko_bhitra');
+    console.log(this.props);
     const { id } = checklist;
 
     if (!this.state.comments || !this.state.uri) {
@@ -174,7 +176,7 @@ class ReportForm extends Component {
             containerStyle={{ marginTop: 20 }}
           />
           <Button
-            onPress={this.uploadComment.bind(this, this.props.checklist)}
+            onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
             title={strings.action_report}
             loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}

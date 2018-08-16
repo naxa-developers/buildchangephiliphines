@@ -4,6 +4,8 @@ import { Actions, Router, Scene } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SecondPage from './SecondPage';
 import SignUp from './SignUp';
+import SignUpTest from './signuptest';
+
 import StepList from './StepList';
 import Login from './Login';
 import SuccessfulLogin from './SuccessfulLogin';
@@ -76,7 +78,13 @@ class Scenes extends Component {
           hideNavBar
         />
 
+        <Scene
 
+          component={SignUpTest}
+          key='ram'
+          hideNavBar
+          //initial
+        />
 
         <Scene
         key="testtabbar"
