@@ -177,3 +177,10 @@ export const storeCurrentSelectedSchool = (status) => {
   console.log(status);
   return { type: 'REMEMBER_SELECTED_SCHOOL', payload: status.schoolId };
 };
+
+export const storeUserGroup = (status) => {
+  console.log('storeUserGroup_ko_bhitra');
+  console.log('statusko_value');
+  console.log(status);
+  return { type: 'REMEMBER_USER_GROUP', payload: status.userGroup };
+};

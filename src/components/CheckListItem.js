@@ -21,32 +21,47 @@ class CheckListItem extends Component {
     }
 }
 
+  showConditionalJSX() {
+    console.log('showConditionalJSXko_bhitra');
+    console.log(this.props);
+    const name = getLocalizedText(
+      this.props.data.localtext,
+      this.props.data.text
+    );
+    if (this.props.currentUserGroup === 'Field Engineer') {
+      return (
+          <CheckBox
+            title={name}
+            checkedIcon='check-square-o'
+            uncheckedIcon='square-o'
+            uncheckedColor='red'
+            onPress={() => {
+              this.props.dispatch(requestPerson({ checklistItemData: this.props.data, checklistItemValue: !this.state.checked }));
+              this.setState({ checked: !this.state.checked });
+            }}
+            checked={this.state.checked}
+            containerStyle={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
+            textStyle={{ fontSize: 16 }}
+          />
+        );
+    }
+    return (
+      <Text style={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white', fontSize: 16, textAlign: 'center' }}>{name}</Text>
+    );
+ }
 
   render() {
     console.log('render_bhitra');
     console.log('render_bhitra_last_submissionko_value');
     console.log(this.props.data.last_submission);
     console.log(this.state.checked);
-    const name = getLocalizedText(
-      this.props.data.localtext,
-      this.props.data.text
-    );
 
     return (
       <View style={styles.container}>
-        <CheckBox
-          title={name}
-          checkedIcon='check-square-o'
-          uncheckedIcon='square-o'
-          uncheckedColor='red'
-          onPress={() => {
-            this.props.dispatch(requestPerson({ checklistItemData: this.props.data, checklistItemValue: !this.state.checked }));
-            this.setState({ checked: !this.state.checked });
-          }}
-          checked={this.state.checked}
-          containerStyle={{ padding: 20, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
-          textStyle={{ fontSize: 16 }}
-        />
+        {
+          this.showConditionalJSX()
+        }
+
         <TouchableOpacity
           onPress={() => Actions.ReportForm(this.props.data)}
           style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center' }}
@@ -58,6 +73,14 @@ class CheckListItem extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  console.log('CHECKLISTKO_mapStateToPropsko_bhitra');
+  console.log(state);
+  return {
+    currentUserGroup: state.currentUserGroup.currentUserGroup,
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     margin: 10,
@@ -68,4 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect()(CheckListItem);
+export default connect(mapStateToProps)(CheckListItem);

@@ -7,6 +7,7 @@ import CheckOnline from './checkonline';
 import ActionQueue from './actionqueue';
 import IsConnected from './isconnected';
 import CurrentSelectedSchool from './currentselectedschool';
+import CurrentUserGroup from './currentusergroup';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   checkOnline: CheckOnline,
   actionQueue: ActionQueue,
   isConnected: IsConnected,
-  currentSelectedSchool: CurrentSelectedSchool
+  currentSelectedSchool: CurrentSelectedSchool,
+  currentUserGroup: CurrentUserGroup
 });
