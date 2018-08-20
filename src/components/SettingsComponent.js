@@ -63,7 +63,7 @@ export default class SettingsScene extends Component {
           possibleValues={[
             { label: '...', value: '...' },
             { label: 'English', value: 'English' },
-            { label: 'Warey', value: 'Warey' }
+            { label: 'Warray', value: 'Warray' }
           ]}
           negativeButtonTitle={'Cancel'}
           positiveButtonTitle={'Save'}
@@ -71,7 +71,7 @@ export default class SettingsScene extends Component {
             console.log('locale:', value);
 
             switch (value) {
-              case 'Warey':
+              case 'Warray':
                 AsyncStorage.setItem('locale', 'wa');
                 break;
               default:

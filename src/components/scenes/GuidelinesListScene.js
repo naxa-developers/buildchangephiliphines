@@ -33,7 +33,7 @@ render(){
             <ListItem
                 onPress={this.onGuidelineTapped.bind(this, item)}
                 title={title}
-                subtitle={item.description}
+                subtitle={item.title}
                 containerStyle={{ backgroundColor: 'white', borderBottomWidth: 5, borderBottomColor: '#EFEFF4' }}
             />}
           keyExtractor={(item, index) => index.toString()}

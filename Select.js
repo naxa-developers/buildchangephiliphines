@@ -27,6 +27,8 @@ class Select extends Component {
     });
 }
 reactNativeFetchBlob() {
+  console.log('react_native_fetch_blob_bhitra');
+  console.log(RNFetchBlob.fs.dirs);
   RNFetchBlob.fs.exists('/storage/emulated/0/DCIM/build_change_philippines')
       .then((exist) => {
           if (!exist) {
