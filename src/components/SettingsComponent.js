@@ -4,7 +4,7 @@ import {
   SettingsPicker
 } from 'react-native-settings-components';
 import { Actions } from 'react-native-router-flux';
-import { ScrollView, Platform, AsyncStorage, Alert } from 'react-native';
+import { ScrollView, Platform, AsyncStorage, Alert, View, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import { strings } from './../../locales/strings';
 
@@ -109,3 +109,10 @@ const colors = {
   switchOnTintColor: Platform.OS === 'android' ? 'rgba(199, 0, 57, 0.6)' : null,
   blueGem: '#27139A'
 };
+
+
+// <TouchableOpacity>
+// <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'column' }}>
+//   <Text style={{ textAlign: 'center', backgroundColor: 'red', alignItems: 'center' }}>LOGOUT</Text>
+// </View>
+// </TouchableOpacity>

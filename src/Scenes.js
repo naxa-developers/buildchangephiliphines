@@ -21,13 +21,11 @@ import ShowDocuments from './components/scenes/ShowDocuments';
 import SettingsScene from './components/SettingsComponent';
 import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
-import { strings, getLocalizedText } from '../locales/strings';
+import { strings } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
 import Page1 from './test/page1';
 import Page2 from './test/page2';
 import Page3 from './test/page3';
-import Page4 from './test/page4';
-
 
 
 class TabIcon extends Component {
@@ -120,7 +118,7 @@ class Scenes extends Component {
           <Scene
             key='Successful_Login'
             component={SuccessfulLogin}
-            title='Schools'
+            title={strings.title_schools}
             onRight={() => {
               Actions.SettingsScene();
             }}
@@ -133,6 +131,11 @@ class Scenes extends Component {
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}
             title={strings.title_guideline_categories}
+            onRight={() => {
+              Actions.SettingsScene();
+            }}
+            rightButtonImage={require('../app_images/settingsicon.png')}
+            rightButtonStyle={{ paddingLeft: 4 }}
           />
 
           <Scene

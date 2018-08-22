@@ -23,6 +23,9 @@ class CheckList extends React.Component {
 }
 
   render() {
+    console.log('RENDERGGGGGGGGCHECKLISTKO_mapStateToPropsko_bhitra');
+    console.log(this.props);
+
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
         <FlatList

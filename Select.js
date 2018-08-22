@@ -14,6 +14,44 @@ class Select extends Component {
   };
 
   componentDidMount() {
+    console.log('component_did_mount_bhitra');
+
+    console.log('react_native_fetch_blob_bhitra');
+    console.log(RNFetchBlob.fs.dirs);
+    //changes here
+    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+        .then((exist) => {
+            if (!exist) {
+              RNFetchBlob
+              .config({
+                  addAndroidDownloads: {
+                      useDownloadManager: true,
+                      //changes here
+                      path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                      description: 'Images Zip',
+                      mediaScannable: true
+                  }
+              })
+              .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+              .then((resp) => {
+                const sourcePath = resp.path();
+                const targetPath = resp.path().replace('.zip', '');
+
+                unzip(sourcePath, targetPath)
+                .then((path) => {
+                  console.log(`unzip completed at ${path}`);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              });
+            }
+        })
+        .catch(() => {
+            console.log('error while checking file');
+        });
+
+
     this.getLocale();
   }
 
@@ -26,44 +64,10 @@ class Select extends Component {
       });
     });
 }
-reactNativeFetchBlob() {
-  console.log('react_native_fetch_blob_bhitra');
-  console.log(RNFetchBlob.fs.dirs);
-  RNFetchBlob.fs.exists('/storage/emulated/0/DCIM/build_change_philippines')
-      .then((exist) => {
-          if (!exist) {
-            RNFetchBlob
-            .config({
-                addAndroidDownloads: {
-                    useDownloadManager: true,
-                    path: RNFetchBlob.fs.dirs.DCIMDir + '/build_change_philippines.zip',
-                    description: 'Images Zip',
-                    mediaScannable: true
-                }
-            })
-            .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
-            .then((resp) => {
-              const sourcePath = resp.path();
-              const targetPath = resp.path().replace('.zip', '');
 
-              unzip(sourcePath, targetPath)
-              .then((path) => {
-                console.log(`unzip completed at ${path}`);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-            });
-          }
-      })
-      .catch(() => {
-          console.log('error while checking file');
-      });
-}
 
   render() {
     const { height, width } = Dimensions.get('window');
-    this.reactNativeFetchBlob();
     return (
       <View style={{ position: 'relative', overflow: 'hidden' }}>
         <View style={{ height: 30, position: 'absolute', left: -5, right: -5, top: height / 2 - 15, backgroundColor: '#FFF', zIndex: 10, transform: [{ rotate: '4deg'}] }} />

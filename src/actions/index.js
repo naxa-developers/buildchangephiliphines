@@ -82,6 +82,8 @@ export const requestPerson = (data) => {
         formdata.append('report_status', data.checklistItemValue);
         formdata.append('checklist', data.checklistItemData.id);
         formdata.append('comment', 'USAGE OF POST');
+        formdata.append('user', data.userId);
+
 
         const req = {
           method: 'POST',
@@ -96,11 +98,11 @@ export const requestPerson = (data) => {
           fetch(url, req)
             .then((res) => {
               console.log(res);
-              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
+              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
             })
             .catch((error) => console.log(error));
         } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
         }
       }
       else if (!_.isEmpty(data.checklistItemData.last_submission)) {
@@ -109,6 +111,8 @@ export const requestPerson = (data) => {
         formdata.append('report_status', data.checklistItemValue);
         formdata.append('checklist', data.checklistItemData.id);
         formdata.append('comment', 'USAGE OF PUT');
+        formdata.append('user', data.userId);
+
 
         const req = {
           method: 'PUT',
@@ -123,11 +127,11 @@ export const requestPerson = (data) => {
           fetch(url, req)
             .then((res) => {
               console.log(res);
-               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
+               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
             })
             .catch((error) => console.log(error));
         } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
+          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
         }
       }
   });
@@ -143,6 +147,8 @@ export const requestPersonByUrl = (eachElement) => {
       formdata.append('report_status', eachElement.report_status);
       formdata.append('checklist', eachElement.checklist);
       formdata.append('comment', eachElement.comment);
+      formdata.append('user', eachElement.userId);
+
 
       const req = {
         method: eachElement.method,
@@ -155,7 +161,7 @@ export const requestPersonByUrl = (eachElement) => {
       fetch(eachElement.url, req)
         .then((res) => {
           console.log(res);
-          dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, report_status: eachElement.report_status, checklist: eachElement.checklist, comment: eachElement.comment, method: eachElement.method } });
+          dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: eachElement.userId, url: eachElement.url, report_status: eachElement.report_status, checklist: eachElement.checklist, comment: eachElement.comment, method: eachElement.method } });
         })
         .catch((error) => console.log(error));
     });
@@ -182,5 +188,5 @@ export const storeUserGroup = (status) => {
   console.log('storeUserGroup_ko_bhitra');
   console.log('statusko_value');
   console.log(status);
-  return { type: 'REMEMBER_USER_GROUP', payload: status.userGroup };
+  return { type: 'REMEMBER_USER_GROUP', payload: status };
 };

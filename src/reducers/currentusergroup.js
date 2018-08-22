@@ -1,5 +1,6 @@
 const initialState = {
   currentUserGroup: null,
+  currentUserId: null
 };
 
 export default (state = initialState, action) => {
@@ -7,7 +8,8 @@ export default (state = initialState, action) => {
 
     case 'REMEMBER_USER_GROUP':
       return Object.assign({}, state, {
-        currentUserGroup: action.payload,
+        currentUserGroup: action.payload.userGroup,
+        currentUserId: action.payload.userId
       });
 
     default:

@@ -43,7 +43,7 @@ export const strings = new LocalizedStrings({
     view_upload_reprot: 'Report',
     view_comments: 'comments',
 
-    error_field_cannot_be_empty: 'This field cannot be empty'
+    error_field_cannot_be_empty: 'This field cannot be empty...'
   },
   wa: {
       view_schools_title: 'Kitaon it eskwelahan',
@@ -80,6 +80,6 @@ export const strings = new LocalizedStrings({
       view_upload_reprot: 'Report',
       view_comments: 'comments',
 
-      error_field_cannot_be_empty: 'This field cannot be empty'
+      error_field_cannot_be_empty: 'This field cannot be empty...'
   }
 });

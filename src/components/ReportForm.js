@@ -153,7 +153,7 @@ class ReportForm extends Component {
           <TextInput
             editable
             onChangeText={(comments) => this.setState({ ...this.state, comments })}
-            placeholder='Type your comments here...'
+            placeholder={strings.error_field_cannot_be_empty}
             ref='comments'
             returnKeyType='next'
             value={this.state.comments}
