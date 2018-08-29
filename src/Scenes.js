@@ -118,7 +118,7 @@ class Scenes extends Component {
           <Scene
             key='Successful_Login'
             component={SuccessfulLogin}
-            title={strings.title_schools}
+            title='Schools'
             onRight={() => {
               Actions.SettingsScene();
             }}
