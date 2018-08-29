@@ -19,9 +19,11 @@ class PlaceholderListItem extends Component {
     }
 
     render() {
+      console.log('renderbhitra');
+      console.log(this.props.rowData.name);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
 
-        const { name, } = this.props.rowData;
+        const { name } = this.props.rowData;
         const firstLetter = name.charAt(0);
 
         return (
