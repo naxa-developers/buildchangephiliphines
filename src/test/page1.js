@@ -58,8 +58,13 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 class Page1 extends Component {
+
+  onGuidelineTapped() {
+      Actions.ComparePhotosScene({ title: this.props.substep.title, substep: this.props.substep });
+  }
 
   render() {
     return (
@@ -78,11 +83,11 @@ class Page1 extends Component {
         </View>
 
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ flex: 1 }}>
-            <Text style={{ padding: 15, backgroundColor: "rgba(0,0,0,.1)", textAlign: "center", fontWeight: "bold"}}>Good</Text>
+          <TouchableOpacity style={{ flex: 1 }} onPress={this.onGuidelineTapped.bind(this)}>
+            <Text style={{ padding: 15, backgroundColor: "green", textAlign: "center", fontWeight: "bold"}}>Good</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ flex: 1 }}>
-            <Text style={{ padding: 15, backgroundColor: "rgba(0,0,0,.2)", textAlign: "center", fontWeight: "bold"}}>Bad</Text>
+          <TouchableOpacity style={{ flex: 1 }} onPress={this.onGuidelineTapped.bind(this)}>
+            <Text style={{ padding: 15, backgroundColor: "red", textAlign: "center", fontWeight: "bold"}}>Bad</Text>
           </TouchableOpacity>
         </View>
       </View>

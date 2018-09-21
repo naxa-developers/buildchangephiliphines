@@ -11,11 +11,12 @@ import { strings, getLocalizedText } from '../../locales/strings';
 
 class ListItem extends Component {
   onSiteTapped() {
-    if (this.props.currentUserGroup === 'Field Engineer') {
-      Actions.SubStepsList({ sub_steps: this.props.item.sub_steps })
+    if (this.props.currentUserGroup !== 'Field Engineer') {
       //Actions.Page1();
       // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
+      Actions.SubStepsList({ sub_steps: this.props.item.sub_steps });
     }
+
   }
 
     render() {

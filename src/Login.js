@@ -238,7 +238,7 @@ class Login extends Component {
 											// }
 				const { dispatch } = this.props;
 				dispatch(storeUserGroup({ userGroup: responseData.group, userId: responseData.user_id }));
-				Actions.Select({ type: 'replace' });
+				Actions.Successful_Login({ type: 'replace' });
 			})
 			.catch((error) => console.log(error))
 

@@ -111,6 +111,7 @@ class Scenes extends Component {
           <Scene key='StepList' component={StepList} title='Steps' />
 
           <Scene
+            initial={this.state.hasToken}
             key='Successful_Login'
             component={SuccessfulLogin}
             title='Schools'
@@ -146,7 +147,7 @@ class Scenes extends Component {
           />
 
           <Scene
-            initial={this.state.hasToken}
+
             key='Select'
             component={Select}
             title='Select'
