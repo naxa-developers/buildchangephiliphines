@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { View,
     TouchableOpacity,
@@ -10,16 +11,20 @@ import { strings, getLocalizedText } from '../../locales/strings';
 
 class ListItem extends Component {
   onSiteTapped() {
-    Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
+    if (this.props.currentUserGroup === 'Field Engineer') {
+      Actions.SubStepsList({ sub_steps: this.props.item.sub_steps })
+      //Actions.Page1();
+      // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
+    }
   }
 
     render() {
       console.log('listitendlsfjkslkdfjsa bhitra');
-      console.log(this.props.item.name);
+      console.log(this.props.item);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
-        const { id, name } = this.props.item;
+        const { step } = this.props.item;
 
-        const firstLetter = name.charAt(0);
+        const firstLetter = step.charAt(0);
 
         return (
         <TouchableOpacity
@@ -29,8 +34,8 @@ class ListItem extends Component {
                 <CardSection>
                     <Circle text={firstLetter} />
                     <View style={cointainerStyle}>
-                        <Text style={titleStyle} >{name}</Text>
-                        <Text style={subtitleStyle} >{name}</Text>
+                        <Text style={titleStyle} >{step}</Text>
+                        <Text style={subtitleStyle} >{step}</Text>
                     </View>
                 </CardSection>
 
@@ -61,4 +66,13 @@ const styles = {
     }
 };
 
-export default ListItem;
+const mapStateToProps = (state) => {
+  console.log('CHECKLISTKO_mapStateToPropsko_bhitra');
+  console.log(state);
+  return {
+    currentUserGroup: state.currentUserGroup.currentUserGroup,
+    currentUserId: state.currentUserGroup.currentUserId,
+  };
+};
+
+export default connect(mapStateToProps)(ListItem);

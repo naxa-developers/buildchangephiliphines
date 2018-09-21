@@ -9,6 +9,7 @@ import SignUpTest from './signuptest';
 import StepList from './StepList';
 import Login from './Login';
 import SuccessfulLogin from './SuccessfulLogin';
+import SubStepsList from './components/SubStepsList';
 import CheckList from './components/CheckList';
 import ReportForm from './components/ReportForm';
 import GuidelineCategoryScene from './components/scenes/GuidelineCategoryScene';
@@ -24,8 +25,6 @@ import DocumentList from './components/scenes/DocumentList';
 import { strings } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
 import Page1 from './test/page1';
-import Page2 from './test/page2';
-import Page3 from './test/page3';
 
 
 class TabIcon extends Component {
@@ -74,7 +73,15 @@ class Scenes extends Component {
           component={Page1}
           key='Page1'
           hideNavBar
+          //initial
         />
+        <Scene
+
+          component={SubStepsList}
+          key='SubStepsList'
+          title='SubSteps'
+        />
+
 
         <Scene
 
@@ -83,18 +90,6 @@ class Scenes extends Component {
           hideNavBar
           //initial
         />
-
-        <Scene
-        key="testtabbar"
-        tabs
-        tabBarPosition='bottom'
-        >
-        <Scene key='Page2' title='Steps' icon={TabIcon} back component={Page2} iconName="list-ul" swipeEnabled />
-          <Scene key="Page3" title="See Site on Map" icon={TabIcon} back component={Page3} iconName="map-marker" swipeEnabled />
-        </Scene>
-
-
-
 
         <Scene
           initial={!this.state.hasToken}

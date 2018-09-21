@@ -35,7 +35,7 @@ class PlaceholderListItem extends Component {
                     <View style={cointainerStyle}>
                         <Text numberOfLines={2} style={titleStyle} >{name}</Text>
 
-                        <Text style={subtitleStyle} >Contains {this.props.rowData.steps.length} steps </Text>
+                        <Text style={subtitleStyle} >Contains {this.props.rowData.site_steps.length} steps </Text>
                     </View>
 
                 </CardSection>
