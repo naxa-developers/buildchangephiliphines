@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import SecondPage from './SecondPage';
 import SignUp from './SignUp';
 import SignUpTest from './signuptest';
+import BadPhoto from './components/scenes/BadPhoto';
 
 import StepList from './StepList';
 import Login from './Login';
@@ -80,6 +81,12 @@ class Scenes extends Component {
           component={SubStepsList}
           key='SubStepsList'
           title='SubSteps'
+        />
+
+        <Scene
+
+          component={BadPhoto}
+          key='BadPhoto'
         />
 
 

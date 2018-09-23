@@ -237,13 +237,6 @@ componentWillMount() {
                   </TouchableOpacity>
                   <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'green', position: 'absolute', left: 10, top: 15 }} />
                 </View>
-                <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, padding: 10, position: 'relative' }}>
-                  <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10, marginLeft: 25 }}>Bad Practice</Text>
-                  <TouchableOpacity onPress={() => this.showImageViewer(1)}>
-                  <Image style={{ height: 193, width: width - 50 }} source={this.state.bad_photo} />
-                  </TouchableOpacity >
-                  <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'red', position: 'absolute', left: 10, top: 15 }} />
-                </View>
           </View>
         );
     }
