@@ -8,6 +8,7 @@
 //   TouchableOpacity
 // } from 'react-native';
 // import { Actions } from 'react-native-router-flux';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 //
 // class Page1 extends Component {
 //
@@ -16,6 +17,9 @@
 //   }
 //   onBadPhotoTapped() {
 //       Actions.BadPhoto({ title: this.props.substep.title, substep: this.props.substep });
+//   }
+//   onReportTapped() {
+//       Actions.ReportForm(this.props.data);
 //   }
 //
 //   render() {
@@ -34,21 +38,21 @@
 //         />
 //         </View>
 //
-//         <View style={{ flexDirection: 'row', paddingLeft: 8, paddingRight: 8, backgroundColor: 'white' }}>
-//           <TouchableOpacity style={{ flex: 1, paddingRight: 4,  }} onPress={this.onGoodPhotoTapped.bind(this)}>
-//             <Text style={{ padding: 15, backgroundColor: "#8dc540", textAlign: "center", fontWeight: "bold", color: 'white', borderRadius: 10 }}>Good Photo</Text>
+//         <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
+//           <TouchableOpacity style={{ flex: 1, paddingRight: 4 }} onPress={this.onGoodPhotoTapped.bind(this)}>
+//             <Text style={[styles.buttonText, { backgroundColor: '#8dc540' }]}>Good Photo</Text>
 //           </TouchableOpacity>
-//           <TouchableOpacity style={{ flex: 1, paddingLeft: 4}} onPress={this.onBadPhotoTapped.bind(this)}>
-//             <Text style={{ padding: 15, backgroundColor: "red", textAlign: "center", fontWeight: "bold", color: 'white', borderRadius: 10}}>Bad Photo</Text>
+//           <TouchableOpacity style={{ flex: 1, paddingLeft: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
+//             <Text style={[styles.buttonText, { backgroundColor: 'red' }]}>Bad Photo</Text>
 //           </TouchableOpacity>
 //         </View>
-//         <View style={{ flexDirection: 'row', flex: 1, paddingLeft: 8, paddingRight: 8, paddingBottom: 8, backgroundColor: 'white'}}>
+//         <View style={[styles.buttonContainer, styles.buttonContainerCallInspectorReport]}>
 //         { this.props.substep.call_inspector && <TouchableOpacity style={{ flex: 1, paddingTop: 8, paddingRight: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
-//           <Text style={{ padding: 15, backgroundColor: "#4f82ad", textAlign: "center", fontWeight: "bold", color: 'white', borderRadius: 10}}>Call Inspector</Text>
+//           <Text style={[styles.buttonText, { backgroundColor: '#4f82ad' }]}>Call Inspector</Text>
 //         </TouchableOpacity>}
 //
-//         <TouchableOpacity style={{ flex: 1, paddingTop: 8, paddingLeft: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
-//           <Text style={{ padding: 15, backgroundColor: "#4f82ad", textAlign: "center", fontWeight: "bold", color: 'white', borderRadius: 10}}>Report</Text>
+//         <TouchableOpacity style={this.props.substep.call_inspector ? { flex: 1, paddingTop: 8, paddingLeft: 4 } : { flex: 1, paddingTop: 8 }} onPress={this.onReportTapped.bind(this)}>
+//           <Text style={[styles.buttonText, { backgroundColor: '#4f82ad' }]}>Report</Text>
 //         </TouchableOpacity>
 //         </View>
 //       </View>
@@ -60,8 +64,9 @@
 //
 // const styles = StyleSheet.create({
 //   container: {
-//     backgroundColor: 'transparent',
-//     paddingTop: 15
+//     backgroundColor: 'white',
+//     paddingTop: 15,
+//     marginTop: 12
 //   },
 //   titleContainer: {
 //     backgroundColor: 'white',
@@ -80,15 +85,37 @@
 //   image: {
 //     width: Dimensions.get('window').width - 16,
 //     height: 240,
-//     borderRadius: 10
+//     borderRadius: 5
+//   },
+//   buttonContainer: {
+//     flexDirection: 'row',
+//     paddingLeft: 8,
+//     paddingRight: 8,
+//     backgroundColor: 'white'
+//   },
+//   buttonContainerGoodPhotoBadPhoto: {
+//
+//   },
+//   buttonContainerCallInspectorReport: {
+//     paddingBottom: 8,
+//   },
+//   buttonText: {
+//     padding: 15,
+//     textAlign: 'center',
+//     fontWeight: 'bold',
+//     color: 'white',
+//     borderRadius: 5
 //   }
 // });
 
-
-
-
-
-
+// <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
+//   <TouchableOpacity style={{ flex: 1, paddingRight: 4 }} onPress={this.onGoodPhotoTapped.bind(this)} >
+//     <Text style={[styles.buttonText, { backgroundColor: '#8dc540' }]}>Good Photo</Text>
+//   </TouchableOpacity>
+//   <TouchableOpacity style={{ flex: 1, paddingLeft: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
+//     <Text style={[styles.buttonText, { backgroundColor: 'red' }]}>Bad Photo</Text>
+//   </TouchableOpacity>
+// </View>
 
 
 
@@ -104,11 +131,55 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  TouchableOpacity
-} from 'react-native';
+TouchableOpacity } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Page1 extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        primary_photo: {}
+    };
+}
+
+
+componentWillMount() {
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      .then((exist) => {
+          console.log(exist);
+        if (exist) {
+          if (this.props.substep.primary_photo === null) {
+            this.setState({
+              primary_photo: require('../../app_images/no_image.png')
+            });
+          }
+          else if (this.props.substep.primary_photo !== null) {
+            this.setState({
+              primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.substep.primary_photo }
+            });
+          }
+      }
+      else if (!exist) {
+        if (this.props.substep.primary_photo === null) {
+          this.setState({
+            primary_photo: require('../../app_images/no_image.png')
+          });
+        }
+        else if (this.props.substep.primary_photo !== null) {
+          this.setState({
+            primary_photo: require('../../app_images/no_image.png')
+          });
+        }
+      }
+      })
+      .catch(() => {
+          console.log('error while checking file');
+      });
+}
+
 
   onGoodPhotoTapped() {
       Actions.ComparePhotosScene({ title: this.props.substep.title, substep: this.props.substep });
@@ -130,29 +201,42 @@ class Page1 extends Component {
 
         <View style={styles.imageContainer}>
         <Image
-          resizeMode={'contain'}
           style={styles.image}
-          source={require('../../app_images/spreadfooting.jpg')}
+          source={this.state.primary_photo}
         />
         </View>
 
-        <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
-          <TouchableOpacity style={{ flex: 1, paddingRight: 4 }} onPress={this.onGoodPhotoTapped.bind(this)}>
-            <Text style={[styles.buttonText, { backgroundColor: '#8dc540' }]}>Good Photo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ flex: 1, paddingLeft: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
-            <Text style={[styles.buttonText, { backgroundColor: 'red' }]}>Bad Photo</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.buttonContainer, styles.buttonContainerCallInspectorReport]}>
-        { this.props.substep.call_inspector && <TouchableOpacity style={{ flex: 1, paddingTop: 8, paddingRight: 4 }} onPress={this.onBadPhotoTapped.bind(this)}>
-          <Text style={[styles.buttonText, { backgroundColor: '#4f82ad' }]}>Call Inspector</Text>
-        </TouchableOpacity>}
 
-        <TouchableOpacity style={this.props.substep.call_inspector ? { flex: 1, paddingTop: 8, paddingLeft: 4 } : { flex: 1, paddingTop: 8 }} onPress={this.onReportTapped.bind(this)}>
-          <Text style={[styles.buttonText, { backgroundColor: '#4f82ad' }]}>Report</Text>
-        </TouchableOpacity>
+        <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
+
+          <TouchableOpacity onPress={this.onGoodPhotoTapped.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#8dc540', paddingTop: 8, paddingBottom: 8, marginRight: 4, borderRadius: 5 }}>
+            <Icon name={'check'} size={35} style={styles.iconStyle} />
+            <Text style={styles.buttonText}>Good Photo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onBadPhotoTapped.bind(this)} style={this.props.substep.call_inspector ? { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, marginLeft: 4, borderRadius: 5 } : { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, borderRadius: 5 }}>
+            <Icon name={'close'} size={35} style={styles.iconStyle} />
+            <Text style={styles.buttonText}>Bad Photo</Text>
+          </TouchableOpacity>
+
         </View>
+
+        <View style={[styles.buttonContainer, styles.buttonContainerCallInspectorReport]}>
+
+          { this.props.substep.call_inspector &&
+          <TouchableOpacity style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, marginRight: 4, borderRadius: 5 }}>
+            <Icon name={'phone-square'} size={35} style={styles.iconStyle} />
+            <Text style={styles.buttonText}>Call Inspector</Text>
+          </TouchableOpacity>
+          }
+
+          <TouchableOpacity onPress={this.onReportTapped.bind(this)} style={this.props.substep.call_inspector ? { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, marginLeft: 4, borderRadius: 5 } : { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, borderRadius: 5 }}>
+            <Icon name={'newspaper-o'} size={35} style={styles.iconStyle} />
+            <Text style={styles.buttonText}>Report</Text>
+          </TouchableOpacity>
+
+        </View>
+
       </View>
     );
   }
@@ -163,11 +247,14 @@ export default Page1;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 15,
-    marginTop: 12
+    marginTop: 12,
   },
   titleContainer: {
     backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 5
   },
   titleText: {
     fontSize: 20,
@@ -178,7 +265,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 8
   },
   image: {
     width: Dimensions.get('window').width - 16,
@@ -189,7 +277,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 8,
     paddingRight: 8,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    paddingBottom: 8
   },
   buttonContainerGoodPhotoBadPhoto: {
 
@@ -197,12 +286,13 @@ const styles = StyleSheet.create({
   buttonContainerCallInspectorReport: {
     paddingBottom: 8,
   },
+  iconStyle: {
+    color: 'white'
+  },
   buttonText: {
-    padding: 15,
-    backgroundColor: '#8dc540',
-    textAlign: 'center',
+    paddingLeft: 5,
     fontWeight: 'bold',
     color: 'white',
-    borderRadius: 5
+    fontSize: 16
   }
 });
