@@ -21,6 +21,8 @@ import DownloadDataScene from './components/scenes/DownloadDataScene';
 import Onboarding from './components/scenes/Onboarding';
 import ShowDocuments from './components/scenes/ShowDocuments';
 import SettingsScene from './components/SettingsComponent';
+import EngineerList from './components/EngineerList';
+
 import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
 import { strings } from '../locales/strings';
@@ -81,6 +83,13 @@ class Scenes extends Component {
           component={SubStepsList}
           key='SubStepsList'
           title='SubSteps'
+        />
+
+        <Scene
+
+          component={EngineerList}
+          key='EngineerList'
+          title='Call Engineers'
         />
 
         <Scene

@@ -4,6 +4,9 @@ import {
   SettingsPicker
 } from 'react-native-settings-components';
 import { Actions } from 'react-native-router-flux';
+import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { checkInternetConnection } from 'react-native-offline';
 import { ScrollView, Platform, AsyncStorage, Alert, View, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import { strings } from './../../locales/strings';
@@ -41,6 +44,49 @@ export default class SettingsScene extends Component {
     } catch (error) {
       console.log(error.message);
     }
+  }
+
+  downloadLatestZip() {
+    RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      .then(() => {
+        RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
+        .then(() => {
+          checkInternetConnection().then(res => {
+            if (res) {
+              RNFetchBlob
+              .config({
+                  addAndroidDownloads: {
+                      useDownloadManager: true,
+                      //changes here
+                      path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                      description: 'Images Zip',
+                      mediaScannable: true
+                  }
+              })
+              .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+              .then((resp) => {
+                const sourcePath = resp.path();
+                const targetPath = resp.path().replace('.zip', '');
+
+                unzip(sourcePath, targetPath)
+                .then((path) => {
+                  console.log(`unzip completed at ${path}`);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              });
+            } else if (!res) {
+              Alert.alert('No internet connection!');
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        })
+        .catch((err) => { console.log(err); })
+      })
+      .catch((err) => { console.log(err); });
   }
 
   render() {
@@ -88,7 +134,12 @@ export default class SettingsScene extends Component {
           value={this.state.locale}
           styleModalButtonsText={{ color: colors.monza }}
         />
-
+        <Button
+          onPress={this.downloadLatestZip.bind(this)}
+          style={{ width: 10 }}
+          title='Download Zip'
+          backgroundColor='red'
+        />
         <Button
           onPress={this.userLogout.bind(this)}
           style={{ width: 10 }}

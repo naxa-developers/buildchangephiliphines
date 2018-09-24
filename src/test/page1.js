@@ -190,6 +190,9 @@ componentWillMount() {
   onReportTapped() {
       Actions.ReportForm(this.props.data);
   }
+  onCallInspectorTapped() {
+      Actions.EngineerList();
+  }
 
   render() {
     return (
@@ -224,7 +227,7 @@ componentWillMount() {
         <View style={[styles.buttonContainer, styles.buttonContainerCallInspectorReport]}>
 
           { this.props.substep.call_inspector &&
-          <TouchableOpacity style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, marginRight: 4, borderRadius: 5 }}>
+          <TouchableOpacity onPress={this.onCallInspectorTapped.bind(this)}style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, marginRight: 4, borderRadius: 5 }}>
             <Icon name={'phone-square'} size={35} style={styles.iconStyle} />
             <Text style={styles.buttonText}>Call Inspector</Text>
           </TouchableOpacity>

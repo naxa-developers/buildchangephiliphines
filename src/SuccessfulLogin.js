@@ -19,37 +19,37 @@ class SuccessfulLogin extends Component {
         .then(token => {
           console.log('AsyncStorageko_bhitra');
           this.props.tappedOnViewSchools(token);
-          RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
-              .then((exist) => {
-                  if (!exist) {
-                    RNFetchBlob
-                    .config({
-                        addAndroidDownloads: {
-                            useDownloadManager: true,
-                            //changes here
-                            path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
-                            description: 'Images Zip',
-                            mediaScannable: true
-                        }
-                    })
-                    .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
-                    .then((resp) => {
-                      const sourcePath = resp.path();
-                      const targetPath = resp.path().replace('.zip', '');
+              RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+                  .then((exist) => {
+                      if (!exist) {
+                        RNFetchBlob
+                        .config({
+                            addAndroidDownloads: {
+                                useDownloadManager: true,
+                                //changes here
+                                path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                                description: 'Images Zip',
+                                mediaScannable: true
+                            }
+                        })
+                        .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+                        .then((resp) => {
+                          const sourcePath = resp.path();
+                          const targetPath = resp.path().replace('.zip', '');
 
-                      unzip(sourcePath, targetPath)
-                      .then((path) => {
-                        console.log(`unzip completed at ${path}`);
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                      });
-                    });
-                  }
-              })
-              .catch(() => {
-                  console.log('error while checking file');
-              });
+                          unzip(sourcePath, targetPath)
+                          .then((path) => {
+                            console.log(`unzip completed at ${path}`);
+                          })
+                          .catch((error) => {
+                            console.log(error);
+                          });
+                        });
+                      }
+                  })
+                  .catch(() => {
+                      console.log('error while checking file');
+                  });
         });
       } else if (!res) {
         Alert.alert('No internet connection!');
