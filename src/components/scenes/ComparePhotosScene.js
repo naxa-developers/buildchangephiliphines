@@ -177,16 +177,12 @@ class ComparePhotosScene extends Component {
             imageViewerShown: false,
             imageViewerCurIndex: 0,
             good_photo: {},
-            bad_photo: {}
         };
     }
 
 componentWillMount() {
   this.setState({
     good_photo: require('../../../app_images/spreadfooting.jpg')
-  });
-  this.setState({
-    bad_photo: require('../../../app_images/no_image.png')
   });
 }
 
@@ -202,12 +198,6 @@ componentWillMount() {
 
         const images = [{
             url: this.props.substep.good_photo,
-            props: {
-                // headers: ...
-            }
-        },
-        {
-            url: this.props.substep.bad_photo,
             props: {
                 // headers: ...
             }
