@@ -51,7 +51,8 @@ class ReportForm extends Component {
   uploadComment(checklist) {
     console.log('uploadCommentko_bhitra');
     console.log(this.props);
-    const { id } = checklist;
+    //const { id } = checklist;
+    const { id } = checklist.substep;
 
     if (!this.state.comments || !this.state.uri) {
       return;
@@ -81,7 +82,7 @@ class ReportForm extends Component {
       const formdata = new FormData();
       formdata.append('comment', this.state.comments);
       formdata.append('user', userID);
-      formdata.append('checklist', id);
+      formdata.append('substep', id);
 
       formdata.append('photo', {
         uri: this.state.uri,

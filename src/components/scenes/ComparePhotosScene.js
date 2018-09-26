@@ -182,7 +182,8 @@ class ComparePhotosScene extends Component {
 
 componentWillMount() {
   this.setState({
-    good_photo: require('../../../app_images/spreadfooting.jpg')
+    //good_photo: require('../../../app_images/spreadfooting.jpg')
+    good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.substep.good_photo }
   });
 }
 

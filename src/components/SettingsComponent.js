@@ -91,13 +91,15 @@ export default class SettingsScene extends Component {
 
   render() {
     return (
-      <ScrollView
+      <View
         style={{
+          justifyContent: 'space-between',
           flex: 1,
           backgroundColor:
             Platform.OS === 'ios' ? colors.iosSettingsBackground : colors.white
         }}
       >
+        <View>
         <SettingsCategoryHeader
           title={''}
           textStyle={Platform.OS === 'android' ? { color: colors.monza } : null}
@@ -134,19 +136,25 @@ export default class SettingsScene extends Component {
           value={this.state.locale}
           styleModalButtonsText={{ color: colors.monza }}
         />
-        <Button
-          onPress={this.downloadLatestZip.bind(this)}
-          style={{ width: 10 }}
-          title='Download Zip'
-          backgroundColor='red'
-        />
+        </View>
+        <View style={{ paddingBottom: 10 }}>
+        <View style={{ paddingBottom: 20 }}>
+          <Button
+            onPress={this.downloadLatestZip.bind(this)}
+            style={{ width: 10 }}
+            title='DOWNLOAD LATEST ZIP'
+            backgroundColor='green'
+          />
+        </View>
         <Button
           onPress={this.userLogout.bind(this)}
           style={{ width: 10 }}
           title='LOGOUT'
           backgroundColor='red'
         />
-      </ScrollView>
+        </View>
+
+      </View>
     );
   }
 }

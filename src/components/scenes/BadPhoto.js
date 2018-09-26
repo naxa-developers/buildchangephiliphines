@@ -17,17 +17,13 @@ class BadPhoto extends Component {
         this.state = {
             imageViewerShown: false,
             imageViewerCurIndex: 0,
-            good_photo: {},
             bad_photo: {}
         };
     }
 
 componentWillMount() {
   this.setState({
-    good_photo: require('../../../app_images/spreadfooting.jpg')
-  });
-  this.setState({
-    bad_photo: require('../../../app_images/no_image.png')
+    bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.substep.bad_photo }
   });
 }
 
