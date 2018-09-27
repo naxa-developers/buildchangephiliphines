@@ -83,6 +83,7 @@ class ReportForm extends Component {
       formdata.append('comment', this.state.comments);
       formdata.append('user', userID);
       formdata.append('substep', id);
+      //step ra site pani thapne
 
       formdata.append('photo', {
         uri: this.state.uri,

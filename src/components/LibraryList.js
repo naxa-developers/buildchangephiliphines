@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
+import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
 
@@ -8,12 +9,12 @@ class LibraryList extends Component {
       console.log('Array sorring result');
 
 
-      const steps = this.props.list.site_steps;
+      const steps = this.props.steps;
 
 // function for dynamic sorting
-function compareValues(key, order='asc') {
-  return function(a, b) {
-    if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+function compareValues(key, order = 'asc') {
+  return function (a, b) {
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
       // property doesn't exist on either object
         return 0;
     }
@@ -55,5 +56,21 @@ function compareValues(key, order='asc') {
 
 }
 
+const mapStateToProps = (state) => {
+  console.log('ShowMapko_mapstatetoprops_bhitra');
+  const { sites } = state.schoolList.data;
+  const { selectedSchoolId } = state.currentSelectedSchool;
 
-export default LibraryList;
+const found = sites.find(function(element) {
+  return element.id === selectedSchoolId;
+});
+
+console.log('foundKO_value');
+console.log(found);
+return {
+  steps: found.site_steps
+};
+};
+
+
+export default connect(mapStateToProps)(LibraryList);
