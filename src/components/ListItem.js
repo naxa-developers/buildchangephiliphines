@@ -22,13 +22,7 @@ class ListItem extends Component {
     render() {
       console.log('listitendlsfjkslkdfjsa bhitra');
       console.log(this.props.item);
-      const array = [];
-      this.props.item.sub_steps.forEach((each) => {
-        each.checklists.forEach((ea) => {
-          array.push(ea);
-        });
-      });
-      console.log(array);
+
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { step } = this.props.item;
 
