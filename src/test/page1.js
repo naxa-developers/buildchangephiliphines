@@ -22,7 +22,7 @@ class Page1 extends Component {
       Actions.BadPhoto({ title: this.props.substep.title, substep: this.props.substep });
   }
   onReportTapped() {
-      Actions.ReportForm({ substep: this.props.substep });
+      Actions.ReportForm({ substep: this.props.substep, stepId: this.props.stepId });
   }
   onCallInspectorTapped() {
       Actions.EngineerList();

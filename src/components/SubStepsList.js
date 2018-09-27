@@ -41,7 +41,7 @@ class SubStepsList extends Component {
         return (
             <ListView
             dataSource={this.dataSource}
-            renderRow={(rowData) => (<Page1 substep={rowData} />)
+            renderRow={(rowData) => (<Page1 substep={rowData} stepId={this.props.stepId} />)
             }
             />
         );

@@ -3,6 +3,7 @@ import { View, ScrollView, Text, AsyncStorage, Alert, TextInput } from 'react-na
 import {
   Button
 } from 'react-native-elements';
+import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { strings } from './../../locales/strings';
@@ -83,6 +84,8 @@ class ReportForm extends Component {
       formdata.append('comment', this.state.comments);
       formdata.append('user', userID);
       formdata.append('substep', id);
+      formdata.append('site', this.props.siteId)
+      formdata.append('step', this.props.stepId)
       //step ra site pani thapne
 
       formdata.append('photo', {
@@ -214,4 +217,20 @@ const styles = {
   }
 };
 
-export default ReportForm;
+const mapStateToProps = (state) => {
+  console.log('ShowMapko_mapstatetoprops_bhitra');
+  const { sites } = state.schoolList.data;
+  const { selectedSchoolId } = state.currentSelectedSchool;
+
+const found = sites.find(function(element) {
+  return element.id === selectedSchoolId;
+});
+
+console.log('foundKO_value');
+console.log(found);
+return {
+  siteId: found.id
+};
+};
+
+export default connect(mapStateToProps)(ReportForm);

@@ -42,7 +42,7 @@ function compareValues(key, order = 'asc') {
             rowHasChanged: (r1, r2) => r1 !== r2
         });
 
-        this.dataSource = ds.cloneWithRows(this.props.list.site_steps);
+        this.dataSource = ds.cloneWithRows(steps.sort(compareValues('order', 'asc')));
     }
 
     render() {
