@@ -16,12 +16,19 @@ class ListItem extends Component {
       // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
       Actions.SubStepsList({ sub_steps: this.props.item.sub_steps });
     }
-
+    //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
   }
 
     render() {
       console.log('listitendlsfjkslkdfjsa bhitra');
       console.log(this.props.item);
+      const array = [];
+      this.props.item.sub_steps.forEach((each) => {
+        each.checklists.forEach((ea) => {
+          array.push(ea);
+        });
+      });
+      console.log(array);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { step } = this.props.item;
 
@@ -68,7 +75,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  console.log('CHECKLISTKO_mapStateToPropsko_bhitra');
+  console.log('ListItem_mapStateToPropsko_bhitra');
   console.log(state);
   return {
     currentUserGroup: state.currentUserGroup.currentUserGroup,

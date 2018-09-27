@@ -45,7 +45,7 @@ export const strings = new LocalizedStrings({
 
     error_field_cannot_be_empty: 'This field cannot be empty...'
   },
-  wa: {
+  'wa': {
       view_schools_title: 'Kitaon it eskwelahan',
       view_schools_subtitle: 'Pindota para makita an eskwelaha dinhi ha proyekto',
       view_guidelines_title: 'Kitaa an mga pamaagi',
