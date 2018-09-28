@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  Image,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  AsyncStorage,
   ListView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PrimaryPhoto from '../components/PrimaryPhoto';
-import { getLocalizedText } from '../../locales/strings';
+import { getLocalizedText, strings } from '../../locales/strings';
 
 
 class Page1 extends Component {
 
-
-
+  componentWillMount() {
+    this.getLocale();
+  }
   onGoodPhotoTapped() {
       Actions.ComparePhotosScene({ title: getLocalizedText(this.props.substep.local_title, this.props.substep.title), substep: this.props.substep });
   }
@@ -29,6 +30,12 @@ class Page1 extends Component {
   onCallInspectorTapped() {
       Actions.EngineerList();
   }
+
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      strings.setLanguage(value);
+    });
+}
 
   render() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -51,14 +58,14 @@ class Page1 extends Component {
           { this.props.substep.good_photo &&
             <TouchableOpacity onPress={this.onGoodPhotoTapped.bind(this)} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#8dc540', paddingTop: 8, paddingBottom: 8, marginRight: 4, borderRadius: 5 }}>
               <Icon name={'check'} size={35} style={styles.iconStyle} />
-              <Text style={styles.buttonText}>Good Photo</Text>
+              <Text style={styles.buttonText}>{strings.view_good_photo_title}</Text>
             </TouchableOpacity>
           }
 
           { this.props.substep.bad_photo &&
             <TouchableOpacity onPress={this.onBadPhotoTapped.bind(this)} style={this.props.substep.call_inspector ? { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, marginLeft: 4, borderRadius: 5 } : { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, borderRadius: 5 }}>
               <Icon name={'close'} size={35} style={styles.iconStyle} />
-              <Text style={styles.buttonText}>Bad Photo</Text>
+              <Text style={styles.buttonText}>{strings.view_bad_photo_title}</Text>
             </TouchableOpacity>
           }
 
@@ -75,7 +82,7 @@ class Page1 extends Component {
 
           <TouchableOpacity onPress={this.onReportTapped.bind(this)} style={this.props.substep.call_inspector ? { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, marginLeft: 4, borderRadius: 5 } : { flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#4f82ad', paddingTop: 8, paddingBottom: 8, borderRadius: 5 }}>
             <Icon name={'newspaper-o'} size={35} style={styles.iconStyle} />
-            <Text style={styles.buttonText}>Report</Text>
+            <Text style={styles.buttonText}>{strings.view_upload_reprot}</Text>
           </TouchableOpacity>
 
         </View>
