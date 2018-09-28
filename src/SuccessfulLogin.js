@@ -13,6 +13,8 @@ import { strings } from './../locales/strings';
 class SuccessfulLogin extends Component {
 
   componentDidMount() {
+    this.getLocale();
+
     checkInternetConnection().then(res => {
       if (res) {
         AsyncStorage.getItem('token')
@@ -59,6 +61,13 @@ class SuccessfulLogin extends Component {
       console.log(error);
     });
   }
+
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      strings.setLanguage(value);
+    });
+}
+
 
 
   GetListViewItem(school) {

@@ -10,16 +10,18 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PrimaryPhoto from '../components/PrimaryPhoto';
+import { getLocalizedText } from '../../locales/strings';
+
 
 class Page1 extends Component {
 
 
 
   onGoodPhotoTapped() {
-      Actions.ComparePhotosScene({ title: this.props.substep.title, substep: this.props.substep });
+      Actions.ComparePhotosScene({ title: getLocalizedText(this.props.substep.local_title, this.props.substep.title), substep: this.props.substep });
   }
   onBadPhotoTapped() {
-      Actions.BadPhoto({ title: this.props.substep.title, substep: this.props.substep });
+      Actions.BadPhoto({ title: getLocalizedText(this.props.substep.local_title, this.props.substep.title), substep: this.props.substep });
   }
   onReportTapped() {
       Actions.ReportForm({ substep: this.props.substep, stepId: this.props.stepId });
@@ -35,7 +37,7 @@ class Page1 extends Component {
       <View style={styles.container}>
 
         <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>{this.props.substep.title}</Text>
+          <Text style={styles.titleText}>{getLocalizedText(this.props.substep.local_title, this.props.substep.title)}</Text>
         </View>
 
         <ListView

@@ -2,9 +2,12 @@ import LocalizedStrings from 'react-native-localization';
 // https://github.com/stefalda/ReactNativeLocalization/wiki
 
 export function getLocalizedText(localText, text) {
-  const localizedText =
-    strings.getLanguage().trim() === 'wa' ? localText : text;
-  return localizedText;
+  if (localText !== null) {
+    const localizedText =
+      strings.getLanguage().trim() === 'wa' ? localText : text;
+    return localizedText;
+  }
+  return text;
 }
 
 export const strings = new LocalizedStrings({

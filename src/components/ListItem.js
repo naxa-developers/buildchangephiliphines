@@ -24,9 +24,9 @@ class ListItem extends Component {
       console.log(this.props.item);
 
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
-        const { step } = this.props.item;
+        const { step, local_step } = this.props.item;
 
-        const firstLetter = step.charAt(0);
+        const firstLetter = getLocalizedText(local_step, step).charAt(0);
 
         return (
         <TouchableOpacity
@@ -36,8 +36,8 @@ class ListItem extends Component {
                 <CardSection>
                     <Circle text={firstLetter} />
                     <View style={cointainerStyle}>
-                        <Text style={titleStyle} >{step}</Text>
-                        <Text style={subtitleStyle} >{step}</Text>
+                        <Text style={titleStyle} >{getLocalizedText(local_step, step)}</Text>
+                        <Text style={subtitleStyle} >{getLocalizedText(local_step, step)}</Text>
                     </View>
                 </CardSection>
 

@@ -163,7 +163,6 @@ class Scenes extends Component {
           />
 
           <Scene
-
             key='Select'
             component={Select}
             title='Select'
