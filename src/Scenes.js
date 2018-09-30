@@ -20,6 +20,8 @@ import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
 import Onboarding from './components/scenes/Onboarding';
 import ShowDocuments from './components/scenes/ShowDocuments';
+import ShowBigImages from './components/scenes/ShowBigImages';
+
 import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
 
@@ -49,6 +51,7 @@ class Scenes extends Component {
   }
 
   componentWillMount() {
+    this.getLocale();
     AsyncStorage.getItem('token').then(token => {
       this.setState({ hasToken: token !== null, isTokenLoaded: true });
     });
@@ -62,6 +65,12 @@ class Scenes extends Component {
       console.log(error.message);
     }
   }
+
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      strings.setLanguage(value);
+    });
+}
 
   render() {
     if (!this.state.isTokenLoaded) {
@@ -83,6 +92,12 @@ class Scenes extends Component {
           component={SubStepsList}
           key='SubStepsList'
           title='SubSteps'
+        />
+        <Scene
+
+          component={ShowBigImages}
+          key='ShowBigImages'
+          hideNavBar
         />
 
         <Scene
@@ -124,13 +139,13 @@ class Scenes extends Component {
 
           <Scene key='Login' component={Login} title='Login' type='replace' />
 
-          <Scene key='StepList' component={StepList} title='Steps' />
+          <Scene key='StepList' component={StepList} title={strings.title_steps} />
 
           <Scene
             initial={this.state.hasToken}
             key='Successful_Login'
             component={SuccessfulLogin}
-            title='Schools'
+            title={strings.title_schools}
             onRight={() => {
               Actions.SettingsScene();
             }}
@@ -193,7 +208,7 @@ class Scenes extends Component {
           <Scene
             component={SettingsScene}
             key='SettingsScene'
-            title='Settings'
+            title={strings.action_setting}
             back
           />
           <Scene
@@ -205,7 +220,7 @@ class Scenes extends Component {
           tabs
           tabBarPosition='bottom'
           >
-          <Scene key='StepList' title='Steps' icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
+          <Scene key='StepList' title={strings.title_steps} icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
             <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
             <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
           </Scene>

@@ -14,7 +14,7 @@ class ListItem extends Component {
     if (this.props.currentUserGroup !== 'Field Engineer') {
       //Actions.Page1();
       // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
-      Actions.SubStepsList({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id });
+      Actions.SubStepsList({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image });
     }
     //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
   }

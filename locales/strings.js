@@ -21,7 +21,7 @@ export const strings = new LocalizedStrings({
     title_schools: 'Schools',
     action_setting: 'Setting',
 
-    title_steps: 'steps',
+    title_steps: 'Steps',
     title_checklist: 'Checklist',
 
     title_guideline_categories: 'Guideline Categories',
@@ -83,6 +83,6 @@ export const strings = new LocalizedStrings({
       view_upload_reprot: 'Report',
       view_comments: 'comments',
 
-      error_field_cannot_be_empty: 'This field cannot be empty...'
+      error_field_cannot_be_empty: 'This field cannot be empty....'
   }
 });

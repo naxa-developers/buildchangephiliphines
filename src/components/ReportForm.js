@@ -16,6 +16,10 @@ class ReportForm extends Component {
     uri: null
   };
 
+  componentWillMount() {
+    this.getLocale();
+  }
+
   selectPhotoTapped() {
     const options = {
       quality: 1.0,
@@ -48,6 +52,12 @@ class ReportForm extends Component {
       }
     });
   }
+
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      strings.setLanguage(value);
+    });
+}
 
   uploadComment(checklist) {
     console.log('uploadCommentko_bhitra');
@@ -110,19 +120,19 @@ class ReportForm extends Component {
             console.log('response ok');
             this.setState({ ...this.state, uploading: false });
             this.setState({ ...this.state, comments: '' });
-            Alert.alert('Uploaded Sucess', 'Your report has been recorded. ', [
-              { text: 'Close', onPress: () => Actions.pop(), style: 'cancel' }
+            Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
+              { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
             ]);
             return response;
           }
 
           this.setState({ ...this.state, uploading: false });
           Alert.alert(
-            'Uploaded Failed',
-            'Check your internet connection and try again',
+            strings.event_upload_failed_title,
+            strings.event_no_intenet_text,
             [
               {
-                text: 'Close',
+                text: strings.action_close,
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel'
               }
@@ -146,6 +156,8 @@ class ReportForm extends Component {
   toggleUploadAnim() {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
+
+
 
   render() {
     return (

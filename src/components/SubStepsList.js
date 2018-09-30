@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { ListView, Text } from 'react-native';
+import { ListView, Text, View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import ListItem from './ListItem';
 import Page1 from '../test/page1';
 
 
 class SubStepsList extends Component {
     componentWillMount() {
+      console.log('***********');
+      console.log(this.props.image);
+      console.log('***********');
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
@@ -39,11 +42,17 @@ class SubStepsList extends Component {
 
     render() {
         return (
+            <View>
+            { this.props.image !== '' && <TouchableOpacity style={styles.stepImageContainer}>
+              <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }} />
+            </TouchableOpacity> }
+
             <ListView
             dataSource={this.dataSource}
             renderRow={(rowData) => (<Page1 substep={rowData} stepId={this.props.stepId} />)
             }
             />
+            </View>
         );
     }
 
@@ -51,3 +60,20 @@ class SubStepsList extends Component {
 
 
 export default SubStepsList;
+
+const styles = StyleSheet.create({
+
+  stepImageContainer: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginTop: 10,
+  },
+  stepImage: {
+    width: Dimensions.get('window').width - 32,
+    height: 225,
+    backgroundColor: 'white',
+    borderRadius: 10
+  }
+});
