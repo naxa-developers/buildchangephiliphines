@@ -138,7 +138,7 @@ showImageViewer() {
               </Modal>
         <FlatList
           data={this.props.substep.bad_photos}
-          renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.imageContainer}>
+          renderItem={({ item }) => <TouchableOpacity style={styles.imageContainer}>
             <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
           </TouchableOpacity>}
         />
