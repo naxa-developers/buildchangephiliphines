@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, Text, View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
+import { ListView, Text, View, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import ListItem from './ListItem';
 import Page1 from '../test/page1';
 
@@ -42,7 +42,7 @@ class SubStepsList extends Component {
 
     render() {
         return (
-            <View>
+            <ScrollView>
             { this.props.image !== '' && <TouchableOpacity style={styles.stepImageContainer}>
               <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }} />
             </TouchableOpacity> }
@@ -52,7 +52,7 @@ class SubStepsList extends Component {
             renderRow={(rowData) => (<Page1 substep={rowData} stepId={this.props.stepId} />)
             }
             />
-            </View>
+            </ScrollView>
         );
     }
 

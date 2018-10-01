@@ -76,63 +76,35 @@ export const requestPerson = (data) => {
       const { isConnected } = getState();
       console.log('isConnectedko_value');
       console.log(isConnected);
-      if (_.isEmpty(data.checklistItemData.last_submission)) {
-        const url = 'http://bccms.naxa.com.np/core/api/report/';
-        const formdata = new FormData();
-        formdata.append('report_status', data.checklistItemValue);
-        formdata.append('checklist', data.checklistItemData.id);
-        formdata.append('comment', 'USAGE OF POST');
-        formdata.append('user', data.userId);
+      //
+      const url = 'http://bccms.naxa.com.np/core/api/checklist/' + data.checklistItemData.id + '/';
+      const formdata = new FormData();
+      //
+      formdata.append('status', data.checklistItemValue);
+      formdata.append('site', data.checklistItemData.site);
+      formdata.append('step', data.checklistItemData.step);
+      formdata.append('substep', data.checklistItemData.substep);
 
 
-        const req = {
-          method: 'POST',
-          headers: {
-            Authorization: 'token ' + token,
-            'Content-Type': 'multipart/form-data'
-          },
-          body: formdata
-        };
-        if (isConnected.isConnected) {
-          console.log({ url, req });
-          fetch(url, req)
-            .then((res) => {
-              console.log(res);
-              dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
-            })
-            .catch((error) => console.log(error));
-        } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_POST', method: 'POST' } });
-        }
-      }
-      else if (!_.isEmpty(data.checklistItemData.last_submission)) {
-        const url = 'http://bccms.naxa.com.np/core/api/report/'+data.checklistItemData.last_submission.id+'/';
-        const formdata = new FormData();
-        formdata.append('report_status', data.checklistItemValue);
-        formdata.append('checklist', data.checklistItemData.id);
-        formdata.append('comment', 'USAGE OF PUT');
-        formdata.append('user', data.userId);
-
-
-        const req = {
-          method: 'PUT',
-          headers: {
-            Authorization: 'token ' + token,
-            'Content-Type': 'multipart/form-data'
-          },
-          body: formdata
-        };
-        if (isConnected.isConnected) {
-          console.log({ url, req });
-          fetch(url, req)
-            .then((res) => {
-              console.log(res);
-               dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
-            })
-            .catch((error) => console.log(error));
-        } else {
-          dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { userId: data.userId, url, report_status: data.checklistItemValue, checklist: data.checklistItemData.id, comment: 'USAGE_OF_PUT', method: 'PUT' } });
-        }
+      const req = {
+        //
+        method: 'PUT',
+        headers: {
+          Authorization: 'token ' + token,
+          'Content-Type': 'multipart/form-data'
+        },
+        body: formdata
+      };
+      if (isConnected.isConnected) {
+        console.log({ url, req });
+        fetch(url, req)
+          .then((res) => {
+            console.log(res);
+            dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url, status: data.checklistItemValue, site: data.checklistItemData.site, step: data.checklistItemData.step, substep: data.checklistItemData.substep, id: data.checklistItemData.id, method: 'PUT' } });
+          })
+          .catch((error) => console.log(error));
+      } else {
+        dispatch({ type: 'ADD_TO_ACTION_QUEUE', payload: { url, status: data.checklistItemValue, site: data.checklistItemData.site, step: data.checklistItemData.step, substep: data.checklistItemData.substep, id: data.checklistItemData.id, method: 'PUT' } });
       }
   });
   };
@@ -144,11 +116,10 @@ export const requestPersonByUrl = (eachElement) => {
   return (dispatch) => {
     AsyncStorage.getItem('token').then(token => {
       const formdata = new FormData();
-      formdata.append('report_status', eachElement.report_status);
-      formdata.append('checklist', eachElement.checklist);
-      formdata.append('comment', eachElement.comment);
-      formdata.append('user', eachElement.userId);
-
+      formdata.append('status', eachElement.status);
+      formdata.append('site', eachElement.site);
+      formdata.append('step', eachElement.step);
+      formdata.append('substep', eachElement.substep);
 
       const req = {
         method: eachElement.method,
@@ -161,7 +132,7 @@ export const requestPersonByUrl = (eachElement) => {
       fetch(eachElement.url, req)
         .then((res) => {
           console.log(res);
-          dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { userId: eachElement.userId, url: eachElement.url, report_status: eachElement.report_status, checklist: eachElement.checklist, comment: eachElement.comment, method: eachElement.method } });
+          dispatch({ type: 'REMOVE_FROM_ACTION_QUEUE', payload: { url: eachElement.url, status: eachElement.status, site: eachElement.site, step: eachElement.step, substep: eachElement.substep, id: eachElement.id, method: eachElement.method } });
         })
         .catch((error) => console.log(error));
     });

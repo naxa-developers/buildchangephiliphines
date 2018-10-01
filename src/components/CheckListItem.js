@@ -98,7 +98,7 @@
 
 
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getLocalizedText } from '../../locales/strings';
@@ -118,7 +118,9 @@ class CheckListItem extends Component {
 
 
   render() {
-    console.log('render_bhitra');
+    console.log('********');
+    console.log(this.props.data);
+    console.log('**********');
     console.log(this.state.checked);
     const name = getLocalizedText(
       this.props.data.localtext,

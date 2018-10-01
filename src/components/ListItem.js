@@ -20,7 +20,7 @@ class ListItem extends Component {
     if (this.props.currentUserGroup === 'Field Engineer') {
       //Actions.Page1();
       // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
-      //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
+      Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
 
     }
   }
