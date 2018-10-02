@@ -18,7 +18,12 @@ class ShowMap extends Component {
              latitudeDelta: 0.0043,
              longitudeDelta: 0.0034
             }}
+            >
+            <MapView.Marker
+              coordinate={this.props.selectedSchoolLocationData}
+              title={'Ram'}
             />
+            </MapView>
     );
   }
 }
