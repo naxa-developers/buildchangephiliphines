@@ -6,8 +6,9 @@ import {
   Dimensions,
   TouchableOpacity,
   AsyncStorage,
-  Image,
+  Modal,
   ListView } from 'react-native';
+  import { ImageViewer } from 'react-native-image-zoom-viewer';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PrimaryPhoto from '../components/PrimaryPhoto';
@@ -15,6 +16,13 @@ import { getLocalizedText, strings } from '../../locales/strings';
 
 
 class Page1 extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        imageViewerShown: false,
+    };
+}
 
   componentWillMount() {
     this.getLocale();
@@ -31,18 +39,35 @@ class Page1 extends Component {
   onCallInspectorTapped() {
       Actions.EngineerList();
   }
-
   async getLocale() {
     return await AsyncStorage.getItem('locale').then((value) => {
       strings.setLanguage(value);
     });
 }
+showImageViewer() {
+    this.setState({ ...this.state, imageViewerShown: true });
+}
 
   render() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    const images = [];
+    this.props.substep.primary_photos.forEach((ea) => {
+      images.push({ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines' + ea.image });
+    });
 
     return (
       <View style={styles.container}>
+      <Modal
+               visible={this.state.imageViewerShown}
+               transparent
+               onRequestClose={() => {
+               this.setState({ ...this.state, imageViewerShown: false });
+               }}
+            >
+                    <ImageViewer
+                        imageUrls={images}
+                    />
+              </Modal>
 
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>{getLocalizedText(this.props.substep.local_title, this.props.substep.title)}</Text>
@@ -50,7 +75,7 @@ class Page1 extends Component {
 
         <ListView
           dataSource={ds.cloneWithRows(this.props.substep.primary_photos)}
-          renderRow={(rowData) => <PrimaryPhoto primaryPhoto={rowData} />}
+          renderRow={(rowData) => <TouchableOpacity onPress={this.showImageViewer.bind(this)}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>}
         />
 
 

@@ -12,7 +12,13 @@ import { strings } from './../locales/strings';
 
 class SuccessfulLogin extends Component {
 
+  componentWillMount() {
+    console.log('**************');
+    console.log('wwwwwwwwwwwwwwilll mounnttt ko bhitra');
+    console.log('**************');
+  }
   componentDidMount() {
+    console.log('componentDidMountkobhitra');
     this.getLocale();
 
     checkInternetConnection().then(res => {
@@ -60,6 +66,7 @@ class SuccessfulLogin extends Component {
     .catch((error) => {
       console.log(error);
     });
+    console.log(' component did mountko eeeeeeeend');
   }
 
   async getLocale() {
@@ -177,6 +184,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   console.log('mapStateToPropsko_bhitra');
+  console.log(state);
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
   });

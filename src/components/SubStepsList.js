@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { ListView, Text, View, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { ListView, Modal, View, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import ListItem from './ListItem';
+import { ImageViewer } from 'react-native-image-zoom-viewer';
 import Page1 from '../test/page1';
 
 
 class SubStepsList extends Component {
+  constructor() {
+    super();
+    this.state = {
+        imageViewerShown: false,
+    };
+}
     componentWillMount() {
       console.log('***********');
       console.log(this.props.image);
@@ -39,11 +46,25 @@ class SubStepsList extends Component {
 
         this.dataSource = ds.cloneWithRows(this.props.sub_steps.sort(compareValues('order', 'asc')));
     }
-
+    showImageViewer() {
+        this.setState({ ...this.state, imageViewerShown: true });
+    }
     render() {
+      const images = [{ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }];
         return (
             <ScrollView>
-            { this.props.image !== '' && <TouchableOpacity style={styles.stepImageContainer}>
+            <Modal
+                     visible={this.state.imageViewerShown}
+                     transparent
+                     onRequestClose={() => {
+                     this.setState({ ...this.state, imageViewerShown: false });
+                     }}
+                  >
+                          <ImageViewer
+                              imageUrls={images}
+                          />
+                    </Modal>
+            { this.props.image !== '' && <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.stepImageContainer}>
               <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }} />
             </TouchableOpacity> }
 
