@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert, ListView, TextInput, ActivityIndicator, AsyncStorage
+import { StyleSheet, View, Alert, ListView, TextInput, ActivityIndicator, Text, AsyncStorage, TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -11,6 +11,14 @@ import { tappedOnViewSchools, intelliSearch, checkOnline } from './actions';
 import { strings } from './../locales/strings';
 
 class SuccessfulLogin extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      daramTapped: false,
+      zumarragaTapped: false
+    };
+  }
 
   componentWillMount() {
     console.log('**************');
@@ -75,19 +83,6 @@ class SuccessfulLogin extends Component {
     });
 }
 
-
-
-  GetListViewItem(school) {
-    Actions.ShowMap();
-   // Actions.ShowMap({
-   //   id: school.id,
-   //   realName: school.name,
-   //   address: school.address,
-   //   location: school.address,
-   //   steps: school.steps
-   // });
-  }
-
    SearchFilterFunction(text) {
      this.props.intelliSearch(text);
  }
@@ -116,37 +111,49 @@ class SuccessfulLogin extends Component {
 
       <View style={styles.MainContainer}>
 
-      <TextInput
-       style={styles.TextInputStyleClass}
+      <TouchableOpacity onPress={() => { this.setState({ ...this.state, daramTapped: !this.state.daramTapped }); }} style={[styles.addressContainer]}>
+      <Text style={styles.addressText}>Sites in Daram</Text>
+      </TouchableOpacity>
+      {this.state.daramTapped && <ListView
+        dataSource={this.props.list.cloneWithRows(this.props.daram)}
 
-       value={this.props.typedText}
-       onChangeText={(text) => this.SearchFilterFunction(text)}
+        renderSeparator={this.ListViewItemSeparator}
 
-       underlineColorAndroid='transparent'
-       placeholder={strings.action_search_here}
-      />
+        renderRow={(rowData) => <PlaceholderListItem
+          rowData={rowData}
 
-        <ListView
-          dataSource={this.props.list.cloneWithRows(this.props.hasTyped ? this.props.newData : this.props.data.sites)}
+          style={styles.rowViewContainer}
+        >
+         {rowData.name}
+         </PlaceholderListItem>}
 
-          renderSeparator={this.ListViewItemSeparator}
+        enableEmptySections
 
-          renderRow={(rowData) => <PlaceholderListItem
-            rowData={rowData}
+        style={{ marginTop: 10 }}
 
-            style={styles.rowViewContainer}
+      />}
+      <TouchableOpacity onPress={() => { this.setState({ ...this.state, zumarragaTapped: !this.state.zumarragaTapped }); }} style={[styles.addressContainer, { marginTop: 4 }]}>
+      <Text style={styles.addressText}>Sites in Zumarraga</Text>
+      </TouchableOpacity>
+      { this.state.zumarragaTapped && <ListView
+              dataSource={this.props.list.cloneWithRows(this.props.zumarraga)}
 
-            onPress={this.GetListViewItem.bind(this, rowData)}
-          >
-           {rowData.name}
-           </PlaceholderListItem>}
+              renderSeparator={this.ListViewItemSeparator}
 
-          enableEmptySections
+              renderRow={(rowData) => <PlaceholderListItem
+                rowData={rowData}
 
-          style={{ marginTop: 10 }}
+                style={styles.rowViewContainer}
+              >
+               {rowData.name}
+               </PlaceholderListItem>}
 
-        />
+              enableEmptySections
 
+              style={{ marginTop: 10 }}
+
+            />
+          }
       </View>
     );
   }
@@ -155,8 +162,6 @@ class SuccessfulLogin extends Component {
 const styles = StyleSheet.create({
 
  MainContainer: {
-
-  justifyContent: 'center',
   flex: 1,
   margin: 7,
 
@@ -178,7 +183,15 @@ const styles = StyleSheet.create({
    paddingLeft: 15,
    paddingRight: 15
 
-   }
+ },
+ addressContainer: {
+   backgroundColor: 'white'
+ },
+ addressText: {
+   color: 'black',
+   fontSize: 25,
+   fontWeight: 'bold'
+ }
 
 });
 
@@ -194,6 +207,18 @@ const mapStateToProps = (state) => {
       const textData = state.schoolSearchReducer.typedText.toUpperCase();
       return itemData.indexOf(textData) > -1;
   });
+
+  const Daram = state.schoolList.data.sites.filter(function (school) {
+    const schoolAddress = school.address.toUpperCase();
+    return schoolAddress.indexOf('DARAM') > -1;
+  });
+
+  const Zumarraga = state.schoolList.data.sites.filter(function (school) {
+    const schoolAddress = school.address.toUpperCase();
+    return schoolAddress.indexOf('ZUMARRAGA') > -1;
+  });
+  console.log(Zumarraga);
+  console.log(Daram);
   return {
             isLoading: state.schoolList.isLoading,
             data: state.schoolList.data,
@@ -201,7 +226,9 @@ const mapStateToProps = (state) => {
             typedText: state.schoolSearchReducer.typedText,
             hasTyped: state.schoolSearchReducer.hasTyped,
             newData,
-            hasInternetConnection: state.checkOnline.hasInternetConnection
+            hasInternetConnection: state.checkOnline.hasInternetConnection,
+            daram: Daram,
+            zumarraga: Zumarraga
          };
 };
 
