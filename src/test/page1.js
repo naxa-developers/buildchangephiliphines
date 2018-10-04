@@ -21,6 +21,7 @@ class Page1 extends Component {
     super();
     this.state = {
         imageViewerShown: false,
+        id: 0
     };
 }
 
@@ -44,8 +45,8 @@ class Page1 extends Component {
       strings.setLanguage(value);
     });
 }
-showImageViewer() {
-    this.setState({ ...this.state, imageViewerShown: true });
+showImageViewer(id) {
+    this.setState({ ...this.state, imageViewerShown: true, id: id });
 }
 
   render() {
@@ -66,6 +67,7 @@ showImageViewer() {
             >
                     <ImageViewer
                         imageUrls={images}
+                        index={this.state.id}
                     />
               </Modal>
 
@@ -75,7 +77,10 @@ showImageViewer() {
 
         <ListView
           dataSource={ds.cloneWithRows(this.props.substep.primary_photos)}
-          renderRow={(rowData) => <TouchableOpacity onPress={this.showImageViewer.bind(this)}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>}
+          renderRow={(rowData) => {
+            return (<TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.primary_photos.indexOf(rowData))}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>);
+          }
+          }
         />
 
 

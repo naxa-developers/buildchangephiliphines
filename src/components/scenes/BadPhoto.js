@@ -15,11 +15,12 @@ class BadPhoto extends Component {
     super();
     this.state = {
         imageViewerShown: false,
+        id: 0
     };
 }
 
-showImageViewer() {
-    this.setState({ ...this.state, imageViewerShown: true });
+showImageViewer(id) {
+    this.setState({ ...this.state, imageViewerShown: true, id: id });
 }
 
   render() {
@@ -46,7 +47,7 @@ showImageViewer() {
               </Modal>
         <FlatList
           data={this.props.substep.bad_photos}
-          renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.imageContainer}>
+          renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.bad_photos.indexOf(item))} style={styles.imageContainer}>
             <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
           </TouchableOpacity>}
         />

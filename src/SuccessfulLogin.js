@@ -111,7 +111,7 @@ class SuccessfulLogin extends Component {
 
       <View style={styles.MainContainer}>
 
-      <TouchableOpacity onPress={() => { this.setState({ ...this.state, daramTapped: !this.state.daramTapped }); }} style={[styles.addressContainer]}>
+      <TouchableOpacity onPress={() => { this.setState({ ...this.state, daramTapped: !this.state.daramTapped, zumarragaTapped: false }); }} style={[styles.addressContainer]}>
       <Text style={styles.addressText}>Sites in Daram</Text>
       </TouchableOpacity>
       {this.state.daramTapped && <ListView
@@ -132,7 +132,7 @@ class SuccessfulLogin extends Component {
         style={{ marginTop: 10 }}
 
       />}
-      <TouchableOpacity onPress={() => { this.setState({ ...this.state, zumarragaTapped: !this.state.zumarragaTapped }); }} style={[styles.addressContainer, { marginTop: 4 }]}>
+      <TouchableOpacity onPress={() => { this.setState({ ...this.state, zumarragaTapped: !this.state.zumarragaTapped, daramTapped: false }); }} style={[styles.addressContainer, { marginTop: 4 }]}>
       <Text style={styles.addressText}>Sites in Zumarraga</Text>
       </TouchableOpacity>
       { this.state.zumarragaTapped && <ListView
@@ -189,8 +189,9 @@ const styles = StyleSheet.create({
  },
  addressText: {
    color: 'black',
-   fontSize: 25,
-   fontWeight: 'bold'
+   fontSize: 23,
+   fontWeight: 'bold',
+   paddingLeft: 5
  }
 
 });
