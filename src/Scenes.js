@@ -6,11 +6,11 @@ import SecondPage from './SecondPage';
 import SignUp from './SignUp';
 import SignUpTest from './signuptest';
 import BadPhoto from './components/scenes/BadPhoto';
-
 import StepList from './StepList';
 import Login from './Login';
 import SuccessfulLogin from './SuccessfulLogin';
 import SubStepsList from './components/SubStepsList';
+import Category from './components/Category';
 import CheckList from './components/CheckList';
 import ReportForm from './components/ReportForm';
 import GuidelineCategoryScene from './components/scenes/GuidelineCategoryScene';
@@ -92,6 +92,12 @@ class Scenes extends Component {
           component={SubStepsList}
           key='SubStepsList'
           title='SubSteps'
+        />
+        <Scene
+
+          component={Category}
+          key='Category'
+          title='Category'
         />
         <Scene
 

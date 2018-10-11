@@ -29,7 +29,7 @@ class CheckList extends React.Component {
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
         <FlatList
-          data={this.props.item.checklists}
+          data={this.props.item}
           renderItem={({ item }) => <CheckListItem data={item} />}
           keyExtractor={(item, index) => index}
         />

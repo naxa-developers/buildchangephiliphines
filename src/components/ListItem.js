@@ -12,22 +12,17 @@ import { strings, getLocalizedText } from '../../locales/strings';
 class ListItem extends Component {
   onSiteTapped() {
     if (this.props.currentUserGroup !== 'Field Engineer') {
-      //Actions.Page1();
-      // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
       Actions.SubStepsList({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image });
     }
-    //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
     if (this.props.currentUserGroup === 'Field Engineer') {
-      //Actions.Page1();
-      // Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
-      Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
-
+      //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
+      Actions.Category({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image, item: this.props.item });
     }
   }
 
     render() {
       console.log('listitendlsfjkslkdfjsa bhitra');
-      console.log(this.props.item);
+      console.log('item', this.props.item);
 
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { step, local_step } = this.props.item;
@@ -75,7 +70,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  console.log('ListItem_mapStateToPropsko_bhitra');
+  console.log('eachstep');
   console.log(state);
   return {
     currentUserGroup: state.currentUserGroup.currentUserGroup,

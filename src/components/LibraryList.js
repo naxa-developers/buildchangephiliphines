@@ -6,9 +6,6 @@ import ListItem from './ListItem';
 
 class LibraryList extends Component {
     componentWillMount() {
-      console.log('Array sorring result');
-
-
       const steps = this.props.steps;
 
 // function for dynamic sorting
@@ -36,7 +33,7 @@ function compareValues(key, order = 'asc') {
   };
 }
 
-      console.log(steps.sort(compareValues('order', 'asc')))
+      console.log('Array sorring result', steps.sort(compareValues('order', 'asc')));
 
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
