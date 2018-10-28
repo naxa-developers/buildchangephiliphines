@@ -12,11 +12,10 @@ export function getLocalizedText(localText, text) {
 
 export const strings = new LocalizedStrings({
   'en-US': {
-    view_schools_title: 'VIEW SCHOOLS',
-    view_schools_subtitle: 'Tap to view schools',
-    view_guidelines_title: 'VIEW GUIDELINES',
-    view_guidelines_subtitle: 'Tap to view safe construction guidelines',
-
+    view_schools_title: 'SCHOOLS',
+    view_guidelines_title: 'HOUSES AND CONSTRUCTION ',
+    view_schools_subtitle: 'Tap here to see your schools',
+    view_guidelines_subtitle: 'Tap here to learn more about houses and general construciton',
     action_search_here: 'Search here',
     title_schools: 'Schools',
     action_setting: 'Setting',

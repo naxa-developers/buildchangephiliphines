@@ -224,7 +224,6 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id.toString());
 											// 				try {

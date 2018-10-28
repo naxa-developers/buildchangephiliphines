@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8
   },
   image: {
+    flex: 1,
     width: Dimensions.get('window').width - 16,
     height: 240,
     borderRadius: 5

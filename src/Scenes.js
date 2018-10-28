@@ -15,6 +15,9 @@ import CheckList from './components/CheckList';
 import ReportForm from './components/ReportForm';
 import GuidelineCategoryScene from './components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './components/scenes/GuidelinesListScene';
+import First from './components/scenes/First';
+import Address from './components/scenes/Address';
+import Select2 from './components/scenes/Select2';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
@@ -129,7 +132,7 @@ class Scenes extends Component {
         />
 
         <Scene
-          initial={!this.state.hasToken}
+          //initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -148,7 +151,7 @@ class Scenes extends Component {
           <Scene key='StepList' component={StepList} title={strings.title_steps} />
 
           <Scene
-            initial={this.state.hasToken}
+            //initial={this.state.hasToken}
             key='Successful_Login'
             component={SuccessfulLogin}
             title={strings.title_schools}
@@ -184,6 +187,28 @@ class Scenes extends Component {
           />
 
           <Scene
+          //initial
+            key='First'
+            component={First}
+            title='First'
+            hideNavBar
+          />
+          <Scene
+          //initial
+            key='Address'
+            component={Address}
+            title='Address'
+            hideNavBar
+          />
+          <Scene
+          //initial
+            key='Select2'
+            component={Select2}
+            title='Information'
+            back
+          />
+          <Scene
+          initial
             key='Select'
             component={Select}
             title='Select'
