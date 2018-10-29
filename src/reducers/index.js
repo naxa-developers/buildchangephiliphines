@@ -8,6 +8,7 @@ import ActionQueue from './actionqueue';
 import IsConnected from './isconnected';
 import CurrentSelectedSchool from './currentselectedschool';
 import CurrentUserGroup from './currentusergroup';
+import CurrentSelectedAddress from './currentselectedaddress';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   actionQueue: ActionQueue,
   isConnected: IsConnected,
   currentSelectedSchool: CurrentSelectedSchool,
-  currentUserGroup: CurrentUserGroup
+  currentUserGroup: CurrentUserGroup,
+  currentSelectedAddress: CurrentSelectedAddress
 });

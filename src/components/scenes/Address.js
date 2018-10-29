@@ -1,5 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { storeAddress } from '../../actions';
+
 
 class Address extends React.Component {
   render() {
@@ -7,7 +11,13 @@ class Address extends React.Component {
               <View style={styles.mainContainer}>
                 <View style={styles.promptContainer}><Text style={styles.headingText}>Where is your school?</Text></View>
                 <View style={styles.optionsContainer}>
-                  <TouchableOpacity style={[styles.option, { marginBottom: 10 }]}>
+                  <TouchableOpacity
+                    style={[styles.option, { marginBottom: 10 }]}
+                    onPress={() => {
+                    this.props.dispatch(storeAddress({ selectedAddress: 'Daram' }));
+                    Actions.Successful_Login();
+                  }}
+                  >
                     <Text style={styles.textStyle}>Daram, Samar</Text>
                     <Image
                     style={styles.image}
@@ -15,7 +25,11 @@ class Address extends React.Component {
                     resizeMode={'stretch'}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={[styles.option, { marginBottom: 10 }]}>
+                  <TouchableOpacity style={[styles.option, { marginBottom: 10 }]} onPress={() => {
+                    this.props.dispatch(storeAddress({ selectedAddress: 'Zumarraga' }));
+                    Actions.Successful_Login();
+                  }}
+                  >
                     <Text style={styles.textStyle}>Zumarraga, Samar</Text>
                     <Image
                     style={styles.image}
@@ -34,7 +48,7 @@ class Address extends React.Component {
 }
 }
 
-export default Address;
+export default connect(null)(Address);
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -93,7 +107,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: undefined,
     height: undefined,
-
   },
   imageOverlay: {
     backgroundColor: 'rgba(0,0,0,.1)',

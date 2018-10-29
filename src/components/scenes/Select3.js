@@ -4,25 +4,25 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-class Select2 extends Component {
+class Select3 extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#5184ac', marginBottom: 5 }]} onPress={() => Actions.GuidelineCategoryScene()}>
+        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={() => Actions.Select4()}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textStyle}>I want to know</Text>
-          <Text style={styles.textBoldStyle}>More About Materials</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={() => Actions.Select3()}>
+          <Text style={styles.textStyle}>What makes</Text>
+          <Text style={styles.textBoldStyle}>My House Strong?</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textStyle}>I want to know how to</Text>
-          <Text style={styles.textBoldStyle}>Build a House</Text>
+          <Text style={styles.textStyle}>What are the</Text>
+          <Text style={styles.textBoldStyle}>Key Parts of a House?</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-export default Select2;
+export default Select3;
 
 const styles = StyleSheet.create({
   mainContainer: {

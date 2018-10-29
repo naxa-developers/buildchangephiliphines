@@ -18,6 +18,9 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import First from './components/scenes/First';
 import Address from './components/scenes/Address';
 import Select2 from './components/scenes/Select2';
+import Select3 from './components/scenes/Select3';
+import Select4 from './components/scenes/Select4';
+import MaterialPhoto from './components/scenes/MaterialPhoto';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
 import DownloadDataScene from './components/scenes/DownloadDataScene';
@@ -198,7 +201,7 @@ class Scenes extends Component {
             key='Address'
             component={Address}
             title='Address'
-            hideNavBar
+            back
           />
           <Scene
           //initial
@@ -208,7 +211,28 @@ class Scenes extends Component {
             back
           />
           <Scene
+          //initial
+            key='Select3'
+            component={Select3}
+            title='Information'
+            back
+          />
+          <Scene
+          //initial
+            key='Select4'
+            component={Select4}
+            title="The Three C's"
+            back
+          />
+          <Scene
           initial
+            key='MaterialPhoto'
+            component={MaterialPhoto}
+            title="Photos"
+            back
+          />
+          <Scene
+          //initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'

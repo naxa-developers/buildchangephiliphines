@@ -111,10 +111,7 @@ class SuccessfulLogin extends Component {
 
       <View style={styles.MainContainer}>
 
-      <TouchableOpacity onPress={() => { this.setState({ ...this.state, daramTapped: !this.state.daramTapped, zumarragaTapped: false }); }} style={[styles.addressContainer]}>
-      <Text style={styles.addressText}>Sites in Daram</Text>
-      </TouchableOpacity>
-      {this.state.daramTapped && <ListView
+      <ListView
         dataSource={this.props.list.cloneWithRows(this.props.daram)}
 
         renderSeparator={this.ListViewItemSeparator}
@@ -131,29 +128,8 @@ class SuccessfulLogin extends Component {
 
         style={{ marginTop: 10 }}
 
-      />}
-      <TouchableOpacity onPress={() => { this.setState({ ...this.state, zumarragaTapped: !this.state.zumarragaTapped, daramTapped: false }); }} style={[styles.addressContainer, { marginTop: 4 }]}>
-      <Text style={styles.addressText}>Sites in Zumarraga</Text>
-      </TouchableOpacity>
-      { this.state.zumarragaTapped && <ListView
-              dataSource={this.props.list.cloneWithRows(this.props.zumarraga)}
+      />
 
-              renderSeparator={this.ListViewItemSeparator}
-
-              renderRow={(rowData) => <PlaceholderListItem
-                rowData={rowData}
-
-                style={styles.rowViewContainer}
-              >
-               {rowData.name}
-               </PlaceholderListItem>}
-
-              enableEmptySections
-
-              style={{ marginTop: 10 }}
-
-            />
-          }
       </View>
     );
   }
@@ -211,7 +187,7 @@ const mapStateToProps = (state) => {
 
   const Daram = state.schoolList.data.sites.filter(function (school) {
     const schoolAddress = school.address.toUpperCase();
-    return schoolAddress.indexOf('DARAM') > -1;
+    return schoolAddress.indexOf(state.currentSelectedAddress.currentSelectedAddress.toUpperCase()) > -1;
   });
 
   const Zumarraga = state.schoolList.data.sites.filter(function (school) {
@@ -219,7 +195,7 @@ const mapStateToProps = (state) => {
     return schoolAddress.indexOf('ZUMARRAGA') > -1;
   });
   console.log(Zumarraga);
-  console.log(Daram);
+  console.log('Daram', Daram);
   return {
             isLoading: state.schoolList.isLoading,
             data: state.schoolList.data,
