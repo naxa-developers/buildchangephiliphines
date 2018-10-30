@@ -15,13 +15,12 @@ class ShowMap extends Component {
             initialRegion={{
              latitude: latitude,
              longitude: longitude,
-             latitudeDelta: 0.0043,
-             longitudeDelta: 0.0034
+             latitudeDelta: 0.9,
+             longitudeDelta: 0.9
             }}
             >
             <MapView.Marker
-              coordinate={this.props.selectedSchoolLocationData}
-              title={'Ram'}
+              coordinate={{ latitude, longitude }}
             />
             </MapView>
     );
@@ -40,10 +39,12 @@ const found = sites.find(function(element) {
 console.log('foundKO_value');
 console.log(found);
 const str = found.location;
+console.log('latitude', parseFloat(str.split("(").pop().split(" ")[0]));
+console.log('longitude', parseFloat(str.split(' ').pop().split(')')[0]));
 return {
   selectedSchoolLocationData: {
-    latitude: parseFloat(str.split("(").pop().split(" ")[0]),
-    longitude: parseFloat(str.split(' ').pop().split(')')[0])
+    longitude: parseFloat(str.split("(").pop().split(" ")[0]),
+    latitude: parseFloat(str.split(' ').pop().split(')')[0])
   }
 };
 };
