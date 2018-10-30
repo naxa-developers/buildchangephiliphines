@@ -18,6 +18,8 @@ import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import First from './components/scenes/First';
 import Address from './components/scenes/Address';
 import Select2 from './components/scenes/Select2';
+import HouseParts from './components/scenes/HouseParts';
+
 import Select3 from './components/scenes/Select3';
 import Select4 from './components/scenes/Select4';
 import MaterialPhoto from './components/scenes/MaterialPhoto';
@@ -135,7 +137,7 @@ class Scenes extends Component {
         />
 
         <Scene
-          initial={!this.state.hasToken}
+          //initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -231,11 +233,18 @@ class Scenes extends Component {
             back
           />
           <Scene
-          initial={this.state.hasToken}
+          //initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'
             hideNavBar
+          />
+          <Scene
+            initial
+            key='HouseParts'
+            component={HouseParts}
+            title='HouseParts'
+            back
           />
 
           <Scene

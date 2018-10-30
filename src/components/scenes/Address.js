@@ -37,10 +37,11 @@ class Address extends React.Component {
                     resizeMode={'stretch'}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.pdfOption}>
+                  {this.props.currentUserGroup === 'Community Member' && <TouchableOpacity style={styles.pdfOption}>
                     <Text style={styles.optionTextStyle}>I want to look at a</Text>
                     <Text style={[styles.optionTextStyle, {fontWeight: 'bold'}]}> Standard School Design</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity>}
+
                 </View>
 
               </View >
@@ -48,7 +49,12 @@ class Address extends React.Component {
 }
 }
 
-export default connect(null)(Address);
+const mapStateToProps = (state) => {
+  console.log('address', state);
+  return { currentUserGroup: state.currentUserGroup.currentUserGroup };
+};
+
+export default connect(mapStateToProps)(Address);
 
 const styles = StyleSheet.create({
   mainContainer: {

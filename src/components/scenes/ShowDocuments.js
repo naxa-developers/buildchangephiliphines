@@ -5,8 +5,6 @@ import Pdf from 'react-native-pdf';
 
 class ShowDocuments extends React.Component {
     render() {
-      console.log('ShowDocumentsko_render_bhitra');
-      console.log(this.props.selectedSchoolId);
         const source = { uri: this.props.path, cache: true };
 
         //const source = require('./test.pdf');  // ios only
