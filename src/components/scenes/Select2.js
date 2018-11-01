@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, NetInfo, AsyncStorage, Alert } from 'react-native';
+import { connect } from 'react-redux';
+import { openedGuidelinesCategoryScene } from '../../actions';
+
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 class Select2 extends Component {
+
+  componentDidMount() {
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        AsyncStorage.getItem('token')
+        .then((token) => {
+          this.props.openedGuidelinesCategoryScene(token);
+        });
+      }
+      else if (!isConnected) {
+        Alert.alert('No internet Connection!');
+      }
+    });
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -22,7 +40,14 @@ class Select2 extends Component {
   }
 }
 
-export default Select2;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    ram: 'ram'
+  };
+};
+
+export default connect(mapStateToProps, { openedGuidelinesCategoryScene })(Select2);
 
 const styles = StyleSheet.create({
   mainContainer: {

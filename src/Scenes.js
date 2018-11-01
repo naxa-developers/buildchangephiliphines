@@ -137,7 +137,7 @@ class Scenes extends Component {
         />
 
         <Scene
-          //initial={!this.state.hasToken}
+          initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -233,14 +233,14 @@ class Scenes extends Component {
             back
           />
           <Scene
-          //initial={this.state.hasToken}
+          initial={this.state.hasToken}
             key='Select'
             component={Select}
             title='Select'
             hideNavBar
           />
           <Scene
-            initial
+            //initial
             key='HouseParts'
             component={HouseParts}
             title='HouseParts'

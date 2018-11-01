@@ -12,7 +12,7 @@ class Select3 extends Component {
           <Icon name={'info'} size={35} style={styles.iconStyle} />
           <Text style={styles.textStyle}>What makes</Text>
           <Text style={styles.textBoldStyle}>My House Strong?</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]}>
+        <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={() => Actions.HouseParts()}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
           <Text style={styles.textStyle}>What are the</Text>
           <Text style={styles.textBoldStyle}>Key Parts of a House?</Text>
