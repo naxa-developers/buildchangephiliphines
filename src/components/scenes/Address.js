@@ -1,12 +1,40 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator, AsyncStorage, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { storeAddress } from '../../actions';
+import { checkInternetConnection } from 'react-native-offline';
+import { storeAddress, openedAddressScene } from '../../actions';
 
 
 class Address extends React.Component {
+
+  componentDidMount() {
+    checkInternetConnection().then(res => {
+      if (res) {
+        AsyncStorage.getItem('token')
+        .then(token => {
+          console.log('AsyncStorageko_bhitra');
+          this.props.openedAddressScene(token);
+        });
+      } else if (!res) {
+        Alert.alert('No internet connection!');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   render() {
+    console.log('path of pdf', this.props.pdf);
+    if (this.props.isLoading) {
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     return (
               <View style={styles.mainContainer}>
                 <View style={styles.promptContainer}><Text style={styles.headingText}>Where is your school?</Text></View>
@@ -14,7 +42,8 @@ class Address extends React.Component {
                   <TouchableOpacity
                     style={[styles.option, { marginBottom: 10 }]}
                     onPress={() => {
-                    this.props.dispatch(storeAddress({ selectedAddress: 'Daram' }));
+                    //this.props.dispatch(storeAddress({ selectedAddress: 'Daram' }));
+                    this.props.storeAddress({ selectedAddress: 'Daram' });
                     Actions.Successful_Login();
                   }}
                   >
@@ -25,8 +54,12 @@ class Address extends React.Component {
                     resizeMode={'stretch'}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={[styles.option, { marginBottom: 10 }]} onPress={() => {
-                    this.props.dispatch(storeAddress({ selectedAddress: 'Zumarraga' }));
+                  <TouchableOpacity
+                    style={[styles.option, { marginBottom: 10 }]}
+                    onPress={() => {
+                    //this.props.dispatch(storeAddress({ selectedAddress: 'Zumarraga' }));
+                    this.props.storeAddress({ selectedAddress: 'Zumarraga' });
+
                     Actions.Successful_Login();
                   }}
                   >
@@ -37,9 +70,13 @@ class Address extends React.Component {
                     resizeMode={'stretch'}
                     />
                   </TouchableOpacity>
-                  {this.props.currentUserGroup === 'Community Member' && <TouchableOpacity style={styles.pdfOption}>
+                  {this.props.currentUserGroup === 'Community Member' &&
+                  <TouchableOpacity
+                    style={styles.pdfOption}
+                    onPress={() => Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.pdf })}
+                  >
                     <Text style={styles.optionTextStyle}>I want to look at a</Text>
-                    <Text style={[styles.optionTextStyle, {fontWeight: 'bold'}]}> Standard School Design</Text>
+                    <Text style={[styles.optionTextStyle, { fontWeight: 'bold' }]}> Standard School Design</Text>
                   </TouchableOpacity>}
 
                 </View>
@@ -50,11 +87,14 @@ class Address extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('address', state);
-  return { currentUserGroup: state.currentUserGroup.currentUserGroup };
+  return {
+    isLoading: state.pdf.isLoading,
+    currentUserGroup: state.currentUserGroup.currentUserGroup,
+    pdf: state.pdf.data[0].pdf
+ };
 };
 
-export default connect(mapStateToProps)(Address);
+export default connect(mapStateToProps, { openedAddressScene, storeAddress })(Address);
 
 const styles = StyleSheet.create({
   mainContainer: {

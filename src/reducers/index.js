@@ -9,6 +9,7 @@ import IsConnected from './isconnected';
 import CurrentSelectedSchool from './currentselectedschool';
 import CurrentUserGroup from './currentusergroup';
 import CurrentSelectedAddress from './currentselectedaddress';
+import PdfData from './addressscenereducer';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   isConnected: IsConnected,
   currentSelectedSchool: CurrentSelectedSchool,
   currentUserGroup: CurrentUserGroup,
-  currentSelectedAddress: CurrentSelectedAddress
+  currentSelectedAddress: CurrentSelectedAddress,
+  pdf: PdfData
 });

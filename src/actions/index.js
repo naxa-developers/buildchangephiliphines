@@ -37,6 +37,24 @@ export const openedGuidelinesCategoryScene = (token) => {
   };
 };
 
+export const openedAddressScene = (token) => {
+  return (dispatch) => {
+    fetch('http://bccms.naxa.com.np/core/api/standard-school-design/', {
+      method: 'GET',
+      headers: {
+        Authorization: 'token '+token
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      dispatch({ type: 'opened_address_scene', payload: responseJson });
+    })
+   .catch((error) => {
+      console.error(error);
+    });
+  };
+};
+
 export const userSearched = (text) => {
   return {
     type: 'user_searched',
