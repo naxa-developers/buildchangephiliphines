@@ -73,7 +73,7 @@ class Address extends React.Component {
                   {this.props.currentUserGroup === 'Community Member' &&
                   <TouchableOpacity
                     style={styles.pdfOption}
-                    onPress={() => Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.pdf })}
+                    onPress={() => Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.pdf[0].pdf })}
                   >
                     <Text style={styles.optionTextStyle}>I want to look at a</Text>
                     <Text style={[styles.optionTextStyle, { fontWeight: 'bold' }]}> Standard School Design</Text>
@@ -87,10 +87,12 @@ class Address extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToPropsko_bhitra', state);
+  console.log(state);
   return {
     isLoading: state.pdf.isLoading,
     currentUserGroup: state.currentUserGroup.currentUserGroup,
-    pdf: state.pdf.data[0].pdf
+    pdf: state.pdf.data
  };
 };
 

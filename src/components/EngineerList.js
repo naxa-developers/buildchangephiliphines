@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { View, Alert } from 'react-native';
 import call from 'react-native-phone-call';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -12,8 +11,10 @@ onCallInspectorTapped(l) {
   number: l.phone_number, // String value with the number to call
   prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
 };
-
-call(args).catch(console.error);
+if (l.phone_number) {
+  call(args).catch(console.error);
+}
+Alert.alert('Phone number not available');
 }
 
   render() {
@@ -28,7 +29,7 @@ call(args).catch(console.error);
     <ListItem
       roundAvatar
       avatar={require('../../app_images/person.png')}
-      onPressRightIcon={this.onCallInspectorTapped.bind(this, l)}
+      onPress={this.onCallInspectorTapped.bind(this, l)}
       key={i}
       title={l.user}
       containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0 }}
