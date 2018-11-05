@@ -7,46 +7,40 @@ import ListItem from './ListItem';
 class LibraryList extends Component {
     componentWillMount() {
       const steps = this.props.steps;
+      const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-// function for dynamic sorting
-function compareValues(key, order = 'asc') {
-  return function (a, b) {
-    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-      // property doesn't exist on either object
-        return 0;
+        this.dataSource = ds.cloneWithRows(steps.sort(this.compareValues('order', 'asc')));
     }
 
-    const varA = (typeof a[key] === 'string') ?
-      a[key].toUpperCase() : a[key];
-    const varB = (typeof b[key] === 'string') ?
-      b[key].toUpperCase() : b[key];
+    compareValues(key, order = 'asc') {
+      return function (a, b) {
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+          // property doesn't exist on either object
+            return 0;
+        }
 
-    let comparison = 0;
-    if (varA > varB) {
-      comparison = 1;
-    } else if (varA < varB) {
-      comparison = -1;
-    }
-    return (
-      (order == 'desc') ? (comparison * -1) : comparison
-    );
-  };
-}
+        const varA = (typeof a[key] === 'string') ?
+          a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string') ?
+          b[key].toUpperCase() : b[key];
 
-      console.log('Array sorring result', steps.sort(compareValues('order', 'asc')));
-
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        this.dataSource = ds.cloneWithRows(steps.sort(compareValues('order', 'asc')));
+        let comparison = 0;
+        if (varA > varB) {
+          comparison = 1;
+        } else if (varA < varB) {
+          comparison = -1;
+        }
+        return (
+          (order == 'desc') ? (comparison * -1) : comparison
+        );
+      };
     }
 
     render() {
         return (
             <ListView
             dataSource={this.dataSource}
-            renderRow={(rowData) => <ListItem item={rowData} />}
+            renderRow={(rowData) => <ListItem item={rowData} currentUserId={this.props.currentUserId} currentUserGroup={this.props.currentUserGroup} />}
             />
         );
     }
@@ -54,18 +48,19 @@ function compareValues(key, order = 'asc') {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ShowMapko_mapstatetoprops_bhitra');
+  console.log('LibraryListko_mapstatetoprops_bhitra');
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
 
-const found = sites.find(function(element) {
-  return element.id === selectedSchoolId;
-});
+  const found = sites.find(function(element) {
+    return element.id === selectedSchoolId;
+  });
 
-console.log('foundKO_value');
-console.log(found);
+console.log('foundKO_value', found);
 return {
-  steps: found.site_steps
+  steps: found.site_steps,
+  currentUserGroup: state.currentUserGroup.currentUserGroup,
+  currentUserId: state.currentUserGroup.currentUserId,
 };
 };
 

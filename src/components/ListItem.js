@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { View,
     TouchableOpacity,
     Text,
     Image
  } from 'react-native';
-import { CardSection, Circle } from './common';
+import { CardSection } from './common';
 import { strings, getLocalizedText } from '../../locales/strings';
 
 
@@ -22,13 +21,8 @@ class ListItem extends Component {
   }
 
     render() {
-      console.log('listitendlsfjkslkdfjsa bhitra');
-      console.log('item', this.props.item);
-
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { step, local_step } = this.props.item;
-
-        const firstLetter = getLocalizedText(local_step, step).charAt(0);
 
         return (
         <TouchableOpacity
@@ -38,7 +32,7 @@ class ListItem extends Component {
                 <CardSection>
                     <Image
                       style={styles.imageStyle}
-                      source={require('../../app_images/Electrical1.png')}
+                      source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.item.icon }}
                     />
                     <View style={cointainerStyle}>
                         <Text style={titleStyle} >{getLocalizedText(local_step, step)}</Text>
@@ -74,17 +68,7 @@ const styles = {
     imageStyle: {
       height: 60,
       width: 60
-
     }
 };
 
-const mapStateToProps = (state) => {
-  console.log('eachstep');
-  console.log(state);
-  return {
-    currentUserGroup: state.currentUserGroup.currentUserGroup,
-    currentUserId: state.currentUserGroup.currentUserId,
-  };
-};
-
-export default connect(mapStateToProps)(ListItem);
+export default ListItem;

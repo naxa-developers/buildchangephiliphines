@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert, ListView, TextInput, ActivityIndicator, Text, AsyncStorage, TouchableOpacity
+import { StyleSheet, View, Alert, ListView, ActivityIndicator, AsyncStorage
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive';
+import { unzip } from 'react-native-zip-archive';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { checkInternetConnection } from 'react-native-offline';
 import PlaceholderListItem from './components/PlaceholderListItem';
@@ -12,15 +11,7 @@ import { strings } from './../locales/strings';
 
 class SuccessfulLogin extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      daramTapped: false,
-      zumarragaTapped: false
-    };
-  }
-
-  componentDidMount() {
+  componentWillMount() {
     console.log('componentDidMountkobhitra');
     this.getLocale();
 
@@ -30,38 +21,38 @@ class SuccessfulLogin extends Component {
         .then(token => {
           console.log('AsyncStorageko_bhitra');
           this.props.tappedOnViewSchools(token);
-              RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
-                  .then((exist) => {
-                      if (!exist) {
-                        RNFetchBlob
-                        .config({
-                            addAndroidDownloads: {
-                                useDownloadManager: true,
-                                //changes here
-                                path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
-                                description: 'Images Zip',
-                                mediaScannable: true
-                            }
-                        })
-                        .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
-                        .then((resp) => {
-                          const sourcePath = resp.path();
-                          const targetPath = resp.path().replace('.zip', '');
-
-                          unzip(sourcePath, targetPath)
-                          .then((path) => {
-                            console.log(`unzip completed at ${path}`);
-                          })
-                          .catch((error) => {
-                            console.log(error);
-                          });
-                        });
+        });
+        RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+            .then((exist) => {
+                if (!exist) {
+                  RNFetchBlob
+                  .config({
+                      addAndroidDownloads: {
+                          useDownloadManager: true,
+                          //changes here
+                          path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                          description: 'Images Zip',
+                          mediaScannable: true
                       }
                   })
-                  .catch(() => {
-                      console.log('error while checking file');
+                  .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+                  .then((resp) => {
+                    const sourcePath = resp.path();
+                    const targetPath = resp.path().replace('.zip', '');
+
+                    unzip(sourcePath, targetPath)
+                    .then((path) => {
+                      console.log(`unzip completed at ${path}`);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
                   });
-        });
+                }
+            })
+            .catch(() => {
+                console.log('error while checking file');
+            });
       } else if (!res) {
         Alert.alert('No internet connection!');
       }

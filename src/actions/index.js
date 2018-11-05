@@ -167,9 +167,7 @@ export const connectionState = (status) => {
 };
 
 export const storeCurrentSelectedSchool = (status) => {
-  console.log('storeCurrentSelectedSchool_ko_bhitra');
-  console.log('statusko_value');
-  console.log(status);
+  console.log('storeCurrentSelectedSchool_ko_bhitra', status);
   return { type: 'REMEMBER_SELECTED_SCHOOL', payload: status.schoolId };
 };
 

@@ -11,15 +11,16 @@ import { CardSection, Circle } from './common';
 class PlaceholderListItem extends Component {
 
     onSiteTapped() {
-      console.log('on_site_tapped');
-      console.log(this.props.rowData);
+      console.log('on_site_tapped', this.props.rowData);
       const { dispatch } = this.props;
-      Actions.jump('tabbar', this.props.rowData);
+      //Actions.jump('tabbar', this.props.rowData);
+      Actions.jump('tabbar');
+
       dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
     }
 
     render() {
-      console.log('renderbhitra');
+      console.log('PlaceholderListItemko_render');
       console.log(this.props.rowData.name);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
 

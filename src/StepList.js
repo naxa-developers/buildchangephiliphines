@@ -7,12 +7,11 @@ import { CardSection, Card } from '../src/components/common';
 class StepList extends React.Component {
 
   render() {
-    console.log('steplistbhitra');
-    console.log(this.props);
+    console.log('steplistbhitra', this.props);
   return (
             <View style={{ flex: 1 }}>
                 <ScrollView style={{ paddingTop: 10 }}>
-                  <LibraryList list={this.props} />
+                  <LibraryList />
                 </ScrollView>
             </View >
 
