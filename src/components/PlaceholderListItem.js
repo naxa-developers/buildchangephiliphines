@@ -14,8 +14,8 @@ class PlaceholderListItem extends Component {
       console.log('on_site_tapped');
       console.log(this.props.rowData);
       const { dispatch } = this.props;
+      Actions.jump('tabbar', this.props.rowData);
       dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
-        Actions.jump('tabbar', this.props.rowData);
     }
 
     render() {

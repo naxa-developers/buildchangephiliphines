@@ -181,8 +181,6 @@ export const storeUserGroup = (status) => {
 };
 
 export const storeAddress = (status) => {
-  console.log('storeUserGroup_ko_bhitra');
-  console.log('statusko_value');
-  console.log(status);
+  console.log('store_address_ko_bhitra', status);
   return { type: 'REMEMBER_SELECTED_ADDRESS', payload: status };
 };

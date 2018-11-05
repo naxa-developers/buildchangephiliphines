@@ -9,6 +9,7 @@ import { storeAddress, openedAddressScene } from '../../actions';
 class Address extends React.Component {
 
   componentDidMount() {
+    console.log('address_ko_component_did_mount_bhitra');
     checkInternetConnection().then(res => {
       if (res) {
         AsyncStorage.getItem('token')
@@ -26,7 +27,7 @@ class Address extends React.Component {
   }
 
   render() {
-    console.log('path of pdf', this.props.pdf);
+    console.log('address_ko_render_bhitra');
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -87,8 +88,7 @@ class Address extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToPropsko_bhitra', state);
-  console.log(state);
+  console.log('address_ko_mapstatetoprops', state);
   return {
     isLoading: state.pdf.isLoading,
     currentUserGroup: state.currentUserGroup.currentUserGroup,

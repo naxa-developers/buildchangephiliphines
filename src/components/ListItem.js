@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { View,
     TouchableOpacity,
-    Text
+    Text,
+    Image
  } from 'react-native';
 import { CardSection, Circle } from './common';
 import { strings, getLocalizedText } from '../../locales/strings';
@@ -35,7 +36,10 @@ class ListItem extends Component {
         >
             <View>
                 <CardSection>
-                    <Circle text={firstLetter} />
+                    <Image
+                      style={styles.imageStyle}
+                      source={require('../../app_images/Electrical1.png')}
+                    />
                     <View style={cointainerStyle}>
                         <Text style={titleStyle} >{getLocalizedText(local_step, step)}</Text>
                         <Text style={subtitleStyle} >{getLocalizedText(local_step, step)}</Text>
@@ -51,13 +55,13 @@ class ListItem extends Component {
 const styles = {
     titleStyle: {
         paddingLeft: 16,
-        fontSize: 14,
+        fontSize: 15,
         color: '#000'
     },
     subtitleStyle: {
         paddingLeft: 16,
         fontSize: 12,
-        color: '#ddd'
+        color: 'rgba(0,0,0,.6)'
 
     },
     cointainerStyle: {
@@ -66,6 +70,11 @@ const styles = {
         backgroundColor: '#fff',
         flexDirection: 'column',
         position: 'relative'
+    },
+    imageStyle: {
+      height: 60,
+      width: 60
+
     }
 };
 

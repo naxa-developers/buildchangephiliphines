@@ -20,11 +20,6 @@ class SuccessfulLogin extends Component {
     };
   }
 
-  componentWillMount() {
-    console.log('**************');
-    console.log('wwwwwwwwwwwwwwilll mounnttt ko bhitra');
-    console.log('**************');
-  }
   componentDidMount() {
     console.log('componentDidMountkobhitra');
     this.getLocale();
@@ -83,9 +78,6 @@ class SuccessfulLogin extends Component {
     });
 }
 
-   SearchFilterFunction(text) {
-     this.props.intelliSearch(text);
- }
 
   ListViewItemSeparator = () => (
       <View
@@ -99,6 +91,7 @@ class SuccessfulLogin extends Component {
 
 
   render() {
+    console.log('SuccessfulLogin_ko_render');
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -173,16 +166,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToPropsko_bhitra');
-  console.log(state);
+  console.log('SuccessfulLogin_map_state_to_props', state);
   let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2,
-  });
-
-  const newData = state.schoolList.data.sites.filter(function (item) {
-      const itemData = item.name.toUpperCase();
-      const textData = state.schoolSearchReducer.typedText.toUpperCase();
-      return itemData.indexOf(textData) > -1;
   });
 
   const Daram = state.schoolList.data.sites.filter(function (school) {
@@ -190,22 +176,10 @@ const mapStateToProps = (state) => {
     return schoolAddress.indexOf(state.currentSelectedAddress.currentSelectedAddress.toUpperCase()) > -1;
   });
 
-  const Zumarraga = state.schoolList.data.sites.filter(function (school) {
-    const schoolAddress = school.address.toUpperCase();
-    return schoolAddress.indexOf('ZUMARRAGA') > -1;
-  });
-  console.log(Zumarraga);
-  console.log('Daram', Daram);
   return {
             isLoading: state.schoolList.isLoading,
-            data: state.schoolList.data,
             list: ds,
-            typedText: state.schoolSearchReducer.typedText,
-            hasTyped: state.schoolSearchReducer.hasTyped,
-            newData,
-            hasInternetConnection: state.checkOnline.hasInternetConnection,
             daram: Daram,
-            zumarraga: Zumarraga
          };
 };
 
