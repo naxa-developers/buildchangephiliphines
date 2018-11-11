@@ -240,6 +240,7 @@ class Scenes extends Component {
             key='Select'
             component={Select}
             title='What do you want to do today?'
+            titleStyle={{ flex: 1, textAlign: 'center' }}
           />
           <Scene
             //initial
