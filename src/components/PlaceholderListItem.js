@@ -13,7 +13,6 @@ class PlaceholderListItem extends Component {
     onSiteTapped() {
       console.log('on_site_tapped', this.props.rowData);
       const { dispatch } = this.props;
-      //Actions.jump('tabbar', this.props.rowData);
       Actions.jump('tabbar');
 
       dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
@@ -21,7 +20,6 @@ class PlaceholderListItem extends Component {
 
     render() {
       console.log('PlaceholderListItemko_render');
-      console.log(this.props.rowData.name);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
 
         const { name } = this.props.rowData;

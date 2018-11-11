@@ -48,7 +48,7 @@ class LibraryList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('LibraryListko_mapstatetoprops_bhitra');
+  //console.log('LibraryListko_mapstatetoprops_bhitra');
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
 

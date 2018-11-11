@@ -239,8 +239,7 @@ class Scenes extends Component {
           initial={this.state.hasToken}
             key='Select'
             component={Select}
-            title='Select'
-            hideNavBar
+            title='What do you want to do today?'
           />
           <Scene
             //initial
@@ -258,7 +257,8 @@ class Scenes extends Component {
           <Scene
             key='ShowDocuments'
             component={ShowDocuments}
-            hideNavBar
+            title={'Pdf'}
+            back
           />
           <Scene
             component={ShowMap}

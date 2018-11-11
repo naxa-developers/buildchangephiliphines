@@ -4,6 +4,8 @@ import { CheckBox } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { getLocalizedText } from '../../locales/strings';
+import { requestPerson } from '../actions';
+
 
 class CheckListItem extends Component {
   constructor() {
@@ -49,6 +51,7 @@ class CheckListItem extends Component {
       >
         <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
       </TouchableOpacity>
+
       </View>
     );
   }

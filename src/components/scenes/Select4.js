@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class Select4 extends Component {
 
   showPdf(array, category) {
+
     array.forEach((ea) => {
       console.log('ea', ea);
       console.log('category', category);
@@ -15,7 +16,11 @@ class Select4 extends Component {
         if (ea.pdf === '') {
           Alert.alert('No pdf available for this option!')
         } else {
-          Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + ea.pdf });
+          if (ea.name === 'CONSTRUCTION QUALITY') {
+            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + ea.pdf, value: 'ram' });
+          } else {
+            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + ea.pdf });
+          }
         }
       }
     });

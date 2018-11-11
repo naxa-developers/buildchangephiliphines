@@ -60,7 +60,6 @@ class SuccessfulLogin extends Component {
     .catch((error) => {
       console.log(error);
     });
-    console.log(' component did mountko eeeeeeeend');
   }
 
   async getLocale() {
