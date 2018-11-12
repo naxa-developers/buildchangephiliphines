@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, AsyncStorage } from 'react-native';
 import call from 'react-native-phone-call';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -12,15 +12,35 @@ onCallInspectorTapped(l) {
   prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
 };
 if (l.phone_number) {
+  AsyncStorage.getItem('token').then(token => {
+    const url = 'http://bccms.naxa.com.np/core/api/call-log/';
+    const formdata = new FormData();
+
+    formdata.append('call_to', l.id);
+    formdata.append('call_from', this.props.from);
+    console.log(formdata);
+    const req = {
+      method: 'POST',
+      headers: {
+        Authorization: 'token ' + token,
+        'Content-Type': 'multipart/form-data'
+      },
+      body: formdata
+    };
+    fetch(url, req)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+});
   call(args).catch(console.error);
+} else {
+  Alert.alert('Phone number not available');
 }
-Alert.alert('Phone number not available');
 }
 
   render() {
-    console.log('DocumentList_bhitra');
-    console.log('this.propsko_value');
-    console.log(this.props);
+    console.log('engineerlist', this.props);
     return (
       <View>
       <List containerStyle={{ borderTopWidth: 0, marginBottom: 20, marginLeft: 10, marginRight: 10, borderWidth: 0 }}>
@@ -44,7 +64,7 @@ Alert.alert('Phone number not available');
 }
 
 const mapStateToProps = (state) => {
-  console.log('ShowMapko_mapstatetoprops_bhitra');
+  console.log('engineerlist', state);
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
 
@@ -52,11 +72,10 @@ const found = sites.find(function(element) {
   return element.id === selectedSchoolId;
 });
 
-console.log('foundKO_value');
-console.log(found);
 const str = found.site_engineers;
 return {
-  engineers: str
+  engineers: str,
+  from: state.currentUserGroup.currentUserId
 };
 };
 

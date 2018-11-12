@@ -38,7 +38,6 @@ class Address extends React.Component {
 
     return (
               <View style={styles.mainContainer}>
-                <View style={styles.promptContainer}><Text style={styles.headingText}>Where is your school?</Text></View>
                 <View style={styles.optionsContainer}>
                   <TouchableOpacity
                     style={[styles.option, { marginBottom: 10 }]}

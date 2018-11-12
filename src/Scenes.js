@@ -20,7 +20,6 @@ import First from './components/scenes/First';
 import Address from './components/scenes/Address';
 import Select2 from './components/scenes/Select2';
 import HouseParts from './components/scenes/HouseParts';
-
 import Select3 from './components/scenes/Select3';
 import Select4 from './components/scenes/Select4';
 import MaterialPhoto from './components/scenes/MaterialPhoto';
@@ -30,10 +29,8 @@ import DownloadDataScene from './components/scenes/DownloadDataScene';
 import Onboarding from './components/scenes/Onboarding';
 import ShowDocuments from './components/scenes/ShowDocuments';
 import ShowBigImages from './components/scenes/ShowBigImages';
-
 import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
-
 import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
 import { strings } from '../locales/strings';
@@ -205,7 +202,7 @@ class Scenes extends Component {
           //initial
             key='Address'
             component={Address}
-            title='Address'
+            title='Where is our School?'
             back
           />
           <Scene
@@ -239,7 +236,7 @@ class Scenes extends Component {
           initial={this.state.hasToken}
             key='Select'
             component={Select}
-            title='What do you want to do today?'
+            title={strings.view_select_header}
             titleStyle={{ flex: 1, textAlign: 'center' }}
           />
           <Scene
@@ -289,7 +286,7 @@ class Scenes extends Component {
           >
           <Scene key='StepList' title={strings.title_steps} icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
             <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
-            <Scene key='Show Documents' title="Site Documents" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
+            <Scene key='Show Documents' title="Construction Plans" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
           </Scene>
 
         </Scene>

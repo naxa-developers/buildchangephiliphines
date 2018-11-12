@@ -13,7 +13,6 @@ constructor() {
   };
 }
   componentDidMount() {
-    console.log('component_did_mount_bhitraaaaaaa');
     fetch('http://bccms.naxa.com.np/core/api/site-documents/'+this.props.selectedSchoolId+'/')
       .then((res) => res.json())
       .then((array) => {
@@ -28,9 +27,6 @@ constructor() {
 
 
   render() {
-    console.log('DocumentList_bhitra');
-    console.log('this.propsko_value');
-    console.log(this.props);
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -47,7 +43,7 @@ constructor() {
     <ListItem
       roundAvatar
       avatar={require('../../../app_images/pdf.png')}
-      onPressRightIcon={() => Actions.ShowDocuments({ path: l.file })}
+      onPress={() => Actions.ShowDocuments({ path: l.file })}
       key={i}
       title={l.file.replace('http://bccms.naxa.com.np/media/site/documents/', '').replace('.pdf', '')}
       containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0 }}
@@ -62,11 +58,9 @@ constructor() {
 }
 
 const mapStateToProps = (state) => {
-  console.log('documentLIstko_mapstatetoprops_bhitra');
-  console.log(state);
-return {
+  return {
   selectedSchoolId: state.currentSelectedSchool.selectedSchoolId
-};
+  };
 };
 
 export default connect(mapStateToProps)(DocumentList);

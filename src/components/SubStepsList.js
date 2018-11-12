@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, Modal, View, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import ListItem from './ListItem';
+import { ListView, Modal, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { ImageViewer } from 'react-native-image-zoom-viewer';
 import Page1 from '../test/page1';
 
@@ -13,9 +12,6 @@ class SubStepsList extends Component {
     };
 }
     componentWillMount() {
-      console.log('***********');
-      console.log(this.props.image);
-      console.log('***********');
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });

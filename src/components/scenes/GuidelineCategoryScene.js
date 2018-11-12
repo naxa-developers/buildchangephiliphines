@@ -47,7 +47,7 @@ class GuidelineCategoryScene extends Component {
             onPress={() => {
               Actions.MaterialPhoto({ photoData: rowData });
             }}
-              title={rowData.name}
+              title={getLocalizedText(rowData.name_de, rowData.name)}
               containerStyle={{ borderBottomWidth: 5, borderBottomColor: '#EFEFF4', backgroundColor: 'white' }}
             />
           )}

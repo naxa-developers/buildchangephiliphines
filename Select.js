@@ -27,7 +27,6 @@ class Select extends Component {
 
   render() {
     const { height, width } = Dimensions.get('window');
-    console.log('select', this.props);
     return (
       <View style={{ position: 'relative', overflow: 'hidden' }}>
         <View style={{ height: 30, position: 'absolute', left: -5, right: -5, top: (height -  56) / 2 - 15, backgroundColor: '#FFF', zIndex: 10, transform: [{ rotate: '4deg' }] }} />

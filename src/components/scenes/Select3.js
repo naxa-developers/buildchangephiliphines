@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { strings } from '../../../locales/strings';
 
 
 class Select3 extends Component {
+  componentDidMount() {
+    this.getLocale();
+  }
+  async getLocale() {
+    return await AsyncStorage.getItem('locale').then((value) => {
+      strings.setLanguage(value);
+      this.setState({
+        isLoading: false
+      });
+    });
+}
   render() {
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={() => Actions.Select4()}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textStyle}>What makes</Text>
-          <Text style={styles.textBoldStyle}>My House Strong?</Text></TouchableOpacity>
+          <Text style={styles.textStyle}>{strings.view_select3_title1}</Text>
+          <Text style={styles.textBoldStyle}>{strings.view_select3_subtitle1}</Text></TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={() => Actions.HouseParts()}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textStyle}>What are the</Text>
-          <Text style={styles.textBoldStyle}>Key Parts of a House?</Text>
+          <Text style={styles.textStyle}>{strings.view_select3_title2}</Text>
+          <Text style={styles.textBoldStyle}>{strings.view_select3_subtitle2}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -55,6 +67,7 @@ const styles = StyleSheet.create({
   textBoldStyle: {
     color: 'white',
     fontSize: 22,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });
