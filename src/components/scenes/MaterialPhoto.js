@@ -7,6 +7,7 @@ import { View,
     TouchableOpacity,
     ScrollView
  } from 'react-native';
+ import { getLocalizedText } from '../../../locales/strings';
 
 class MaterialPhoto extends Component {
 
@@ -81,20 +82,20 @@ class MaterialPhoto extends Component {
         return (
           <ScrollView>
                 <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, padding: 15, position: 'relative', borderRadius: 5}}>
-                  <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 15, marginLeft: 25 }}>{'Good ' + this.props.photoData.name}</Text>
+                  <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 15, marginLeft: 25 }}>{getLocalizedText('AMO INI IT SAKTO NA ITSURA', 'This is what it should look like')}</Text>
                   <TouchableOpacity>
                   <Image style={{ height: 193, width: width - 50, marginBottom: 10 }} source={this.state.good_photo} />
                   </TouchableOpacity>
                   <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'green', position: 'absolute', left: 15, top: 20 }} />
-                  <Text style={{ fontSize: 17, lineHeight: 22 }}>{this.props.photoData.good_photo_desc}</Text>
+                <Text style={{ fontSize: 17, lineHeight: 22 }}>{getLocalizedText(this.props.photoData.good_photo_desc_de, this.props.photoData.good_photo_desc)}</Text>
                 </View>
                 <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, marginBottom: 15, padding: 15, position: 'relative', borderRadius: 5 }}>
-                  <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 15, marginLeft: 25 }}>{'Bad ' + this.props.photoData.name}</Text>
+                  <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 15, marginLeft: 25 }}>{getLocalizedText('AMO INI IT DIRI SAKTO NA ITSURA', 'This is what it should not look like')}</Text>
                   <TouchableOpacity>
                   <Image style={{ height: 193, width: width - 50, marginBottom: 10 }} source={this.state.bad_photo} />
                   </TouchableOpacity >
                   <View style={{ height: 15, width: 15, borderRadius: 15, backgroundColor: 'red', position: 'absolute', left: 15, top: 20 }} />
-                  <Text style={{ fontSize: 17, lineHeight: 22 }}>{this.props.photoData.bad_photo_desc}</Text>
+                  <Text style={{ fontSize: 17, lineHeight: 22 }}>{getLocalizedText(this.props.photoData.bad_photo_desc_de, this.props.photoData.bad_photo_desc)}</Text>
                 </View>
           </ScrollView>
         );

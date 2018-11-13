@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { checkInternetConnection } from 'react-native-offline';
 import { storeAddress, openedAddressScene } from '../../actions';
+import { getLocalizedText } from '../../../locales/strings';
 
 
 class Address extends React.Component {
@@ -75,8 +76,8 @@ class Address extends React.Component {
                     style={styles.pdfOption}
                     onPress={() => Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.pdf[0].pdf })}
                   >
-                    <Text style={styles.optionTextStyle}>I want to look at a</Text>
-                    <Text style={[styles.optionTextStyle, { fontWeight: 'bold' }]}> Standard School Design</Text>
+                    <Text style={styles.optionTextStyle}>{getLocalizedText('GUSTO KO MAKIT.AN PLANO', 'I want to look at a')}</Text>
+                    <Text style={[styles.optionTextStyle, { fontWeight: 'bold' }]}>{getLocalizedText('HIT USA KA ESKWELAHAN NA MAY KALIDAD', 'Standard School Design')}</Text>
                   </TouchableOpacity>}
 
                 </View>

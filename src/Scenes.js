@@ -33,7 +33,7 @@ import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
 import ShowMap from './components/scenes/ShowMap';
 import DocumentList from './components/scenes/DocumentList';
-import { strings } from '../locales/strings';
+import { strings, getLocalizedText } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
 import Page1 from './test/page1';
 
@@ -202,7 +202,7 @@ class Scenes extends Component {
           //initial
             key='Address'
             component={Address}
-            title='Where is our School?'
+            title={getLocalizedText('HAIN TIM ESKWELAHAN?', 'Where is our School?')}
             back
           />
           <Scene
@@ -223,7 +223,7 @@ class Scenes extends Component {
           //initial
             key='Select4'
             component={Select4}
-            title="The Three C's"
+            title={getLocalizedText("AN TULO KA K's", "The Three C's")}
             back
           />
           <Scene

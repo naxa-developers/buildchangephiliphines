@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { getLocalizedText } from '../../../locales/strings';
 
 
 class Select4 extends Component {
@@ -31,14 +32,14 @@ class Select4 extends Component {
       <View style={styles.mainContainer}>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONFIGURATION')}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>Configuration</Text></TouchableOpacity>
+          <Text style={styles.textBoldStyle}>{getLocalizedText('KONFIGURASYON', 'Configuration')}</Text></TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONNECTION')}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>Connection</Text>
+          <Text style={styles.textBoldStyle}>{getLocalizedText('KONEKSYON', 'Connection')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONSTRUCTION QUALITY')}>
           <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>Construction Quality</Text>
+          <Text style={styles.textBoldStyle}>{getLocalizedText('KALIDAD HAN PAG AYAD', 'Construction Quality')}</Text>
         </TouchableOpacity>
       </View>
     );
