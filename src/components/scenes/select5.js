@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   textBoldStyle: {
     color: 'white',
     fontSize: 22,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });

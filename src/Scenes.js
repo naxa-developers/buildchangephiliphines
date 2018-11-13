@@ -152,7 +152,7 @@ class Scenes extends Component {
 
           <Scene key='Login' component={Login} title='Login' type='replace' />
 
-          <Scene key='StepList' component={StepList} title={strings.title_steps} />
+          <Scene key='StepList' component={StepList} title={strings.title_steps} titleStyle={{ fontSize: 15 }} />
 
           <Scene
             //initial={this.state.hasToken}

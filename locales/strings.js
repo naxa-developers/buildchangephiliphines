@@ -31,7 +31,7 @@ export const strings = new LocalizedStrings({
     title_schools: 'Schools',
     action_setting: 'Setting',
 
-    title_steps: 'Steps',
+    title_steps: 'CLICK ON THE STAGE TO LEARN MORE',
     title_checklist: 'Checklist',
 
     title_guideline_categories: 'Construction Materials',
@@ -61,9 +61,9 @@ export const strings = new LocalizedStrings({
   'wa': {
     view_select_header: 'ANO IMO KARUYAG HIMUON YANA NA ADLAW?',
       view_schools_title: 'KITAON AN AMON ESKWELAHAN',
-      view_schools_subtitle: '',
+      view_schools_subtitle: ' ',
       view_guidelines_title: 'MAKA SABOT PARTE HIT BALAY NGAN PAG AYAD',
-      view_guidelines_subtitle: '',
+      view_guidelines_subtitle: ' ',
       view_select2_header: 'What do you want to do today?',
       view_select2_title1: 'KARUYAG KO MABARUAN',
       view_select2_title2: 'KARUYAG KO MABARUAN',
@@ -78,7 +78,7 @@ export const strings = new LocalizedStrings({
       title_schools: 'Mga eskwelahan',
       action_setting: 'Settings',
 
-      title_steps: 'Mga Pama-agi',
+      title_steps: 'PINDOTA AN PAMAAGI PARA MAS MABARUAN AN PROSESO',
       title_checklist: 'Listahan',
 
       title_guideline_categories: 'Construction Materials',
