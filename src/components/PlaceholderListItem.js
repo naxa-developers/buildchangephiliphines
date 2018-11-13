@@ -13,7 +13,8 @@ class PlaceholderListItem extends Component {
     onSiteTapped() {
       console.log('on_site_tapped', this.props.rowData);
       const { dispatch } = this.props;
-      Actions.jump('tabbar');
+      Actions.Select5({ title: this.props.rowData.name });
+      //Actions.jump('tabbar');
 
       dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
     }

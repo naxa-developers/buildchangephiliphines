@@ -22,6 +22,7 @@ import Select2 from './components/scenes/Select2';
 import HouseParts from './components/scenes/HouseParts';
 import Select3 from './components/scenes/Select3';
 import Select4 from './components/scenes/Select4';
+import Select5 from './components/scenes/select5';
 import MaterialPhoto from './components/scenes/MaterialPhoto';
 import Select from '../Select';
 import ComparePhotosScene from './components/scenes/ComparePhotosScene';
@@ -224,6 +225,12 @@ class Scenes extends Component {
             key='Select4'
             component={Select4}
             title={getLocalizedText("AN TULO KA K's", "The Three C's")}
+            back
+          />
+          <Scene
+          //initial
+            key='Select5'
+            component={Select5}
             back
           />
           <Scene
