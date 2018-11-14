@@ -44,13 +44,14 @@ const styles = {
     titleStyle: {
         paddingLeft: 16,
         fontSize: 14,
-        color: '#000'
+        color: '#000',
+        fontWeight: 'bold'
+
     },
     subtitleStyle: {
         paddingLeft: 16,
         fontSize: 12,
-        color: '#ddd'
-
+        color: 'rgba(0,0,0,0.6)'
     },
     cointainerStyle: {
         justifyContent: 'center',

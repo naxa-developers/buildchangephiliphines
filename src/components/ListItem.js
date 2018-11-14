@@ -3,7 +3,8 @@ import { Actions } from 'react-native-router-flux';
 import { View,
     TouchableOpacity,
     Text,
-    Image
+    Image,
+    Dimensions
  } from 'react-native';
 import { CardSection } from './common';
 import { strings, getLocalizedText } from '../../locales/strings';
@@ -63,7 +64,7 @@ const styles = {
         borderBottomWidth: 0,
         backgroundColor: '#fff',
         flexDirection: 'column',
-        position: 'relative'
+        width: Dimensions.get('window').width - 60
     },
     imageStyle: {
       height: 60,

@@ -60,7 +60,30 @@ showImageViewer(id) {
     return (
       <View style={styles.container}>
 
+      <Modal
+         visible={this.state.imageViewerShown}
+         transparent
+         onRequestClose={() => {
+         this.setState({ ...this.state, imageViewerShown: false });
+         }}
+      >
+              <ImageViewer
+                  imageUrls={images}
+                  index={this.state.id}
+              />
+        </Modal>
 
+  <View style={styles.titleContainer}>
+    <Text style={styles.titleText}>{getLocalizedText(this.props.substep.local_title, this.props.substep.title)}</Text>
+  </View>
+
+  <ListView
+    dataSource={ds.cloneWithRows(this.props.substep.primary_photos)}
+    renderRow={(rowData) => {
+      return (<TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.primary_photos.indexOf(rowData))}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>);
+    }
+    }
+  />
         <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
 
           { this.props.substep.good_photos.length !== 0 &&
