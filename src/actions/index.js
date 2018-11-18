@@ -37,6 +37,24 @@ export const openedGuidelinesCategoryScene = (token) => {
   };
 };
 
+export const openedConstructionMaterialsScene = (token) => {
+  return (dispatch) => {
+    fetch('http://bccms.naxa.com.np/core/api/category-list/?project_id=1', {
+      method: 'GET',
+      headers: {
+        Authorization: 'token '+token
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      dispatch({ type: 'opened_construction_materials_scene', payload: responseJson });
+    })
+   .catch((error) => {
+      console.error(error);
+    });
+  };
+};
+
 export const openedAddressScene = (token) => {
   return (dispatch) => {
     fetch('http://bccms.naxa.com.np/core/api/standard-school-design/', {

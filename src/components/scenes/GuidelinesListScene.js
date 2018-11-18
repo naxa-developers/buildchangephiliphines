@@ -7,32 +7,21 @@ import { getLocalizedText } from './../../../locales/strings';
 
 export default class GuidelinesListScene extends React.Component {
 
-constructor() {
-    super();
-    this.state = {
-        selectedGuideline: null,
-    };
-}
 
 onGuidelineTapped(guideline) {
     console.log(guideline);
-    Actions.ComparePhotosScene({ title: guideline.title, guideline });
+    Actions.GoodBad({ photoData: guideline, title: guideline.title });
 }
 
-render(){
-
-  console.log(this.props.guidelines);
-  const title = getLocalizedText(this.props.guidelines.local_title,
-     this.props.guidelines.title);
-
+render() {
     return (
       <View style={{ flex: 1, paddingTop: 10 }}>
         <FlatList
-          data={this.props.guidelines}
+          data={this.props.data.materials}
           renderItem={({ item }) =>
             <ListItem
                 onPress={this.onGuidelineTapped.bind(this, item)}
-                title={title}
+                title={item.title}
                 subtitle={item.title}
                 containerStyle={{ backgroundColor: 'white', borderBottomWidth: 5, borderBottomColor: '#EFEFF4' }}
             />}

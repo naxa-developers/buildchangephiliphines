@@ -10,6 +10,7 @@ import CurrentSelectedSchool from './currentselectedschool';
 import CurrentUserGroup from './currentusergroup';
 import CurrentSelectedAddress from './currentselectedaddress';
 import PdfData from './addressscenereducer';
+import ConstructionMaterial from './constructionmaterialreducer';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   currentSelectedSchool: CurrentSelectedSchool,
   currentUserGroup: CurrentUserGroup,
   currentSelectedAddress: CurrentSelectedAddress,
-  pdf: PdfData
+  pdf: PdfData,
+  constructionMaterial: ConstructionMaterial
 });

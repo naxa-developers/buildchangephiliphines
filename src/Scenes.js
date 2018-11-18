@@ -17,6 +17,7 @@ import ReportEngineer from './components/ReportEngineer';
 import GuidelineCategoryScene from './components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import First from './components/scenes/First';
+import GoodBad from './components/scenes/goodbad';
 import Address from './components/scenes/Address';
 import Select2 from './components/scenes/Select2';
 import HouseParts from './components/scenes/HouseParts';
@@ -124,6 +125,11 @@ class Scenes extends Component {
 
           component={BadPhoto}
           key='BadPhoto'
+        />
+        <Scene
+
+          component={GoodBad}
+          key='GoodBad'
         />
 
 

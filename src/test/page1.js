@@ -175,5 +175,6 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontWeight: 'bold',
     color: 'white',
-    fontSize: 16  }
+    fontSize: 16
+ }
 });
