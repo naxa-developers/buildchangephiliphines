@@ -38,7 +38,7 @@ class GoodBad extends Component {
             console.log('good_photo', { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
 
             this.setState({
-              good_photo: { uri: this.props.photoData.good_photo.replace('http://bccms.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
+              good_photo: { uri: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
               //good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.good_photo }
             });
           }
@@ -49,10 +49,10 @@ class GoodBad extends Component {
           } else {
             console.log('bad_photo', { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
             this.setState({
-              bad_photo: { uri: this.props.photoData.bad_photo.replace('http://bccms.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
+              bad_photo: { uri: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') } }
               //bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.bad_photo }
 
-            });
+            );
           }
       }
       else if (!exist) {
