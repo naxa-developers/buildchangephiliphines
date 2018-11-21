@@ -35,7 +35,8 @@ class GoodBad extends Component {
               good_photo: require('../../../app_images/no_image.png')
             });
           } else {
-            console.log('good_photo');
+            console.log('good_photo', { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
+
             this.setState({
               good_photo: { uri: this.props.photoData.good_photo.replace('http://bccms.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
               //good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.good_photo }
@@ -46,7 +47,7 @@ class GoodBad extends Component {
               bad_photo: require('../../../app_images/no_image.png')
             });
           } else {
-            console.log('bad_photo');
+            console.log('bad_photo', { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
             this.setState({
               bad_photo: { uri: this.props.photoData.bad_photo.replace('http://bccms.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
               //bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.bad_photo }
@@ -109,6 +110,7 @@ class GoodBad extends Component {
                 />
           </Modal>
         <ScrollView>
+              <View style={{ margin: 15, marginBottom: 0 }}><Text style={{ fontSize: 15 }}>{this.props.photoData.description}</Text></View>
               <View style={{ backgroundColor: 'white', marginTop: 15, marginLeft: 15, marginRight: 15, padding: 15, position: 'relative', borderRadius: 5 }}>
               <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 18, marginBottom: 15, marginLeft: 25 }}>{getLocalizedText('AMO INI IT SAKTO NA ITSURA', 'This is what it should look like')}</Text>
                 <TouchableOpacity

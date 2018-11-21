@@ -105,7 +105,8 @@ class Scenes extends Component {
 
           component={Category}
           key='Category'
-          title='Category'
+          title='What Step on the Construction Do You Want to Monitor?'
+          titleStyle={{ fontSize: 10 }}
         />
         <Scene
 
@@ -158,7 +159,7 @@ class Scenes extends Component {
 
           <Scene key='Login' component={Login} title='Login' type='replace' />
 
-          <Scene key='StepList' component={StepList} title={strings.title_steps} titleStyle={{ fontSize: 15 }} />
+          <Scene key='StepList' component={StepList} title={strings.title_steps} headerTitleAllowFontScaling={false} titleStyle={{ fontSize: 12 }} />
 
           <Scene
             //initial={this.state.hasToken}
@@ -209,7 +210,7 @@ class Scenes extends Component {
           //initial
             key='Address'
             component={Address}
-            title={getLocalizedText('HAIN TIM ESKWELAHAN?', 'Where is our School?')}
+            title={getLocalizedText('HAIN TIM ESKWELAHAN?', 'Where is your School?')}
             back
           />
           <Scene
@@ -237,6 +238,7 @@ class Scenes extends Component {
           //initial
             key='Select5'
             component={Select5}
+            titleStyle={{ fontSize: 17 }}
             back
           />
           <Scene

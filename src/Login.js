@@ -35,7 +35,13 @@ class Login extends Component {
 	}
 
 	async onUserIdChange(item, selectedValue) {
-
+		try {
+			await AsyncStorage.setItem(item, selectedValue);
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+	async onUserChange(item, selectedValue) {
 		try {
 			await AsyncStorage.setItem(item, selectedValue);
 		} catch (error) {
@@ -77,6 +83,7 @@ class Login extends Component {
 			.then((responseData) => {
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id.toString());
+				this.onUserChange('user', responseData.group);
 											// 				try {
 											//   const value = await AsyncStorage.getItem(');
 											//   if (value !== null){

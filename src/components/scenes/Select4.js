@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,15 +31,45 @@ class Select4 extends Component {
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONFIGURATION')}>
-          <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>{getLocalizedText('KONFIGURASYON', 'Configuration')}</Text></TouchableOpacity>
+        <View style={styles.backgroundContainer}>
+          <Image
+          style={styles.bgImage}
+          source={require('../../../app_images/Configuration.jpg')}
+          resizeMode={'stretch'}
+          />
+        </View>
+        <View style={styles.contentStyle}>
+        <Icon name={'info'} size={35} style={styles.iconStyle} />
+        <Text style={styles.textBoldStyle}>{getLocalizedText('KONFIGURASYON', 'Configuration')}</Text>
+        </View>
+</TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONNECTION')}>
-          <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>{getLocalizedText('KONEKSYON', 'Connection')}</Text>
+        <View style={styles.backgroundContainer}>
+          <Image
+          style={styles.bgImage}
+          source={require('../../../app_images/Connection.jpg')}
+          resizeMode={'stretch'}
+          />
+        </View>
+        <View style={styles.contentStyle}>
+        <Icon name={'info'} size={35} style={styles.iconStyle} />
+        <Text style={styles.textBoldStyle}>{getLocalizedText('KONEKSYON', 'Connection')}</Text>
+        </View>
+
         </TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={this.showPdf.bind(this, this.props.data, 'CONSTRUCTION QUALITY')}>
-          <Icon name={'info'} size={35} style={styles.iconStyle} />
-          <Text style={styles.textBoldStyle}>{getLocalizedText('KALIDAD HAN PAG AYAD', 'Construction Quality')}</Text>
+        <View style={styles.backgroundContainer}>
+          <Image
+          style={styles.bgImage}
+          source={require('../../../app_images/construction_quality.jpg')}
+          resizeMode={'stretch'}
+          />
+        </View>
+        <View style={styles.contentStyle}>
+        <Icon name={'info'} size={35} style={styles.iconStyle} />
+        <Text style={styles.textBoldStyle}>{getLocalizedText('KALIDAD HAN PAG AYAD', 'Construction Quality')}</Text>
+        </View>
+
         </TouchableOpacity>
       </View>
     );
@@ -61,20 +91,20 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5
+
+    borderRadius: 5,
+    position: 'relative',
+    overflow: 'hidden'
   },
   iconStyle: {
-    color: 'white',
-    fontSize: 30,
-    marginBottom: 10,
-    width: 60,
-    height: 60,
-    lineHeight: 60,
-    borderRadius: 60,
-    backgroundColor: 'rgba(0,0,0,.1)',
+    color: 'rgba(0,0,0,.5)',
+    fontSize: 35,
+    marginBottom: 20,
+    width: 70,
+    height: 70,
+    lineHeight: 70,
+    borderRadius: 70,
+    backgroundColor: 'rgba(255,255,255,.9)',
     textAlign: 'center',
     justifyContent: 'center'
   },
@@ -86,5 +116,27 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22,
     fontWeight: 'bold'
+  },
+  backgroundContainer: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0
+
+  },
+  bgImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: undefined,
+    height: undefined,
+  },
+  contentStyle: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,.1)'
   }
+
 });
