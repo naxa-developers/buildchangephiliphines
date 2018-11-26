@@ -7,7 +7,7 @@ export const IMAGE_HEIGHT_SMALL = window.width / 7;
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#4c69a5',
+    backgroundColor: '#fff',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -24,15 +24,30 @@ export default StyleSheet.create({
   logo: {
     height: IMAGE_HEIGHT,
     resizeMode: 'contain',
-    marginBottom: 20,
-    padding:10,
-    marginTop:20
+    marginBottom: 10,
+    padding: 10,
+    marginTop: 40
   },
-  register:{
-    marginBottom:20,
-    width:window.width -100,
-    alignItems:'center',
-    justifyContent:'center',
-    height:50,
-    backgroundColor: '#ffae',}
+  register: {
+    marginBottom: 20,
+    width: window.width - 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    backgroundColor: '#ffae',
+  },
+  buttonWrapper: {
+    marginTop: 30,
+    backgroundColor: '#003860',
+    width: 300,
+    alignSelf: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    padding: 10,
+    textAlign: 'center'
+  },
+  form: {
+  }
 });

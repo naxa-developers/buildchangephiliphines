@@ -4,7 +4,10 @@ import {
   Alert,
 	TextInput,
   Animated,
-  Keyboard
+  Keyboard,
+  ScrollView,
+  TouchableOpacity,
+  Text
 } from 'react-native';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './stylestest';
 
@@ -107,8 +110,9 @@ keyboardDidHide = (event) => {
 
 	render() {
     return (
-    <Animated.View style={[styles.container, { paddingBottom: 50 }]}>
+    <Animated.View style={[styles.container]}>
       <Animated.Image source={require('../app_images/buildchange.jpeg')} style={[styles.logo, { height: this.imageHeight }]} />
+      <ScrollView style={styles.form}>
       <TextInput
         placeholder="Email"
         style={styles.input}
@@ -125,6 +129,15 @@ keyboardDidHide = (event) => {
         placeholder="Confirm Password"
         style={styles.input}
       />
+      <TouchableOpacity
+        style={styles.buttonWrapper}
+        onPress={this.userSignup.bind(this)}
+      >
+        <Text style={styles.buttonText}>
+          SignUp
+        </Text>
+      </TouchableOpacity>
+      </ScrollView>
     </Animated.View>
   );
 	}
