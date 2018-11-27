@@ -15,33 +15,68 @@ class PrimaryPhoto extends Component {
 
 
   componentWillMount() {
-    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
-        .then((exist) => {
-            console.log(exist);
-          if (exist) {
+    // RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+    //     .then((exist) => {
+    //         console.log(exist);
+    //       if (exist) {
+    //         this.setState({
+    //           primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.primaryPhoto.image }
+    //         });
+    //     }
+    //     else if (!exist) {
+    //       if (this.props.substep.primary_photo === null) {
+    //         this.setState({
+    //           primary_photo: require('../../app_images/no_image.png')
+    //         });
+    //       }
+    //       else if (this.props.substep.primary_photo !== null) {
+    //         this.setState({
+    //           primary_photo: require('../../app_images/no_image.png')
+    //         });
+    //       }
+    //     }
+    //     })
+    //     .catch(() => {
+    //         console.log('error while checking file');
+    //     });
+
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      .then((exist) => {
+          console.log(exist);
+        if (exist) {
+          if (this.props.primaryPhoto.image === null || this.props.primaryPhoto.image === '') {
+            this.setState({
+              primary_photo: require('../../app_images/no_image.png')
+            });
+          } else {
+            console.log('good_photo');
             this.setState({
               primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.primaryPhoto.image }
             });
-        }
-        else if (!exist) {
-          if (this.props.substep.primary_photo === null) {
-            this.setState({
-              primary_photo: require('../../app_images/no_image.png')
-            });
           }
-          else if (this.props.substep.primary_photo !== null) {
-            this.setState({
-              primary_photo: require('../../app_images/no_image.png')
-            });
-          }
+      }
+      else if (!exist) {
+        console.log('doesnt exist');
+        if (this.props.primaryPhoto.image === null || this.props.primaryPhoto.image === '') {
+          this.setState({
+            primary_photo: require('../../app_images/no_image.png')
+          });
         }
-        })
-        .catch(() => {
-            console.log('error while checking file');
-        });
+        else {
+          console.log('downloading image from web');
+          this.setState({
+            primary_photo: { uri: 'http://bccms.naxa.com.np' + this.props.primaryPhoto.image }
+          });
+        }
+      }
+      })
+      .catch(() => {
+          console.log('error while checking file');
+      });
   }
 
   render() {
+    console.log('primaryPhoto bhitra stateko value', this.state.primary_photo);
     return (
       <View style={styles.imageContainer}>
       <Image

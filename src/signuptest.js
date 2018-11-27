@@ -110,7 +110,7 @@ keyboardDidHide = (event) => {
 
 	render() {
     return (
-    <Animated.View style={[styles.container]}>
+    <Animated.View style={[styles.container, { paddingBottom: 20 }]}>
       <Animated.Image source={require('../app_images/buildchange.jpeg')} style={[styles.logo, { height: this.imageHeight }]} />
       <ScrollView style={styles.form}>
       <TextInput

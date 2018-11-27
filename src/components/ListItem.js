@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { View,
     TouchableOpacity,
     Text,
@@ -11,6 +12,50 @@ import { strings, getLocalizedText } from '../../locales/strings';
 
 
 class ListItem extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        good_photo: {},
+    };
+}
+
+  componentWillMount() {
+    console.log('photoData', this.props.item);
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      .then((exist) => {
+          console.log(exist);
+        if (exist) {
+          if (this.props.item.icon === null || this.props.item.icon === '') {
+            this.setState({
+              good_photo: require('../../app_images/no_image.png')
+            });
+          } else {
+            console.log('good_photo');
+            this.setState({
+              good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.item.step }
+            });
+          }
+      }
+      else if (!exist) {
+        if (this.props.item.icon === null || this.props.item.icon === '') {
+          this.setState({
+            good_photo: require('../../app_images/no_image.png')
+          });
+        }
+        else {
+          this.setState({
+            good_photo: { uri: 'http://bccms.naxa.com.np/media/' + this.props.item.icon }
+          });
+        }
+      }
+      })
+      .catch(() => {
+          console.log('error while checking file');
+      });
+}
+
+
   onSiteTapped() {
     if (this.props.currentUserGroup !== 'Field Engineer') {
       Actions.SubStepsList({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image });
@@ -22,6 +67,7 @@ class ListItem extends Component {
   }
 
     render() {
+      console.log('renderbhitra state ko value', this.state);
         const { titleStyle, subtitleStyle, cointainerStyle } = styles;
         const { step, local_step } = this.props.item;
 
@@ -33,7 +79,7 @@ class ListItem extends Component {
                 <CardSection>
                     <Image
                       style={styles.imageStyle}
-                      source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.item.icon }}
+                      source={this.state.good_photo}
                     />
                     <View style={cointainerStyle}>
                         <Text style={titleStyle} >{getLocalizedText(local_step, step)}</Text>

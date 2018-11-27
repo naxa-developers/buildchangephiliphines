@@ -55,7 +55,7 @@ class MaterialPhoto extends Component {
         }
         else if (this.props.photoData.good_photo !== null) {
           this.setState({
-            good_photo: { uri: this.props.photoData.good_photo }
+            good_photo: { uri: 'http://bccms.naxa.com.np/media/' + this.props.photoData.good_photo }
           });
         }
         if (this.props.photoData.bad_photo === null || this.props.photoData.bad_photo === '') {
@@ -65,7 +65,7 @@ class MaterialPhoto extends Component {
         }
         else if (this.props.photoData.bad_photo !== null) {
           this.setState({
-            bad_photo: { uri: this.props.photoData.bad_photo }
+            bad_photo: { uri: 'http://bccms.naxa.com.np/media/' + this.props.photoData.bad_photo }
 
           });
         }
