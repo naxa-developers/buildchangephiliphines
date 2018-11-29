@@ -22,7 +22,7 @@ class ComparePhotosScene extends Component {
     };
 }
 
-componentWillMount() {
+componentDidMount() {
   console.log('component will mount ko bhitra', this.props.substep.good_photos);
   this.props.substep.good_photos.forEach((ea) => {
     //images.push({ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines' + ea.image });

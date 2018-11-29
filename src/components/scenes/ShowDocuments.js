@@ -4,24 +4,45 @@ import { connect } from 'react-redux';
 import Pdf from 'react-native-pdf';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
-
+import RNFetchBlob from 'react-native-fetch-blob';
 
 class ShowDocuments extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      source: {}
+    };
+  }
+  componentWillMount() {
+    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+        .then((exist) => {
+            console.log(exist);
+          if (exist) {
+            this.setState({
+              source: { uri: this.props.path, cache: true }
+            });
+        }
+        else if (!exist) {
+          console.log('chiana');
+          this.setState({
+            source: { uri: this.props.path.replace('file:///storage/emulated/0/Android/data/com.guide/build_change_philippines', 'http://bccms.naxa.com.np'), cache: true }
+          });
+        }
+        })
+        .catch(() => {
+            console.log('error while checking file');
+        });
+  }
     render() {
-      console.log('pdf bhitra', this.props.value);
+      console.log('pdf bhitra', this.props.path);
+        console.log('source', this.state.source);
 
-        const source = { uri: this.props.path, cache: true };
-
-        //const source = require('./test.pdf');  // ios only
-        //const source = {uri:'bundle-assets://test.pdf'};
-
-        //const source = {uri:'file:///sdcard/test.pdf'};
-        //const source = {uri:"data:application/pdf;base64,..."};
 
         return (
             <View style={styles.container}>
                 <Pdf
-                    source={source}
+                    source={this.state.source}
                     onLoadComplete={(numberOfPages) => {
                         console.log(`number of pages: ${numberOfPages}`);
                     }}
