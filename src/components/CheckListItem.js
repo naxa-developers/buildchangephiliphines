@@ -72,7 +72,7 @@ call(args).catch(console.error);
         containerStyle={{ padding: 15, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
         textStyle={{ fontSize: 16 }}
       />
-      <View style={styles.subContainer}><Text style={styles.descriptionText}>{this.props.data.description}</Text></View>
+      {this.props.data.description && <View style={styles.subContainer}><Text style={styles.descriptionText}>{this.props.data.description}</Text></View>}
       <View style={styles.buttonWrapper}>
       <TouchableOpacity
         onPress={() => Actions.ReportEngineer({ substep: this.props.data.substep, stepId: this.props.data.step })}
