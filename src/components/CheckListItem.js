@@ -59,6 +59,7 @@ call(args).catch(console.error);
 
     return (
       <View style={styles.container}>
+      {this.props.data.description && <View style={styles.subContainer}><Text style={styles.descriptionText}>{this.props.data.description}</Text></View>}
       <CheckBox
         title={this.props.data.text}
         checkedIcon='check-square-o'
@@ -72,29 +73,13 @@ call(args).catch(console.error);
         containerStyle={{ padding: 15, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
         textStyle={{ fontSize: 16 }}
       />
-      {this.props.data.description && <View style={styles.subContainer}><Text style={styles.descriptionText}>{this.props.data.description}</Text></View>}
-      <View style={styles.buttonWrapper}>
-      <TouchableOpacity
-        onPress={() => Actions.ReportEngineer({ substep: this.props.data.substep, stepId: this.props.data.step })}
-        style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center', flex: 1 }}
-      >
-        <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => this.onCallAdmin()}
-        style={{ backgroundColor: '#FAFAFA', height: 40, alignItems: 'center', justifyContent: 'center', flex: 1, borderLeftWidth: 1, borderColor: 'rgba(0,0,0,0.08)' }}
-      >
-        <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Call Admin</Text>
-      </TouchableOpacity>
-      </View>
-
       </View>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('CHECKLISTKO_mapStateToPropsko_bhitra');
+  console.log('checklist ITEM ko_mapStateToPropsko_bhitra');
   console.log(state);
   return {
     currentUserGroup: state.currentUserGroup.currentUserGroup,

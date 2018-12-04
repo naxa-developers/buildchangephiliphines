@@ -135,7 +135,7 @@ class Scenes extends Component {
 
 
         <Scene
-        
+
           component={SignUpTest}
           key='ram'
           hideNavBar

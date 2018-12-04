@@ -114,21 +114,52 @@ keyboardDidHide = (event) => {
       <Animated.Image source={require('../app_images/buildchange.jpeg')} style={[styles.logo, { height: this.imageHeight }]} />
       <ScrollView style={styles.form}>
       <TextInput
-        placeholder="Email"
+        editable
+        onChangeText={(username) => this.setState({ username })}
+        placeholder='Username'
+        ref='username'
         style={styles.input}
+        value={this.state.username}
+        autoCapitalize='none'
+        onSubmitEditing={() => { this.secondTextInput.focus(); }}
+        blurOnSubmit={false}
+      />
+
+      <TextInput
+        editable
+        onChangeText={(email) => this.setState({ email })}
+        placeholder='Email'
+        ref={(input) => { this.secondTextInput = input; }}
+        style={styles.input}
+        value={this.state.email}
+        autoCapitalize='none'
+        onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+        blurOnSubmit={false}
       />
       <TextInput
-        placeholder="Username"
+        editable
+        onChangeText={(password) => this.setState({ password })}
+        placeholder='Password'
+        ref={(input) => { this.thirdTextInput = input; }}
+        returnKeyType='next'
+        secureTextEntry
         style={styles.input}
+        value={this.state.password}
+        autoCapitalize='none'
+        onSubmitEditing={() => { this.fourthTextInput.focus(); }}
+        blurOnSubmit={false}
       />
       <TextInput
-        placeholder="Password"
+        editable
+        onChangeText={(repassword) => this.setState({ repassword })}
+        placeholder='Retype Password'
+        ref={(input) => { this.fourthTextInput = input; }}
+        returnKeyType='next'
+        secureTextEntry
         style={styles.input}
-      />
-      <TextInput
-        placeholder="Confirm Password"
-        style={styles.input}
-      />
+        value={this.state.repassword}
+        autoCapitalize='none'
+       />
       <TouchableOpacity
         style={styles.buttonWrapper}
         onPress={this.userSignup.bind(this)}
