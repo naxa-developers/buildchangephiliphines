@@ -84,17 +84,18 @@ showImageViewer(id) {
     }
     }
   />
+  <Text style={{ paddingLeft: 8, paddingRight: 8 }}>{this.props.substep.description}</Text>
         <View style={[styles.buttonContainer, styles.buttonContainerGoodPhotoBadPhoto]}>
 
           { this.props.substep.good_photos.length !== 0 &&
-            <TouchableOpacity onPress={this.onGoodPhotoTapped.bind(this)} style={{ flexWrap: 'wrap', flex: 1, flexDirection: 'row', backgroundColor: '#8dc540', padding: 8, borderRadius: 5, marginRight: 4 }}>
+            <TouchableOpacity onPress={this.onGoodPhotoTapped.bind(this)} style={{ marginTop: 5, flexWrap: 'wrap', flex: 1, flexDirection: 'row', backgroundColor: '#8dc540', padding: 8, borderRadius: 5, marginRight: 4 }}>
               <Icon name={'check'} size={35} style={styles.iconStyle} />
               <View style={{ flexDirection: 'column', paddingRight: 15, width: 100 }}><Text style={styles.buttonText}>{strings.view_good_photo_title}</Text></View>
             </TouchableOpacity>
           }
 
           { this.props.substep.bad_photos.length !== 0 &&
-            <TouchableOpacity onPress={this.onBadPhotoTapped.bind(this)} style={this.props.substep.call_inspector ? { flex: 1, flexDirection: 'row', backgroundColor: 'red', padding: 8, borderRadius: 5 } : { flex: 1, flexDirection: 'row', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, borderRadius: 5, marginLeft: 4 }}>
+            <TouchableOpacity onPress={this.onBadPhotoTapped.bind(this)} style={this.props.substep.call_inspector ? { marginTop: 5, flex: 1, flexDirection: 'row', backgroundColor: 'red', padding: 8, borderRadius: 5 } : { flex: 1, marginTop: 5, flexDirection: 'row', backgroundColor: 'red', paddingTop: 8, paddingBottom: 8, borderRadius: 5, marginLeft: 4 }}>
               <Icon name={'close'} size={35} style={styles.iconStyle} />
               <Text style={styles.buttonText}>{strings.view_bad_photo_title}</Text>
             </TouchableOpacity>
