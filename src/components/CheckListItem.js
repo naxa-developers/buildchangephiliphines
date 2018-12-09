@@ -61,7 +61,7 @@ call(args).catch(console.error);
       <View style={styles.container}>
       {this.props.data.description && <View style={styles.subContainer}><Text style={styles.descriptionText}>{this.props.data.description}</Text></View>}
       <CheckBox
-        title={this.props.data.text}
+        title={this.props.data.title}
         checkedIcon='check-square-o'
         uncheckedIcon='square-o'
         uncheckedColor='red'
@@ -71,7 +71,7 @@ call(args).catch(console.error);
         }}
         checked={this.state.checked}
         containerStyle={{ padding: 15, margin: 0, marginRight: 0, marginLeft: 0, backgroundColor: 'white' }}
-        textStyle={{ fontSize: 16 }}
+        textStyle={{ fontSize: 16, fontWeight: 'normal' }}
       />
       </View>
     );
@@ -93,15 +93,15 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: 'column',
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)'
+
+    backgroundColor: 'white'
   },
 buttonWrapper: {
   flexDirection: 'row'
 },
 subContainer: {
   padding: 15,
-  backgroundColor: 'rgba(255,255,255,0.4)',
+  backgroundColor: 'rgba(255,255,255,1)',
   borderBottomWidth: 1,
   borderColor: 'rgba(0,0,0,0.08)'
 },

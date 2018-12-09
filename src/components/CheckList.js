@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { FlatList, View, TouchableOpacity, StyleSheet, Text, AsyncStorage, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { checkInternetConnection } from 'react-native-offline';
 import { connectionState, requestPersonByUrl } from '../actions';
@@ -58,12 +58,20 @@ call(args).catch(console.error);
 console.log('checklistko_render_bhitra', this.props);
 
     return (
-      <View style={{ flex: 1, paddingTop: 5, paddingBottom: 5 }}>
-        <FlatList
-          data={this.props.item}
-          renderItem={({ item }) => <CheckListItem data={item} />}
-          keyExtractor={(item, index) => index}
-        />
+      <ScrollView contentContainerStyle={{ paddingTop: 5, paddingBottom: 5 }}>
+      {this.props.item.map((group) => {
+        return (
+          <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 15, backgroundColor: 'white', borderWidth: 1, borderBottomWidth: 2, borderColor: 'rgba(0,0,0,0.1)' }}>
+          <View style={styles.subContainer}><Text style={styles.descriptionText}>{group.title}</Text></View>
+          <FlatList
+            data={group.sub_checklists}
+            renderItem={({ item }) => <CheckListItem data={item} />}
+            keyExtractor={(item, index) => index}
+          />
+          </View>
+        );
+      })}
+
         <View style={styles.buttonWrapper}>
         <TouchableOpacity
           onPress={() => Actions.ReportEngineer({ substep: this.props.item[0].substep, stepId: this.props.item[0].step })}
@@ -78,7 +86,7 @@ console.log('checklistko_render_bhitra', this.props);
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Call Admin</Text>
         </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -99,4 +107,12 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row'
   },
+  subContainer: {
+    padding: 15
+
+  },
+  descriptionText: {
+    fontWeight: 'bold',
+    fontSize: 20
+  }
 });
