@@ -64,7 +64,6 @@ class ReportEngineer extends Component {
     console.log('uploadCommentko_bhitra');
     console.log(this.props);
     //const { id } = checklist;
-    const { id } = checklist.substep;
 
     if (!this.state.comments || !this.state.uri) {
       return;
@@ -95,7 +94,7 @@ class ReportEngineer extends Component {
       formdata.append('comment', this.state.comments);
       formdata.append('user', userID);
       formdata.append('substep', this.props.substep);
-      formdata.append('site', this.props.siteId)
+        formdata.append('site', this.props.siteId)
       formdata.append('step', this.props.stepId)
       //step ra site pani thapne
 

@@ -74,7 +74,7 @@ console.log('checklistko_render_bhitra', this.props);
 
         <View style={styles.buttonWrapper}>
         <TouchableOpacity
-          onPress={() => Actions.ReportEngineer({ substep: this.props.item[0].substep, stepId: this.props.item[0].step })}
+          onPress={() => Actions.ReportEngineer({ substep: this.props.item[0].sub_checklists[0].substep, stepId: this.props.item[0].sub_checklists[0].step })}
           style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center', flex: 1 }}
         >
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
@@ -97,7 +97,8 @@ const mapStateToProps = (state) => {
   return {
     actionQueue: state.actionQueue.actionQueue,
     isConnected: state.isConnected.isConnected,
-    admin: state.schoolList.data.admin[0]
+    admin: state.schoolList.data.admin[0],
+    currentUserId: state.currentUserGroup.currentUserId
   };
 };
 
