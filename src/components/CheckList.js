@@ -63,6 +63,7 @@ console.log('checklistko_render_bhitra', this.props);
         return (
           <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 15, backgroundColor: 'white', borderWidth: 1, borderBottomWidth: 2, borderColor: 'rgba(0,0,0,0.1)' }}>
           <View style={styles.subContainer}><Text style={styles.descriptionText}>{group.title}</Text></View>
+          <View style={styles.subContainer}><Text style={[styles.descriptionText, { fontSize: 15 }]}>{group.specification}</Text></View>
           <FlatList
             data={group.sub_checklists}
             renderItem={({ item }) => <CheckListItem data={item} />}

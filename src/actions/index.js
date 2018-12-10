@@ -117,9 +117,9 @@ export const requestPerson = (data) => {
       const formdata = new FormData();
       //
       formdata.append('status', data.checklistItemValue);
-      formdata.append('site', data.checklistItemData.site);
-      formdata.append('step', data.checklistItemData.step);
-      formdata.append('substep', data.checklistItemData.substep);
+      // formdata.append('site', data.checklistItemData.site);
+      // formdata.append('step', data.checklistItemData.step);
+      // formdata.append('substep', data.checklistItemData.substep);
 
 
       const req = {
@@ -153,9 +153,9 @@ export const requestPersonByUrl = (eachElement) => {
     AsyncStorage.getItem('token').then(token => {
       const formdata = new FormData();
       formdata.append('status', eachElement.status);
-      formdata.append('site', eachElement.site);
-      formdata.append('step', eachElement.step);
-      formdata.append('substep', eachElement.substep);
+      // formdata.append('site', eachElement.site);
+      // formdata.append('step', eachElement.step);
+      // formdata.append('substep', eachElement.substep);
 
       const req = {
         method: eachElement.method,
