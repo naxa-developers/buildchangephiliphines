@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux';
 import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { checkInternetConnection } from 'react-native-offline';
-import { ScrollView, Platform, AsyncStorage, Alert, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, Platform, AsyncStorage, Alert, View, Text, TouchableOpacity, PermissionsAndroid } from 'react-native';
 import { Button } from 'react-native-elements';
 import { strings } from './../../locales/strings';
 
@@ -46,43 +46,80 @@ export default class SettingsScene extends Component {
     }
   }
 
+  async requestStoragePermission() {
+    try {
+     const granted = await PermissionsAndroid.request(
+       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+       {
+         'title': 'Storage Permission Needed',
+         'message': 'App requires storage permission to store data for offline usage '
+       }
+     )
+     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+       console.log("You can use the camera")
+       this.downloadZip();
+     } else {
+       console.log("Camera permission denied")
+     }
+   } catch (err) {
+     console.warn(err)
+   }
+  }
+
+  downloadZip() {
+        checkInternetConnection().then(res => {
+          if (res) {
+            AsyncStorage.getItem('token')
+            .then(token => {
+              console.log('AsyncStorageko_bhitra');
+              this.props.tappedOnViewSchools(token);
+            });
+            RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+                .then((exist) => {
+                    if (!exist) {
+                      RNFetchBlob
+                      .config({
+                          addAndroidDownloads: {
+                              useDownloadManager: true,
+                              //changes here
+                              path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                              description: 'Images Zip',
+                              mediaScannable: true,
+                          }
+                      })
+                      .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+                      .then((resp) => {
+                        const sourcePath = resp.path();
+                        const targetPath = resp.path().replace('.zip', '');
+
+                        unzip(sourcePath, targetPath)
+                        .then((path) => {
+                          console.log(`unzip completed at ${path}`);
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                      });
+                    }
+                })
+                .catch(() => {
+                    console.log('error while checking file');
+                });
+          } else if (!res) {
+            Alert.alert('No internet connection!');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
   downloadLatestZip() {
     RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
       .then(() => {
         RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
         .then(() => {
-          checkInternetConnection().then(res => {
-            if (res) {
-              RNFetchBlob
-              .config({
-                  addAndroidDownloads: {
-                      useDownloadManager: true,
-                      //changes here
-                      path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
-                      description: 'Images Zip',
-                      mediaScannable: true
-                  }
-              })
-              .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
-              .then((resp) => {
-                const sourcePath = resp.path();
-                const targetPath = resp.path().replace('.zip', '');
-
-                unzip(sourcePath, targetPath)
-                .then((path) => {
-                  console.log(`unzip completed at ${path}`);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-              });
-            } else if (!res) {
-              Alert.alert('No internet connection!');
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          this.requestStoragePermission();
         })
         .catch((err) => { console.log(err); })
       })
