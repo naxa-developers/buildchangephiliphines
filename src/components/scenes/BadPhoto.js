@@ -8,6 +8,7 @@ import { View,
     TouchableOpacity,
     Modal
  } from 'react-native';
+ import RNFetchBlob from 'react-native-fetch-blob';
  import { ImageViewer } from 'react-native-image-zoom-viewer';
 
 class BadPhoto extends Component {
@@ -16,8 +17,25 @@ class BadPhoto extends Component {
     super();
     this.state = {
         imageViewerShown: false,
-        id: 0
+        id: 0,
+        onlineMode: true
     };
+}
+
+componentWillMount() {
+  console.log('componentDidMountkobhitra');
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      .then((exist) => {
+          if (!exist) {
+            this.setState({ onlineMode: true });
+          }
+          if (exist) {
+            this.setState({ onlineMode: false });
+          }
+      })
+      .catch(() => {
+          console.log('error while checking file');
+      });
 }
 
 showImageViewer(id) {
@@ -46,12 +64,21 @@ showImageViewer(id) {
                         imageUrls={images}
                     />
               </Modal>
-        <FlatList
-          data={this.props.substep.bad_photos}
-          renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.bad_photos.indexOf(item))} style={styles.imageContainer}>
-            <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
-          </TouchableOpacity>}
-        />
+              {this.state.onlineMode &&
+                <FlatList
+                        data={this.props.substep.bad_photos}
+                        renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.bad_photos.indexOf(item))} style={styles.imageContainer}>
+                          <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'http://bccms.naxa.com.np' + item.image }} />
+                        </TouchableOpacity>}
+                />
+                }
+                {!this.state.onlineMode &&         <FlatList
+                          data={this.props.substep.bad_photos}
+                          renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.bad_photos.indexOf(item))} style={styles.imageContainer}>
+                            <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
+                          </TouchableOpacity>}
+                        />
+                    }
       </View>
     );
   }
