@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert, ListView, ActivityIndicator, AsyncStorage,PermissionsAndroid
+import { StyleSheet, View, Alert, ListView, ActivityIndicator, AsyncStorage, PermissionsAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { unzip } from 'react-native-zip-archive';
@@ -14,6 +14,11 @@ class SuccessfulLogin extends Component {
   componentWillMount() {
     console.log('componentDidMountkobhitra');
     this.getLocale();
+    AsyncStorage.getItem('token')
+       .then(token => {
+         console.log('AsyncStorageko_bhitra');
+         this.props.tappedOnViewSchools(token);
+});
     this.requestStoragePermission();
   }
 
@@ -26,11 +31,6 @@ class SuccessfulLogin extends Component {
   downloadZip() {
         checkInternetConnection().then(res => {
           if (res) {
-            AsyncStorage.getItem('token')
-            .then(token => {
-              console.log('AsyncStorageko_bhitra');
-              this.props.tappedOnViewSchools(token);
-            });
             RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
                 .then((exist) => {
                     if (!exist) {

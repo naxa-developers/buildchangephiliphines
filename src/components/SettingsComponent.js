@@ -69,11 +69,6 @@ export default class SettingsScene extends Component {
   downloadZip() {
         checkInternetConnection().then(res => {
           if (res) {
-            AsyncStorage.getItem('token')
-            .then(token => {
-              console.log('AsyncStorageko_bhitra');
-              this.props.tappedOnViewSchools(token);
-            });
             RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
                 .then((exist) => {
                     if (!exist) {
@@ -115,10 +110,15 @@ export default class SettingsScene extends Component {
   }
 
   downloadLatestZip() {
-    RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+    //RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+    RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
       .then(() => {
-        RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
+        console.log('deleted zip');
+        //RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
+        RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+
         .then(() => {
+          console.log('deleted extractd file');
           this.requestStoragePermission();
         })
         .catch((err) => { console.log(err); })
