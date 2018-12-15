@@ -11,6 +11,7 @@ import CurrentUserGroup from './currentusergroup';
 import CurrentSelectedAddress from './currentselectedaddress';
 import PdfData from './addressscenereducer';
 import ConstructionMaterial from './constructionmaterialreducer';
+import CheckDownlaodStatus from './checkdownloadstatus';
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
   currentUserGroup: CurrentUserGroup,
   currentSelectedAddress: CurrentSelectedAddress,
   pdf: PdfData,
-  constructionMaterial: ConstructionMaterial
+  constructionMaterial: ConstructionMaterial,
+  downloadInfo: CheckDownlaodStatus
 });

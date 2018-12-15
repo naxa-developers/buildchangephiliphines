@@ -200,3 +200,8 @@ export const storeAddress = (status) => {
   console.log('store_address_ko_bhitra', status);
   return { type: 'REMEMBER_SELECTED_ADDRESS', payload: status };
 };
+
+export const didDownloadComplete = (status) => {
+  console.log('didDownloadComplete_bhitra', status);
+  return { type: 'REMEMBER_DOWNLOAD_STATUS', payload: status };
+};
