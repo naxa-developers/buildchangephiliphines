@@ -22,10 +22,11 @@ export default class SettingsScene extends Component {
 
   componentDidMount() {
     let value;
+    console.log(strings.getLanguage().trim());
 
     switch (strings.getLanguage().trim()) {
-      case 'ne':
-        value = 'Nepali';
+      case 'wa':
+        value = 'Warray';
         break;
       default:
         value = 'English';
@@ -56,10 +57,10 @@ export default class SettingsScene extends Component {
        }
      )
      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-       console.log("You can use the camera")
+       console.log("You can use the storage")
        this.downloadZip();
      } else {
-       console.log("Camera permission denied")
+       console.log("Storage permission denied")
      }
    } catch (err) {
      console.warn(err)
@@ -110,18 +111,16 @@ export default class SettingsScene extends Component {
   }
 
   downloadLatestZip() {
-    //RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
     RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
       .then(() => {
         console.log('deleted zip');
-        //RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
         RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
 
         .then(() => {
-          console.log('deleted extractd file');
+          console.log('deleted extracted file');
           this.requestStoragePermission();
         })
-        .catch((err) => { console.log(err); })
+        .catch((err) => { console.log(err); });
       })
       .catch((err) => { console.log(err); });
   }
@@ -205,10 +204,3 @@ const colors = {
   switchOnTintColor: Platform.OS === 'android' ? 'rgba(199, 0, 57, 0.6)' : null,
   blueGem: '#27139A'
 };
-
-
-// <TouchableOpacity>
-// <View style={{ flex: 1, justifyContent: 'flex-end', flexDirection: 'column' }}>
-//   <Text style={{ textAlign: 'center', backgroundColor: 'red', alignItems: 'center' }}>LOGOUT</Text>
-// </View>
-// </TouchableOpacity>
