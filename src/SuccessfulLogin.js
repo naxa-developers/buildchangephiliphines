@@ -210,7 +210,7 @@ import { unzip } from 'react-native-zip-archive';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { checkInternetConnection } from 'react-native-offline';
 import PlaceholderListItem from './components/PlaceholderListItem';
-import { tappedOnViewSchools, intelliSearch, checkOnline, didDownloadComplete } from './actions';
+import { tappedOnViewSchools, intelliSearch, checkOnline, setDownloadInfo } from './actions';
 import { strings } from './../locales/strings';
 
 class SuccessfulLogin extends Component {
@@ -240,7 +240,7 @@ class SuccessfulLogin extends Component {
               RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
                   .then((exist) => {
                       if (!exist) {
-                        this.props.didDownloadComplete({ hasDownloadStarted: true });
+                        this.props.setDownloadInfo({ hasDownloadStarted: true });
                         RNFetchBlob
                         .config({
                             addAndroidDownloads: {
@@ -253,6 +253,7 @@ class SuccessfulLogin extends Component {
                         })
                         .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
                         .then((resp) => {
+                          this.props.setDownloadInfo({ hasDownloadStarted: false });
                           const sourcePath = resp.path();
                           const targetPath = resp.path().replace('.zip', '');
 
@@ -263,6 +264,10 @@ class SuccessfulLogin extends Component {
                           .catch((error) => {
                             console.log(error);
                           });
+                        })
+                        .catch((error) => {
+                          this.props.setDownloadInfo({ hasDownloadStarted: false });
+                          console.log('RNFetchBlobko_error', error);
                         });
                       }
                   })
@@ -408,4 +413,4 @@ const mapStateToProps = (state) => {
          };
 };
 
-export default connect(mapStateToProps, { tappedOnViewSchools, intelliSearch, checkOnline, didDownloadComplete })(SuccessfulLogin);
+export default connect(mapStateToProps, { tappedOnViewSchools, intelliSearch, checkOnline, setDownloadInfo })(SuccessfulLogin);

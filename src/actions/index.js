@@ -201,7 +201,7 @@ export const storeAddress = (status) => {
   return { type: 'REMEMBER_SELECTED_ADDRESS', payload: status };
 };
 
-export const didDownloadComplete = (status) => {
-  console.log('didDownloadComplete_bhitra', status);
+export const setDownloadInfo = (status) => {
+  console.log('setDownloadInfo_bhitra', status);
   return { type: 'REMEMBER_DOWNLOAD_STATUS', payload: status };
 };
