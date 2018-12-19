@@ -16,7 +16,6 @@ export default class SettingsScene extends Component {
     super();
     this.state = {
       locale: '',
-      gender: ''
     };
   }
 
