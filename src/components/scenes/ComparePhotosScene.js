@@ -66,14 +66,14 @@ showImageViewer(id) {
         {this.state.onlineMode &&
           <FlatList
                   data={this.props.substep.good_photos}
-                  renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.good_photos.indexOf(item))} style={styles.imageContainer}>
+                  renderItem={({ item }) => item.image && <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.good_photos.indexOf(item))} style={styles.imageContainer}>
                     <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'http://bccms.naxa.com.np' + item.image }} />
                   </TouchableOpacity>}
           />
           }
           {!this.state.onlineMode &&         <FlatList
                     data={this.props.substep.good_photos}
-                    renderItem={({ item }) => <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.good_photos.indexOf(item))} style={styles.imageContainer}>
+                    renderItem={({ item }) => item.image && <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.good_photos.indexOf(item))} style={styles.imageContainer}>
                       <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
                     </TouchableOpacity>}
                   />

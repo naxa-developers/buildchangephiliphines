@@ -80,7 +80,7 @@ showImageViewer(id) {
   <ListView
     dataSource={ds.cloneWithRows(this.props.substep.primary_photos)}
     renderRow={(rowData) => {
-      return (<TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.primary_photos.indexOf(rowData))}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>);
+      return (rowData.image && <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.primary_photos.indexOf(rowData))}><PrimaryPhoto primaryPhoto={rowData} /></TouchableOpacity>);
     }
     }
   />

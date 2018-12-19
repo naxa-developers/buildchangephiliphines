@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ListView, Modal, TouchableOpacity, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { ImageViewer } from 'react-native-image-zoom-viewer';
+import RNFetchBlob from 'react-native-fetch-blob';
 import Page1 from '../test/page1';
 
 
@@ -9,9 +10,27 @@ class SubStepsList extends Component {
     super();
     this.state = {
         imageViewerShown: false,
+        zipAvailable: null
     };
 }
     componentWillMount() {
+
+
+      RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+          .then((exist) => {
+              if (!exist) {
+                this.setState({ zipAvailable: false });
+              } else {
+                this.setState({ zipAvailable: true });
+              }
+          })
+          .catch((error) => {
+            console.log(error);
+              console.log('error while checking file');
+          });
+
+
+
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
@@ -60,7 +79,11 @@ class SubStepsList extends Component {
                               imageUrls={images}
                           />
                     </Modal>
-            { this.props.image !== '' && <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.stepImageContainer}>
+
+            { !this.state.zipAvailable && this.props.image !== '' && <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.stepImageContainer}>
+              <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'http://bccms.naxa.com.np/media/' + this.props.image }} />
+            </TouchableOpacity> }
+            { this.state.zipAvailable && this.props.image !== '' && <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.stepImageContainer}>
               <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }} />
             </TouchableOpacity> }
 
