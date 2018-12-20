@@ -61,6 +61,7 @@ class ListItem extends Component {
       Actions.SubStepsList({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image });
     }
     if (this.props.currentUserGroup === 'Field Engineer') {
+      console.log('field engineere');
       //Actions.CheckList({ title: strings.title_checklist, item: this.props.item });
       Actions.Category({ sub_steps: this.props.item.sub_steps, stepId: this.props.item.id, image: this.props.item.image, item: this.props.item });
     }

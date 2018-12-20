@@ -65,7 +65,7 @@ class ReportEngineer extends Component {
     console.log(this.props);
     //const { id } = checklist;
 
-    if (!this.state.comments || !this.state.uri) {
+    if (!this.state.comments) {
       return;
     }
 
@@ -97,12 +97,14 @@ class ReportEngineer extends Component {
         formdata.append('site', this.props.siteId)
       formdata.append('step', this.props.stepId)
       //step ra site pani thapne
+      if (this.state.uri !== null) {
+        formdata.append('photo', {
+          uri: this.state.uri,
+          type: 'image/jpeg',
+          name: 'comment.jpeg'
+        });
+      }
 
-      formdata.append('photo', {
-        uri: this.state.uri,
-        type: 'image/jpeg',
-        name: 'comment.jpeg'
-      });
 
       const req = {
         method: 'POST',

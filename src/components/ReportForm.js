@@ -40,6 +40,7 @@ class ReportForm extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+        console.log('else bhitra', response);
         let source = { uri: response.uri };
         this.setState({ ...this.state, uri: response.uri });
 
@@ -62,13 +63,12 @@ class ReportForm extends Component {
   uploadComment(checklist) {
     console.log('uploadCommentko_bhitra');
     console.log(this.props);
-    //const { id } = checklist;
     const { id } = checklist.substep;
 
-    if (!this.state.comments || !this.state.uri) {
+    if (!this.state.comments) {
       return;
     }
-
+    console.log('hello check return');
     this.setState({ ...this.state, uploading: true });
     AsyncStorage.multiGet(['user_id', 'token']).then(user => {
       let userID;
@@ -97,12 +97,13 @@ class ReportForm extends Component {
       formdata.append('site', this.props.siteId)
       formdata.append('step', this.props.stepId)
       //step ra site pani thapne
-
-      formdata.append('photo', {
-        uri: this.state.uri,
-        type: 'image/jpeg',
-        name: 'comment.jpeg'
-      });
+      if (this.state.uri !== null) {
+        formdata.append('photo', {
+          uri: this.state.uri,
+          type: 'image/jpeg',
+          name: 'comment.jpeg'
+        });
+      }
 
       const req = {
         method: 'POST',
