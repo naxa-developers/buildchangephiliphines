@@ -34,6 +34,7 @@ import ShowBigImages from './components/scenes/ShowBigImages';
 import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
 import ShowMap from './components/scenes/ShowMap';
+import SitePlan from './components/scenes/SitePlan';
 import DocumentList from './components/scenes/DocumentList';
 import { strings, getLocalizedText } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
@@ -122,6 +123,12 @@ class Scenes extends Component {
           title='Call Engineers'
         />
 
+        <Scene
+
+          component={SitePlan}
+          key='SitePlan'
+          title='Site Plan'
+        />
         <Scene
 
           component={BadPhoto}

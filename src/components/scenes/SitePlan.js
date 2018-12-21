@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import RNFetchBlob from 'react-native-fetch-blob';
 
-class ShowDocuments extends React.Component {
+class SitePlan extends React.Component {
 
   constructor() {
     super();
@@ -21,7 +21,7 @@ class ShowDocuments extends React.Component {
             console.log(exist);
           if (exist) {
             this.setState({
-              source: { uri: this.props.path, cache: true }
+              source: { uri: this.props.path.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines'), cache: true }
             });
         } else if (!exist) {
           console.log('chiana');
@@ -74,7 +74,7 @@ return {
 };
 };
 
-export default connect(mapStateToProps)(ShowDocuments);
+export default connect(mapStateToProps)(SitePlan);
 
 const styles = StyleSheet.create({
     container: {
