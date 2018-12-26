@@ -205,3 +205,13 @@ export const setDownloadInfo = (status) => {
   console.log('setDownloadInfo_bhitra', status);
   return { type: 'REMEMBER_DOWNLOAD_STATUS', payload: status };
 };
+
+export const saveToDraftsCollection = (draft) => {
+  console.log('saveToDraftsCollection', draft);
+  return { type: 'SAVE_DRAFT_TO_DRAFTS_COLLECTION', payload: draft };
+};
+
+export const deleteFromDraftsCollection = (draft) => {
+  console.log('deleteFromDraftsCollection', draft);
+  return { type: 'DELETE_FROM_DRAFTS_COLLECTION', payload: draft };
+};

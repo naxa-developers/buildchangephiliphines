@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { strings } from './../../locales/strings';
+import { saveToDraftsCollection, deleteFromDraftsCollection } from '../actions';
 
 class ReportForm extends Component {
   state = {
@@ -18,6 +19,14 @@ class ReportForm extends Component {
 
   componentWillMount() {
     this.getLocale();
+    const filtered = this.props.drafts.filter((draft) => {
+      return draft.subStepId === this.props.substep.id && draft.stepId === this.props.stepId && draft.siteId === this.props.siteId;
+    });
+    console.log('data', filtered);
+    if (filtered.length !== 0) {
+      this.setState({ comments: filtered[0].comment, uri: filtered[0].uri });
+    }
+
   }
 
   selectPhotoTapped() {
@@ -124,6 +133,7 @@ class ReportForm extends Component {
             Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
               { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
             ]);
+            this.props.deleteFromDraftsCollection({ subStepId: id });
             return response;
           }
 
@@ -161,6 +171,15 @@ class ReportForm extends Component {
 
 
   render() {
+    let draftFound = false;
+    const filtered = this.props.drafts.filter((draft) => {
+      return draft.subStepId === this.props.substep.id && draft.stepId === this.props.stepId && draft.siteId === this.props.siteId;
+    });
+    console.log('data', filtered);
+    if (filtered.length !== 0) {
+      draftFound = true;
+    }
+
     return (
       <ScrollView style={{ backgroundColor: '#fff' }}>
         <View style={{ flex: 1 }}>
@@ -213,6 +232,15 @@ class ReportForm extends Component {
               marginTop: 10
             }}
           />
+          <Button
+            onPress={() => this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep.id, comment: this.state.comments, uri: this.state.uri })}
+            title={'Save as Draft'}
+            titleStyle={{ fontWeight: '700' }}
+            buttonStyle={{
+              backgroundColor: '#E8656A',
+              marginTop: 10
+            }}
+          />
         </View>
       </ScrollView>
     );
@@ -231,19 +259,19 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  console.log('ShowMapko_mapstatetoprops_bhitra');
+  console.log('reportform bhitra', state);
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
-
 const found = sites.find(function(element) {
   return element.id === selectedSchoolId;
 });
-
 console.log('foundKO_value');
 console.log(found);
 return {
-  siteId: found.id
+  siteId: found.id,
+  userId: state.currentUserGroup.currentUserId,
+  drafts: state.drafts.drafts
 };
 };
 
-export default connect(mapStateToProps)(ReportForm);
+export default connect(mapStateToProps, { saveToDraftsCollection, deleteFromDraftsCollection })(ReportForm);
