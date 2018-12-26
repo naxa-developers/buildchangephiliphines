@@ -129,7 +129,7 @@ class ReportForm extends Component {
           if (response.ok) {
             console.log('response ok');
             this.setState({ ...this.state, uploading: false });
-            this.setState({ ...this.state, comments: '' });
+            this.setState({ ...this.state, comments: '', uri: null });
             Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
               { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
             ]);
