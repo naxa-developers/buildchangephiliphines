@@ -73,20 +73,22 @@ console.log('checklistko_render_bhitra', this.props);
         );
       })}
 
-        <View style={styles.buttonWrapper}>
-        <TouchableOpacity
+        { this.props.item.length !== 0 &&
+          <View style={styles.buttonWrapper}>
+          <TouchableOpacity
           onPress={() => Actions.ReportEngineer({ substep: this.props.item[0].sub_checklists[0].substep, stepId: this.props.item[0].sub_checklists[0].step })}
           style={{ backgroundColor: '#FAFAFA', height: 40, borderWidth: 0, alignItems: 'center', justifyContent: 'center', flex: 1 }}
-        >
+          >
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Report</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          </TouchableOpacity>
+          <TouchableOpacity
           onPress={() => this.onCallAdmin()}
           style={{ backgroundColor: '#FAFAFA', height: 40, alignItems: 'center', justifyContent: 'center', flex: 1, borderLeftWidth: 1, borderColor: 'rgba(0,0,0,0.08)' }}
-        >
+          >
           <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Call Admin</Text>
-        </TouchableOpacity>
-        </View>
+          </TouchableOpacity>
+          </View>
+        }
       </ScrollView>
     );
   }
