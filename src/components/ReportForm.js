@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert, TextInput } from 'react-native';
+import { View, ScrollView, Dimensions, Text, AsyncStorage, Alert, TextInput, Image } from 'react-native';
 import {
   Button
 } from 'react-native-elements';
@@ -51,6 +51,7 @@ class ReportForm extends Component {
       } else {
         console.log('else bhitra', response);
         let source = { uri: response.uri };
+        this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep.id, comment: this.state.comments, uri: response.uri });
         this.setState({ ...this.state, uri: response.uri });
 
         // You can also display the image using data:
@@ -189,7 +190,11 @@ class ReportForm extends Component {
           <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
           <TextInput
             editable
-            onChangeText={(comments) => this.setState({ ...this.state, comments })}
+            onChangeText={(comments) => {
+              console.log('text', comments);
+              this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep.id, comment: comments, uri: this.state.uri });
+              this.setState({ ...this.state, comments });
+            }}
             placeholder={strings.error_field_cannot_be_empty}
             ref='comments'
             returnKeyType='next'
@@ -201,6 +206,7 @@ class ReportForm extends Component {
             autoFocus
           />
           </View>
+
           <Button
             icon={{
               name: 'camera',
@@ -212,35 +218,33 @@ class ReportForm extends Component {
             titleStyle={{ fontWeight: '700' }}
             containerStyle={{ marginTop: 20 }}
           />
+          {this.state.uri && <Image
+            style={styles.image}
+            source={{ uri: this.state.uri }}
+          />
+          }
+          <View>
           <Button
-            onPress={this.uploadComment.bind(this, this.props)}
-            loading={this.state.uploading}
-            title={strings.action_report}
-            loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
-            titleStyle={{ fontWeight: '700' }}
-            buttonStyle={{
-              backgroundColor: '#8CC63E',
-              marginTop: 10
-            }}
+          onPress={this.uploadComment.bind(this, this.props)}
+          loading={this.state.uploading}
+          title={strings.action_report}
+          loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
+          titleStyle={{ fontWeight: '700' }}
+          buttonStyle={{
+            backgroundColor: '#8CC63E',
+            marginTop: 10,
+          }}
           />
           <Button
-            onPress={() => Actions.pop()}
-            title={strings.action_cancel}
-            titleStyle={{ fontWeight: '700' }}
-            buttonStyle={{
-              backgroundColor: '#E8656A',
-              marginTop: 10
-            }}
+          onPress={() => Actions.pop()}
+          title={strings.action_cancel}
+          titleStyle={{ fontWeight: '700' }}
+          buttonStyle={{
+            backgroundColor: '#E8656A',
+            marginTop: 10,
+          }}
           />
-          <Button
-            onPress={() => this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep.id, comment: this.state.comments, uri: this.state.uri })}
-            title={'Save as Draft'}
-            titleStyle={{ fontWeight: '700' }}
-            buttonStyle={{
-              backgroundColor: '#E8656A',
-              marginTop: 10
-            }}
-          />
+          </View>
         </View>
       </ScrollView>
     );
@@ -250,11 +254,17 @@ class ReportForm extends Component {
 const styles = {
   centerHeader: { marginTop: 10, fontSize: 16, marginLeft: 15 },
   buttonStyle: {
-    width: 200,
+    width: 100,
     height: 45,
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 5
+  },
+  image: {
+    width: Dimensions.get('window').width - 30,
+    height: 200,
+    margin: 15,
+    marginBottom: 0
   }
 };
 
