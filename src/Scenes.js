@@ -14,6 +14,7 @@ import Category from './components/Category';
 import CheckList from './components/CheckList';
 import ReportForm from './components/ReportForm';
 import ReportEngineer from './components/ReportEngineer';
+import ReportSchool from './components/ReportSchool';
 import GuidelineCategoryScene from './components/scenes/GuidelineCategoryScene';
 import GuidelinesListScene from './components/scenes/GuidelinesListScene';
 import First from './components/scenes/First';
@@ -182,7 +183,7 @@ class Scenes extends Component {
           <Scene key='CheckList' component={CheckList} title='Checklist' />
           <Scene key='ReportForm' component={ReportForm} title='Report form' />
           <Scene key='ReportEngineer' component={ReportEngineer} title='Report Engineer' />
-
+          <Scene key='ReportSchool' component={ReportSchool} title='Report for School' />
           <Scene
             key='GuidelineCategoryScene'
             component={GuidelineCategoryScene}

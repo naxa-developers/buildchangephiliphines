@@ -18,7 +18,11 @@ class Select5 extends Component {
 
   render() {
     return (
+
       <View style={styles.mainContainer}>
+      <TouchableOpacity style={styles.reportContainer} onPress={() => Actions.ReportSchool()}>
+        <Icon name={'file-text'} size={35} style={styles.iconStyle} />
+      </TouchableOpacity>
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={() => Actions.DocumentList()}>
         <View style={styles.backgroundContainer}>
           <Image
@@ -28,7 +32,6 @@ class Select5 extends Component {
           />
         </View>
         <View style={styles.contentStyle}>
-        <Icon name={'info'} size={35} style={styles.iconStyle} />
         <Text style={styles.textBoldStyle}>{getLocalizedText('GUSTO KO MAKITA AN PLANO', 'I WANT TO LOOK AT THE BLUEPRINT')}</Text>
         </View>
 </TouchableOpacity>
@@ -41,7 +44,6 @@ class Select5 extends Component {
           />
         </View>
         <View style={styles.contentStyle}>
-        <Icon name={'info'} size={35} style={styles.iconStyle} />
         <Text style={styles.textBoldStyle}>{getLocalizedText('GUSTO KO MAKITA AN MGA PAMAAGI HAN PAG AYAD', 'I WANT TO SEE THE CONSTRUCTION STAGES')}</Text>
         </View>
 
@@ -55,12 +57,12 @@ class Select5 extends Component {
           />
         </View>
         <View style={styles.contentStyle}>
-        <Icon name={'info'} size={35} style={styles.iconStyle} />
         <Text style={styles.textBoldStyle}>{getLocalizedText('GUSTO KO MAKITA AN AKON ESKWELAHAN HA MAPA', 'I WANT TO SEE MY SCHOOL ON A MAP')}</Text>
         </View>
 
         </TouchableOpacity>
       </View>
+
     );
   }
 }
@@ -75,9 +77,17 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(Select5);
 
 const styles = StyleSheet.create({
+
+  reportContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 3
+  },
   mainContainer: {
     flex: 1,
-    margin: 10
+    margin: 10,
+    position: 'relative'
   },
   subContainer: {
     flex: 1,
@@ -89,7 +99,6 @@ const styles = StyleSheet.create({
   iconStyle: {
     color: 'rgba(0,0,0,.5)',
     fontSize: 35,
-    marginBottom: 20,
     width: 70,
     height: 70,
     lineHeight: 70,
@@ -100,12 +109,13 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
-    fontSize: 18
+    fontSize: 18,
   },
   textBoldStyle: {
     color: 'white',
     fontSize: 22,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   backgroundContainer: {
     position: 'absolute',
@@ -124,8 +134,7 @@ const styles = StyleSheet.create({
   contentStyle: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,.1)'
   }
 
