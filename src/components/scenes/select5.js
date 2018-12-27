@@ -27,7 +27,7 @@ class Select5 extends Component {
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginBottom: 5 }]} onPress={() => Actions.DocumentList()}>
         <View style={styles.backgroundContainer}>
           <LinearGradient
-             colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,0)']}
+             colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,.3)']}
              style = { styles.darkOverlay }>
          </LinearGradient>
           <Image
@@ -43,7 +43,7 @@ class Select5 extends Component {
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={this.onSecondOptionPressed.bind(this, this.props.user)}>
         <View style={styles.backgroundContainer}>
         <LinearGradient
-           colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,0)']}
+           colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,.3)']}
            style = { styles.darkOverlay }>
        </LinearGradient>
           <Image
@@ -60,7 +60,7 @@ class Select5 extends Component {
         <TouchableOpacity style={[styles.subContainer, { backgroundColor: '#8cc63f', marginTop: 5 }]} onPress={() => Actions.ShowMap()}>
         <View style={styles.backgroundContainer}>
         <LinearGradient
-           colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,0)']}
+           colors={['rgba(0,0,0,.7)', 'rgba(255,255,255,.3)']}
            style = { styles.darkOverlay }>
        </LinearGradient>
           <Image
@@ -68,7 +68,8 @@ class Select5 extends Component {
           source={require('../../../app_images/map.jpg')}
           resizeMode={'stretch'}
           />
-        </View>+++++        <View style={styles.contentStyle}>
+        </View>
+         <View style={styles.contentStyle}>
         <Text style={styles.textBoldStyle}>{getLocalizedText('GUSTO KO MAKITA AN AKON ESKWELAHAN HA MAPA', 'I WANT TO SEE MY SCHOOL ON A MAP')}</Text>
         </View>
 
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
      shadowOffset: { width: 0, height: 1 },
      shadowOpacity: 0.8,
-     shadowRadius: 2,
+     shadowRadius: 5,
      elevation: 5
   },
   mainContainer: {
