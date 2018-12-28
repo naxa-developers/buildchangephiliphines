@@ -223,7 +223,9 @@ class ReportForm extends Component {
             source={{ uri: this.state.uri }}
           />
           }
-          <View>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
+
           <Button
           onPress={this.uploadComment.bind(this, this.props)}
           loading={this.state.uploading}
@@ -233,17 +235,31 @@ class ReportForm extends Component {
           buttonStyle={{
             backgroundColor: '#8CC63E',
             marginTop: 10,
+            width: Dimensions.get('window').width / 2 - 15,
+            padding: 12
+
           }}
           />
+          </View>
+          <View style={{ flex: 1 }}>
+
           <Button
           onPress={() => Actions.pop()}
           title={strings.action_cancel}
           titleStyle={{ fontWeight: '700' }}
+          containerStyle={{ }}
+
           buttonStyle={{
             backgroundColor: '#E8656A',
             marginTop: 10,
+            width: Dimensions.get('window').width / 2 - 30,
+            padding: 12
+
+
           }}
           />
+          </View>
+
           </View>
         </View>
       </ScrollView>
@@ -261,8 +277,9 @@ const styles = {
     borderRadius: 5
   },
   image: {
-    width: Dimensions.get('window').width - 30,
-    height: 200,
+     width: Dimensions.get('window').width - 30,
+     height: 200,
+     overflow: 'visible',
     margin: 15,
     marginBottom: 0
   }

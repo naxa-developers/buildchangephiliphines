@@ -100,7 +100,7 @@ const mapStateToProps = (state) => {
   return {
     actionQueue: state.actionQueue.actionQueue,
     isConnected: state.isConnected.isConnected,
-    admin: state.schoolList.data.admin[0],
+    admin: state.schoolList.data.project_managers[0],
     currentUserId: state.currentUserGroup.currentUserId
   };
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert, TextInput } from 'react-native';
+import { View, ScrollView, Text, AsyncStorage, Alert, TextInput, Image, Dimensions } from 'react-native';
 import {
   Button
 } from 'react-native-elements';
@@ -51,6 +51,7 @@ class ReportEngineer extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = { uri: response.uri };
+        this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep, comment: this.state.comments, uri: response.uri });
         this.setState({ ...this.state, uri: response.uri });
 
         // You can also display the image using data:
@@ -181,7 +182,11 @@ class ReportEngineer extends Component {
           <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
           <TextInput
             editable
-            onChangeText={(comments) => this.setState({ ...this.state, comments })}
+            onChangeText={(comments) => {
+              console.log('text', comments);
+              this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep, comment: comments, uri: this.state.uri });
+              this.setState({ ...this.state, comments });
+            }}
             placeholder={strings.error_field_cannot_be_empty}
             ref='comments'
             returnKeyType='next'
@@ -204,6 +209,11 @@ class ReportEngineer extends Component {
             titleStyle={{ fontWeight: '700' }}
             containerStyle={{ marginTop: 20 }}
           />
+          {this.state.uri && <Image
+            style={styles.image}
+            source={{ uri: this.state.uri }}
+          />
+          }
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
@@ -247,6 +257,13 @@ const styles = {
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 5
+  },
+  image: {
+     width: Dimensions.get('window').width - 30,
+     height: 200,
+     overflow: 'visible',
+    margin: 15,
+    marginBottom: 0
   }
 };
 
