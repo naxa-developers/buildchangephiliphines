@@ -82,7 +82,7 @@ export default class SettingsScene extends Component {
                               mediaScannable: true,
                           }
                       })
-                      .fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1')
+                      .fetch('GET', 'http://bccms.naxa.com.np/core/download-zip/')
                       .then((resp) => {
                         const sourcePath = resp.path();
                         const targetPath = resp.path().replace('.zip', '');
