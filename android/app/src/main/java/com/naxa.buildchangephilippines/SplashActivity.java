@@ -1,5 +1,5 @@
 
-package com.guide; // make sure this is your package name
+package com.naxa.buildchangephilippines; // make sure this is your package name
 
 import android.content.Intent;
 import android.os.Bundle;

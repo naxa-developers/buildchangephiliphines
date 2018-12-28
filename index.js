@@ -2,4 +2,4 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 
 console.disableYellowBox = true;
-AppRegistry.registerComponent('guide', () => App);
+AppRegistry.registerComponent('naxa.buildchangephilippines', () => App);

@@ -98,7 +98,7 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.guide"
+        applicationId "com.naxa.buildchangephilippines"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1

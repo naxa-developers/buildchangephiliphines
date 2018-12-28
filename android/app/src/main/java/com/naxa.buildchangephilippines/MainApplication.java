@@ -1,4 +1,4 @@
-package com.guide;
+package com.naxa.buildchangephilippines;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
