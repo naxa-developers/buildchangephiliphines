@@ -87,7 +87,7 @@ class ReportSchool extends Component {
       console.log(userID);
       console.log(token);
 
-      const url = 'http://bccms.naxa.com.np/core/api/report/';
+      const url = 'http://bccms.naxa.com.np/core/api/site-report/';
 
       const formdata = new FormData();
       formdata.append('comment', this.state.comments);
