@@ -18,9 +18,9 @@ class Select4 extends Component {
           Alert.alert('No pdf available for this option!')
         } else {
           if (ea.name === 'CONSTRUCTION QUALITY') {
-            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + ea.pdf, value: 'ram' });
+            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + ea.pdf, value: 'ram' });
           } else {
-            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + ea.pdf });
+            Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + ea.pdf });
           }
         }
       }

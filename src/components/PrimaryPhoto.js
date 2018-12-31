@@ -15,12 +15,12 @@ class PrimaryPhoto extends Component {
 
 
   componentWillMount() {
-    // RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+    // RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
     //     .then((exist) => {
     //         console.log(exist);
     //       if (exist) {
     //         this.setState({
-    //           primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.primaryPhoto.image }
+    //           primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/' + this.props.primaryPhoto.image }
     //         });
     //     }
     //     else if (!exist) {
@@ -40,7 +40,7 @@ class PrimaryPhoto extends Component {
     //         console.log('error while checking file');
     //     });
 
-  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
       .then((exist) => {
           console.log(exist);
         if (exist) {
@@ -51,7 +51,7 @@ class PrimaryPhoto extends Component {
           } else {
             console.log('good_photo');
             this.setState({
-              primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.primaryPhoto.image }
+              primary_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/' + this.props.primaryPhoto.image }
             });
           }
       }

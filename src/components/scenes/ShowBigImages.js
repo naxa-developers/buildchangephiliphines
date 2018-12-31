@@ -10,7 +10,7 @@ class ShowBigImages extends Component {
   render() {
     const images = [];
     this.props.photos.forEach((ea) => {
-      images.push({ props: { source: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + ea.image } } });
+      images.push({ props: { source: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/' + ea.image } } });
     });
     console.log(images);
 //     const images = [{

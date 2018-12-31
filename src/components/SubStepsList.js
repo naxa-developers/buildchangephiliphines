@@ -16,7 +16,7 @@ class SubStepsList extends Component {
     componentWillMount() {
 
 
-      RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+      RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
           .then((exist) => {
               if (!exist) {
                 this.setState({ zipAvailable: false });
@@ -65,7 +65,7 @@ class SubStepsList extends Component {
         this.setState({ ...this.state, imageViewerShown: true });
     }
     render() {
-      const images = [{ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }];
+      const images = [{ url: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.image }];
         return (
             <ScrollView>
             <Modal
@@ -84,7 +84,7 @@ class SubStepsList extends Component {
               <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'http://bccms.naxa.com.np/media/' + this.props.image }} />
             </TouchableOpacity> }
             { this.state.zipAvailable && this.props.image !== '' && <TouchableOpacity onPress={this.showImageViewer.bind(this)} style={styles.stepImageContainer}>
-              <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.image }} />
+              <Image style={styles.stepImage} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.image }} />
             </TouchableOpacity> }
 
             <ListView

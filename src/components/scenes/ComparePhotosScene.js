@@ -25,7 +25,7 @@ class ComparePhotosScene extends Component {
 
 componentWillMount() {
   console.log('componentDidMountkobhitra');
-  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
       .then((exist) => {
           if (!exist) {
             this.setState({ onlineMode: true });
@@ -46,7 +46,7 @@ showImageViewer(id) {
   render() {
     const images = [];
     this.props.substep.good_photos.forEach((ea) => {
-      images.push({ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines' + ea.image });
+      images.push({ url: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines' + ea.image });
     });
     console.log(images);
     return (
@@ -74,7 +74,7 @@ showImageViewer(id) {
           {!this.state.onlineMode &&         <FlatList
                     data={this.props.substep.good_photos}
                     renderItem={({ item }) => item.image && <TouchableOpacity onPress={this.showImageViewer.bind(this, this.props.substep.good_photos.indexOf(item))} style={styles.imageContainer}>
-                      <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + item.image }} />
+                      <Image style={styles.image} resizeMode={'contain'} source={{ uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/' + item.image }} />
                     </TouchableOpacity>}
                   />
               }

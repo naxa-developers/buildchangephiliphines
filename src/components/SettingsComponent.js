@@ -69,7 +69,7 @@ export default class SettingsScene extends Component {
   downloadZip() {
         checkInternetConnection().then(res => {
           if (res) {
-            RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+            RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
                 .then((exist) => {
                     if (!exist) {
                       RNFetchBlob
@@ -110,10 +110,10 @@ export default class SettingsScene extends Component {
   }
 
   downloadLatestZip() {
-    RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines.zip')
+    RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines.zip')
       .then(() => {
         console.log('deleted zip');
-        RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+        RNFetchBlob.fs.unlink('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
 
         .then(() => {
           console.log('deleted extracted file');

@@ -54,7 +54,7 @@ showImageViewer(id) {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const images = [];
     this.props.substep.primary_photos.forEach((ea) => {
-      images.push({ url: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines' + ea.image });
+      images.push({ url: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines' + ea.image });
     });
 
     return (

@@ -22,7 +22,7 @@ class ListItem extends Component {
 
   componentWillMount() {
     console.log('photoData', this.props.item);
-  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
       .then((exist) => {
           console.log(exist);
         if (exist) {
@@ -33,7 +33,7 @@ class ListItem extends Component {
           } else {
             console.log('good_photo');
             this.setState({
-              good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.item.icon }
+              good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.item.icon }
             });
           }
       }

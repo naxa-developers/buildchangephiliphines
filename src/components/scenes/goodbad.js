@@ -26,7 +26,7 @@ class GoodBad extends Component {
 
   componentWillMount() {
     console.log('photoData', this.props.photoData);
-  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
       .then((exist) => {
           console.log(exist);
         if (exist) {
@@ -35,11 +35,11 @@ class GoodBad extends Component {
               good_photo: require('../../../app_images/no_image.png')
             });
           } else {
-            console.log('good_photo', { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
+            console.log('good_photo', { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') });
 
             this.setState({
-              good_photo: { uri: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') }
-              //good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.good_photo }
+              good_photo: { uri: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') }
+              //good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.photoData.good_photo }
             });
           }
           if (this.props.photoData.bad_photo === null || this.props.photoData.bad_photo === '') {
@@ -47,10 +47,10 @@ class GoodBad extends Component {
               bad_photo: require('../../../app_images/no_image.png')
             });
           } else {
-            console.log('bad_photo', { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') });
+            console.log('bad_photo', { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') });
             this.setState({
-              bad_photo: { uri: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') } }
-              //bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.bad_photo }
+              bad_photo: { uri: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') } }
+              //bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.photoData.bad_photo }
 
             );
           }
@@ -88,10 +88,10 @@ class GoodBad extends Component {
       const { width } = Dimensions.get('window');
       const images = [];
       if (this.props.photoData.good_photo) {
-        images[0] = { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') };
+        images[0] = { url: this.props.photoData.good_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') };
       }
       if (this.props.photoData.bad_photo) {
-        images[1] = { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines') };
+        images[1] = { url: this.props.photoData.bad_photo.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines') };
       }
       console.log('images', images);
 

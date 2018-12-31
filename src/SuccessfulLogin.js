@@ -33,7 +33,7 @@ class SuccessfulLogin extends Component {
           if (res) {
             if (!this.props.hasDownloadStarted) {
               console.log('rameeee');
-              RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+              RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
                   .then((exist) => {
                       if (!exist) {
                         this.props.setDownloadInfo({ hasDownloadStarted: true });

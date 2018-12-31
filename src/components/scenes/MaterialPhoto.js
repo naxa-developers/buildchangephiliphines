@@ -21,7 +21,7 @@ class MaterialPhoto extends Component {
 
   componentWillMount() {
     console.log('photoData', this.props.photoData);
-  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+  RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
       .then((exist) => {
           console.log(exist);
         if (exist) {
@@ -32,7 +32,7 @@ class MaterialPhoto extends Component {
           } else {
             console.log('good_photo');
             this.setState({
-              good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.good_photo }
+              good_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.photoData.good_photo }
             });
           }
           if (this.props.photoData.bad_photo === null || this.props.photoData.bad_photo === '') {
@@ -42,7 +42,7 @@ class MaterialPhoto extends Component {
           } else {
             console.log('bad_photo');
             this.setState({
-              bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/media/' + this.props.photoData.bad_photo }
+              bad_photo: { uri: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.photoData.bad_photo }
 
             });
           }
