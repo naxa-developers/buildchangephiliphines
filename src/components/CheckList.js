@@ -25,32 +25,34 @@ class CheckList extends React.Component {
 }
 
 onCallAdmin() {
-  const args = {
-  number: this.props.admin.phone_number, // String value with the number to call
-  prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
-};
-AsyncStorage.getItem('token').then(token => {
-  const url = 'http://bccms.naxa.com.np/core/api/call-log/';
-  const formdata = new FormData();
+Actions.AdminList();
 
-  formdata.append('call_to', this.props.admin.user);
-  formdata.append('call_from', this.props.currentUserId);
-  console.log(formdata);
-  const req = {
-    method: 'POST',
-    headers: {
-      Authorization: 'token ' + token,
-      'Content-Type': 'multipart/form-data'
-    },
-    body: formdata
-  };
-  fetch(url, req)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => console.log(error));
-});
-call(args).catch(console.error);
+//   const args = {
+//   number: this.props.admin.phone_number, // String value with the number to call
+//   prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
+// };
+// AsyncStorage.getItem('token').then(token => {
+//   const url = 'http://bccms.naxa.com.np/core/api/call-log/';
+//   const formdata = new FormData();
+//
+//   formdata.append('call_to', this.props.admin.user);
+//   formdata.append('call_from', this.props.currentUserId);
+//   console.log(formdata);
+//   const req = {
+//     method: 'POST',
+//     headers: {
+//       Authorization: 'token ' + token,
+//       'Content-Type': 'multipart/form-data'
+//     },
+//     body: formdata
+//   };
+//   fetch(url, req)
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((error) => console.log(error));
+// });
+// call(args).catch(console.error);
 
 }
 
