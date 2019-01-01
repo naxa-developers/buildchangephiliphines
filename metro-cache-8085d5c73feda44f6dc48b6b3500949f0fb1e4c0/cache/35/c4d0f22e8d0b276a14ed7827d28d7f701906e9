@@ -1,0 +1,15 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _reactNavigation = _require(_dependencyMap[0], "react-navigation");
+
+  exports.default = function (NavigationView) {
+    return function (routeConfigs) {
+      var navigationConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var router = (0, _reactNavigation.StackRouter)(routeConfigs, navigationConfig);
+      return (0, _reactNavigation.createNavigationContainer)((0, _reactNavigation.createNavigator)(NavigationView, router, navigationConfig));
+    };
+  };
+});

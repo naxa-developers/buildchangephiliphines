@@ -1,0 +1,57 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _redux = _require(_dependencyMap[0], "redux");
+
+  var _schoolsreducer = _require(_dependencyMap[1], "./schoolsreducer");
+
+  var _schoolsreducer2 = _interopRequireDefault(_schoolsreducer);
+
+  var _guidelinecategoryreducer = _require(_dependencyMap[2], "./guidelinecategoryreducer");
+
+  var _guidelinecategoryreducer2 = _interopRequireDefault(_guidelinecategoryreducer);
+
+  var _searchreducer = _require(_dependencyMap[3], "./searchreducer");
+
+  var _searchreducer2 = _interopRequireDefault(_searchreducer);
+
+  var _schoolsearchreducer = _require(_dependencyMap[4], "./schoolsearchreducer");
+
+  var _schoolsearchreducer2 = _interopRequireDefault(_schoolsearchreducer);
+
+  var _checkonline = _require(_dependencyMap[5], "./checkonline");
+
+  var _checkonline2 = _interopRequireDefault(_checkonline);
+
+  var _actionqueue = _require(_dependencyMap[6], "./actionqueue");
+
+  var _actionqueue2 = _interopRequireDefault(_actionqueue);
+
+  var _isconnected = _require(_dependencyMap[7], "./isconnected");
+
+  var _isconnected2 = _interopRequireDefault(_isconnected);
+
+  var _currentselectedschool = _require(_dependencyMap[8], "./currentselectedschool");
+
+  var _currentselectedschool2 = _interopRequireDefault(_currentselectedschool);
+
+  var _currentusergroup = _require(_dependencyMap[9], "./currentusergroup");
+
+  var _currentusergroup2 = _interopRequireDefault(_currentusergroup);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  exports.default = (0, _redux.combineReducers)({
+    schoolList: _schoolsreducer2.default,
+    guideLineCategory: _guidelinecategoryreducer2.default,
+    searchReducer: _searchreducer2.default,
+    schoolSearchReducer: _schoolsearchreducer2.default,
+    checkOnline: _checkonline2.default,
+    actionQueue: _actionqueue2.default,
+    isConnected: _isconnected2.default,
+    currentSelectedSchool: _currentselectedschool2.default,
+    currentUserGroup: _currentusergroup2.default
+  });
+});

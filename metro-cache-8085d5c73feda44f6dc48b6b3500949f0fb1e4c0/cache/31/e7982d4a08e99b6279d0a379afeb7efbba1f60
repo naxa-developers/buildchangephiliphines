@@ -1,0 +1,65 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Button = undefined;
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/components/common/Button.js";
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[1], "react-native");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var Button = function Button(_ref) {
+    var onPress = _ref.onPress,
+        children = _ref.children;
+    var buttonStyle = styles.buttonStyle,
+        buttonTextStyle = styles.buttonTextStyle;
+    return _react2.default.createElement(
+      _reactNative.TouchableOpacity,
+      {
+        style: buttonStyle,
+        onPress: onPress,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 8
+        }
+      },
+      _react2.default.createElement(
+        _reactNative.Text,
+        {
+          style: buttonTextStyle,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 13
+          }
+        },
+        children.toUpperCase()
+      )
+    );
+  };
+
+  var styles = {
+    buttonStyle: {
+      flex: 1,
+      alignSelf: 'stretch',
+      backgroundColor: '#68EFAD',
+      borderRadius: 2,
+      borderWidth: 1,
+      borderColor: '#68EFAD',
+      marginLeft: 5,
+      marginRight: 5
+    },
+    buttonTextStyle: {
+      alignSelf: 'center',
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 16,
+      fontWeight: '600'
+    }
+  };
+  exports.Button = Button;
+});

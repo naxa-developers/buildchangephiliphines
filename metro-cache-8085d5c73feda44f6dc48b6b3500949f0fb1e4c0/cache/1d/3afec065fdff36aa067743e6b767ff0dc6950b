@@ -1,0 +1,301 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = networkEventsListenerSaga;
+
+  var _effects = _require(_dependencyMap[0], "redux-saga/effects");
+
+  var _reduxSaga = _require(_dependencyMap[1], "redux-saga");
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _checkInternetAccess = _require(_dependencyMap[3], "./checkInternetAccess");
+
+  var _checkInternetAccess2 = _interopRequireDefault(_checkInternetAccess);
+
+  var _actionCreators = _require(_dependencyMap[4], "./actionCreators");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var _marked = regeneratorRuntime.mark(netInfoChangeSaga),
+      _marked2 = regeneratorRuntime.mark(connectionIntervalSaga),
+      _marked3 = regeneratorRuntime.mark(checkInternetAccessSaga),
+      _marked4 = regeneratorRuntime.mark(handleConnectivityChange),
+      _marked5 = regeneratorRuntime.mark(networkEventsListenerSaga);
+
+  function createNetInfoConnectionChangeChannel() {
+    return (0, _reduxSaga.eventChannel)(function (emit) {
+      _reactNative.NetInfo.isConnected.addEventListener('connectionChange', emit);
+
+      return function () {
+        _reactNative.NetInfo.isConnected.removeEventListener('connectionChange', emit);
+      };
+    });
+  }
+
+  function createIntervalChannel(interval) {
+    return (0, _reduxSaga.eventChannel)(function (emit) {
+      var iv = setInterval(function () {
+        return emit(true);
+      }, interval);
+      return function () {
+        clearInterval(iv);
+      };
+    });
+  }
+
+  function netInfoChangeSaga(timeout, pingServerUrl, withExtraHeadRequest) {
+    var chan, isConnected;
+    return regeneratorRuntime.wrap(function netInfoChangeSaga$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0, _effects.call)(createNetInfoConnectionChangeChannel);
+
+          case 2:
+            chan = _context.sent;
+            _context.prev = 3;
+
+          case 4:
+            if (!true) {
+              _context.next = 17;
+              break;
+            }
+
+            _context.next = 7;
+            return (0, _effects.take)(chan);
+
+          case 7:
+            isConnected = _context.sent;
+
+            if (!(withExtraHeadRequest && isConnected)) {
+              _context.next = 13;
+              break;
+            }
+
+            _context.next = 11;
+            return (0, _effects.fork)(checkInternetAccessSaga, timeout, pingServerUrl);
+
+          case 11:
+            _context.next = 15;
+            break;
+
+          case 13:
+            _context.next = 15;
+            return (0, _effects.fork)(handleConnectivityChange, isConnected);
+
+          case 15:
+            _context.next = 4;
+            break;
+
+          case 17:
+            _context.prev = 17;
+            _context.next = 20;
+            return (0, _effects.cancelled)();
+
+          case 20:
+            if (!_context.sent) {
+              _context.next = 22;
+              break;
+            }
+
+            chan.close();
+
+          case 22:
+            return _context.finish(17);
+
+          case 23:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _marked, this, [[3,, 17, 23]]);
+  }
+
+  function connectionIntervalSaga(timeout, pingServerUrl, interval) {
+    var chan;
+    return regeneratorRuntime.wrap(function connectionIntervalSaga$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return (0, _effects.call)(createIntervalChannel, interval);
+
+          case 2:
+            chan = _context2.sent;
+            _context2.prev = 3;
+
+          case 4:
+            if (!true) {
+              _context2.next = 11;
+              break;
+            }
+
+            _context2.next = 7;
+            return (0, _effects.take)(chan);
+
+          case 7:
+            _context2.next = 9;
+            return (0, _effects.fork)(checkInternetAccessSaga, timeout, pingServerUrl);
+
+          case 9:
+            _context2.next = 4;
+            break;
+
+          case 11:
+            _context2.prev = 11;
+            _context2.next = 14;
+            return (0, _effects.cancelled)();
+
+          case 14:
+            if (!_context2.sent) {
+              _context2.next = 16;
+              break;
+            }
+
+            chan.close();
+
+          case 16:
+            return _context2.finish(11);
+
+          case 17:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _marked2, this, [[3,, 11, 17]]);
+  }
+
+  function checkInternetAccessSaga(timeout, pingServerUrl) {
+    var hasInternetAccess;
+    return regeneratorRuntime.wrap(function checkInternetAccessSaga$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0, _effects.call)(_checkInternetAccess2.default, timeout, pingServerUrl);
+
+          case 2:
+            hasInternetAccess = _context3.sent;
+            _context3.next = 5;
+            return (0, _effects.call)(handleConnectivityChange, hasInternetAccess);
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _marked3, this);
+  }
+
+  function handleConnectivityChange(hasInternetAccess) {
+    var actionQueue, _iterator, _isArray, _i, _ref, action;
+
+    return regeneratorRuntime.wrap(function handleConnectivityChange$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return (0, _effects.put)((0, _actionCreators.connectionChange)(hasInternetAccess));
+
+          case 2:
+            _context4.next = 4;
+            return (0, _effects.select)(function (state) {
+              return state.network.actionQueue;
+            });
+
+          case 4:
+            actionQueue = _context4.sent;
+
+            if (!(hasInternetAccess && actionQueue.length > 0)) {
+              _context4.next = 22;
+              break;
+            }
+
+            _iterator = actionQueue, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? typeof Symbol === "function" ? Symbol.iterator : "@@iterator" : "@@iterator"]();
+
+          case 7:
+            if (!_isArray) {
+              _context4.next = 13;
+              break;
+            }
+
+            if (!(_i >= _iterator.length)) {
+              _context4.next = 10;
+              break;
+            }
+
+            return _context4.abrupt("break", 22);
+
+          case 10:
+            _ref = _iterator[_i++];
+            _context4.next = 17;
+            break;
+
+          case 13:
+            _i = _iterator.next();
+
+            if (!_i.done) {
+              _context4.next = 16;
+              break;
+            }
+
+            return _context4.abrupt("break", 22);
+
+          case 16:
+            _ref = _i.value;
+
+          case 17:
+            action = _ref;
+            _context4.next = 20;
+            return (0, _effects.put)(action);
+
+          case 20:
+            _context4.next = 7;
+            break;
+
+          case 22:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _marked4, this);
+  }
+
+  function networkEventsListenerSaga() {
+    var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref2$timeout = _ref2.timeout,
+        timeout = _ref2$timeout === undefined ? 3000 : _ref2$timeout,
+        _ref2$pingServerUrl = _ref2.pingServerUrl,
+        pingServerUrl = _ref2$pingServerUrl === undefined ? 'https://www.google.com/' : _ref2$pingServerUrl,
+        _ref2$withExtraHeadRe = _ref2.withExtraHeadRequest,
+        withExtraHeadRequest = _ref2$withExtraHeadRe === undefined ? true : _ref2$withExtraHeadRe,
+        _ref2$checkConnection = _ref2.checkConnectionInterval,
+        checkConnectionInterval = _ref2$checkConnection === undefined ? 0 : _ref2$checkConnection;
+
+    return regeneratorRuntime.wrap(function networkEventsListenerSaga$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return (0, _effects.fork)(netInfoChangeSaga, timeout, pingServerUrl, withExtraHeadRequest);
+
+          case 2:
+            if (!checkConnectionInterval) {
+              _context5.next = 5;
+              break;
+            }
+
+            _context5.next = 5;
+            return (0, _effects.fork)(connectionIntervalSaga, timeout, pingServerUrl, checkConnectionInterval);
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _marked5, this);
+  }
+});

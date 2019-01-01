@@ -1,0 +1,184 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _class,
+        _temp,
+        _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-pdf/DoubleTapView.js";
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _propTypes = _require(_dependencyMap[3], "prop-types");
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        DoubleTapView: {
+            displayName: "DoubleTapView"
+        }
+    };
+
+    var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-pdf/DoubleTapView.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _reactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var DoubleTapView = _wrapComponent("DoubleTapView")((_temp = _class = function (_Component) {
+        _inherits(DoubleTapView, _Component);
+
+        function DoubleTapView() {
+            _classCallCheck(this, DoubleTapView);
+
+            var _this = _possibleConstructorReturn(this, (DoubleTapView.__proto__ || Object.getPrototypeOf(DoubleTapView)).call(this));
+
+            _this.distance = function (x0, y0, x1, y1) {
+                return Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2)).toFixed(1);
+            };
+
+            _this.isDoubleTap = function (currentTouchTimeStamp, _ref) {
+                var x0 = _ref.x0,
+                    y0 = _ref.y0;
+                var _this$prevTouchInfo = _this.prevTouchInfo,
+                    prevTouchX = _this$prevTouchInfo.prevTouchX,
+                    prevTouchY = _this$prevTouchInfo.prevTouchY,
+                    prevTouchTimeStamp = _this$prevTouchInfo.prevTouchTimeStamp;
+                var dt = currentTouchTimeStamp - prevTouchTimeStamp;
+                var _this$props = _this.props,
+                    delay = _this$props.delay,
+                    radius = _this$props.radius;
+                return prevTouchTimeStamp > 0 && dt < delay && _this.distance(prevTouchX, prevTouchY, x0, y0) < radius;
+            };
+
+            _this.handlePanResponderRelease = function (evt, gestureState) {
+                var currentTouchTimeStamp = Date.now();
+
+                if (_this.timer) {
+                    if (_this.isDoubleTap(currentTouchTimeStamp, gestureState)) {
+                        clearTimeout(_this.timer);
+                        _this.timer = null;
+
+                        _this.props.onDoubleTap();
+                    } else {
+                        var _this$prevTouchInfo2 = _this.prevTouchInfo,
+                            prevTouchX = _this$prevTouchInfo2.prevTouchX,
+                            prevTouchY = _this$prevTouchInfo2.prevTouchY,
+                            prevTouchTimeStamp = _this$prevTouchInfo2.prevTouchTimeStamp;
+                        var radius = _this.props.radius;
+
+                        if (_this.distance(prevTouchX, prevTouchY, gestureState.x0, gestureState.y0) < radius) {
+                            _this.timer = null;
+
+                            _this.props.onSingleTap();
+                        }
+                    }
+                } else {
+                    if (_this.distance(0, gestureState.dx, 0, gestureState.dy) < 10) {
+                        _this.timer = setTimeout(function () {
+                            _this.props.onSingleTap();
+
+                            _this.timer = null;
+                        }, _this.props.delay);
+                    }
+                }
+
+                _this.prevTouchInfo = {
+                    prevTouchX: gestureState.x0,
+                    prevTouchY: gestureState.y0,
+                    prevTouchTimeStamp: currentTouchTimeStamp
+                };
+            };
+
+            _this.gestureHandlers = {};
+            _this.prevTouchInfo = {
+                prevTouchX: 0,
+                prevTouchY: 0,
+                prevTouchTimeStamp: 0
+            };
+            _this.timer = null;
+            return _this;
+        }
+
+        _createClass(DoubleTapView, [{
+            key: "componentWillMount",
+            value: function componentWillMount() {
+                this.gestureHandlers = _reactNative.PanResponder.create({
+                    onStartShouldSetPanResponder: function onStartShouldSetPanResponder(evt, gestureState) {
+                        return gestureState.numberActiveTouches === 1;
+                    },
+                    onStartShouldSetResponderCapture: function onStartShouldSetResponderCapture(evt, gestureState) {
+                        return gestureState.numberActiveTouches === 1;
+                    },
+                    onMoveShouldSetPanResponder: function onMoveShouldSetPanResponder(evt, gestureState) {
+                        return false;
+                    },
+                    onMoveShouldSetResponderCapture: function onMoveShouldSetResponderCapture(evt, gestureState) {
+                        return false;
+                    },
+                    onPanResponderTerminationRequest: function onPanResponderTerminationRequest(evt, gestureState) {
+                        return false;
+                    },
+                    onPanResponderRelease: this.handlePanResponderRelease
+                });
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    _extends({}, this.props, this.gestureHandlers.panHandlers, {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 122
+                        }
+                    }),
+                    this.props.children
+                );
+            }
+        }]);
+
+        return DoubleTapView;
+    }(_react2.Component), _class.propTypes = _extends({}, _reactNative.ViewPropTypes, {
+        delay: _propTypes2.default.number,
+        radius: _propTypes2.default.number,
+        onSingleTap: _propTypes2.default.func,
+        onDoubleTap: _propTypes2.default.func
+    }), _class.defaultProps = {
+        delay: 300,
+        radius: 50,
+        onSingleTap: function onSingleTap() {},
+        onDoubleTap: function onDoubleTap() {}
+    }, _temp));
+
+    exports.default = DoubleTapView;
+});

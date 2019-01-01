@@ -1,0 +1,248 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react2 = _require(_dependencyMap[0], "react");
+
+	var _react3 = _interopRequireDefault(_react2);
+
+	var _index = _require(_dependencyMap[1], "./../node_modules/react-transform-hmr/lib/index.js");
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/SignUp.js";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _reactNativeRouterFlux = _require(_dependencyMap[2], "react-native-router-flux");
+
+	var _reactNative = _require(_dependencyMap[3], "react-native");
+
+	var _styles = _require(_dependencyMap[4], "./styles");
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _components = {
+		SignUp: {
+			displayName: "SignUp"
+		}
+	};
+
+	var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+		filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/SignUp.js",
+		components: _components,
+		locals: [module],
+		imports: [_react3.default]
+	});
+
+	function _wrapComponent(id) {
+		return function (Component) {
+			return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+		};
+	}
+
+	var SignUp = _wrapComponent("SignUp")(function (_Component) {
+		_inherits(SignUp, _Component);
+
+		function SignUp() {
+			_classCallCheck(this, SignUp);
+
+			var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this));
+
+			_this.state = {
+				username: null,
+				email: null,
+				password: null,
+				repassword: null
+			};
+			return _this;
+		}
+
+		_createClass(SignUp, [{
+			key: "userSignup",
+			value: function userSignup() {
+				if (this.state.password === this.state.repassword) {
+					if (this.state.username && this.state.email && this.state.password) {
+						fetch('http://bccms.naxa.com.np/core/api/users/', {
+							method: 'POST',
+							headers: {
+								Accept: 'application/json',
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								username: this.state.username,
+								email: this.state.email,
+								password: this.state.password
+							})
+						}).then(function (response) {
+							switch (response.status) {
+								case 201:
+									_reactNative.Alert.alert('Successful Signup');
+
+									_reactNativeRouterFlux.Actions.Login();
+
+									break;
+
+								case 400:
+									_reactNative.Alert.alert('Username Already Exists');
+
+									break;
+
+								default:
+									_reactNative.Alert.alert('Unknown Error Occured!');
+
+							}
+						}).catch(function (error) {
+							return console.log(error);
+						}).done();
+					}
+				} else {
+					_reactNative.Alert.alert('Password did not match!');
+				}
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+
+				return _react3.default.createElement(
+					_reactNative.View,
+					{
+						style: _styles2.default.container,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 68
+						}
+					},
+					_react3.default.createElement(_reactNative.Image, {
+						source: _require(_dependencyMap[5], '../app_images/buildchange.jpeg'),
+						style: _styles2.default.image,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 69
+						}
+					}),
+					_react3.default.createElement(
+						_reactNative.View,
+						{
+							style: _styles2.default.form,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 73
+							}
+						},
+						_react3.default.createElement(_reactNative.TextInput, {
+							editable: true,
+							onChangeText: function onChangeText(username) {
+								return _this2.setState({
+									username: username
+								});
+							},
+							placeholder: "Username",
+							ref: "username",
+							returnKeyType: "next",
+							style: _styles2.default.inputText,
+							value: this.state.username,
+							autoCapitalize: "none",
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 75
+							}
+						}),
+						_react3.default.createElement(_reactNative.TextInput, {
+							editable: true,
+							onChangeText: function onChangeText(email) {
+								return _this2.setState({
+									email: email
+								});
+							},
+							placeholder: "Email",
+							ref: "email",
+							returnKeyType: "next",
+							style: _styles2.default.inputText,
+							value: this.state.email,
+							autoCapitalize: "none",
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 86
+							}
+						}),
+						_react3.default.createElement(_reactNative.TextInput, {
+							editable: true,
+							onChangeText: function onChangeText(password) {
+								return _this2.setState({
+									password: password
+								});
+							},
+							placeholder: "Password",
+							ref: "password",
+							returnKeyType: "next",
+							secureTextEntry: true,
+							style: _styles2.default.inputText,
+							value: this.state.password,
+							autoCapitalize: "none",
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 96
+							}
+						}),
+						_react3.default.createElement(_reactNative.TextInput, {
+							editable: true,
+							onChangeText: function onChangeText(repassword) {
+								return _this2.setState({
+									repassword: repassword
+								});
+							},
+							placeholder: "Retype Password",
+							ref: "repassword",
+							returnKeyType: "next",
+							secureTextEntry: true,
+							style: _styles2.default.inputText,
+							value: this.state.repassword,
+							autoCapitalize: "none",
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 107
+							}
+						}),
+						_react3.default.createElement(
+							_reactNative.TouchableOpacity,
+							{
+								style: _styles2.default.buttonWrapper,
+								onPress: this.userSignup.bind(this),
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 118
+								}
+							},
+							_react3.default.createElement(
+								_reactNative.Text,
+								{
+									style: _styles2.default.buttonText,
+									__source: {
+										fileName: _jsxFileName,
+										lineNumber: 122
+									}
+								},
+								"SignUp"
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return SignUp;
+	}(_react2.Component));
+
+	exports.default = SignUp;
+});

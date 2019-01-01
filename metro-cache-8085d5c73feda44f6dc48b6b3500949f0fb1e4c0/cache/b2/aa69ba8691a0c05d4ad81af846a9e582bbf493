@@ -1,0 +1,780 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/Onboarding.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNativeRouterFlux = _require(_dependencyMap[3], "react-native-router-flux");
+
+  var _reactNativeAppIntro = _require(_dependencyMap[4], "react-native-app-intro");
+
+  var _reactNativeAppIntro2 = _interopRequireDefault(_reactNativeAppIntro);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Onboarding: {
+      displayName: "Onboarding"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/Onboarding.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var styles = _reactNative.StyleSheet.create({
+    slide: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9DD6EB',
+      padding: 15
+    },
+    header: {
+      flex: 0.5,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    pic: {
+      width: 75 * 2,
+      height: 63 * 2
+    },
+    text: {
+      color: '#fff',
+      fontSize: 30,
+      fontWeight: 'bold'
+    },
+    info: {
+      flex: 0.5,
+      alignItems: 'center',
+      padding: 40
+    },
+    title: {
+      color: '#fff',
+      fontSize: 25,
+      paddingBottom: 20,
+      textAlign: 'center',
+      fontWeight: 'bold'
+    },
+    description: {
+      color: '#fff',
+      fontSize: 20,
+      textAlign: 'center'
+    }
+  });
+
+  var Onboarding = _wrapComponent("Onboarding")(function (_Component) {
+    _inherits(Onboarding, _Component);
+
+    function Onboarding() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, Onboarding);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Onboarding.__proto__ || Object.getPrototypeOf(Onboarding)).call.apply(_ref, [this].concat(args))), _this), _this.onSkipBtnHandle = function (index) {
+        console.log(index);
+
+        _reactNativeRouterFlux.Actions.SecondPage();
+      }, _this.onSlideChangeHandle = function (index, total) {
+        console.log(index, total);
+      }, _this.nextBtnHandle = function (index) {
+        console.log(index);
+      }, _this.doneBtnHandle = function () {
+        _reactNativeRouterFlux.Actions.SecondPage();
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Onboarding, [{
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(
+          _reactNativeAppIntro2.default,
+          {
+            onNextBtnClick: this.nextBtnHandle,
+            onDoneBtnClick: this.doneBtnHandle,
+            onSkipBtnClick: this.onSkipBtnHandle,
+            onSlideChange: this.onSlideChangeHandle,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 66
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: [styles.slide, {
+                backgroundColor: '#fa931d'
+              }],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 72
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.header,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 73
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 74
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 75 * 2.5,
+                    height: 63 * 2.5
+                  },
+                  source: _require(_dependencyMap[5], './newimg/1/c1.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 75
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 80,
+                    left: -20
+                  },
+                  level: 20,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 77
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 46 * 2.5,
+                    height: 28 * 2.5
+                  },
+                  source: _require(_dependencyMap[6], './newimg/1/c2.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 84
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 23,
+                    left: -25
+                  },
+                  level: 20,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 86
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 109 * 2.5,
+                    height: 68 * 2.5
+                  },
+                  source: _require(_dependencyMap[7], './newimg/1/c5.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 93
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 65,
+                    left: -15
+                  },
+                  level: 5,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 95
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 23 * 2.5,
+                    height: 17 * 2.5
+                  },
+                  source: _require(_dependencyMap[8], './newimg/1/c3.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 102
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.info,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 105
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 10,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 106
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.title,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 106
+                    }
+                  },
+                  "Welcome!"
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 107
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.description,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 107
+                    }
+                  },
+                  "Construction Guidelines app aids in keeping track of progress of sites and sending reports."
+                )
+              )
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: [styles.slide, {
+                backgroundColor: '#a4b602'
+              }],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 110
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.header,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 111
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 112
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 75 * 2.5,
+                    height: 63 * 2.5
+                  },
+                  source: _require(_dependencyMap[9], './newimg/2/1.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 113
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 30,
+                    left: -10
+                  },
+                  level: 20,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 115
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 101 * 2.5,
+                    height: 71 * 2.5
+                  },
+                  source: _require(_dependencyMap[10], './newimg/2/2.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 121
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 10,
+                    left: 0
+                  },
+                  level: -20,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 123
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 85 * 2.5,
+                    height: 73 * 2.5
+                  },
+                  source: _require(_dependencyMap[11], './newimg/2/3.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 130
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.info,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 133
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 10,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 134
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.title,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 134
+                    }
+                  },
+                  "Proper Construction Practices"
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 135
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.description,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 135
+                    }
+                  },
+                  "Divides the construction process into steps. Checklist is populated for mandatory practices in each step."
+                )
+              )
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: [styles.slide, {
+                backgroundColor: '#406E9F'
+              }],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 138
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.header,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 139
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 20,
+                    left: -30
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 140
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 138 * 2.5,
+                    height: 83 * 2.5
+                  },
+                  source: _require(_dependencyMap[12], './newimg/3/3.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 147
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 25,
+                    left: -10
+                  },
+                  level: -15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 149
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 103 * 2.5,
+                    height: 42 * 2.5
+                  },
+                  source: _require(_dependencyMap[13], './newimg/3/4.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 156
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 10,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 158
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 95 * 2.5,
+                    height: 55 * 2.5
+                  },
+                  source: _require(_dependencyMap[14], './newimg/3/1.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 159
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 65,
+                    left: 70
+                  },
+                  level: 25,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 161
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 47 * 2.5,
+                    height: 43 * 2.5
+                  },
+                  source: _require(_dependencyMap[15], './newimg/3/2.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 168
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.info,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 171
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 10,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 172
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.title,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 172
+                    }
+                  },
+                  "Categorization"
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 173
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.description,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 173
+                    }
+                  },
+                  "Catergorizes the similar guidelines in a group for easy searching."
+                )
+              )
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: [styles.slide, {
+                backgroundColor: '#DB4302'
+              }],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 176
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.header,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 177
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 25,
+                    left: -35
+                  },
+                  level: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 178
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 96 * 2.5,
+                    height: 69 * 2.5
+                  },
+                  source: _require(_dependencyMap[16], './newimg/4/4.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 185
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 187
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 50 * 2.5,
+                    height: 63 * 2.5
+                  },
+                  source: _require(_dependencyMap[17], './newimg/4/1.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 188
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: {
+                    position: 'absolute',
+                    top: 20,
+                    left: 0
+                  },
+                  level: 20,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 190
+                  }
+                },
+                _react3.default.createElement(_reactNative.Image, {
+                  style: {
+                    width: 46 * 2.5,
+                    height: 98 * 2.5
+                  },
+                  source: _require(_dependencyMap[18], './newimg/4/3.png'),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 197
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.info,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 200
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 10,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 201
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.title,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 201
+                    }
+                  },
+                  "Photo Archive"
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  level: 15,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 202
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.description,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 202
+                    }
+                  },
+                  "Side by side display of images of good and bad quality materials."
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return Onboarding;
+  }(_react2.Component));
+
+  exports.default = Onboarding;
+});

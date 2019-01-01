@@ -1,0 +1,5 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var DialogAndroid = _require(_dependencyMap[0], './DialogAndroid');
+
+  module.exports = DialogAndroid;
+});

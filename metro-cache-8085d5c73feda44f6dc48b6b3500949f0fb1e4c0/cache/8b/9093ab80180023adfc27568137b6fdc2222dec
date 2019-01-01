@@ -1,0 +1,42 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = checkInternetConnection;
+
+  var _reactNative = _require(_dependencyMap[0], "react-native");
+
+  var _checkInternetAccess = _require(_dependencyMap[1], "./checkInternetAccess");
+
+  var _checkInternetAccess2 = _interopRequireDefault(_checkInternetAccess);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function checkInternetConnection() {
+    var timeout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3000;
+    var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'http://www.google.com/';
+    var connectionChecked = void 0;
+
+    if (_reactNative.Platform.OS === 'ios') {
+      connectionChecked = new Promise(function (resolve) {
+        var handleFirstConnectivityChangeIOS = function handleFirstConnectivityChangeIOS(isConnected) {
+          _reactNative.NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChangeIOS);
+
+          resolve(isConnected);
+        };
+
+        _reactNative.NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChangeIOS);
+      });
+    } else {
+      connectionChecked = _reactNative.NetInfo.isConnected.fetch();
+    }
+
+    return connectionChecked.then(function (isConnected) {
+      if (isConnected) {
+        return (0, _checkInternetAccess2.default)(timeout, url);
+      }
+
+      return Promise.resolve(false);
+    });
+  }
+});

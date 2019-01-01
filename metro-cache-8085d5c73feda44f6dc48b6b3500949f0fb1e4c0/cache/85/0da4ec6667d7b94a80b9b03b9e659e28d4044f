@@ -1,0 +1,151 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class, _temp2;
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _checkInternetAccess = _require(_dependencyMap[4], "./checkInternetAccess");
+
+  var _checkInternetAccess2 = _interopRequireDefault(_checkInternetAccess);
+
+  var _reactConnectionStore = _require(_dependencyMap[5], "./reactConnectionStore");
+
+  var _reactConnectionStore2 = _interopRequireDefault(_reactConnectionStore);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ConnectivityRenderer: {
+      displayName: "ConnectivityRenderer"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-offline/src/ConnectivityRenderer.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var ConnectivityRenderer = _wrapComponent("ConnectivityRenderer")((_temp2 = _class = function (_Component) {
+    _inherits(ConnectivityRenderer, _Component);
+
+    function ConnectivityRenderer() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, ConnectivityRenderer);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ConnectivityRenderer.__proto__ || Object.getPrototypeOf(ConnectivityRenderer)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        isConnected: _reactConnectionStore2.default.getConnection()
+      }, _this.checkInternet = function (isConnected) {
+        if (isConnected) {
+          (0, _checkInternetAccess2.default)(_this.props.timeout, _this.props.pingServerUrl).then(function (hasInternetAccess) {
+            _this.handleConnectivityChange(hasInternetAccess);
+          });
+        } else {
+          _this.handleConnectivityChange(isConnected);
+        }
+      }, _this.handleConnectivityChange = function (isConnected) {
+        _reactConnectionStore2.default.setConnection(isConnected);
+
+        if (isConnected !== _this.state.isConnected) {
+          _this.setState({
+            isConnected: isConnected
+          });
+        }
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(ConnectivityRenderer, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        if (typeof this.props.children !== 'function') {
+          throw new Error('You should pass a function as a children');
+        }
+
+        if (typeof this.props.timeout !== 'number') {
+          throw new Error('you should pass a number as timeout prop');
+        }
+
+        if (typeof this.props.pingServerUrl !== 'string') {
+          throw new Error('you should pass a string as pingServerUrl prop');
+        }
+      }
+    }, {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        _reactNative.NetInfo.isConnected.addEventListener('connectionChange', this.props.withExtraHeadRequest ? this.checkInternet : this.handleConnectivityChange);
+
+        if (_reactNative.Platform.OS === 'android') {
+          _reactNative.NetInfo.isConnected.fetch().then(function (isConnected) {
+            if (_this2.props.withExtraHeadRequest) {
+              _this2.checkInternet(isConnected);
+            } else {
+              _this2.handleConnectivityChange(isConnected);
+            }
+          });
+        }
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        _reactNative.NetInfo.isConnected.removeEventListener('connectionChange', this.props.withExtraHeadRequest ? this.checkInternet : this.handleConnectivityChange);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return this.props.children(this.state.isConnected);
+      }
+    }]);
+
+    return ConnectivityRenderer;
+  }(_react2.Component), _class.propTypes = {
+    children: _propTypes2.default.func.isRequired,
+    timeout: _propTypes2.default.number,
+    pingServerUrl: _propTypes2.default.string,
+    withExtraHeadRequest: _propTypes2.default.bool
+  }, _class.defaultProps = {
+    timeout: 3000,
+    pingServerUrl: 'http://www.google.com/',
+    withExtraHeadRequest: true
+  }, _temp2));
+
+  exports.default = ConnectivityRenderer;
+});

@@ -1,0 +1,61 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _lodash = _require(_dependencyMap[0], "lodash");
+
+  var _actionCreators = _require(_dependencyMap[1], "./actionCreators");
+
+  function createNetworkMiddleware() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$regexActionType = _ref.regexActionType,
+        regexActionType = _ref$regexActionType === undefined ? /FETCH.*REQUEST/ : _ref$regexActionType,
+        _ref$actionTypes = _ref.actionTypes,
+        actionTypes = _ref$actionTypes === undefined ? [] : _ref$actionTypes;
+
+    return function (_ref2) {
+      var getState = _ref2.getState;
+      return function (next) {
+        return function (action) {
+          if ({}.toString.call(regexActionType) !== '[object RegExp]') throw new Error('You should pass a regex as regexActionType param');
+          if ({}.toString.call(actionTypes) !== '[object Array]') throw new Error('You should pass an array as actionTypes param');
+          var _getState$network = getState().network,
+              isConnected = _getState$network.isConnected,
+              actionQueue = _getState$network.actionQueue;
+          var isObjectAndMatchCondition = typeof action === 'object' && (regexActionType.test(action.type) || actionTypes.includes(action.type));
+          var isFunctionAndMatchCondition = typeof action === 'function' && action.interceptInOffline === true;
+
+          if (isObjectAndMatchCondition || isFunctionAndMatchCondition) {
+            if (isConnected === false) {
+              return next((0, _actionCreators.fetchOfflineMode)(action));
+            }
+
+            var actionQueued = actionQueue.length > 0 ? (0, _lodash.find)(actionQueue, function (a) {
+              return (0, _lodash.isEqual)(a, action);
+            }) : null;
+
+            if (actionQueued) {
+              next((0, _actionCreators.removeActionFromQueue)(action));
+              return next(action);
+            }
+          }
+
+          var isAnyActionToBeDismissed = (0, _lodash.find)(actionQueue, function (a) {
+            var actionsToDismiss = (0, _lodash.get)(a, 'meta.dismiss', []);
+            return actionsToDismiss.includes(action.type);
+          });
+
+          if (isAnyActionToBeDismissed && !isConnected) {
+            next((0, _actionCreators.dismissActionsFromQueue)(action.type));
+            return next(action);
+          }
+
+          return next(action);
+        };
+      };
+    };
+  }
+
+  exports.default = createNetworkMiddleware;
+});

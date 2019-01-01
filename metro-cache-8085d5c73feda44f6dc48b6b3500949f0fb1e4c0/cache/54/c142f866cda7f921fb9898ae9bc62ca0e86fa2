@@ -1,0 +1,293 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _class,
+        _temp2,
+        _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-settings-components/src/edit-text/edit-text.js";
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _propTypes = _require(_dependencyMap[3], "prop-types");
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
+
+    var _reactNativeDialogs = _require(_dependencyMap[4], "react-native-dialogs");
+
+    var _reactNativeDialogs2 = _interopRequireDefault(_reactNativeDialogs);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        SettingsEditText: {
+            displayName: "SettingsEditText"
+        }
+    };
+
+    var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-settings-components/src/edit-text/edit-text.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _reactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var SettingsEditText = _wrapComponent("SettingsEditText")((_temp2 = _class = function (_Component) {
+        _inherits(SettingsEditText, _Component);
+
+        function SettingsEditText() {
+            var _ref;
+
+            var _temp, _this, _ret;
+
+            _classCallCheck(this, SettingsEditText);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SettingsEditText.__proto__ || Object.getPrototypeOf(SettingsEditText)).call.apply(_ref, [this].concat(args))), _this), _this.trimValue = function (val) {
+                return val ? val.trim() : '';
+            }, _temp), _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(SettingsEditText, [{
+            key: "render",
+            value: function render() {
+                var _this2 = this;
+
+                var _props = this.props,
+                    disabled = _props.disabled,
+                    dialogDescription = _props.dialogDescription,
+                    negativeButtonTitle = _props.negativeButtonTitle,
+                    positiveButtonTitle = _props.positiveButtonTitle,
+                    onSaveValue = _props.onSaveValue,
+                    androidDialogProps = _props.androidDialogProps,
+                    containerProps = _props.containerProps,
+                    containerStyle = _props.containerStyle,
+                    title = _props.title,
+                    titleProps = _props.titleProps,
+                    titleStyle = _props.titleStyle,
+                    valueProps = _props.valueProps,
+                    valueStyle = _props.valueStyle,
+                    valuePlaceholder = _props.valuePlaceholder,
+                    disabledOverlayStyle = _props.disabledOverlayStyle,
+                    touchableProps = _props.touchableProps,
+                    iosDialogInputType = _props.iosDialogInputType,
+                    value = _props.value;
+                return !disabled ? _react3.default.createElement(
+                    _reactNative.TouchableOpacity,
+                    _extends({}, touchableProps, {
+                        onPress: function onPress() {
+                            if (_reactNative.Platform.OS === 'ios') {
+                                _reactNative.AlertIOS.prompt(title, dialogDescription, [{
+                                    text: negativeButtonTitle,
+                                    onPress: function onPress() {},
+                                    style: 'cancel'
+                                }, {
+                                    text: positiveButtonTitle,
+                                    onPress: function onPress(value) {
+                                        value = _this2.trimValue(value);
+                                        onSaveValue(value);
+                                    }
+                                }], iosDialogInputType, value ? value : "");
+                            } else {
+                                var dialog = new _reactNativeDialogs2.default();
+                                dialog.set(_extends({
+                                    title: title,
+                                    content: dialogDescription,
+                                    positiveText: positiveButtonTitle,
+                                    negativeText: negativeButtonTitle,
+                                    input: {
+                                        prefill: value ? value : '',
+                                        callback: function callback(value) {
+                                            value = _this2.trimValue(value);
+                                            onSaveValue(value);
+                                        }
+                                    }
+                                }, androidDialogProps));
+                                dialog.show();
+                            }
+                        },
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 55
+                        }
+                    }),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        _extends({}, containerProps, {
+                            style: [styles.defaultContainerStyle, containerStyle],
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 90
+                            }
+                        }),
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            _extends({
+                                numberOfLines: 1
+                            }, titleProps, {
+                                style: [styles.defaultTitleStyle, titleStyle],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 91
+                                }
+                            }),
+                            title
+                        ),
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            _extends({
+                                numberOfLines: 1
+                            }, valueProps, {
+                                style: [styles.defaultValueStyle, valueStyle],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 92
+                                }
+                            }),
+                            value ? value : valuePlaceholder
+                        )
+                    )
+                ) : _react3.default.createElement(
+                    _reactNative.View,
+                    _extends({}, containerProps, {
+                        style: [styles.defaultContainerStyle, containerStyle],
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 94
+                        }
+                    }),
+                    _react3.default.createElement(
+                        _reactNative.Text,
+                        _extends({
+                            numberOfLines: 1
+                        }, titleProps, {
+                            style: [styles.defaultTitleStyle, titleStyle],
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 95
+                            }
+                        }),
+                        title
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.Text,
+                        _extends({
+                            numberOfLines: 1
+                        }, valueProps, {
+                            style: [styles.defaultValueStyle, valueStyle],
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 96
+                            }
+                        }),
+                        value ? value : valuePlaceholder
+                    ),
+                    _react3.default.createElement(_reactNative.View, {
+                        style: [{
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0
+                        }, styles.defaultDisabledOverlayStyle, disabledOverlayStyle],
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 97
+                        }
+                    })
+                );
+            }
+        }]);
+
+        return SettingsEditText;
+    }(_react2.Component), _class.props = {
+        containerProps: _propTypes2.default.object,
+        containerStyle: _reactNative.ViewPropTypes ? _reactNative.ViewPropTypes.style : _reactNative.View.propTypes.style,
+        disabledOverlayStyle: _reactNative.ViewPropTypes ? _reactNative.ViewPropTypes.style : _reactNative.View.propTypes.style,
+        titleProps: _propTypes2.default.object,
+        titleStyle: _reactNative.Text.propTypes.style,
+        title: _propTypes2.default.string.isRequired,
+        valueProps: _propTypes2.default.object,
+        valueStyle: _reactNative.Text.propTypes.style,
+        value: _propTypes2.default.string.isRequired,
+        valuePlaceholder: _propTypes2.default.string,
+        negativeButtonTitle: _propTypes2.default.string.isRequired,
+        positiveButtonTitle: _propTypes2.default.string.isRequired,
+        dialogDescription: _propTypes2.default.string,
+        onSaveValue: _propTypes2.default.func.isRequired,
+        disabled: _propTypes2.default.bool,
+        iosDialogInputType: _propTypes2.default.string,
+        androidDialogProps: _propTypes2.default.object,
+        touchableProps: _propTypes2.default.object
+    }, _class.defaultProps = {
+        containerProps: {},
+        containerStyle: {},
+        disabledOverlayStyle: {},
+        titleProps: {},
+        titleStyle: {},
+        valueProps: {},
+        valuePlaceholder: '...',
+        valueStyle: {},
+        dialogDescription: '',
+        disabled: false,
+        iosDialogInputType: 'plain-text',
+        androidDialogProps: {},
+        touchableProps: {}
+    }, _temp2));
+
+    var styles = _reactNative.StyleSheet.create({
+        defaultContainerStyle: {
+            padding: 0,
+            height: 50,
+            backgroundColor: "white",
+            alignItems: "center",
+            flexDirection: "row"
+        },
+        defaultTitleStyle: {
+            flex: 1,
+            paddingLeft: 16,
+            paddingRight: 8,
+            fontSize: 16
+        },
+        defaultValueStyle: {
+            color: "rgb(160,160,160)",
+            fontSize: 14,
+            flex: 1,
+            paddingLeft: 8,
+            paddingRight: 16,
+            textAlign: 'right'
+        },
+        defaultDisabledOverlayStyle: {
+            backgroundColor: "rgba(255,255,255,0.6)"
+        }
+    });
+
+    exports.default = SettingsEditText;
+});
