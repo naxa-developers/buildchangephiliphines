@@ -1,6 +1,11 @@
 {
   "name": "guide",
   "version": "0.0.1",
+  "rnpm": {
+  "android": {
+    "mainFilePath": "src/main/java/com/naxa.buildchangephilippines/MainApplication.java"
+    }
+  },
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -26,6 +31,7 @@
     "react-native-offline": "^3.11.0",
     "react-native-pdf": "^3.0.16",
     "react-native-phone-call": "^1.0.9",
+    "react-native-push-notification": "^3.1.2",
     "react-native-router-flux": "^4.0.0-beta.31",
     "react-native-settings-components": "0.0.1",
     "react-native-splash-screen": "3.0.6",

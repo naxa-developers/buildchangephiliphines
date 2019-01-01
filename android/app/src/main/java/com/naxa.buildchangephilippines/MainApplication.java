@@ -2,6 +2,7 @@ package com.naxa.buildchangephilippines;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 
 import org.wonday.pdf.RCTPdfView;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ReactNativePushNotificationPackage(),
             new MapsPackage(),
             new RCTPdfView(),
             new RNFetchBlobPackage(),
