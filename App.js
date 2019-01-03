@@ -12,7 +12,8 @@ class App extends React.Component {
   Alert.alert('Username');
   PushNotification.configure({
     onRegister: function(token) {
-        Alert.alert('ram ram ram');
+        console.log(token)
+        Alert.alert('ram ram ram '+token.token);
     },
     senderID: "6095782395",
     popInitialNotification: true,

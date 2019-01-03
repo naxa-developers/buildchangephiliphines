@@ -25,8 +25,6 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
     }
-
-
 }
 
 ext {
@@ -34,6 +32,6 @@ ext {
     targetSdkVersion    = 26
     buildToolsVersion   = "27.0.3"
     supportLibVersion   = "26.1.0"
-    googlePlayServicesVersion = "11.8.0"
+    googlePlayServicesVersion = "15.0.1"
     androidMapsUtilsVersion = "0.5+"
 }
