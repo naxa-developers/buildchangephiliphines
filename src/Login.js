@@ -8,9 +8,11 @@ import {
 	View,
 	Alert
 } from 'react-native';
+import PushNotification from 'react-native-push-notification';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { storeUserGroup } from './actions';
+
 
 import styles from './styles';
 
@@ -52,7 +54,6 @@ class Login extends Component {
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
-
 			const formdata = new FormData();
 			formdata.append('username', this.state.username);
 			formdata.append('password', this.state.password);

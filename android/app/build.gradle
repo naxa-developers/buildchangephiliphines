@@ -162,7 +162,7 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-base:10.0.1'
 //    implementation 'com.google.android.gms:play-services-maps:10.0.1'
     compile ("com.google.android.gms:play-services-maps:+") {
-        force = true;
+        force = false;
     }
     compile 'com.android.support:multidex:1.0.0'
 
@@ -179,3 +179,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+apply plugin: 'com.google.gms.google-services'
