@@ -21,8 +21,6 @@ class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			// username: 'arun@bc',
-			// password: '@naxa123'
 			username: null,
 			password: null
 		};
@@ -51,6 +49,39 @@ class Login extends Component {
 		}
 	}
 
+	sendToken(userId, authToken) {
+		PushNotification.configure({
+	    	onRegister: function(token) {
+	    		const formdata = new FormData();
+				formdata.append('registration_id', token.token);
+				formdata.append('active', true);
+				formdata.append('type', 'android');
+
+				const req = {
+					method: 'POST',
+					headers: {
+						Authorization: 'token ' + authToken,
+						'Content-Type': 'multipart/form-data',
+					},
+					body: formdata,
+				};
+				console.log(req);
+
+				fetch('http://bccms.naxa.com.np/core/api/device', req)
+				.then((response => {
+					Alert.alert('setup successful');
+					console.log('response', response);
+				}))
+				.catch((error) => Alert.alert(error.message));
+	    	},
+	    	    onNotification: function(notification) {
+        	console.log( 'NOTIFICATION:', notification );
+        	Actions.Login();
+    	},
+	    	senderID: "6095782395",
+	    	popInitialNotification: true,
+	 	});
+	}
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
@@ -85,15 +116,7 @@ class Login extends Component {
 				this.onValueChange('token', responseData.token);
 				this.onUserIdChange('user_id', responseData.user_id.toString());
 				this.onUserChange('user', responseData.group);
-											// 				try {
-											//   const value = await AsyncStorage.getItem(');
-											//   if (value !== null){
-											//     // We have data!!
-											//     console.log(value);
-											//   }
-											// } catch (error) {
-											//   // Error retrieving data
-											// }
+				this.sendToken(responseData.user_id.toString(), responseData.token);
 				const { dispatch } = this.props;
 				dispatch(storeUserGroup({ userGroup: responseData.group, userId: responseData.user_id }));
 				if (responseData.group === 'Field Engineer') {
@@ -102,7 +125,6 @@ class Login extends Component {
 				else if (responseData.group !== 'Field Engineer') {
 					Actions.Select();
 				}
-				//Actions.Successful_Login({ type: 'replace' });
 			})
 			.catch((error) => console.log(error))
 
