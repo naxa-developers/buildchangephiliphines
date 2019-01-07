@@ -16,7 +16,7 @@ if (l.phone_number) {
     const url = 'http://bccms.naxa.com.np/core/api/call-log/';
     const formdata = new FormData();
 
-    formdata.append('call_to', l.id);
+    formdata.append('call_to', l.user_id);
     formdata.append('call_from', this.props.from);
     console.log(formdata);
     const req = {
