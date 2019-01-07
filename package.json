@@ -2,8 +2,8 @@
   "name": "guide",
   "version": "0.0.1",
   "rnpm": {
-  "android": {
-    "mainFilePath": "src/main/java/com/naxa.buildchangephilippines/MainApplication.java"
+    "android": {
+      "mainFilePath": "src/main/java/com/naxa.buildchangephilippines/MainApplication.java"
     }
   },
   "private": true,

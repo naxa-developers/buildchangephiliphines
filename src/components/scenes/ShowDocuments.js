@@ -16,7 +16,7 @@ class ShowDocuments extends React.Component {
   }
 
   componentWillMount() {
-    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines')
+    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
         .then((exist) => {
             console.log(exist);
           if (exist) {
@@ -26,7 +26,7 @@ class ShowDocuments extends React.Component {
         } else if (!exist) {
           console.log('chiana');
           this.setState({
-            source: { uri: this.props.path.replace('file:///storage/emulated/0/Android/data/com.guide/build_change_philippines', 'http://bccms.naxa.com.np'), cache: true }
+            source: { uri: this.props.path.replace('file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines', 'http://bccms.naxa.com.np'), cache: true }
           });
         }
         })
@@ -67,7 +67,7 @@ class ShowDocuments extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ShowDocumentsko_mapstatetoprops_bhitra');
+  console.log('hare');
   console.log(state);
 return {
   selectedSchoolId: state.currentSelectedSchool.selectedSchoolId

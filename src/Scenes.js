@@ -32,6 +32,7 @@ import DownloadDataScene from './components/scenes/DownloadDataScene';
 import Onboarding from './components/scenes/Onboarding';
 import ShowDocuments from './components/scenes/ShowDocuments';
 import ShowBigImages from './components/scenes/ShowBigImages';
+import Notification from './components/scenes/Notification';
 import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
 import AdminList from './components/AdminList';
@@ -103,6 +104,12 @@ class Scenes extends Component {
           component={SubStepsList}
           key='SubStepsList'
           title='SubSteps'
+        />
+        <Scene
+
+          component={Notification}
+          key='Notification'
+          title='Notification'
         />
         <Scene
 

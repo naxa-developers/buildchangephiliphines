@@ -52,7 +52,7 @@ class Login extends Component {
 	sendToken(userId, authToken) {
 		PushNotification.configure({
 	    	onRegister: function(token) {
-	    		const formdata = new FormData();
+	    	const formdata = new FormData();
 				formdata.append('registration_id', token.token);
 				formdata.append('active', true);
 				formdata.append('type', 'android');
@@ -75,8 +75,8 @@ class Login extends Component {
 				.catch((error) => Alert.alert(error.message));
 	    	},
 	    	    onNotification: function(notification) {
-        	console.log( 'NOTIFICATION:', notification );
-        	Actions.Login();
+        		console.log('NOTIFICATION:', notification);
+        		Actions.Notification({ notification });
     	},
 	    	senderID: "6095782395",
 	    	popInitialNotification: true,
@@ -98,7 +98,6 @@ class Login extends Component {
 				body: formdata,
 			};
 
-			//change the url
 			fetch('http://bccms.naxa.com.np/core/api/api-token-auth/', req)
 			.then((response => {
 
@@ -179,9 +178,9 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   console.log('login_mapstatetoprops_bhitra');
-console.log(state);
-return {
-};
+	console.log(state);
+	return {
+	};
 };
 
 export default connect(mapStateToProps)(Login);
