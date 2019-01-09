@@ -69,14 +69,13 @@ class Login extends Component {
 
 				fetch('http://bccms.naxa.com.np/core/api/device', req)
 				.then((response => {
-					Alert.alert('setup successful');
+					Alert.alert('Setup Successful!');
 					console.log('response', response);
 				}))
 				.catch((error) => Alert.alert(error.message));
 	    	},
 	    	    onNotification: function(notification) {
         		console.log('NOTIFICATION:', notification);
-        		Actions.Notification({ notification });
     	},
 	    	senderID: "6095782395",
 	    	popInitialNotification: true,
