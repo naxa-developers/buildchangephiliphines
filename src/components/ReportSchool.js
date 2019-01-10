@@ -138,7 +138,7 @@ class ReportSchool extends Component {
             Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
               { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
             ]);
-            this.props.deleteFromDraftsCollection({ stepId: this.props.stepId });
+            this.props.deleteFromDraftsCollection({ siteId: this.props.siteId });
             return response;
           }
 
@@ -187,7 +187,7 @@ class ReportSchool extends Component {
             editable
             onChangeText={(comments) => {
               console.log('text', comments);
-              this.props.saveToDraftsCollection({siteId: this.props.siteId, comment: comments, uri: this.state.uri })
+              this.props.saveToDraftsCollection({ siteId: this.props.siteId, comment: comments, uri: this.state.uri })
               this.setState({ ...this.state, comments });
             }}
             placeholder={strings.error_field_cannot_be_empty}
