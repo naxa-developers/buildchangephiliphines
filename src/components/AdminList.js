@@ -8,10 +8,10 @@ class AdminList extends Component {
 
 onCallInspectorTapped(l) {
   const args = {
-  number: l.phone_number, // String value with the number to call
+  number: l.extra.phone_number.toString(), // String value with the number to call
   prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
 };
-if (l.phone_number) {
+if (l.extra.phone_number) {
   AsyncStorage.getItem('token').then(token => {
     const url = 'http://bccms.naxa.com.np/core/api/call-log/';
     const formdata = new FormData();
