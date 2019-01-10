@@ -13,9 +13,16 @@ export default (state = initialState, action) => {
       });
 
     case 'DELETE_FROM_DRAFTS_COLLECTION':
+    if (action.payload.hasOwnProperty('stepId')) {
+      return Object.assign({}, state, {
+        drafts: state.drafts.filter((draft) => !draft.hasOwnProperty('subStepId')).filter((dra) => dra.stepId !== action.payload.stepId)
+      });
+    } else {
       return Object.assign({}, state, {
         drafts: state.drafts.filter((draft) => draft.subStepId !== action.payload.subStepId)
       });
+    }
+
 
     default:
       return state;

@@ -124,6 +124,10 @@ export default class SettingsScene extends Component {
       .catch((err) => { console.log(err); });
   }
 
+  seeReports() {
+    Actions.tabbar();
+  }
+
   render() {
     return (
       <View
@@ -173,6 +177,14 @@ export default class SettingsScene extends Component {
         />
         </View>
         <View style={{ paddingBottom: 10 }}>
+        <View style={{ paddingBottom: 20 }}>
+          <Button
+            onPress={this.seeReports.bind(this)}
+            style={{ width: 10 }}
+            title='SEE REPORT STATUS'
+            backgroundColor='green'
+          />
+        </View>
         <View style={{ paddingBottom: 20 }}>
           <Button
             onPress={this.downloadLatestZip.bind(this)}

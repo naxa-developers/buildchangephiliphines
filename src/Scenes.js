@@ -39,6 +39,10 @@ import AdminList from './components/AdminList';
 import ShowMap from './components/scenes/ShowMap';
 import SitePlan from './components/scenes/SitePlan';
 import DocumentList from './components/scenes/DocumentList';
+import Responded from './components/scenes/Responded';
+import Pending from './components/scenes/Pending';
+import Rejected from './components/scenes/Rejected';
+
 import { strings, getLocalizedText } from '../locales/strings';
 import InternetStatus from './components/scenes/InternetStatus';
 import Page1 from './test/page1';
@@ -322,9 +326,9 @@ class Scenes extends Component {
           tabs
           tabBarPosition='bottom'
           >
-          <Scene key='StepList' title={strings.title_steps} icon={TabIcon} back component={StepList} iconName="list-ul" swipeEnabled />
-            <Scene key="See Site on Map" title="See Site on Map" icon={TabIcon} back component={ShowMap} iconName="map-marker" swipeEnabled />
-            <Scene key='Show Documents' title="Construction Plans" icon={TabIcon} back component={DocumentList} iconName="file-pdf-o" swipeEnabled />
+          <Scene key='Responded' title='Responded' icon={TabIcon} back component={Responded} iconName="list-ul" swipeEnabled />
+            <Scene key="Pending" title="Pending" icon={TabIcon} back component={Pending} iconName="map-marker" swipeEnabled />
+            <Scene key='Rejected' title="Rejected" icon={TabIcon} back component={Rejected} iconName="file-pdf-o" swipeEnabled />
           </Scene>
 
         </Scene>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert, TextInput } from 'react-native';
+import { View, ScrollView, Text, AsyncStorage, Alert, TextInput, Dimensions, Image } from 'react-native';
 import {
   Button
 } from 'react-native-elements';
@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { strings } from './../../locales/strings';
+import { saveToDraftsCollection, deleteFromDraftsCollection } from '../actions';
+
 
 class ReportSchool extends Component {
   state = {
@@ -18,6 +20,19 @@ class ReportSchool extends Component {
 
   componentWillMount() {
     this.getLocale();
+    const filtered = this.props.drafts.filter((draft) => {
+      return draft.siteId === this.props.siteId;
+    });
+    console.log('data', filtered);
+    if (filtered.length !== 0) {
+      filtered.forEach((each) => {
+        console.log('rap song');
+        if (!each.hasOwnProperty('stepId')) {
+          this.setState({ comments: each.comment, uri: each.uri });
+          console.log(each);
+        }
+      });
+    }
   }
 
   selectPhotoTapped() {
@@ -42,6 +57,8 @@ class ReportSchool extends Component {
       } else {
         console.log('else bhitra', response);
         let source = { uri: response.uri };
+        this.setState({ ...this.state, uri: response.uri });
+        this.props.saveToDraftsCollection({ siteId: this.props.siteId, comment: this.state.comments, uri: response.uri });
         this.setState({ ...this.state, uri: response.uri });
 
         // You can also display the image using data:
@@ -121,6 +138,7 @@ class ReportSchool extends Component {
             Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
               { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
             ]);
+            this.props.deleteFromDraftsCollection({ stepId: this.props.stepId });
             return response;
           }
 
@@ -167,7 +185,11 @@ class ReportSchool extends Component {
           <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
           <TextInput
             editable
-            onChangeText={(comments) => this.setState({ ...this.state, comments })}
+            onChangeText={(comments) => {
+              console.log('text', comments);
+              this.props.saveToDraftsCollection({siteId: this.props.siteId, comment: comments, uri: this.state.uri })
+              this.setState({ ...this.state, comments });
+            }}
             placeholder={strings.error_field_cannot_be_empty}
             ref='comments'
             returnKeyType='next'
@@ -190,6 +212,11 @@ class ReportSchool extends Component {
             titleStyle={{ fontWeight: '700' }}
             containerStyle={{ marginTop: 20 }}
           />
+          {this.state.uri && <Image
+            style={styles.image}
+            source={{ uri: this.state.uri }}
+          />
+          }
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
@@ -224,6 +251,13 @@ const styles = {
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 5
+  },
+  image: {
+     width: Dimensions.get('window').width - 30,
+     height: 200,
+     overflow: 'visible',
+    margin: 15,
+    marginBottom: 0
   }
 };
 
@@ -243,4 +277,4 @@ return {
 };
 };
 
-export default connect(mapStateToProps)(ReportSchool);
+export default connect(mapStateToProps, { saveToDraftsCollection, deleteFromDraftsCollection })(ReportSchool);
