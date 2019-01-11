@@ -74,7 +74,7 @@ class Address extends React.Component {
                   {this.props.currentUserGroup === 'Community Member' &&
                   <TouchableOpacity
                     style={styles.pdfOption}
-                    onPress={() => Actions.ShowDocuments({ path: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.pdf[0].pdf })}
+                    onPress={() => Actions.ShowDocuments({ title: 'Standard Dep Ed School Design', path: 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines/media/' + this.props.pdf[0].pdf })}
                   >
                     <Text style={styles.optionTextStyle}>{getLocalizedText('GUSTO KO MAKIT.AN PLANO', 'I want to look at a')}</Text>
                     <Text style={[styles.optionTextStyle, { fontWeight: 'bold' }]}>{getLocalizedText('HIT USA KA ESKWELAHAN NA MAY KALIDAD', 'Standard School Design')}</Text>
