@@ -234,15 +234,6 @@ class ReportEngineer extends Component {
               marginTop: 10
             }}
           />
-          <Button
-            onPress={() => this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep, comment: this.state.comments, uri: this.state.uri })}
-            title={'Save as Draft'}
-            titleStyle={{ fontWeight: '700' }}
-            buttonStyle={{
-              backgroundColor: '#E8656A',
-              marginTop: 10
-            }}
-          />
         </View>
       </ScrollView>
     );

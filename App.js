@@ -7,8 +7,9 @@ import { store } from './src/store';
 
 class App extends React.Component {
 
-  constructor() {
+  constructor(props) {
     console.log('hello from constructor');
+    console.log('props', props);
     super();
     PushNotification.configure({
       onNotification: function(notification) {

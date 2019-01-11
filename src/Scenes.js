@@ -326,9 +326,9 @@ class Scenes extends Component {
           tabs
           tabBarPosition='bottom'
           >
-          <Scene key='Responded' title='Responded' icon={TabIcon} back component={Responded} iconName="list-ul" swipeEnabled />
-            <Scene key="Pending" title="Pending" icon={TabIcon} back component={Pending} iconName="map-marker" swipeEnabled />
-            <Scene key='Rejected' title="Rejected" icon={TabIcon} back component={Rejected} iconName="file-pdf-o" swipeEnabled />
+          <Scene key='Responded' title='Responded' icon={TabIcon} back component={Responded} iconName="eye" swipeEnabled />
+            <Scene key="Pending" title="Pending" icon={TabIcon} back component={Pending} iconName="eye-slash" swipeEnabled />
+            <Scene key='Rejected' title="Rejected" icon={TabIcon} back component={Rejected} iconName="close" swipeEnabled />
           </Scene>
 
         </Scene>
