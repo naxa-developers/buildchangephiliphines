@@ -9,14 +9,13 @@ class App extends React.Component {
 
   constructor(props) {
     console.log('hello from constructor');
-    console.log('props', props);
     super();
     PushNotification.configure({
       onNotification: function(notification) {
         if (notification.hasOwnProperty('notification')) {
           //const notif = JSON.parse(notification.report_data);
           //Alert.alert('Admin sent feedback ' + notif.feedback + ' for substep ' + notif.substep + ' in step ' + notif.step + 'in ' + notif.site);
-          Alert.alert('ram');
+          //Alert.alert('ram');
           console.log('NOtification', notification);
         }
       }

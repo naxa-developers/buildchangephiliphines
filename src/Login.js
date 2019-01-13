@@ -69,7 +69,7 @@ class Login extends Component {
 
 				fetch('http://bccms.naxa.com.np/core/api/device', req)
 				.then((response => {
-					Alert.alert('Setup Successful!');
+					//Alert.alert('Setup Successful!');
 					console.log('response', response);
 				}))
 				.catch((error) => Alert.alert(error.message));

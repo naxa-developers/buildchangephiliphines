@@ -16,7 +16,7 @@ class Responded extends Component {
           image={l.photo? { uri: l.photo } : require('../../../app_images/no_image.png')}
           >
           <Text style={{ marginBottom: 10 }}>
-          The idea with React Native Elements is more about component structure than actual design.
+          The feedback text will be shown here. This is just for testing purposes.
           </Text>
           </Card>
         ))
