@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class ShowMap extends Component {
 
@@ -11,6 +11,7 @@ class ShowMap extends Component {
     const { latitude, longitude } = this.props.selectedSchoolLocationData
     return (
             <MapView
+            provider={ PROVIDER_GOOGLE }
             style={styles.map}
             initialRegion={{
              latitude: latitude,
