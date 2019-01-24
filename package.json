@@ -9,8 +9,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "postinstall": "./node_modules/react-native-maps/enable-google-maps ./ios/GoogleMaps/**"
+    "test": "jest"
   },
   "dependencies": {
     "lodash": "^4.17.10",
@@ -28,7 +27,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.6.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.9",
-    "react-native-maps": "^0.21.0",
+    "react-native-maps": "https://github.com/react-native-community/react-native-maps.git",
     "react-native-offline": "^3.11.0",
     "react-native-pdf": "^3.0.16",
     "react-native-phone-call": "^1.0.9",
