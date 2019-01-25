@@ -40,7 +40,6 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3374DFF3FD344B85990FB41F /* libRNZipArchive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFEE9CA428FA464BB399B976 /* libRNZipArchive.a */; };
 		3E8099DE9EBB4C2689FF35BD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F710868746FD42799C5A5C71 /* libc++.tbd */; };
-		3F2C90839E7A45538A42840E /* libRNLanguages.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDFD0BAF342454FA69FEB0D /* libRNLanguages.a */; };
 		484295AD8E0F4FDEAF421B74 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6B63D4C1C9450390CABB5E /* libz.tbd */; };
 		531DD0DBCFF64AC8A84109F7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83258666C0854E72AE84B15E /* Octicons.ttf */; };
 		5729F90ED6434381A2FE20CC /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6482AA1FF10454EA6C1E886 /* SimpleLineIcons.ttf */; };
@@ -48,7 +47,6 @@
 		598E992CD7C644B18DE8224B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778CE9CC92E49DC8358B633 /* libAirMaps.a */; };
 		5B1206B0B4414F608FBC13EF /* libReactNativeLocalization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCC069316D34869862E1C04 /* libReactNativeLocalization.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		6636DD51C0314CA7ACAE66A9 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBB0DB2A0154D68A181B87C /* libRNI18n.a */; };
 		6C916D48903540CCAE2FAFE2 /* libRCTPdf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6195E1CCDC3444369A3C787F /* libRCTPdf.a */; };
 		71039FCADA1E49F699B79142 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16175B8D4E7E46CE9AA6FFED /* Foundation.ttf */; };
 		7679751233844F2794EFE59E /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6F55CCD5C54CC5B6D32FE9 /* libSplashScreen.a */; };
@@ -57,7 +55,6 @@
 		8B8E303EC7AF4BE4836655C3 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F917AA82A92474EB24164F7 /* libRNFetchBlob.a */; };
 		90557ABB95A1428D981D5843 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A435FACB2845A59468AF99 /* EvilIcons.ttf */; };
 		9C6AC7E47D504A5B8861384D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57031F5CD36843F6993480B0 /* FontAwesome.ttf */; };
-		9DE22C0E4661447C8297E779 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D1D31806E94FAFB4395D8F /* libRealmReact.a */; };
 		A3352BD021F70C4900389C4B /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3352BCF21F70C4800389C4B /* GoogleMapsBase.framework */; };
 		A3352BD221F70C6B00389C4B /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3352BD121F70C6B00389C4B /* GoogleMaps.framework */; };
 		A3352BD421F70C7400389C4B /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3352BD321F70C7400389C4B /* GoogleMapsCore.framework */; };
@@ -715,12 +712,9 @@
 				5951D2ED1322405E99A46647 /* libRNVectorIcons.a in Frameworks */,
 				7679751233844F2794EFE59E /* libSplashScreen.a in Frameworks */,
 				F7112D6A629A4EFE98B3A63C /* libRNImagePicker.a in Frameworks */,
-				6636DD51C0314CA7ACAE66A9 /* libRNI18n.a in Frameworks */,
-				3F2C90839E7A45538A42840E /* libRNLanguages.a in Frameworks */,
 				A3352BD421F70C7400389C4B /* GoogleMapsCore.framework in Frameworks */,
 				A3352BD221F70C6B00389C4B /* GoogleMaps.framework in Frameworks */,
 				5B1206B0B4414F608FBC13EF /* libReactNativeLocalization.a in Frameworks */,
-				9DE22C0E4661447C8297E779 /* libRealmReact.a in Frameworks */,
 				D7222934776F4FFEBFB66379 /* libRNFS.a in Frameworks */,
 				3374DFF3FD344B85990FB41F /* libRNZipArchive.a in Frameworks */,
 				8B8E303EC7AF4BE4836655C3 /* libRNFetchBlob.a in Frameworks */,
@@ -2129,8 +2123,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_NAME = guide;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2178,8 +2172,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_NAME = guide;
 				VERSIONING_SYSTEM = "apple-generic";
