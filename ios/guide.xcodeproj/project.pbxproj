@@ -119,6 +119,7 @@
 		A3E6313421F9CC0300B878A6 /* AIRGoogleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E6311C21F9CC0300B878A6 /* AIRGoogleMap.m */; };
 		A3E6313521F9CC0300B878A6 /* AIRGoogleMapPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E6312021F9CC0300B878A6 /* AIRGoogleMapPolygon.m */; };
 		A3E6313621F9CC0300B878A6 /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E6312121F9CC0300B878A6 /* AIRGMSMarker.m */; };
+		A3E8EA9C21FD79CF00A03EA3 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E8EA9921FD78FD00A03EA3 /* libRCTPushNotification.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AF328362AA9E48A5A6BD07B9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0F3123CB5D44013ABCB6F56 /* MaterialCommunityIcons.ttf */; };
 		BC99038253394D6E9A63FA1D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADB4C5A06B5546E4B4B0E960 /* Ionicons.ttf */; };
@@ -473,6 +474,20 @@
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
 		};
+		A3E8EA9821FD78FD00A03EA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3E8EA9321FD78FD00A03EA3 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		A3E8EA9A21FD78FD00A03EA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3E8EA9321FD78FD00A03EA3 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -643,6 +658,7 @@
 		A3E6311F21F9CC0300B878A6 /* AIRGoogleMapCircleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCircleManager.h; sourceTree = "<group>"; };
 		A3E6312021F9CC0300B878A6 /* AIRGoogleMapPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolygon.m; sourceTree = "<group>"; };
 		A3E6312121F9CC0300B878A6 /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
+		A3E8EA9321FD78FD00A03EA3 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		ADB4C5A06B5546E4B4B0E960 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B6482AA1FF10454EA6C1E886 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -672,6 +688,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3E8EA9C21FD79CF00A03EA3 /* libRCTPushNotification.a in Frameworks */,
 				A3352BF021F70F2A00389C4B /* UIKit.framework in Frameworks */,
 				A3352BEE21F70F2000389C4B /* SystemConfiguration.framework in Frameworks */,
 				A3352BEC21F70F0F00389C4B /* QuartzCore.framework in Frameworks */,
@@ -922,6 +939,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A3E8EA9321FD78FD00A03EA3 /* RCTPushNotification.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -1202,6 +1220,15 @@
 			path = "../node_modules/react-native-maps/lib/ios/AirGoogleMaps";
 			sourceTree = "<group>";
 		};
+		A3E8EA9421FD78FD00A03EA3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3E8EA9921FD78FD00A03EA3 /* libRCTPushNotification.a */,
+				A3E8EA9B21FD78FD00A03EA3 /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1357,6 +1384,10 @@
 				{
 					ProductGroup = A3352B9D21F6EF5A00389C4B /* Products */;
 					ProjectRef = 543EAC8707C8471DADC304AF /* RCTPdf.xcodeproj */;
+				},
+				{
+					ProductGroup = A3E8EA9421FD78FD00A03EA3 /* Products */;
+					ProjectRef = A3E8EA9321FD78FD00A03EA3 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1747,6 +1778,20 @@
 			remoteRef = A3352BCD21F6EF5B00389C4B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		A3E8EA9921FD78FD00A03EA3 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = A3E8EA9821FD78FD00A03EA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A3E8EA9B21FD78FD00A03EA3 /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = A3E8EA9A21FD78FD00A03EA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2089,6 +2134,7 @@
 					"$(SRCROOT)/../ios/GoogleMaps",
 					"$(SRCROOT)/../ios/GoogleMapsCore",
 					"$(SRCROOT)/../ios/GoogleMapsBase",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS",
 				);
 				INFOPLIST_FILE = guide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2139,6 +2185,7 @@
 					"$(SRCROOT)/../ios/GoogleMaps",
 					"$(SRCROOT)/../ios/GoogleMapsCore",
 					"$(SRCROOT)/../ios/GoogleMapsBase",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS",
 				);
 				INFOPLIST_FILE = guide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

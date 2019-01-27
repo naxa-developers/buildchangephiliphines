@@ -97,6 +97,8 @@ class Login extends Component {
 				body: formdata,
 			};
 
+			console.log(formdata);
+
 			fetch('http://bccms.naxa.com.np/core/api/api-token-auth/', req)
 			.then((response => {
 
