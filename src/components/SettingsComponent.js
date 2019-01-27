@@ -180,7 +180,6 @@ export default class SettingsScene extends Component {
         <View style={{ paddingBottom: 20 }}>
           <Button
             onPress={this.seeReports.bind(this)}
-            style={{ width: 10 }}
             title='SEE REPORT STATUS'
             backgroundColor='green'
           />
@@ -188,14 +187,12 @@ export default class SettingsScene extends Component {
         <View style={{ paddingBottom: 20 }}>
           <Button
             onPress={this.downloadLatestZip.bind(this)}
-            style={{ width: 10 }}
             title='DOWNLOAD LATEST ZIP'
             backgroundColor='green'
           />
         </View>
         <Button
           onPress={this.userLogout.bind(this)}
-          style={{ width: 10 }}
           title='LOGOUT'
           backgroundColor='red'
         />
