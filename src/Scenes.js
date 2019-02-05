@@ -276,6 +276,7 @@ class Scenes extends Component {
           />
           <Scene
           initial={this.state.hasToken}
+          renderLeftButton={() => <View />}
             key='Select'
             component={Select}
             title={strings.view_select_header}

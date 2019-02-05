@@ -26,6 +26,7 @@ class Select extends Component {
 
 
   render() {
+    console.log('select bhitra', this.props);
     const { height, width } = Dimensions.get('window');
     return (
       <View style={{ position: 'relative', overflow: 'hidden' }}>

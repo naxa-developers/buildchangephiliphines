@@ -15,9 +15,11 @@ class Rejected extends Component {
           title={l.comment}
           image={l.photo? { uri: l.photo } : require('../../../app_images/no_image.png')}
           >
-          <Text style={{ marginBottom: 10 }}>
-          The feedback text will be shown here. This is just for testing purposes.
-          </Text>
+          { l.feedback &&
+            <Text style={{ marginBottom: 10 }}>
+            {`Given feedback: ${l.feedback.feedback}`}
+            </Text>
+          }
           </Card>
         ))
       }
