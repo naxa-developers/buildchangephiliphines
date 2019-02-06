@@ -4,6 +4,8 @@ import android.support.multidex.MultiDexApplication;
 
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 
 import com.airbnb.android.react.maps.MapsPackage;
 
@@ -37,6 +39,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ReactNativePushNotificationPackage(),
+            new MapsPackage(),
             new ReactNativePushNotificationPackage(),
             new MapsPackage(),
             new RCTPdfView(),
