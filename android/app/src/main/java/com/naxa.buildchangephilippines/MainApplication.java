@@ -1,19 +1,15 @@
 package com.naxa.buildchangephilippines;
 import android.app.Application;
 import android.support.multidex.MultiDexApplication;
-
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 
-import com.airbnb.android.react.maps.MapsPackage;
 
 import org.wonday.pdf.RCTPdfView;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.rnfs.RNFSPackage;
-import io.realm.react.RealmReactPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -41,19 +37,15 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new MainReactPackage(),
             new ReactNativePushNotificationPackage(),
             new MapsPackage(),
-            new ReactNativePushNotificationPackage(),
-            new MapsPackage(),
             new RCTPdfView(),
             new RNFetchBlobPackage(),
             new RNZipArchivePackage(),
             new RNFSPackage(),
-            new RealmReactPackage(),
             new ReactNativeLocalizationPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
             new LinearGradientPackage()
-
       );
     }
 

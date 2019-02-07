@@ -149,7 +149,6 @@ dependencies {
     compile project(':react-native-push-notification')
     compile project(':react-native-maps')
     compile project(':react-native-fs')
-    compile project(':realm')
     compile project(':react-native-zip-archive')
     compile project(':react-native-localization')
     compile project(':react-native-image-picker')
