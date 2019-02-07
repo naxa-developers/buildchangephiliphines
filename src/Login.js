@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import {
 	AsyncStorage,
 	Image,
-	Alert,
 	Text,
 	TextInput,
 	TouchableOpacity,
-	View
+	View,
+	Alert
 } from 'react-native';
+import PushNotification from 'react-native-push-notification';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { storeUserGroup } from './actions';
+
+
 import styles from './styles';
 
 class Login extends Component {
@@ -29,30 +34,97 @@ class Login extends Component {
 		}
 	}
 
+	async onUserIdChange(item, selectedValue) {
+		try {
+			await AsyncStorage.setItem(item, selectedValue);
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+	async onUserChange(item, selectedValue) {
+		try {
+			await AsyncStorage.setItem(item, selectedValue);
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	sendToken(userId, authToken) {
+		PushNotification.configure({
+	    	onRegister: function(token) {
+	    	const formdata = new FormData();
+				formdata.append('registration_id', token.token);
+				formdata.append('active', true);
+				formdata.append('type', 'android');
+
+				const req = {
+					method: 'POST',
+					headers: {
+						Authorization: 'token ' + authToken,
+						'Content-Type': 'multipart/form-data',
+					},
+					body: formdata,
+				};
+				console.log(req);
+
+				fetch('http://bccms.naxa.com.np/core/api/device', req)
+				.then((response => {
+					//Alert.alert('Setup Successful!');
+					console.log('response', response);
+				}))
+				.catch((error) => Alert.alert(error.message));
+	    	},
+	    	    onNotification: function(notification) {
+        		console.log('NOTIFICATION:', notification);
+    	},
+	    	senderID: "6095782395",
+	    	popInitialNotification: true,
+	 	});
+	}
 
 	userLogin() {
 		if (this.state.username && this.state.password) {
-			//change the url
-			fetch('http://kc.naxa.com.np//users/api/get-auth-token/', {
-				method: "POST",
-				// change the properties of header if required usually not required
+			const formdata = new FormData();
+			formdata.append('username', this.state.username);
+			formdata.append('password', this.state.password);
+
+
+			const req = {
+				method: 'POST',
 				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json'
+					'Content-Type': 'multipart/form-data',
 				},
-				body: JSON.stringify({
-					//change the name of the properties email_or_username and password as per api
-					email_or_username: this.state.username,
-					password: this.state.password,
-				})
-			})
+				body: formdata,
+			};
+
+			console.log(formdata);
+
+			fetch('http://bccms.naxa.com.np/core/api/api-token-auth/', req)
+			.then((response => {
+
+				if (response.ok) {
+					return response;
+				}
+
+				Alert.alert('Failed to login');
+				const error = new Error(response.statusText);
+				error.response = response;
+				throw error;
+			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-// change the argument of the function if you want to store the token value under any other key name
 				this.onValueChange('token', responseData.token);
-		Alert.alert(responseData.token);
-//change the scene
-				Actions.Successful_Login();
+				this.onUserIdChange('user_id', responseData.user_id.toString());
+				this.onUserChange('user', responseData.group);
+				this.sendToken(responseData.user_id.toString(), responseData.token);
+				const { dispatch } = this.props;
+				dispatch(storeUserGroup({ userGroup: responseData.group, userId: responseData.user_id }));
+				if (responseData.group === 'Field Engineer') {
+					Actions.Address();
+				}
+				else if (responseData.group !== 'Field Engineer') {
+					Actions.Select();
+				}
 			})
 			.catch((error) => console.log(error))
 
@@ -64,18 +136,20 @@ class Login extends Component {
 		return (
 			<View style={styles.container}>
 				<Image
-						source={require('../app_images/construction.png')}
+						source={require('../app_images/buildchange.jpeg')}
 						style={styles.image}
 				/>
 				<View style={styles.form}>
 					<TextInput
 						editable
 						onChangeText={(username) => this.setState({ username })}
-						placeholder='Email'
+						placeholder='Username'
 						ref='username'
 						returnKeyType='next'
 						style={styles.inputText}
 						value={this.state.username}
+						autoCapitalize='none'
+						autoFocus
 					/>
 					<TextInput
 						editable
@@ -86,6 +160,7 @@ class Login extends Component {
 						secureTextEntry
 						style={styles.inputText}
 						value={this.state.password}
+						autoCapitalize='none'
 					/>
 					<TouchableOpacity
 						style={styles.buttonWrapper}
@@ -102,4 +177,11 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  console.log('login_mapstatetoprops_bhitra');
+	console.log(state);
+	return {
+	};
+};
+
+export default connect(mapStateToProps)(Login);

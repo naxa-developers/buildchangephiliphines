@@ -1,0 +1,121 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/DownloadDataScene.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNativeElements = _require(_dependencyMap[3], "react-native-elements");
+
+  var _reactNativeFs = _require(_dependencyMap[4], "react-native-fs");
+
+  var _reactNativeFs2 = _interopRequireDefault(_reactNativeFs);
+
+  var _reactNativeFetchBlob = _require(_dependencyMap[5], "react-native-fetch-blob");
+
+  var _reactNativeFetchBlob2 = _interopRequireDefault(_reactNativeFetchBlob);
+
+  var _reactNativeZipArchive = _require(_dependencyMap[6], "react-native-zip-archive");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    DownloadDataScene: {
+      displayName: "DownloadDataScene"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/DownloadDataScene.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var DownloadDataScene = _wrapComponent("DownloadDataScene")(function (_Component) {
+    _inherits(DownloadDataScene, _Component);
+
+    function DownloadDataScene() {
+      _classCallCheck(this, DownloadDataScene);
+
+      return _possibleConstructorReturn(this, (DownloadDataScene.__proto__ || Object.getPrototypeOf(DownloadDataScene)).apply(this, arguments));
+    }
+
+    _createClass(DownloadDataScene, [{
+      key: "reactNativeFetchBlob",
+      value: function reactNativeFetchBlob() {
+        _reactNativeFetchBlob2.default.config({
+          addAndroidDownloads: {
+            useDownloadManager: true,
+            path: _reactNativeFetchBlob2.default.fs.dirs.DCIMDir + '/build_change_philippines.zip',
+            description: 'Images Zip',
+            mediaScannable: true
+          }
+        }).fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/2').then(function (resp) {
+          var sourcePath = resp.path();
+          var targetPath = resp.path().replace('.zip', '');
+          console.log(resp.path());
+          console.log(resp.path().replace('.zip', ''));
+          (0, _reactNativeZipArchive.unzip)(sourcePath, targetPath).then(function (path) {
+            console.log("unzip completed at " + path);
+          }).catch(function (error) {
+            console.log(error);
+          });
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              flex: 1,
+              paddingTop: 20
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 44
+            }
+          },
+          _react3.default.createElement(_reactNativeElements.Button, {
+            title: "react native fetch blob download test",
+            onPress: this.reactNativeFetchBlob.bind(this),
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 45
+            }
+          })
+        );
+      }
+    }]);
+
+    return DownloadDataScene;
+  }(_react2.Component));
+
+  exports.default = DownloadDataScene;
+});

@@ -1,0 +1,56 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.dismissActionsFromQueue = exports.removeActionFromQueue = exports.fetchOfflineMode = exports.connectionChange = undefined;
+
+  var _actionTypes = _require(_dependencyMap[0], "./actionTypes");
+
+  var _actionTypes2 = _interopRequireDefault(_actionTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var connectionChange = exports.connectionChange = function connectionChange(isConnected) {
+    return {
+      type: _actionTypes2.default.CONNECTION_CHANGE,
+      payload: isConnected
+    };
+  };
+
+  var fetchOfflineMode = exports.fetchOfflineMode = function fetchOfflineMode(action) {
+    if (typeof action === 'object') {
+      return {
+        type: _actionTypes2.default.FETCH_OFFLINE_MODE,
+        payload: {
+          prevAction: {
+            type: action.type,
+            payload: action.payload
+          }
+        },
+        meta: action.meta || {}
+      };
+    }
+
+    return {
+      type: _actionTypes2.default.FETCH_OFFLINE_MODE,
+      payload: {
+        prevThunk: action
+      },
+      meta: action.meta || {}
+    };
+  };
+
+  var removeActionFromQueue = exports.removeActionFromQueue = function removeActionFromQueue(action) {
+    return {
+      type: _actionTypes2.default.REMOVE_FROM_ACTION_QUEUE,
+      payload: action
+    };
+  };
+
+  var dismissActionsFromQueue = exports.dismissActionsFromQueue = function dismissActionsFromQueue(actionTrigger) {
+    return {
+      type: _actionTypes2.default.DISMISS_ACTIONS_FROM_QUEUE,
+      payload: actionTrigger
+    };
+  };
+});

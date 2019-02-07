@@ -86,7 +86,7 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
@@ -94,17 +94,25 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.guide"
+        applicationId "com.naxa.buildchangephilippines"
         minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
+        targetSdkVersion 26
+        versionCode 6
+        versionName "1.5"
+        multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
         }
     }
     splits {
@@ -119,6 +127,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+	           signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -137,10 +146,32 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification')
+    compile project(':react-native-maps')
+    compile project(':react-native-fs')
+    compile project(':react-native-zip-archive')
+    compile project(':react-native-localization')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-fetch-blob')
+    compile project(':react-native-pdf')
+    compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
+    implementation(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+//    implementation 'com.google.android.gms:play-services-base:10.0.1'
+//    implementation 'com.google.android.gms:play-services-maps:10.0.1'
+    compile ("com.google.android.gms:play-services-maps:+") {
+        force = false;
+    }
+    compile 'com.android.support:multidex:1.0.0'
+
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
+    compile "com.android.support:appcompat-v7:26.1.0"
     compile "com.facebook.react:react-native:+"  // From node_modules
+    compile project(':react-native-linear-gradient')
+    compile project(path: ':react-native-push-notification')
 }
 
 // Run this once to be able to run the application with BUCK
@@ -149,3 +180,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+apply plugin: 'com.google.gms.google-services'

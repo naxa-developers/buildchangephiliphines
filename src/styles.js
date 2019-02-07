@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+
 const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
@@ -13,15 +14,16 @@ const styles = StyleSheet.create({
     width: 300
   },
   container: {
+    backgroundColor: '#fff',
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   form: {
     width: 300
   },
   image: {
-    height: 125,
+    height: 200,
     width: 200
   },
   inputText: {

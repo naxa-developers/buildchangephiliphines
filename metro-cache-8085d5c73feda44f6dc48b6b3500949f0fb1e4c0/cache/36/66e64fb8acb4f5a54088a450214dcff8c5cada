@@ -1,0 +1,566 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/Scenes.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNativeRouterFlux = _require(_dependencyMap[3], "react-native-router-flux");
+
+  var _FontAwesome = _require(_dependencyMap[4], "react-native-vector-icons/FontAwesome");
+
+  var _FontAwesome2 = _interopRequireDefault(_FontAwesome);
+
+  var _SecondPage = _require(_dependencyMap[5], "./SecondPage");
+
+  var _SecondPage2 = _interopRequireDefault(_SecondPage);
+
+  var _SignUp = _require(_dependencyMap[6], "./SignUp");
+
+  var _SignUp2 = _interopRequireDefault(_SignUp);
+
+  var _signuptest = _require(_dependencyMap[7], "./signuptest");
+
+  var _signuptest2 = _interopRequireDefault(_signuptest);
+
+  var _BadPhoto = _require(_dependencyMap[8], "./components/scenes/BadPhoto");
+
+  var _BadPhoto2 = _interopRequireDefault(_BadPhoto);
+
+  var _StepList = _require(_dependencyMap[9], "./StepList");
+
+  var _StepList2 = _interopRequireDefault(_StepList);
+
+  var _Login = _require(_dependencyMap[10], "./Login");
+
+  var _Login2 = _interopRequireDefault(_Login);
+
+  var _SuccessfulLogin = _require(_dependencyMap[11], "./SuccessfulLogin");
+
+  var _SuccessfulLogin2 = _interopRequireDefault(_SuccessfulLogin);
+
+  var _SubStepsList = _require(_dependencyMap[12], "./components/SubStepsList");
+
+  var _SubStepsList2 = _interopRequireDefault(_SubStepsList);
+
+  var _CheckList = _require(_dependencyMap[13], "./components/CheckList");
+
+  var _CheckList2 = _interopRequireDefault(_CheckList);
+
+  var _ReportForm = _require(_dependencyMap[14], "./components/ReportForm");
+
+  var _ReportForm2 = _interopRequireDefault(_ReportForm);
+
+  var _GuidelineCategoryScene = _require(_dependencyMap[15], "./components/scenes/GuidelineCategoryScene");
+
+  var _GuidelineCategoryScene2 = _interopRequireDefault(_GuidelineCategoryScene);
+
+  var _GuidelinesListScene = _require(_dependencyMap[16], "./components/scenes/GuidelinesListScene");
+
+  var _GuidelinesListScene2 = _interopRequireDefault(_GuidelinesListScene);
+
+  var _Select = _require(_dependencyMap[17], "../Select");
+
+  var _Select2 = _interopRequireDefault(_Select);
+
+  var _ComparePhotosScene = _require(_dependencyMap[18], "./components/scenes/ComparePhotosScene");
+
+  var _ComparePhotosScene2 = _interopRequireDefault(_ComparePhotosScene);
+
+  var _DownloadDataScene = _require(_dependencyMap[19], "./components/scenes/DownloadDataScene");
+
+  var _DownloadDataScene2 = _interopRequireDefault(_DownloadDataScene);
+
+  var _Onboarding = _require(_dependencyMap[20], "./components/scenes/Onboarding");
+
+  var _Onboarding2 = _interopRequireDefault(_Onboarding);
+
+  var _ShowDocuments = _require(_dependencyMap[21], "./components/scenes/ShowDocuments");
+
+  var _ShowDocuments2 = _interopRequireDefault(_ShowDocuments);
+
+  var _SettingsComponent = _require(_dependencyMap[22], "./components/SettingsComponent");
+
+  var _SettingsComponent2 = _interopRequireDefault(_SettingsComponent);
+
+  var _EngineerList = _require(_dependencyMap[23], "./components/EngineerList");
+
+  var _EngineerList2 = _interopRequireDefault(_EngineerList);
+
+  var _ShowMap = _require(_dependencyMap[24], "./components/scenes/ShowMap");
+
+  var _ShowMap2 = _interopRequireDefault(_ShowMap);
+
+  var _DocumentList = _require(_dependencyMap[25], "./components/scenes/DocumentList");
+
+  var _DocumentList2 = _interopRequireDefault(_DocumentList);
+
+  var _strings = _require(_dependencyMap[26], "../locales/strings");
+
+  var _InternetStatus = _require(_dependencyMap[27], "./components/scenes/InternetStatus");
+
+  var _InternetStatus2 = _interopRequireDefault(_InternetStatus);
+
+  var _page = _require(_dependencyMap[28], "./test/page1");
+
+  var _page2 = _interopRequireDefault(_page);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    TabIcon: {
+      displayName: "TabIcon"
+    },
+    Scenes: {
+      displayName: "Scenes"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/Scenes.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var TabIcon = _wrapComponent("TabIcon")(function (_Component) {
+    _inherits(TabIcon, _Component);
+
+    function TabIcon() {
+      _classCallCheck(this, TabIcon);
+
+      return _possibleConstructorReturn(this, (TabIcon.__proto__ || Object.getPrototypeOf(TabIcon)).apply(this, arguments));
+    }
+
+    _createClass(TabIcon, [{
+      key: "render",
+      value: function render() {
+        var color = this.props.selected ? '#00f240' : '#301c2a';
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              alignSelf: 'center',
+              justifyContent: 'center'
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 38
+            }
+          },
+          _react3.default.createElement(_FontAwesome2.default, {
+            style: {
+              color: color
+            },
+            name: this.props.iconName || "circle",
+            size: 18,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 39
+            }
+          })
+        );
+      }
+    }]);
+
+    return TabIcon;
+  }(_react2.Component));
+
+  var Scenes = _wrapComponent("Scenes")(function (_Component2) {
+    _inherits(Scenes, _Component2);
+
+    function Scenes() {
+      _classCallCheck(this, Scenes);
+
+      var _this2 = _possibleConstructorReturn(this, (Scenes.__proto__ || Object.getPrototypeOf(Scenes)).call(this));
+
+      _this2.state = {
+        hasToken: false,
+        isTokenLoaded: false
+      };
+      return _this2;
+    }
+
+    _createClass(Scenes, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        var _this3 = this;
+
+        _reactNative.AsyncStorage.getItem('token').then(function (token) {
+          _this3.setState({
+            hasToken: token !== null,
+            isTokenLoaded: true
+          });
+        });
+      }
+    }, {
+      key: "userLogout",
+      value: function userLogout() {
+        return regeneratorRuntime.async(function userLogout$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return regeneratorRuntime.awrap(_reactNative.AsyncStorage.removeItem('token'));
+
+              case 3:
+                _reactNativeRouterFlux.Actions.SecondPage();
+
+                _context.next = 9;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0.message);
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this, [[0, 6]]);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        if (!this.state.isTokenLoaded) {
+          return _react3.default.createElement(_reactNative.ActivityIndicator, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 68
+            }
+          });
+        }
+
+        return _react3.default.createElement(
+          _reactNativeRouterFlux.Router,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 71
+            }
+          },
+          _react3.default.createElement(
+            _reactNativeRouterFlux.Scene,
+            {
+              key: "root",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 72
+              }
+            },
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _page2.default,
+              key: "Page1",
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 74
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _SubStepsList2.default,
+              key: "SubStepsList",
+              title: "SubSteps",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 81
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _EngineerList2.default,
+              key: "EngineerList",
+              title: "Call Engineers",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 88
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _BadPhoto2.default,
+              key: "BadPhoto",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 95
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _signuptest2.default,
+              key: "ram",
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 102
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              initial: !this.state.hasToken,
+              component: _Onboarding2.default,
+              key: "Onboarding",
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 110
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "SignUp",
+              component: _SignUp2.default,
+              title: "SignUp",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 116
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "SecondPage",
+              component: _SecondPage2.default,
+              title: "SecondPage",
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 118
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "Login",
+              component: _Login2.default,
+              title: "Login",
+              type: "replace",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 125
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "StepList",
+              component: _StepList2.default,
+              title: "Steps",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 127
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              initial: this.state.hasToken,
+              key: "Successful_Login",
+              component: _SuccessfulLogin2.default,
+              title: "Schools",
+              onRight: function onRight() {
+                _reactNativeRouterFlux.Actions.SettingsScene();
+              },
+              rightButtonImage: _require(_dependencyMap[29], '../app_images/settingsicon.png'),
+              rightButtonStyle: {
+                paddingLeft: 4
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 129
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "CheckList",
+              component: _CheckList2.default,
+              title: "Checklist",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 140
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "ReportForm",
+              component: _ReportForm2.default,
+              title: "Report form",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 141
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "GuidelineCategoryScene",
+              component: _GuidelineCategoryScene2.default,
+              title: _strings.strings.title_guideline_categories,
+              onRight: function onRight() {
+                _reactNativeRouterFlux.Actions.SettingsScene();
+              },
+              rightButtonImage: _require(_dependencyMap[29], '../app_images/settingsicon.png'),
+              rightButtonStyle: {
+                paddingLeft: 4
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 142
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "GuidelinesListScene",
+              component: _GuidelinesListScene2.default,
+              title: _strings.strings.title_guideline_details,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 153
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "ComparePhotosScene",
+              component: _ComparePhotosScene2.default,
+              title: "Compare photos",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 159
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "Select",
+              component: _Select2.default,
+              title: "Select",
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 165
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "DownloadDataScene",
+              component: _DownloadDataScene2.default,
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 173
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              key: "ShowDocuments",
+              component: _ShowDocuments2.default,
+              hideNavBar: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 178
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _ShowMap2.default,
+              key: "ShowMap",
+              title: "Site Location on Map",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 183
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _DocumentList2.default,
+              key: "DocumentList",
+              title: "List of Documents",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 188
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _SettingsComponent2.default,
+              key: "SettingsScene",
+              title: "Settings",
+              back: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 194
+              }
+            }),
+            _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+              component: _InternetStatus2.default,
+              key: "InternetStatus",
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 200
+              }
+            }),
+            _react3.default.createElement(
+              _reactNativeRouterFlux.Scene,
+              {
+                key: "tabbar",
+                tabs: true,
+                tabBarPosition: "bottom",
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 204
+                }
+              },
+              _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+                key: "StepList",
+                title: "Steps",
+                icon: TabIcon,
+                back: true,
+                component: _StepList2.default,
+                iconName: "list-ul",
+                swipeEnabled: true,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 209
+                }
+              }),
+              _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+                key: "See Site on Map",
+                title: "See Site on Map",
+                icon: TabIcon,
+                back: true,
+                component: _ShowMap2.default,
+                iconName: "map-marker",
+                swipeEnabled: true,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 210
+                }
+              }),
+              _react3.default.createElement(_reactNativeRouterFlux.Scene, {
+                key: "Show Documents",
+                title: "Site Documents",
+                icon: TabIcon,
+                back: true,
+                component: _DocumentList2.default,
+                iconName: "file-pdf-o",
+                swipeEnabled: true,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 211
+                }
+              })
+            )
+          )
+        );
+      }
+    }]);
+
+    return Scenes;
+  }(_react2.Component));
+
+  exports.default = Scenes;
+});

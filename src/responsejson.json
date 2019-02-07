@@ -1,0 +1,61 @@
+{
+    "id": 2,
+    "name": "School Construction Monitoring",
+    "sites": [
+        {
+            "id": 13,
+            "name": "San Vicente Elem School",
+            "address": "San Vicente, Daram",
+            "steps": [
+                {
+                    "id": 24,
+                    "name": "step 1",
+                    "site": 13,
+                    "project": null,
+                    "order": 1,
+                    "localname": "step 1(local)",
+                    "checklists": [
+                        {
+                            &q            "id": 10,
+            "name": "Birawan Bational High School",
+            "address": "Birawan , Daram",
+            "steps": []
+        },
+        {
+            "id": 9,
+            "name": "Baclayan National High School",
+            "address": "Baclayan, Daram",
+            "steps": []
+        },
+        {
+            "id": 8,
+            "name": "Tubigan Elementary School",
+            "address": "Tubigan, Zumarraga",
+            "steps": []
+        },
+        {
+            "id": 7,
+            "name": "Tinaogan Elementrary School",
+            "address": "Tinaogan, Zumarraga",
+            "steps": []
+        },
+        {
+            "id": 6,
+            "name": "San Isidro National High School",
+            "address": "San Isidro, Zumarraga",
+            "steps": []
+        },
+        {
+            "id": 5,
+            "name": "Magaan Elementary School",
+            "address": "Magaan, Zumarraga",
+            "steps": []
+        },
+        {
+            "id": 4,
+            "name": "Camayse Elementary School",
+            "address": "Camayse, Zumarraga",
+            "steps": []
+        }
+    ]
+}

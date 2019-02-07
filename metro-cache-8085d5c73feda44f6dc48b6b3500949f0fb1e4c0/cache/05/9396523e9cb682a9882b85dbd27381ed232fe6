@@ -1,0 +1,14 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var isConnected = true;
+  exports.default = {
+    getConnection: function getConnection() {
+      return isConnected;
+    },
+    setConnection: function setConnection(connection) {
+      isConnected = connection;
+    }
+  };
+});

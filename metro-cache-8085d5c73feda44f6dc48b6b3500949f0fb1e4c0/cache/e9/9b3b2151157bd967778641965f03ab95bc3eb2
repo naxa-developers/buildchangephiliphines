@@ -1,0 +1,513 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _class,
+        _temp,
+        _initialiseProps,
+        _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-pdf/PdfView.js";
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _propTypes = _require(_dependencyMap[3], "prop-types");
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
+
+    var _PdfManager = _require(_dependencyMap[4], "./PdfManager");
+
+    var _PdfManager2 = _interopRequireDefault(_PdfManager);
+
+    var _PdfPageView = _require(_dependencyMap[5], "./PdfPageView");
+
+    var _PdfPageView2 = _interopRequireDefault(_PdfPageView);
+
+    var _DoubleTapView = _require(_dependencyMap[6], "./DoubleTapView");
+
+    var _DoubleTapView2 = _interopRequireDefault(_DoubleTapView);
+
+    var _PinchZoomView = _require(_dependencyMap[7], "./PinchZoomView");
+
+    var _PinchZoomView2 = _interopRequireDefault(_PinchZoomView);
+
+    var _PdfViewFlatList = _require(_dependencyMap[8], "./PdfViewFlatList");
+
+    var _PdfViewFlatList2 = _interopRequireDefault(_PdfViewFlatList);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        PdfView: {
+            displayName: "PdfView"
+        }
+    };
+
+    var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/nishon/ReactNativeProject/buildchange-ph/node_modules/react-native-pdf/PdfView.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _reactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var MAX_SCALE = 3;
+    var VIEWABILITYCONFIG = {
+        minimumViewTime: 500,
+        itemVisiblePercentThreshold: 10,
+        waitForInteraction: false
+    };
+
+    var PdfView = _wrapComponent("PdfView")((_temp = _class = function (_Component) {
+        _inherits(PdfView, _Component);
+
+        function PdfView(props) {
+            _classCallCheck(this, PdfView);
+
+            var _this = _possibleConstructorReturn(this, (PdfView.__proto__ || Object.getPrototypeOf(PdfView)).call(this, props));
+
+            _initialiseProps.call(_this);
+
+            _this.state = {
+                pdfLoaded: false,
+                fileNo: -1,
+                numberOfPages: 0,
+                page: -1,
+                currentPage: -1,
+                pageAspectRate: 0.5,
+                pdfPageSize: {
+                    width: 0,
+                    height: 0
+                },
+                contentContainerSize: {
+                    width: 0,
+                    height: 0
+                },
+                scale: _this.props.scale,
+                contentOffset: {
+                    x: 0,
+                    y: 0
+                },
+                newContentOffset: {
+                    x: 0,
+                    y: 0
+                }
+            };
+            _this._flatList = null;
+            _this._scaleTimer = null;
+            _this._scrollTimer = null;
+            _this._mounted = false;
+            return _this;
+        }
+
+        _createClass(PdfView, [{
+            key: "componentWillMount",
+            value: function componentWillMount() {}
+        }, {
+            key: "componentDidMount",
+            value: function componentDidMount() {
+                var _this2 = this;
+
+                this._mounted = true;
+
+                _PdfManager2.default.loadFile(this.props.path, this.props.password).then(function (pdfInfo) {
+                    if (_this2._mounted) {
+                        var fileNo = pdfInfo[0];
+                        var numberOfPages = pdfInfo[1];
+                        var width = pdfInfo[2];
+                        var height = pdfInfo[3];
+                        var pageAspectRatio = height === 0 ? 1 : width / height;
+
+                        _this2.setState({
+                            pdfLoaded: true,
+                            fileNo: fileNo,
+                            numberOfPages: numberOfPages,
+                            pageAspectRate: pageAspectRatio,
+                            pdfPageSize: {
+                                width: width,
+                                height: height
+                            },
+                            centerContent: numberOfPages > 1 ? false : true
+                        });
+
+                        if (_this2.props.onLoadComplete) {
+                            _this2.props.onLoadComplete(numberOfPages, _this2.props.path, {
+                                width: width,
+                                height: height
+                            });
+                        }
+                    }
+                }).catch(function (error) {
+                    _this2.props.onError(error);
+                });
+
+                clearTimeout(this._scrollTimer);
+                this._scrollTimer = setTimeout(function () {
+                    if (_this2._flatList) {
+                        _this2._flatList.scrollToIndex({
+                            animated: false,
+                            index: _this2.props.page < 1 ? 0 : _this2.props.page - 1
+                        });
+                    }
+                }, 200);
+            }
+        }, {
+            key: "componentWillReceiveProps",
+            value: function componentWillReceiveProps(nextProps) {
+                var _this3 = this;
+
+                if (nextProps.scale !== this.state.scale) {
+                    this._onScaleChanged({
+                        scale: nextProps.scale / this.state.scale,
+                        pageX: this.state.contentContainerSize.width / 2,
+                        pageY: this.state.contentContainerSize.height / 2
+                    });
+                }
+
+                if (nextProps.horizontal !== this.props.horizontal || nextProps.page !== this.props.page) {
+                    var page = nextProps.page < 1 ? 1 : nextProps.page;
+                    page = page > this.state.numberOfPages ? this.state.numberOfPages : page;
+
+                    if (this._flatList) {
+                        clearTimeout(this._scrollTimer);
+                        this._scrollTimer = setTimeout(function () {
+                            _this3._flatList.scrollToIndex({
+                                animated: false,
+                                index: page - 1
+                            });
+                        }, 200);
+                    }
+                }
+            }
+        }, {
+            key: "componentWillUnmount",
+            value: function componentWillUnmount() {
+                this._mounted = false;
+                clearTimeout(this._scaleTimer);
+                clearTimeout(this._scrollTimer);
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(
+                    _PinchZoomView2.default,
+                    {
+                        style: styles.container,
+                        onLayout: this._onLayout,
+                        onScaleChanged: this._onScaleChanged,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 365
+                        }
+                    },
+                    this.state.pdfLoaded && this._renderList()
+                );
+            }
+        }]);
+
+        return PdfView;
+    }(_react2.Component), _class.propTypes = _extends({}, _reactNative.ViewPropTypes, {
+        path: _propTypes2.default.string,
+        password: _propTypes2.default.string,
+        scale: _propTypes2.default.number,
+        spacing: _propTypes2.default.number,
+        fitPolicy: _propTypes2.default.number,
+        horizontal: _propTypes2.default.bool,
+        page: _propTypes2.default.number,
+        currentPage: _propTypes2.default.number,
+        onPageSingleTap: _propTypes2.default.func,
+        onScaleChanged: _propTypes2.default.func
+    }), _class.defaultProps = {
+        path: "",
+        password: "",
+        scale: 1,
+        spacing: 10,
+        style: {},
+        fitPolicy: 2,
+        horizontal: false,
+        centerContent: false,
+        page: 1,
+        currentPage: -1,
+        onPageSingleTap: function onPageSingleTap(page) {},
+        onScaleChanged: function onScaleChanged(scale) {}
+    }, _initialiseProps = function _initialiseProps() {
+        var _this4 = this;
+
+        this._keyExtractor = function (item, index) {
+            return "pdf-page-" + index;
+        };
+
+        this._getPageWidth = function () {
+            var fitPolicy = _this4.props.fitPolicy;
+
+            if (_this4.state.numberOfPages === 1) {
+                fitPolicy = 2;
+            }
+
+            switch (fitPolicy) {
+                case 0:
+                    return _this4.state.contentContainerSize.width * _this4.state.scale;
+
+                case 1:
+                    return _this4.state.contentContainerSize.height * _this4.state.pageAspectRate * _this4.state.scale;
+
+                case 2:
+                default:
+                    {
+                        if (_this4.state.contentContainerSize.width / _this4.state.contentContainerSize.height < _this4.state.pageAspectRate) {
+                            return _this4.state.contentContainerSize.width * _this4.state.scale;
+                        } else {
+                            return _this4.state.contentContainerSize.height * _this4.state.pageAspectRate * _this4.state.scale;
+                        }
+                    }
+            }
+        };
+
+        this._getPageHeight = function () {
+            var fitPolicy = _this4.props.fitPolicy;
+
+            if (_this4.state.numberOfPages === 1) {
+                fitPolicy = 2;
+            }
+
+            switch (fitPolicy) {
+                case 0:
+                    return _this4.state.contentContainerSize.width * (1 / _this4.state.pageAspectRate) * _this4.state.scale;
+
+                case 1:
+                    return _this4.state.contentContainerSize.height * _this4.state.scale;
+
+                case 2:
+                default:
+                    {
+                        if (_this4.state.contentContainerSize.width / _this4.state.contentContainerSize.height < _this4.state.pageAspectRate) {
+                            return _this4.state.contentContainerSize.width * (1 / _this4.state.pageAspectRate) * _this4.state.scale;
+                        } else {
+                            return _this4.state.contentContainerSize.height * _this4.state.scale;
+                        }
+                    }
+            }
+        };
+
+        this._renderSeparator = function () {
+            return _react3.default.createElement(_reactNative.View, {
+                style: _this4.props.horizontal ? {
+                    width: _this4.props.spacing * _this4.state.scale,
+                    backgroundColor: 'transparent'
+                } : {
+                    height: _this4.props.spacing * _this4.state.scale,
+                    backgroundColor: 'transparent'
+                },
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 208
+                }
+            });
+        };
+
+        this._onItemSingleTap = function (index) {
+            _this4.props.onPageSingleTap(index + 1);
+        };
+
+        this._onItemDoubleTap = function (index) {
+            if (_this4.state.scale >= MAX_SCALE) {
+                _this4._onScaleChanged({
+                    scale: 1 / _this4.state.scale,
+                    pageX: _this4.state.contentContainerSize.width / 2,
+                    pageY: _this4.state.contentContainerSize.height / 2
+                });
+            } else {
+                _this4._onScaleChanged({
+                    scale: 1.2,
+                    pageX: _this4.state.contentContainerSize.width / 2,
+                    pageY: _this4.state.contentContainerSize.height / 2
+                });
+            }
+        };
+
+        this._onScaleChanged = function (pinchInfo) {
+            var newScale = pinchInfo.scale * _this4.state.scale;
+            newScale = newScale > MAX_SCALE ? MAX_SCALE : newScale;
+            newScale = newScale < 1 ? 1 : newScale;
+            var newContentOffset = {
+                x: (_this4.state.contentOffset.x + pinchInfo.pageX) * (newScale / _this4.state.scale) - pinchInfo.pageX,
+                y: (_this4.state.contentOffset.y + pinchInfo.pageY) * (newScale / _this4.state.scale) - pinchInfo.pageY
+            };
+
+            _this4.setState({
+                scale: newScale,
+                newContentOffset: newContentOffset
+            });
+
+            _this4.props.onScaleChanged(newScale);
+        };
+
+        this._renderItem = function (_ref) {
+            var item = _ref.item,
+                index = _ref.index;
+            return _react3.default.createElement(
+                _DoubleTapView2.default,
+                {
+                    style: {
+                        flexDirection: _this4.props.horizontal ? 'row' : 'column'
+                    },
+                    onSingleTap: function onSingleTap() {
+                        _this4._onItemSingleTap(index);
+                    },
+                    onDoubleTap: function onDoubleTap() {
+                        _this4._onItemDoubleTap(index);
+                    },
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 258
+                    }
+                },
+                _react3.default.createElement(_PdfPageView2.default, {
+                    key: item.id,
+                    fileNo: _this4.state.fileNo,
+                    page: item.key + 1,
+                    width: _this4._getPageWidth(),
+                    height: _this4._getPageHeight(),
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 266
+                    }
+                }),
+                index !== _this4.state.numberOfPages - 1 && _this4._renderSeparator()
+            );
+        };
+
+        this._onViewableItemsChanged = function (viewableInfo) {
+            for (var i = 0; i < viewableInfo.viewableItems.length; i++) {
+                _this4._onPageChanged(viewableInfo.viewableItems[i].index + 1, _this4.state.numberOfPages);
+
+                if (viewableInfo.viewableItems.length + viewableInfo.viewableItems[0].index < _this4.state.numberOfPages) break;
+            }
+        };
+
+        this._onPageChanged = function (page, numberOfPages) {
+            if (_this4.props.onPageChanged && _this4.state.currentPage !== page) {
+                _this4.props.onPageChanged(page, numberOfPages);
+
+                _this4.setState({
+                    currentPage: page
+                });
+            }
+        };
+
+        this._getRef = function (ref) {
+            return _this4._flatList = ref;
+        };
+
+        this._getItemLayout = function (data, index) {
+            return {
+                length: _this4.props.horizontal ? _this4._getPageWidth() : _this4._getPageHeight(),
+                offset: ((_this4.props.horizontal ? _this4._getPageWidth() : _this4._getPageHeight()) + _this4.props.spacing * _this4.state.scale) * index,
+                index: index
+            };
+        };
+
+        this._onScroll = function (e) {
+            _this4.setState({
+                contentOffset: e.nativeEvent.contentOffset,
+                newContentOffset: e.nativeEvent.contentOffset
+            });
+        };
+
+        this._onListContentSizeChange = function (contentWidth, contentHeight) {
+            if (_this4.state.contentOffset.x != _this4.state.newContentOffset.x || _this4.state.contentOffset.y != _this4.state.newContentOffset.y) {
+                _this4._flatList.scrollToXY(_this4.state.newContentOffset.x, _this4.state.newContentOffset.y);
+            }
+        };
+
+        this._renderList = function () {
+            var data = [];
+
+            for (var i = 0; i < _this4.state.numberOfPages; i++) {
+                data[i] = {
+                    key: i
+                };
+            }
+
+            return _react3.default.createElement(_PdfViewFlatList2.default, {
+                ref: _this4._getRef,
+                style: [styles.container, _this4.props.style],
+                contentContainerStyle: [{
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }, _this4.props.horizontal ? {
+                    height: _this4.state.contentContainerSize.height * _this4.state.scale
+                } : {
+                    width: _this4.state.contentContainerSize.width * _this4.state.scale
+                }],
+                horizontal: _this4.props.horizontal,
+                data: data,
+                renderItem: _this4._renderItem,
+                keyExtractor: _this4._keyExtractor,
+                windowSize: 11,
+                getItemLayout: _this4._getItemLayout,
+                maxToRenderPerBatch: 1,
+                renderScrollComponent: function renderScrollComponent(props) {
+                    return _react3.default.createElement(_reactNative.ScrollView, _extends({}, props, {
+                        centerContent: _this4.state.centerContent,
+                        pinchGestureEnabled: false,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 337
+                        }
+                    }));
+                },
+                initialScrollIndex: _this4.props.page < 1 ? 0 : _this4.props.page - 1,
+                onViewableItemsChanged: _this4._onViewableItemsChanged,
+                viewabilityConfig: VIEWABILITYCONFIG,
+                onScroll: _this4._onScroll,
+                onContentSizeChange: _this4._onListContentSizeChange,
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 323
+                }
+            });
+        };
+
+        this._onLayout = function (event) {
+            _this4.setState({
+                contentContainerSize: {
+                    width: event.nativeEvent.layout.width,
+                    height: event.nativeEvent.layout.height
+                }
+            });
+        };
+    }, _temp));
+
+    exports.default = PdfView;
+
+    var styles = _reactNative.StyleSheet.create({
+        container: {
+            flex: 1
+        }
+    });
+});

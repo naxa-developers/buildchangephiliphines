@@ -1,0 +1,65 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Header = undefined;
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/components/common/Header.js";
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[1], "react-native");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var Header = function Header(props) {
+    var textStyle = styles.textStyle,
+        viewStyle = styles.viewStyle;
+    return _react2.default.createElement(
+      _reactNative.View,
+      {
+        style: viewStyle,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 9
+        }
+      },
+      _react2.default.createElement(
+        _reactNative.Text,
+        {
+          style: textStyle,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 10
+          }
+        },
+        props.headerText
+      )
+    );
+  };
+
+  var styles = {
+    viewStyle: {
+      paddingTop: 15,
+      height: 60,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowColor: '#000',
+      shadowOpacity: 0.2,
+      backgroundColor: '#FFFFFF',
+      elevation: 10,
+      position: 'relative'
+    },
+    textStyle: {
+      color: '#000',
+      fontSize: 20,
+      marginLeft: 16
+    }
+  };
+  exports.Header = Header;
+});

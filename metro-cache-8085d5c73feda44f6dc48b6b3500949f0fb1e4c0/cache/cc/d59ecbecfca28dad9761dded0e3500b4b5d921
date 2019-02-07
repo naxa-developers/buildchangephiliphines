@@ -1,0 +1,281 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/SuccessfulLogin.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNativeRouterFlux = _require(_dependencyMap[3], "react-native-router-flux");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _reactNativeZipArchive = _require(_dependencyMap[5], "react-native-zip-archive");
+
+  var _reactNativeFetchBlob = _require(_dependencyMap[6], "react-native-fetch-blob");
+
+  var _reactNativeFetchBlob2 = _interopRequireDefault(_reactNativeFetchBlob);
+
+  var _reactNativeOffline = _require(_dependencyMap[7], "react-native-offline");
+
+  var _PlaceholderListItem = _require(_dependencyMap[8], "./components/PlaceholderListItem");
+
+  var _PlaceholderListItem2 = _interopRequireDefault(_PlaceholderListItem);
+
+  var _actions = _require(_dependencyMap[9], "./actions");
+
+  var _strings = _require(_dependencyMap[10], "./../locales/strings");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    SuccessfulLogin: {
+      displayName: "SuccessfulLogin"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/SuccessfulLogin.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var SuccessfulLogin = _wrapComponent("SuccessfulLogin")(function (_Component) {
+    _inherits(SuccessfulLogin, _Component);
+
+    function SuccessfulLogin() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, SuccessfulLogin);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SuccessfulLogin.__proto__ || Object.getPrototypeOf(SuccessfulLogin)).call.apply(_ref, [this].concat(args))), _this), _this.ListViewItemSeparator = function () {
+        return _react3.default.createElement(_reactNative.View, {
+          style: {
+            height: 0.5,
+            width: '100%',
+            backgroundColor: '#ddd'
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 80
+          }
+        });
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(SuccessfulLogin, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        (0, _reactNativeOffline.checkInternetConnection)().then(function (res) {
+          if (res) {
+            _reactNative.AsyncStorage.getItem('token').then(function (token) {
+              console.log('AsyncStorageko_bhitra');
+
+              _this2.props.tappedOnViewSchools(token);
+
+              _reactNativeFetchBlob2.default.fs.exists('/storage/emulated/0/Android/data/com.guide/build_change_philippines').then(function (exist) {
+                if (!exist) {
+                  _reactNativeFetchBlob2.default.config({
+                    addAndroidDownloads: {
+                      useDownloadManager: true,
+                      path: _reactNativeFetchBlob2.default.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
+                      description: 'Images Zip',
+                      mediaScannable: true
+                    }
+                  }).fetch('GET', 'http://bccms.naxa.com.np/core/project-material-photos/1').then(function (resp) {
+                    var sourcePath = resp.path();
+                    var targetPath = resp.path().replace('.zip', '');
+                    (0, _reactNativeZipArchive.unzip)(sourcePath, targetPath).then(function (path) {
+                      console.log("unzip completed at " + path);
+                    }).catch(function (error) {
+                      console.log(error);
+                    });
+                  });
+                }
+              }).catch(function () {
+                console.log('error while checking file');
+              });
+            });
+          } else if (!res) {
+            _reactNative.Alert.alert('No internet connection!');
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    }, {
+      key: "GetListViewItem",
+      value: function GetListViewItem(school) {
+        _reactNativeRouterFlux.Actions.ShowMap();
+      }
+    }, {
+      key: "SearchFilterFunction",
+      value: function SearchFilterFunction(text) {
+        this.props.intelliSearch(text);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        if (this.props.isLoading) {
+          return _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: {
+                flex: 1,
+                paddingTop: 20
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 93
+              }
+            },
+            _react3.default.createElement(_reactNative.ActivityIndicator, {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 94
+              }
+            })
+          );
+        }
+
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.MainContainer,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 101
+            }
+          },
+          _react3.default.createElement(_reactNative.TextInput, {
+            style: styles.TextInputStyleClass,
+            value: this.props.typedText,
+            onChangeText: function onChangeText(text) {
+              return _this3.SearchFilterFunction(text);
+            },
+            underlineColorAndroid: "transparent",
+            placeholder: _strings.strings.action_search_here,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 103
+            }
+          }),
+          _react3.default.createElement(_reactNative.ListView, {
+            dataSource: this.props.list.cloneWithRows(this.props.hasTyped ? this.props.newData : this.props.data.sites),
+            renderSeparator: this.ListViewItemSeparator,
+            renderRow: function renderRow(rowData) {
+              return _react3.default.createElement(
+                _PlaceholderListItem2.default,
+                {
+                  rowData: rowData,
+                  style: styles.rowViewContainer,
+                  onPress: _this3.GetListViewItem.bind(_this3, rowData),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 118
+                  }
+                },
+                rowData.name
+              );
+            },
+            enableEmptySections: true,
+            style: {
+              marginTop: 10
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 113
+            }
+          })
+        );
+      }
+    }]);
+
+    return SuccessfulLogin;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    MainContainer: {
+      justifyContent: 'center',
+      flex: 1,
+      margin: 7
+    },
+    rowViewContainer: {
+      fontSize: 17,
+      padding: 10
+    },
+    TextInputStyleClass: {
+      textAlign: 'left',
+      height: 40,
+      borderWidth: 1,
+      borderColor: 'rgba(0, 0, 0, 0.2)',
+      borderRadius: 0,
+      backgroundColor: '#FFFFFF',
+      paddingLeft: 15,
+      paddingRight: 15
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(state) {
+    console.log('mapStateToPropsko_bhitra');
+    var ds = new _reactNative.ListView.DataSource({
+      rowHasChanged: function rowHasChanged(r1, r2) {
+        return r1 !== r2;
+      }
+    });
+    var newData = state.schoolList.data.sites.filter(function (item) {
+      var itemData = item.name.toUpperCase();
+      var textData = state.schoolSearchReducer.typedText.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    return {
+      isLoading: state.schoolList.isLoading,
+      data: state.schoolList.data,
+      list: ds,
+      typedText: state.schoolSearchReducer.typedText,
+      hasTyped: state.schoolSearchReducer.hasTyped,
+      newData: newData,
+      hasInternetConnection: state.checkOnline.hasInternetConnection
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, {
+    tappedOnViewSchools: _actions.tappedOnViewSchools,
+    intelliSearch: _actions.intelliSearch,
+    checkOnline: _actions.checkOnline
+  })(SuccessfulLogin);
+});

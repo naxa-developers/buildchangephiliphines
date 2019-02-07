@@ -1,0 +1,56 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _oboeBrowserMin = _require(_dependencyMap[0], "./lib/oboe-browser.min.js");
+
+  var _oboeBrowserMin2 = _interopRequireDefault(_oboeBrowserMin);
+
+  var _XMLHttpRequest = _require(_dependencyMap[1], "./polyfill/XMLHttpRequest");
+
+  var _XMLHttpRequest2 = _interopRequireDefault(_XMLHttpRequest);
+
+  var _uri = _require(_dependencyMap[2], "./utils/uri");
+
+  var _uri2 = _interopRequireDefault(_uri);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var OboeExtended = function OboeExtended(arg) {
+    window.location = '';
+
+    if (!window.XMLHttpRequest.isRNFBPolyfill) {
+      window.XMLHttpRequest = _XMLHttpRequest2.default;
+      console.warn('Use JSONStream will automatically replace window.XMLHttpRequest with RNFetchBlob.polyfill.XMLHttpRequest. You are seeing this warning because you did not replace it maually.');
+    }
+
+    if (typeof arg === 'string') {
+      if (_uri2.default.isFileURI(arg)) {
+        arg = {
+          url: 'JSONStream://' + arg,
+          headers: {
+            noCache: true
+          }
+        };
+      } else arg = 'JSONStream://' + arg;
+    } else if (typeof arg === 'object') {
+      var headers = arg.headers || {};
+
+      if (_uri2.default.isFileURI(arg.url)) {
+        headers.noCache = true;
+      }
+
+      arg = _extends(arg, {
+        url: 'JSONStream://' + arg.url,
+        headers: headers
+      });
+    }
+
+    return (0, _oboeBrowserMin2.default)(arg);
+  };
+
+  exports.default = OboeExtended;
+});

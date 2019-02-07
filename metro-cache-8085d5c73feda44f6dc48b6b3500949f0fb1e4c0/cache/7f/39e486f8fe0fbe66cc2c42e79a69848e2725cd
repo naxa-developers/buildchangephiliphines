@@ -1,0 +1,30 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
+    isFileURI: function isFileURI(uri) {
+      if (typeof uri !== 'string') return false;
+      return (/^RNFetchBlob-file\:\/\//.test(uri)
+      );
+    },
+    isJSONStreamURI: function isJSONStreamURI(uri) {
+      if (typeof uri !== 'string') return false;
+      return (/^JSONStream\:\/\//.test(uri)
+      );
+    },
+    removeURIScheme: function removeURIScheme(uri, iterations) {
+      iterations = iterations || 1;
+      var result = uri;
+
+      for (var i = 0; i < iterations; i++) {
+        result = String(result).replace(/^[^\:]+\:\/\//, '');
+      }
+
+      return String(result);
+    },
+    unwrapFileURI: function unwrapFileURI(uri) {
+      return String(uri).replace(/^RNFetchBlob-file\:\/\//, '');
+    }
+  };
+});

@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/src/components/scenes/newimg/2",
+    "width": 761,
+    "height": 632,
+    "scales": [1],
+    "hash": "99d5d01ecf162c75207ff4ee42f2f075",
+    "name": "1",
+    "type": "png"
+  });
+});

@@ -1,0 +1,39 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.subscribe = exports.unzipAssets = exports.zip = exports.unzip = undefined;
+
+  var _reactNative = _require(_dependencyMap[0], "react-native");
+
+  var _reactNative2 = _interopRequireDefault(_reactNative);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var DeviceEventEmitter = _reactNative2.default.DeviceEventEmitter,
+      NativeAppEventEmitter = _reactNative2.default.NativeAppEventEmitter,
+      Platform = _reactNative2.default.Platform,
+      NativeModules = _reactNative2.default.NativeModules;
+  var RNZipArchive = NativeModules.RNZipArchive;
+
+  var unzip = exports.unzip = function unzip(source, target) {
+    return RNZipArchive.unzip(source, target);
+  };
+
+  var zip = exports.zip = function zip(source, target) {
+    return RNZipArchive.zip(source, target);
+  };
+
+  var unzipAssets = exports.unzipAssets = function unzipAssets(source, target) {
+    if (!RNZipArchive.unzipAssets) {
+      throw new Error('unzipAssets not supported on this platform');
+    }
+
+    return RNZipArchive.unzipAssets(source, target);
+  };
+
+  var subscribe = exports.subscribe = function subscribe(callback) {
+    var emitter = Platform.OS === 'ios' ? NativeAppEventEmitter : DeviceEventEmitter;
+    return emitter.addListener('zipArchiveProgressEvent', callback);
+  };
+});

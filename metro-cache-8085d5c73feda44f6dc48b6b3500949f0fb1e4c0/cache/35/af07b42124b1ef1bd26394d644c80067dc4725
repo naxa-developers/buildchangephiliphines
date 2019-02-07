@@ -1,0 +1,497 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _reactNative = _require(_dependencyMap[0], "react-native");
+
+  var _uri = _require(_dependencyMap[1], "./utils/uri");
+
+  var _uri2 = _interopRequireDefault(_uri);
+
+  var _StatefulPromise = _require(_dependencyMap[2], "./class/StatefulPromise.js");
+
+  var _StatefulPromise2 = _interopRequireDefault(_StatefulPromise);
+
+  var _fs = _require(_dependencyMap[3], "./fs");
+
+  var _fs2 = _interopRequireDefault(_fs);
+
+  var _uuid = _require(_dependencyMap[4], "./utils/uuid");
+
+  var _uuid2 = _interopRequireDefault(_uuid);
+
+  var _base = _require(_dependencyMap[5], "base-64");
+
+  var _base2 = _interopRequireDefault(_base);
+
+  var _polyfill = _require(_dependencyMap[6], "./polyfill");
+
+  var _polyfill2 = _interopRequireDefault(_polyfill);
+
+  var _lodash = _require(_dependencyMap[7], "lodash");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _android = _require(_dependencyMap[8], "./android");
+
+  var _android2 = _interopRequireDefault(_android);
+
+  var _ios = _require(_dependencyMap[9], "./ios");
+
+  var _ios2 = _interopRequireDefault(_ios);
+
+  var _jsonStream = _require(_dependencyMap[10], "./json-stream");
+
+  var _jsonStream2 = _interopRequireDefault(_jsonStream);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+  var RNFetchBlobSession = _fs2.default.RNFetchBlobSession,
+      readStream = _fs2.default.readStream,
+      createFile = _fs2.default.createFile,
+      unlink = _fs2.default.unlink,
+      exists = _fs2.default.exists,
+      mkdir = _fs2.default.mkdir,
+      session = _fs2.default.session,
+      writeStream = _fs2.default.writeStream,
+      readFile = _fs2.default.readFile,
+      ls = _fs2.default.ls,
+      isDir = _fs2.default.isDir,
+      mv = _fs2.default.mv,
+      cp = _fs2.default.cp;
+  var Blob = _polyfill2.default.Blob;
+  var emitter = _reactNative.DeviceEventEmitter;
+  var RNFetchBlob = _reactNative.NativeModules.RNFetchBlob;
+
+  if (_reactNative.Platform.OS === 'ios') {
+    _reactNative.AppState.addEventListener('change', function (e) {
+      if (e === 'active') RNFetchBlob.emitExpiredEvent(function () {});
+    });
+  }
+
+  emitter.addListener("RNFetchBlobMessage", function (e) {
+    if (e.event === 'warn') {
+      console.warn(e.detail);
+    } else if (e.event === 'error') {
+      throw e.detail;
+    } else {
+      console.log("RNFetchBlob native message", e.detail);
+    }
+  });
+
+  if (!RNFetchBlob || !RNFetchBlob.fetchBlobForm || !RNFetchBlob.fetchBlob) {
+    console.warn('react-native-fetch-blob could not find valid native module.', 'please make sure you have linked native modules using `rnpm link`,', 'and restart RN packager or manually compile IOS/Android project.');
+  }
+
+  function wrap(path) {
+    return 'RNFetchBlob-file://' + path;
+  }
+
+  function config(options) {
+    return {
+      fetch: fetch.bind(options)
+    };
+  }
+
+  function fetchFile() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var method = arguments[1];
+    var url = arguments[2];
+    var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    var body = arguments[4];
+
+    if (!_uri2.default.isFileURI(url)) {
+      throw "could not fetch file from an invalid URI : " + url;
+    }
+
+    url = _uri2.default.unwrapFileURI(url);
+    var promise = null;
+    var cursor = 0;
+    var total = -1;
+    var cacheData = '';
+    var info = null;
+
+    var _progress = void 0,
+        _uploadProgress = void 0,
+        _stateChange = void 0;
+
+    switch (method.toLowerCase()) {
+      case 'post':
+        break;
+
+      case 'put':
+        break;
+
+      default:
+        promise = _fs2.default.stat(url).then(function (stat) {
+          total = stat.size;
+          return _fs2.default.readStream(url, headers.encoding || 'utf8', Math.floor(headers.bufferSize) || 409600, Math.floor(headers.interval) || 100);
+        }).then(function (stream) {
+          return new Promise(function (resolve, reject) {
+            stream.open();
+            info = {
+              state: "2",
+              headers: {
+                'source': 'system-fs'
+              },
+              status: 200,
+              respType: 'text',
+              rnfbEncode: headers.encoding || 'utf8'
+            };
+
+            _stateChange(info);
+
+            stream.onData(function (chunk) {
+              _progress && _progress(cursor, total, chunk);
+              if (headers.noCache) return;
+              cacheData += chunk;
+            });
+            stream.onError(function (err) {
+              reject(err);
+            });
+            stream.onEnd(function () {
+              resolve(new FetchBlobResponse(null, info, cacheData));
+            });
+          });
+        });
+        break;
+    }
+
+    promise.progress = function (fn) {
+      _progress = fn;
+      return promise;
+    };
+
+    promise.stateChange = function (fn) {
+      _stateChange = fn;
+      return promise;
+    };
+
+    promise.uploadProgress = function (fn) {
+      _uploadProgress = fn;
+      return promise;
+    };
+
+    return promise;
+  }
+
+  function fetch() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var taskId = (0, _uuid2.default)();
+    var options = this || {};
+    var subscription = void 0,
+        subscriptionUpload = void 0,
+        stateEvent = void 0,
+        partEvent = void 0;
+    var respInfo = {};
+
+    var _ref = [].concat(_toConsumableArray(args)),
+        method = _ref[0],
+        url = _ref[1],
+        headers = _ref[2],
+        body = _ref[3];
+
+    headers = _lodash2.default.reduce(headers, function (result, value, key) {
+      result[key] = value || '';
+      return result;
+    }, {});
+
+    if (_uri2.default.isFileURI(url)) {
+      return fetchFile(options, method, url, headers, body);
+    }
+
+    var promise = new Promise(function (resolve, reject) {
+      var nativeMethodName = Array.isArray(body) ? 'fetchBlobForm' : 'fetchBlob';
+      subscription = emitter.addListener('RNFetchBlobProgress', function (e) {
+        if (e.taskId === taskId && promise.onProgress) {
+          promise.onProgress(e.written, e.total, e.chunk);
+        }
+      });
+      subscriptionUpload = emitter.addListener('RNFetchBlobProgress-upload', function (e) {
+        if (e.taskId === taskId && promise.onUploadProgress) {
+          promise.onUploadProgress(e.written, e.total);
+        }
+      });
+      stateEvent = emitter.addListener('RNFetchBlobState', function (e) {
+        if (e.taskId === taskId) respInfo = e;
+        promise.onStateChange && promise.onStateChange(e);
+      });
+      subscription = emitter.addListener('RNFetchBlobExpire', function (e) {
+        if (e.taskId === taskId && promise.onExpire) {
+          promise.onExpire(e);
+        }
+      });
+      partEvent = emitter.addListener('RNFetchBlobServerPush', function (e) {
+        if (e.taskId === taskId && promise.onPartData) {
+          promise.onPartData(e.chunk);
+        }
+      });
+
+      if (body instanceof Blob && body.isRNFetchBlobPolyfill) {
+        body = body.getRNFetchBlobRef();
+      }
+
+      var req = RNFetchBlob[nativeMethodName];
+      req(options, taskId, method, url, headers || {}, body, function (err, rawType, data) {
+        subscription.remove();
+        subscriptionUpload.remove();
+        stateEvent.remove();
+        partEvent.remove();
+        delete promise['progress'];
+        delete promise['uploadProgress'];
+        delete promise['stateChange'];
+        delete promise['part'];
+        delete promise['cancel'];
+
+        promise.cancel = function () {};
+
+        if (err) reject(new Error(err, respInfo));else {
+          if (options.path || options.fileCache || options.addAndroidDownloads || options.key || options.auto && respInfo.respType === 'blob') {
+            if (options.session) session(options.session).add(data);
+          }
+
+          respInfo.rnfbEncode = rawType;
+          resolve(new FetchBlobResponse(taskId, respInfo, data));
+        }
+      });
+    });
+
+    promise.progress = function () {
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      var interval = 250;
+      var count = -1;
+
+      var fn = function fn() {};
+
+      if (args.length === 2) {
+        interval = args[0].interval || interval;
+        count = args[0].count || count;
+        fn = args[1];
+      } else {
+        fn = args[0];
+      }
+
+      promise.onProgress = fn;
+      RNFetchBlob.enableProgressReport(taskId, interval, count);
+      return promise;
+    };
+
+    promise.uploadProgress = function () {
+      for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      var interval = 250;
+      var count = -1;
+
+      var fn = function fn() {};
+
+      if (args.length === 2) {
+        interval = args[0].interval || interval;
+        count = args[0].count || count;
+        fn = args[1];
+      } else {
+        fn = args[0];
+      }
+
+      promise.onUploadProgress = fn;
+      RNFetchBlob.enableUploadProgressReport(taskId, interval, count);
+      return promise;
+    };
+
+    promise.part = function (fn) {
+      promise.onPartData = fn;
+      return promise;
+    };
+
+    promise.stateChange = function (fn) {
+      promise.onStateChange = fn;
+      return promise;
+    };
+
+    promise.expire = function (fn) {
+      promise.onExpire = fn;
+      return promise;
+    };
+
+    promise.cancel = function (fn) {
+      fn = fn || function () {};
+
+      subscription.remove();
+      subscriptionUpload.remove();
+      stateEvent.remove();
+      RNFetchBlob.cancelRequest(taskId, fn);
+    };
+
+    promise.taskId = taskId;
+    return promise;
+  }
+
+  var FetchBlobResponse = function FetchBlobResponse(taskId, info, data) {
+    var _this = this;
+
+    _classCallCheck(this, FetchBlobResponse);
+
+    this.data = data;
+    this.taskId = taskId;
+    this.type = info.rnfbEncode;
+    this.respInfo = info;
+
+    this.info = function () {
+      return _this.respInfo;
+    };
+
+    this.array = function () {
+      var cType = info.headers['Content-Type'] || info.headers['content-type'];
+      return new Promise(function (resolve, reject) {
+        switch (_this.type) {
+          case 'base64':
+            break;
+
+          case 'path':
+            _fs2.default.readFile(_this.data, 'ascii').then(resolve);
+
+            break;
+
+          default:
+            break;
+        }
+      });
+    };
+
+    this.blob = function () {
+      var Blob = _polyfill2.default.Blob;
+      var cType = info.headers['Content-Type'] || info.headers['content-type'];
+      return new Promise(function (resolve, reject) {
+        switch (_this.type) {
+          case 'base64':
+            Blob.build(_this.data, {
+              type: cType + ';BASE64'
+            }).then(resolve);
+            break;
+
+          case 'path':
+            _polyfill2.default.Blob.build(wrap(_this.data), {
+              type: cType
+            }).then(resolve);
+
+            break;
+
+          default:
+            _polyfill2.default.Blob.build(_this.data, {
+              type: 'text/plain'
+            }).then(resolve);
+
+            break;
+        }
+      });
+    };
+
+    this.text = function () {
+      var res = _this.data;
+
+      switch (_this.type) {
+        case 'base64':
+          return _base2.default.decode(_this.data);
+
+        case 'path':
+          return _fs2.default.readFile(_this.data, 'base64').then(function (b64) {
+            return Promise.resolve(_base2.default.decode(b64));
+          });
+
+        default:
+          return _this.data;
+      }
+    };
+
+    this.json = function () {
+      switch (_this.type) {
+        case 'base64':
+          return JSON.parse(_base2.default.decode(_this.data));
+
+        case 'path':
+          return _fs2.default.readFile(_this.data, 'utf8').then(function (text) {
+            return Promise.resolve(JSON.parse(text));
+          });
+
+        default:
+          return JSON.parse(_this.data);
+      }
+    };
+
+    this.base64 = function () {
+      switch (_this.type) {
+        case 'base64':
+          return _this.data;
+
+        case 'path':
+          return _fs2.default.readFile(_this.data, 'base64');
+
+        default:
+          return _base2.default.encode(_this.data);
+      }
+    };
+
+    this.flush = function () {
+      var path = _this.path();
+
+      if (!path || _this.type !== 'path') return;
+      return unlink(path);
+    };
+
+    this.path = function () {
+      if (_this.type === 'path') return _this.data;
+      return null;
+    };
+
+    this.session = function (name) {
+      if (_this.type === 'path') return session(name).add(_this.data);else {
+        console.warn('only file paths can be add into session.');
+        return null;
+      }
+    };
+
+    this.readStream = function (encode) {
+      if (_this.type === 'path') {
+        return readStream(_this.data, encode);
+      } else {
+        console.warn('RNFetchblob', 'this response data does not contains any available stream');
+        return null;
+      }
+    };
+
+    this.readFile = function (encode) {
+      if (_this.type === 'path') {
+        encode = encode || 'utf8';
+        return readFile(_this.data, encode);
+      } else {
+        console.warn('RNFetchblob', 'this response does not contains a readable file');
+        return null;
+      }
+    };
+  };
+
+  exports.default = {
+    fetch: fetch,
+    base64: _base2.default,
+    android: _android2.default,
+    ios: _ios2.default,
+    config: config,
+    session: session,
+    fs: _fs2.default,
+    wrap: wrap,
+    polyfill: _polyfill2.default,
+    JSONStream: _jsonStream2.default
+  };
+});

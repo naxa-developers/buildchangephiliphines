@@ -1,0 +1,18 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _reactNative = _require(_dependencyMap[0], "react-native");
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var RNFetchBlob = _reactNative.NativeModules.RNFetchBlob;
+  var emitter = _reactNative.DeviceEventEmitter;
+
+  var RNFetchBlobFile = function RNFetchBlobFile() {
+    _classCallCheck(this, RNFetchBlobFile);
+  };
+
+  exports.default = RNFetchBlobFile;
+});

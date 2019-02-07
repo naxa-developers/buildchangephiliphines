@@ -1,0 +1,245 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/ComparePhotosScene.js";
+
+    var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _reactNativeImageZoomViewer = _require(_dependencyMap[3], "react-native-image-zoom-viewer");
+
+    var _reactNativeImageZoomViewer2 = _interopRequireDefault(_reactNativeImageZoomViewer);
+
+    var _reactNativeFetchBlob = _require(_dependencyMap[4], "react-native-fetch-blob");
+
+    var _reactNativeFetchBlob2 = _interopRequireDefault(_reactNativeFetchBlob);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        ComparePhotosScene: {
+            displayName: "ComparePhotosScene"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/nishon/ReactNativeProject/buildchange-ph/src/components/scenes/ComparePhotosScene.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var ComparePhotosScene = _wrapComponent("ComparePhotosScene")(function (_Component) {
+        _inherits(ComparePhotosScene, _Component);
+
+        function ComparePhotosScene() {
+            _classCallCheck(this, ComparePhotosScene);
+
+            var _this = _possibleConstructorReturn(this, (ComparePhotosScene.__proto__ || Object.getPrototypeOf(ComparePhotosScene)).call(this));
+
+            _this.state = {
+                imageViewerShown: false,
+                imageViewerCurIndex: 0,
+                good_photo: {}
+            };
+            return _this;
+        }
+
+        _createClass(ComparePhotosScene, [{
+            key: "componentWillMount",
+            value: function componentWillMount() {
+                this.setState({
+                    good_photo: {
+                        uri: 'file:///storage/emulated/0/Android/data/com.guide/build_change_philippines/' + this.props.substep.good_photo
+                    }
+                });
+            }
+        }, {
+            key: "showImageViewer",
+            value: function showImageViewer(index) {
+                console.log(index);
+                this.setState(_extends({}, this.state, {
+                    imageViewerCurIndex: index,
+                    imageViewerShown: true
+                }));
+            }
+        }, {
+            key: "renderImageList",
+            value: function renderImageList() {
+                var _this2 = this;
+
+                var _Dimensions$get = _reactNative.Dimensions.get('window'),
+                    width = _Dimensions$get.width;
+
+                var images = [{
+                    url: this.props.substep.good_photo,
+                    props: {}
+                }];
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 208
+                        }
+                    },
+                    _react3.default.createElement(
+                        _reactNative.Modal,
+                        {
+                            visible: this.state.imageViewerShown,
+                            transparent: true,
+                            onRequestClose: function onRequestClose() {
+                                _this2.setState(_extends({}, _this2.state, {
+                                    imageViewerShown: false
+                                }));
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 209
+                            }
+                        },
+                        _react3.default.createElement(_reactNativeImageZoomViewer2.default, {
+                            index: this.state.imageViewerCurIndex,
+                            imageUrls: images,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 216
+                            }
+                        })
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                            style: {
+                                backgroundColor: '#FFF',
+                                padding: 20
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 221
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: {
+                                    fontSize: 16
+                                },
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 222
+                                }
+                            },
+                            "Description Here"
+                        )
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                            style: {
+                                backgroundColor: 'white',
+                                marginTop: 15,
+                                marginLeft: 15,
+                                marginRight: 15,
+                                padding: 10,
+                                position: 'relative'
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 224
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: {
+                                    fontWeight: 'bold',
+                                    fontSize: 18,
+                                    marginBottom: 10,
+                                    marginLeft: 25
+                                },
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 225
+                                }
+                            },
+                            "Good Practice"
+                        ),
+                        _react3.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                onPress: function onPress() {
+                                    return _this2.showImageViewer(0);
+                                },
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 226
+                                }
+                            },
+                            _react3.default.createElement(_reactNative.Image, {
+                                style: {
+                                    height: 193,
+                                    width: width - 50
+                                },
+                                source: this.state.good_photo,
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 227
+                                }
+                            })
+                        ),
+                        _react3.default.createElement(_reactNative.View, {
+                            style: {
+                                height: 15,
+                                width: 15,
+                                borderRadius: 15,
+                                backgroundColor: 'green',
+                                position: 'absolute',
+                                left: 10,
+                                top: 15
+                            },
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 229
+                            }
+                        })
+                    )
+                );
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                return this.renderImageList();
+            }
+        }]);
+
+        return ComparePhotosScene;
+    }(_react2.Component));
+
+    exports.default = ComparePhotosScene;
+});

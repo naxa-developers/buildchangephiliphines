@@ -1,0 +1,76 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _log = _require(_dependencyMap[0], "../utils/log.js");
+
+  var _log2 = _interopRequireDefault(_log);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var log = new _log2.default('EventTarget');
+  log.disable();
+
+  var EventTarget = function () {
+    function EventTarget() {
+      _classCallCheck(this, EventTarget);
+
+      log.info('constructor called');
+      this.listeners = {};
+    }
+
+    _createClass(EventTarget, [{
+      key: "addEventListener",
+      value: function addEventListener(type, cb) {
+        log.info('add event listener', type, cb);
+
+        if (!(type in this.listeners)) {
+          this.listeners[type] = [];
+        }
+
+        this.listeners[type].push(cb);
+      }
+    }, {
+      key: "removeEventListener",
+      value: function removeEventListener(type, cb) {
+        log.info('remove event listener', type, cb);
+        if (!(type in this.listeners)) return;
+        var handlers = this.listeners[type];
+
+        for (var i in handlers) {
+          if (cb === handlers[i]) {
+            handlers.splice(i, 1);
+            return this.removeEventListener(type, cb);
+          }
+        }
+      }
+    }, {
+      key: "dispatchEvent",
+      value: function dispatchEvent(type, event) {
+        log.info('dispatch event', event);
+        if (!(type in this.listeners)) return;
+        var handlers = this.listeners[type];
+
+        for (var i in handlers) {
+          handlers[i].call(this, event);
+        }
+      }
+    }, {
+      key: "clearEventListeners",
+      value: function clearEventListeners() {
+        for (var i in this.listeners) {
+          delete this.listeners[i];
+        }
+      }
+    }]);
+
+    return EventTarget;
+  }();
+
+  exports.default = EventTarget;
+});

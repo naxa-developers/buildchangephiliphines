@@ -1,0 +1,28 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _reactNative = _require(_dependencyMap[0], "react-native");
+
+  var RNFetchBlob = _reactNative.NativeModules.RNFetchBlob;
+
+  function actionViewIntent(path) {
+    var mime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'text/plain';
+    if (_reactNative.Platform.OS === 'android') return RNFetchBlob.actionViewIntent(path, mime);else return Promise.reject('RNFetchBlob.android.actionViewIntent only supports Android.');
+  }
+
+  function getContentIntent(mime) {
+    if (_reactNative.Platform.OS === 'android') return RNFetchBlob.getContentIntent(mime);else return Promise.reject('RNFetchBlob.android.getContentIntent only supports Android.');
+  }
+
+  function addCompleteDownload(config) {
+    if (_reactNative.Platform.OS === 'android') return RNFetchBlob.addCompleteDownload(config);else return Promise.reject('RNFetchBlob.android.addCompleteDownload only supports Android.');
+  }
+
+  exports.default = {
+    actionViewIntent: actionViewIntent,
+    getContentIntent: getContentIntent,
+    addCompleteDownload: addCompleteDownload
+  };
+});

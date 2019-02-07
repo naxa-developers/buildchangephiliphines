@@ -1,0 +1,279 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.storeUserGroup = exports.storeCurrentSelectedSchool = exports.connectionState = exports.requestPersonByUrl = exports.requestPerson = exports.checkOnline = exports.intelliSearch = exports.userSearched = exports.openedGuidelinesCategoryScene = exports.tappedOnViewSchools = undefined;
+
+  var _lodash = _require(_dependencyMap[0], "lodash");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _reactNative = _require(_dependencyMap[1], "react-native");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var tappedOnViewSchools = exports.tappedOnViewSchools = function tappedOnViewSchools(token) {
+    return function (dispatch) {
+      fetch('http://bccms.naxa.com.np/core/api/project/1/', {
+        method: 'GET',
+        headers: {
+          Authorization: 'token ' + token
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        dispatch({
+          type: 'tapped_on_view_schools',
+          payload: responseJson
+        });
+      }).catch(function (error) {
+        console.error(error);
+      });
+    };
+  };
+
+  var openedGuidelinesCategoryScene = exports.openedGuidelinesCategoryScene = function openedGuidelinesCategoryScene(token) {
+    return function (dispatch) {
+      fetch('http://bccms.naxa.com.np/core/api/material-list/1/', {
+        method: 'GET',
+        headers: {
+          Authorization: 'token ' + token
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        dispatch({
+          type: 'opened_guidelines_category_scene',
+          payload: responseJson
+        });
+      }).catch(function (error) {
+        console.error(error);
+      });
+    };
+  };
+
+  var userSearched = exports.userSearched = function userSearched(text) {
+    return {
+      type: 'user_searched',
+      payload: text
+    };
+  };
+
+  var intelliSearch = exports.intelliSearch = function intelliSearch(text) {
+    return {
+      type: 'intelli_search',
+      payload: text
+    };
+  };
+
+  var checkOnline = exports.checkOnline = function checkOnline() {
+    return function (dispatch) {
+      _reactNative.NetInfo.isConnected.fetch().then(function (isConnected) {
+        if (isConnected) {
+          dispatch({
+            type: 'check_online',
+            payload: isConnected
+          });
+        }
+
+        dispatch({
+          type: 'check_online',
+          payload: isConnected
+        });
+      });
+    };
+  };
+
+  var requestPerson = exports.requestPerson = function requestPerson(data) {
+    console.log('request_person_bhirta');
+    console.log(data);
+    return function (dispatch, getState) {
+      _reactNative.AsyncStorage.getItem('token').then(function (token) {
+        var _getState = getState(),
+            isConnected = _getState.isConnected;
+
+        console.log('isConnectedko_value');
+        console.log(isConnected);
+
+        if (_lodash2.default.isEmpty(data.checklistItemData.last_submission)) {
+          var url = 'http://bccms.naxa.com.np/core/api/report/';
+          var formdata = new FormData();
+          formdata.append('report_status', data.checklistItemValue);
+          formdata.append('checklist', data.checklistItemData.id);
+          formdata.append('comment', 'USAGE OF POST');
+          formdata.append('user', data.userId);
+          var req = {
+            method: 'POST',
+            headers: {
+              Authorization: 'token ' + token,
+              'Content-Type': 'multipart/form-data'
+            },
+            body: formdata
+          };
+
+          if (isConnected.isConnected) {
+            console.log({
+              url: url,
+              req: req
+            });
+            fetch(url, req).then(function (res) {
+              console.log(res);
+              dispatch({
+                type: 'REMOVE_FROM_ACTION_QUEUE',
+                payload: {
+                  userId: data.userId,
+                  url: url,
+                  report_status: data.checklistItemValue,
+                  checklist: data.checklistItemData.id,
+                  comment: 'USAGE_OF_POST',
+                  method: 'POST'
+                }
+              });
+            }).catch(function (error) {
+              return console.log(error);
+            });
+          } else {
+            dispatch({
+              type: 'ADD_TO_ACTION_QUEUE',
+              payload: {
+                userId: data.userId,
+                url: url,
+                report_status: data.checklistItemValue,
+                checklist: data.checklistItemData.id,
+                comment: 'USAGE_OF_POST',
+                method: 'POST'
+              }
+            });
+          }
+        } else if (!_lodash2.default.isEmpty(data.checklistItemData.last_submission)) {
+          var _url = 'http://bccms.naxa.com.np/core/api/report/' + data.checklistItemData.last_submission.id + '/';
+
+          var _formdata = new FormData();
+
+          _formdata.append('report_status', data.checklistItemValue);
+
+          _formdata.append('checklist', data.checklistItemData.id);
+
+          _formdata.append('comment', 'USAGE OF PUT');
+
+          _formdata.append('user', data.userId);
+
+          var _req = {
+            method: 'PUT',
+            headers: {
+              Authorization: 'token ' + token,
+              'Content-Type': 'multipart/form-data'
+            },
+            body: _formdata
+          };
+
+          if (isConnected.isConnected) {
+            console.log({
+              url: _url,
+              req: _req
+            });
+            fetch(_url, _req).then(function (res) {
+              console.log(res);
+              dispatch({
+                type: 'REMOVE_FROM_ACTION_QUEUE',
+                payload: {
+                  userId: data.userId,
+                  url: _url,
+                  report_status: data.checklistItemValue,
+                  checklist: data.checklistItemData.id,
+                  comment: 'USAGE_OF_PUT',
+                  method: 'PUT'
+                }
+              });
+            }).catch(function (error) {
+              return console.log(error);
+            });
+          } else {
+            dispatch({
+              type: 'ADD_TO_ACTION_QUEUE',
+              payload: {
+                userId: data.userId,
+                url: _url,
+                report_status: data.checklistItemValue,
+                checklist: data.checklistItemData.id,
+                comment: 'USAGE_OF_PUT',
+                method: 'PUT'
+              }
+            });
+          }
+        }
+      });
+    };
+  };
+
+  var requestPersonByUrl = exports.requestPersonByUrl = function requestPersonByUrl(eachElement) {
+    return function (dispatch) {
+      _reactNative.AsyncStorage.getItem('token').then(function (token) {
+        var formdata = new FormData();
+        formdata.append('report_status', eachElement.report_status);
+        formdata.append('checklist', eachElement.checklist);
+        formdata.append('comment', eachElement.comment);
+        formdata.append('user', eachElement.userId);
+        var req = {
+          method: eachElement.method,
+          headers: {
+            Authorization: 'token ' + token,
+            'Content-Type': 'multipart/form-data'
+          },
+          body: formdata
+        };
+        fetch(eachElement.url, req).then(function (res) {
+          console.log(res);
+          dispatch({
+            type: 'REMOVE_FROM_ACTION_QUEUE',
+            payload: {
+              userId: eachElement.userId,
+              url: eachElement.url,
+              report_status: eachElement.report_status,
+              checklist: eachElement.checklist,
+              comment: eachElement.comment,
+              method: eachElement.method
+            }
+          });
+        }).catch(function (error) {
+          return console.log(error);
+        });
+      });
+    };
+  };
+
+  var connectionState = exports.connectionState = function connectionState(status) {
+    console.log('connectionStateko_bhitra');
+    console.log('statusko_value');
+    console.log(status);
+    console.log('returned_action_ko_value');
+    console.log({
+      type: 'CHANGE_CONNECTION_STATUS',
+      payload: status.status
+    });
+    return {
+      type: 'CHANGE_CONNECTION_STATUS',
+      payload: status.status
+    };
+  };
+
+  var storeCurrentSelectedSchool = exports.storeCurrentSelectedSchool = function storeCurrentSelectedSchool(status) {
+    console.log('storeCurrentSelectedSchool_ko_bhitra');
+    console.log('statusko_value');
+    console.log(status);
+    return {
+      type: 'REMEMBER_SELECTED_SCHOOL',
+      payload: status.schoolId
+    };
+  };
+
+  var storeUserGroup = exports.storeUserGroup = function storeUserGroup(status) {
+    console.log('storeUserGroup_ko_bhitra');
+    console.log('statusko_value');
+    console.log(status);
+    return {
+      type: 'REMEMBER_USER_GROUP',
+      payload: status
+    };
+  };
+});

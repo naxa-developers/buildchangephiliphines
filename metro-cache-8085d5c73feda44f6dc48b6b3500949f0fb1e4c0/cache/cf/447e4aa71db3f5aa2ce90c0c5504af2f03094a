@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+	module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+		"__packager_asset": true,
+		"httpServerLocation": "/assets/app_images",
+		"width": 648,
+		"height": 576,
+		"scales": [1],
+		"hash": "b86f1ab0923e164681319bbe702a1631",
+		"name": "guidelines_background",
+		"type": "jpg"
+	});
+});
