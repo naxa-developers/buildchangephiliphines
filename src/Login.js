@@ -6,15 +6,14 @@ import {
 	TextInput,
 	TouchableOpacity,
 	View,
-	Alert
+	Alert,
 } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { storeUserGroup } from './actions';
-
-
+import { storeUserGroup, setDownloadInfo } from './actions';
 import styles from './styles';
+import { filePaths } from './downloadinfo';
 
 class Login extends Component {
 
@@ -24,6 +23,10 @@ class Login extends Component {
 			username: null,
 			password: null
 		};
+	}
+
+	componentWillMount() {
+		this.props.dispatch(setDownloadInfo({ filePaths }));
 	}
 
 	async onValueChange(item, selectedValue) {

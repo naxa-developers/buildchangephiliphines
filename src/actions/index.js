@@ -203,6 +203,9 @@ export const storeAddress = (status) => {
 
 export const setDownloadInfo = (status) => {
   console.log('setDownloadInfo_bhitra', status);
+  if (status.hasOwnProperty('filePaths')) {
+    return { type: 'REMEMBER_FILE_PATHS', payload: status }
+  }
   return { type: 'REMEMBER_DOWNLOAD_STATUS', payload: status };
 };
 

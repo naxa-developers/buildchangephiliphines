@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 class SecondPage extends Component {
 
+
   forgotCredentials() {
       Alert.alert('Nothing we can do about it right now!');
   }
@@ -36,7 +37,7 @@ class SecondPage extends Component {
                                       onPress={this.communityMemberLogin}
                                       />
                     </View>
-                  
+
                 </ImageBackground>
     );
   }

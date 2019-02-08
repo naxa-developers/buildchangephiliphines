@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert, ListView, ActivityIndicator, AsyncStorage, PermissionsAndroid
+import { Platform, StyleSheet, View, Alert, ListView, ActivityIndicator, AsyncStorage, PermissionsAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { unzip } from 'react-native-zip-archive';
@@ -8,6 +8,7 @@ import { checkInternetConnection } from 'react-native-offline';
 import PlaceholderListItem from './components/PlaceholderListItem';
 import { tappedOnViewSchools, intelliSearch, checkOnline, setDownloadInfo } from './actions';
 import { strings } from './../locales/strings';
+import { platformSpecificConfigForDownload } from './downloadinfo';
 
 class SuccessfulLogin extends Component {
 
@@ -19,7 +20,11 @@ class SuccessfulLogin extends Component {
          console.log('AsyncStorageko_bhitra');
          this.props.tappedOnViewSchools(token);
 });
-    this.requestStoragePermission();
+    if (Platform.OS === 'ios') {
+      this.downloadZip();
+    } else {
+      this.requestStoragePermission();
+    }
   }
 
   async getLocale() {
@@ -33,20 +38,12 @@ class SuccessfulLogin extends Component {
           if (res) {
             if (!this.props.hasDownloadStarted) {
               console.log('rameeee');
-              RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
+              RNFetchBlob.fs.exists(this.props.pathForExtracted)
                   .then((exist) => {
                       if (!exist) {
                         this.props.setDownloadInfo({ hasDownloadStarted: true });
                         RNFetchBlob
-                        .config({
-                            addAndroidDownloads: {
-                                useDownloadManager: true,
-                                //changes here
-                                path: RNFetchBlob.fs.dirs.SDCardApplicationDir + '/build_change_philippines.zip',
-                                description: 'Images Zip',
-                                mediaScannable: true,
-                            }
-                        })
+                        .config(platformSpecificConfigForDownload)
                         .fetch('GET', 'http://bccms.naxa.com.np/core/download-zip/')
                         .then((resp) => {
                           this.props.setDownloadInfo({ hasDownloadStarted: false });
@@ -205,7 +202,9 @@ const mapStateToProps = (state) => {
             isLoading: state.schoolList.isLoading,
             list: ds,
             daram: Daram,
-            hasDownloadStarted: state.downloadInfo.hasDownloadStarted
+            hasDownloadStarted: state.downloadInfo.hasDownloadStarted,
+            pathForExtracted: state.downloadInfo.pathForExtracted,
+            pathForZip: state.downloadInfo.pathForZip
          };
 };
 
