@@ -166,11 +166,11 @@ class Scenes extends Component {
           component={SignUpTest}
           key='ram'
           hideNavBar
-          //initial
+          initial
         />
 
         <Scene
-          initial={!this.state.hasToken}
+          //initial={!this.state.hasToken}
           component={Onboarding}
           key='Onboarding'
           hideNavBar
@@ -275,7 +275,7 @@ class Scenes extends Component {
             back
           />
           <Scene
-          initial={this.state.hasToken}
+          //initial={this.state.hasToken}
           renderLeftButton={() => <View />}
             key='Select'
             component={Select}

@@ -180,11 +180,4 @@ class Login extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-  console.log('login_mapstatetoprops_bhitra');
-	console.log(state);
-	return {
-	};
-};
-
-export default connect(mapStateToProps)(Login);
+export default connect(null)(Login);
