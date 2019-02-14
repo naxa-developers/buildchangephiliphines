@@ -1,50 +1,37 @@
-import React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { TextInput } from 'react-native';
+import styles from '../../stylestest';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+class Input extends Component {
 
-  const { inputStyle, labelStyle, containestyle } = styles;
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ''
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
-  return (
-    <View style={containestyle}>
-      <Text style={labelStyle}>
-        { label }
-      </Text>
-        <TextInput
-          secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
-          autoCorrect={false}
-          style={inputStyle}
-          value={value}
-          onChangeText={onChangeText}
-        />
-    </View>
+  handleInputChange(text, name) {
+    this.props.handleInputChange(text, name);
+  }
 
-  );
+  render() {
+    console.log(this.props);
+    return (
+      <TextInput
+        {...this.props}
+        editable
+        onChangeText={(text) => {
+          this.setState({ text });
+          this.props.handleInputChange(text, this.props.name);
+        }}
+        style={styles.input}
+        value={this.state.text}
+        autoCapitalize='none'
+      />
+    );
+  }
 }
 
-
-const styles = {
-  inputStyle: {
-      paddingRight: 5,
-      paddingLeft: 5,
-      color: '#000',
-      fontSize: 16,
-      lineHeight: 21,
-      flex: 2
-  },
-  labelStyle: {
-    flex: 1,
-    fontSize: 16,
-    paddingLeft: 16
-  },
-  containestyle: {
-    height: 40,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-
-}
-
-export { Input }
+export default Input;

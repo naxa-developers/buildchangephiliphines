@@ -2,33 +2,58 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
   Alert,
-	TextInput,
   Animated,
   Keyboard,
   ScrollView,
-  TouchableOpacity,
-  Text
+  Platform
 } from 'react-native';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './stylestest';
+import Input from './components/common/Input';
+import Button from './components/common/Button';
+
 
 class SignUpTest extends Component {
 
 	constructor() {
 		super();
-		this.state = {
-			username: null,
-      email: null,
-			password: null,
-      repassword: null
-		};
+    this.state = {};
     this.keyboardHeight = new Animated.Value(0);
-
     this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.inputFields = [
+      {
+        name: 'username',
+        placeholder: 'Username',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: false
+      },
+      {
+        name: 'email',
+        placeholder: 'Email',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: false
+      },
+      {
+        name: 'password',
+        placeholder: 'Password',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: true
+      },
+      {
+        name: 'retypePassword',
+        placeholder: 'Retype Password',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: true
+      }
+    ];
 	}
 
   componentWillMount() {
-  this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
-  this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  const keyboardOnScreen = Platform.OS === 'android' ? 'keyboardDidShow' : 'keyboardWillShow';
+  const keyboardNotOnScreen = Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide';
+
+  this.keyboardDidShowSub = Keyboard.addListener(keyboardOnScreen, this.keyboardDidShow);
+  this.keyboardDidHideSub = Keyboard.addListener(keyboardNotOnScreen, this.keyboardDidHide);
 }
 
 componentWillUnmount() {
@@ -68,7 +93,7 @@ keyboardDidHide = (event) => {
 
 
 	userSignup() {
-    if (this.state.password === this.state.repassword) {
+    if (this.state.password === this.state.retypePassword) {
 		if (this.state.username && this.state.email && this.state.password) {
 			//change the url
 			fetch('http://bccms.naxa.com.np/core/api/users/', {
@@ -108,66 +133,19 @@ keyboardDidHide = (event) => {
   }
 	}
 
+  handleInputChange(text, name) {
+    this.setState({ ...this.state, [name]: text });
+  }
+
 	render() {
+    console.log('state', this.state);
     return (
     <Animated.View style={[styles.container, { paddingBottom: 20 }]}>
       <Animated.Image source={require('../app_images/buildchange.jpeg')} style={[styles.logo, { height: this.imageHeight }]} />
-      <ScrollView style={styles.form} keyboardShouldPersistTaps={true}>
-      <TextInput
-        editable
-        onChangeText={(username) => this.setState({ username })}
-        placeholder='Username'
-        ref='username'
-        style={styles.input}
-        value={this.state.username}
-        autoCapitalize='none'
-        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-        blurOnSubmit={false}
-      />
-
-      <TextInput
-        editable
-        onChangeText={(email) => this.setState({ email })}
-        placeholder='Email'
-        ref={(input) => { this.secondTextInput = input; }}
-        style={styles.input}
-        value={this.state.email}
-        autoCapitalize='none'
-        onSubmitEditing={() => { this.thirdTextInput.focus(); }}
-        blurOnSubmit={false}
-      />
-      <TextInput
-        editable
-        onChangeText={(password) => this.setState({ password })}
-        placeholder='Password'
-        ref={(input) => { this.thirdTextInput = input; }}
-        returnKeyType='next'
-        secureTextEntry
-        style={styles.input}
-        value={this.state.password}
-        autoCapitalize='none'
-        onSubmitEditing={() => { this.fourthTextInput.focus(); }}
-        blurOnSubmit={false}
-      />
-      <TextInput
-        editable
-        onChangeText={(repassword) => this.setState({ repassword })}
-        placeholder='Retype Password'
-        ref={(input) => { this.fourthTextInput = input; }}
-        returnKeyType='next'
-        secureTextEntry
-        style={styles.input}
-        value={this.state.repassword}
-        autoCapitalize='none'
-       />
-      <TouchableOpacity
-        style={styles.buttonWrapper}
-        onPress={this.userSignup.bind(this)}
-      >
-        <Text style={styles.buttonText}>
-          SignUp
-        </Text>
-      </TouchableOpacity>
+      <ScrollView style={styles.form} keyboardShouldPersistTaps='always'>
+        {this.inputFields.map((inputField) =>
+          <Input {...inputField} />)}
+          <Button onPress={this.userSignup.bind(this)}>SignUp</Button>
       </ScrollView>
     </Animated.View>
   );

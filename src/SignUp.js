@@ -2,28 +2,98 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
   Alert,
-	Image,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View
+  Animated,
+  Keyboard,
+  ScrollView,
+  Platform
 } from 'react-native';
-import styles from './styles';
+import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './stylestest';
+import Input from './components/common/Input';
+import Button from './components/common/Button';
 
-class SignUp extends Component {
+
+class SignUpTest extends Component {
 
 	constructor() {
 		super();
-		this.state = {
-			username: null,
-      email: null,
-			password: null,
-      repassword: null
-		};
+    this.state = {};
+    this.keyboardHeight = new Animated.Value(0);
+    this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.inputFields = [
+      {
+        name: 'username',
+        placeholder: 'Username',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: false
+      },
+      {
+        name: 'email',
+        placeholder: 'Email',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: false
+      },
+      {
+        name: 'password',
+        placeholder: 'Password',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: true
+      },
+      {
+        name: 'retypePassword',
+        placeholder: 'Retype Password',
+        handleInputChange: this.handleInputChange,
+        secureTextEntry: true
+      }
+    ];
 	}
 
+  componentWillMount() {
+  const keyboardOnScreen = Platform.OS === 'android' ? 'keyboardDidShow' : 'keyboardWillShow';
+  const keyboardNotOnScreen = Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide';
+
+  this.keyboardDidShowSub = Keyboard.addListener(keyboardOnScreen, this.keyboardDidShow);
+  this.keyboardDidHideSub = Keyboard.addListener(keyboardNotOnScreen, this.keyboardDidHide);
+}
+
+componentWillUnmount() {
+  this.keyboardDidShowSub.remove();
+  this.keyboardDidHideSub.remove();
+}
+
+keyboardDidShow = (event) => {
+  console.log('keyboardDidShow');
+  console.log(event);
+  Animated.parallel([
+    Animated.timing(this.keyboardHeight, {
+      duration: 1000,
+      toValue: event.endCoordinates.height,
+    }),
+    Animated.timing(this.imageHeight, {
+      duration: 300,
+      toValue: IMAGE_HEIGHT_SMALL,
+    }),
+  ]).start();
+}
+
+keyboardDidHide = (event) => {
+  console.log('keyboardDidHide');
+  console.log(event);
+  Animated.parallel([
+    Animated.timing(this.keyboardHeight, {
+      duration: 1000,
+      toValue: 0,
+    }),
+    Animated.timing(this.imageHeight, {
+      duration: 300,
+      toValue: IMAGE_HEIGHT,
+    }),
+  ]).start();
+}
+
+
 	userSignup() {
-    if (this.state.password === this.state.repassword) {
+    if (this.state.password === this.state.retypePassword) {
 		if (this.state.username && this.state.email && this.state.password) {
 			//change the url
 			fetch('http://bccms.naxa.com.np/core/api/users/', {
@@ -58,76 +128,28 @@ class SignUp extends Component {
 		}
   }
   else {
-    Alert.alert('Password did not match!')
+    Alert.alert('Password did not match!');
 
   }
 	}
 
+  handleInputChange(text, name) {
+    this.setState({ ...this.state, [name]: text });
+  }
+
 	render() {
-		return (
-			<View style={styles.container}>
-				<Image
-						source={require('../app_images/buildchange.jpeg')}
-						style={styles.image}
-				/>
-				<View style={styles.form}>
-
-          <TextInput
-            editable
-            onChangeText={(username) => this.setState({ username })}
-            placeholder='Username'
-            ref='username'
-            returnKeyType='next'
-            style={styles.inputText}
-            value={this.state.username}
-            autoCapitalize='none'
-          />
-
-					<TextInput
-						editable
-						onChangeText={(email) => this.setState({ email })}
-						placeholder='Email'
-						ref='email'
-						returnKeyType='next'
-						style={styles.inputText}
-						value={this.state.email}
-            autoCapitalize='none'
-					/>
-					<TextInput
-						editable
-						onChangeText={(password) => this.setState({ password })}
-						placeholder='Password'
-						ref='password'
-						returnKeyType='next'
-						secureTextEntry
-						style={styles.inputText}
-						value={this.state.password}
-            autoCapitalize='none'
-					/>
-          <TextInput
-						editable
-						onChangeText={(repassword) => this.setState({ repassword })}
-						placeholder='Retype Password'
-						ref='repassword'
-						returnKeyType='next'
-						secureTextEntry
-						style={styles.inputText}
-						value={this.state.repassword}
-            autoCapitalize='none'
-		       />
-					<TouchableOpacity
-						style={styles.buttonWrapper}
-						onPress={this.userSignup.bind(this)}
-					>
-						<Text style={styles.buttonText}>
-							SignUp
-						</Text>
-					</TouchableOpacity>
-
-				</View>
-			</View>
-		);
+    console.log('state', this.state);
+    return (
+    <Animated.View style={[styles.container, { paddingBottom: 20 }]}>
+      <Animated.Image source={require('../app_images/buildchange.jpeg')} style={[styles.logo, { height: this.imageHeight }]} />
+      <ScrollView style={styles.form} keyboardShouldPersistTaps='always'>
+        {this.inputFields.map((inputField) =>
+          <Input {...inputField} />)}
+          <Button onPress={this.userSignup.bind(this)}>SignUp</Button>
+      </ScrollView>
+    </Animated.View>
+  );
 	}
 }
 
-export default SignUp;
+export default SignUpTest;

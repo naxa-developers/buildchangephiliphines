@@ -1,41 +1,18 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import styles from '../../stylestest';
 
 const Button = ({ onPress, children }) => {
-const { buttonStyle, buttonTextStyle } = styles;
-
   return (
     <TouchableOpacity
-      style={buttonStyle}
+      style={styles.buttonWrapper}
       onPress={onPress}
     >
-
-      <Text style={buttonTextStyle}>
+      <Text style={styles.buttonText}>
         {children.toUpperCase()}
       </Text>
       </TouchableOpacity>
     );
 };
 
-const styles = {
-  buttonStyle: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: '#68EFAD',
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: '#68EFAD',
-    marginLeft: 5,
-    marginRight: 5
-  },
-  buttonTextStyle: {
-
-    alignSelf: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
-    fontSize: 16,
-    fontWeight: '600'
-  }
-}
-
-export { Button };
+export default Button;
