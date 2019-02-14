@@ -7,12 +7,15 @@ import {
 	TouchableOpacity,
 	View,
 	Alert,
+	Platform,
+	Animated,
+	Keyboard
 } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { storeUserGroup, setDownloadInfo } from './actions';
-import styles from './styles';
+import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './styles';
 import { filePaths } from './downloadinfo';
 
 class Login extends Component {
@@ -23,10 +26,22 @@ class Login extends Component {
 			username: null,
 			password: null
 		};
+		this.keyboardHeight = new Animated.Value(0);
+		this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
 	}
 
 	componentWillMount() {
+		const keyboardOnScreen = Platform.OS === 'android' ? 'keyboardDidShow' : 'keyboardWillShow';
+		const keyboardNotOnScreen = Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide';
+
+		this.keyboardDidShowSub = Keyboard.addListener(keyboardOnScreen, this.keyboardDidShow);
+		this.keyboardDidHideSub = Keyboard.addListener(keyboardNotOnScreen, this.keyboardDidHide);
 		this.props.dispatch(setDownloadInfo({ filePaths }));
+	}
+
+	componentWillUnmount() {
+		this.keyboardDidShowSub.remove();
+		this.keyboardDidHideSub.remove();
 	}
 
 	async onValueChange(item, selectedValue) {
@@ -52,6 +67,35 @@ class Login extends Component {
 		}
 	}
 
+	keyboardDidShow = (event) => {
+		console.log('keyboardDidShow');
+		console.log(event);
+		Animated.parallel([
+			Animated.timing(this.keyboardHeight, {
+				duration: 1000,
+				toValue: event.endCoordinates.height,
+			}),
+			Animated.timing(this.imageHeight, {
+				duration: 300,
+				toValue: IMAGE_HEIGHT_SMALL,
+			}),
+		]).start();
+	}
+
+	keyboardDidHide = (event) => {
+		console.log('keyboardDidHide');
+		console.log(event);
+		Animated.parallel([
+			Animated.timing(this.keyboardHeight, {
+				duration: 1000,
+				toValue: 0,
+			}),
+			Animated.timing(this.imageHeight, {
+				duration: 300,
+				toValue: IMAGE_HEIGHT,
+			}),
+		]).start();
+	}
 	sendToken(userId, authToken) {
 		PushNotification.configure({
 	    	onRegister: function(token) {
@@ -137,10 +181,10 @@ class Login extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<Image
+			<Animated.View style={[styles.container, { paddingBottom: 40 }]}>
+				<Animated.Image
 						source={require('../app_images/buildchange.jpeg')}
-						style={styles.image}
+						style={[styles.logo, { height: this.imageHeight }]}
 				/>
 				<View style={styles.form}>
 					<TextInput
@@ -152,7 +196,6 @@ class Login extends Component {
 						style={styles.inputText}
 						value={this.state.username}
 						autoCapitalize='none'
-						autoFocus
 					/>
 					<TextInput
 						editable
@@ -175,7 +218,7 @@ class Login extends Component {
 					</TouchableOpacity>
 
 				</View>
-			</View>
+			</Animated.View>
 		);
 	}
 }

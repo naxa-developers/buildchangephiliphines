@@ -129,7 +129,6 @@ keyboardDidHide = (event) => {
   }
   else {
     Alert.alert('Password did not match!');
-
   }
 	}
 
