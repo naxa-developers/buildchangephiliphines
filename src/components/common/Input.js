@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextInput } from 'react-native';
-import styles from '../../stylestest';
+import styles from '../../styles';
 
 class Input extends Component {
 

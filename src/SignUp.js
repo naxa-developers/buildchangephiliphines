@@ -7,7 +7,7 @@ import {
   ScrollView,
   Platform
 } from 'react-native';
-import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './stylestest';
+import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from './styles';
 import Input from './components/common/Input';
 import Button from './components/common/Button';
 

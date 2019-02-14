@@ -4,7 +4,6 @@ import { Actions, Router, Scene } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SecondPage from './SecondPage';
 import SignUp from './SignUp';
-import SignUpTest from './signuptest';
 import BadPhoto from './components/scenes/BadPhoto';
 import StepList from './StepList';
 import Login from './Login';
@@ -158,14 +157,6 @@ class Scenes extends Component {
 
           component={GoodBad}
           key='GoodBad'
-        />
-
-
-        <Scene
-
-          component={SignUpTest}
-          key='ram'
-          hideNavBar
         />
 
         <Scene
