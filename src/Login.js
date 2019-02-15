@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
 	AsyncStorage,
-	Image,
 	Text,
 	TextInput,
 	TouchableOpacity,
@@ -52,20 +51,6 @@ class Login extends Component {
 		}
 	}
 
-	async onUserIdChange(item, selectedValue) {
-		try {
-			await AsyncStorage.setItem(item, selectedValue);
-		} catch (error) {
-			console.log(error.message);
-		}
-	}
-	async onUserChange(item, selectedValue) {
-		try {
-			await AsyncStorage.setItem(item, selectedValue);
-		} catch (error) {
-			console.log(error.message);
-		}
-	}
 
 	keyboardDidShow = (event) => {
 		console.log('keyboardDidShow');
@@ -161,8 +146,8 @@ class Login extends Component {
 			.then((response) => response.json())
 			.then((responseData) => {
 				this.onValueChange('token', responseData.token);
-				this.onUserIdChange('user_id', responseData.user_id.toString());
-				this.onUserChange('user', responseData.group);
+				this.onValueChange('user_id', responseData.user_id.toString());
+				this.onValueChange('user', responseData.group);
 				this.sendToken(responseData.user_id.toString(), responseData.token);
 				const { dispatch } = this.props;
 				dispatch(storeUserGroup({ userGroup: responseData.group, userId: responseData.user_id }));
