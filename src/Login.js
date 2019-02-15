@@ -43,9 +43,10 @@ class Login extends Component {
 		this.keyboardDidHideSub.remove();
 	}
 
-	async onValueChange(item, selectedValue) {
+	async saveValues(userData) {
+		console.log('inside save values', userData);
 		try {
-			await AsyncStorage.setItem(item, selectedValue);
+			userData.map(async each => await AsyncStorage.setItem(each.key, each.value));
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -145,9 +146,10 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-				this.onValueChange('token', responseData.token);
-				this.onValueChange('user_id', responseData.user_id.toString());
-				this.onValueChange('user', responseData.group);
+				const userData = [{ key: 'token', value: responseData.token },
+													{ key: 'user_id', value: responseData.user_id.toString() },
+													{ key: 'user', value: responseData.group }];
+				this.saveValues(userData);
 				this.sendToken(responseData.user_id.toString(), responseData.token);
 				const { dispatch } = this.props;
 				dispatch(storeUserGroup({ userGroup: responseData.group, userId: responseData.user_id }));

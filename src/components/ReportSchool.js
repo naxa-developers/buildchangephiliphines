@@ -101,8 +101,8 @@ class ReportSchool extends Component {
       } else if (user[1][0] === 'token') {
         token = user[1][1];
       }
-      console.log(userID);
-      console.log(token);
+      console.log('userId', userID);
+      console.log('token', token);
 
       const url = 'http://bccms.naxa.com.np/core/api/site-report/';
 
