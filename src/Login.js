@@ -4,7 +4,7 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	View,
+	ScrollView,
 	Alert,
 	Platform,
 	Animated,
@@ -146,9 +146,7 @@ class Login extends Component {
 			}))
 			.then((response) => response.json())
 			.then((responseData) => {
-				const userData = [{ key: 'token', value: responseData.token },
-													{ key: 'user_id', value: responseData.user_id.toString() },
-													{ key: 'user', value: responseData.group }];
+				const userData = [{ key: 'token', value: responseData.token }, { key: 'user_id', value: responseData.user_id.toString() }, { key: 'user', value: responseData.group }];
 				this.saveValues(userData);
 				this.sendToken(responseData.user_id.toString(), responseData.token);
 				const { dispatch } = this.props;
@@ -168,12 +166,12 @@ class Login extends Component {
 
 	render() {
 		return (
-			<Animated.View style={[styles.container, { paddingBottom: 40 }]}>
+			<Animated.View style={[styles.container, { paddingBottom: 20 }]}>
 				<Animated.Image
 						source={require('../app_images/buildchange.jpeg')}
 						style={[styles.logo, { height: this.imageHeight }]}
 				/>
-				<View style={styles.form}>
+				<ScrollView style={styles.form} keyboardShouldPersistTaps='always'>
 					<TextInput
 						editable
 						onChangeText={(username) => this.setState({ username })}
@@ -197,14 +195,17 @@ class Login extends Component {
 					/>
 					<TouchableOpacity
 						style={styles.buttonWrapper}
-						onPress={this.userLogin.bind(this)}
+						onPress={() => {
+							this.userLogin();
+							Keyboard.dismiss();
+						}}
 					>
 						<Text style={styles.buttonText}>
 							Login
 						</Text>
 					</TouchableOpacity>
 
-				</View>
+				</ScrollView>
 			</Animated.View>
 		);
 	}
