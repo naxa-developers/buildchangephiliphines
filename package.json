@@ -15,6 +15,7 @@
     "lodash": "^4.17.10",
     "react": "16.3.1",
     "react-native": "^0.55.4",
+    "react-native-app-auth": "^4.0.0",
     "react-native-app-intro": "https://github.com/merryjs/react-native-app-intro",
     "react-native-dropdownalert": "^3.4.0",
     "react-native-elements": "^0.19.1",

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import AppIntro from 'react-native-app-intro';
+import { authorize, refresh } from 'react-native-app-auth';
+
 
 const styles = StyleSheet.create({
   slide: {
@@ -46,6 +48,9 @@ const styles = StyleSheet.create({
 
 export default class Onboarding extends Component {
 
+  componentWillMount() {
+    this.login();
+  }
 
   onSkipBtnHandle = (index) => {
     console.log(index);
@@ -53,6 +58,36 @@ export default class Onboarding extends Component {
   }
   onSlideChangeHandle = (index, total) => {
     console.log(index, total);
+  }
+  async login() {
+    console.log('insidelogin');
+    const config = {
+  issuer: 'https://login.microsoftonline.com/f9dfb679-0267-4eb1-944b-3055c68eb93b',
+  clientId: 'c768a159-fd5e-4638-9378-1abbceb8a146',
+  redirectUrl: 'seelogicattendance://callback',
+  scopes: [], // ignored by Azure AD
+  additionalParameters: {
+    resource: 'https://seelogiclive.crm4.dynamics.com'
+  }
+};
+    const authState = await authorize(config);
+    console.log(authState.accessToken);
+
+    const req = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + authState.accessToken,
+        'OData-MaxVersion': '4.0',
+        'OData-Version': '4.0',
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    };
+    fetch('https://seelogiclive.crm4.dynamics.com/api/data/v9.0/WhoAmI()', req)
+    .then((response => {
+      //Alert.alert('Setup Successful!');
+      console.log('response', response.json());
+    }))
+    .catch((error) => Alert.alert(error.message));
   }
   nextBtnHandle = (index) => {
     console.log(index);
