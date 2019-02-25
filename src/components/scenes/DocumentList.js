@@ -20,7 +20,7 @@ class DocumentList extends Component {
           <ListItem
           roundAvatar
           avatar={require('../../../app_images/pdf.png')}
-          onPress={() => Actions.SitePlan({ path: l.file })}
+          onPress={() => Actions.ShowDocuments({ path: l.file.replace('http://bccms.naxa.com.np', 'file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines'), title: 'Site Plan' })}
           key={i}
           title={l.file.replace('http://bccms.naxa.com.np/media/site/documents/', '').replace('.pdf', '')}
           containerStyle={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15, borderColor: '#EFEFF4', borderWidth: 10, borderBottomWidth: 0 }}

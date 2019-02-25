@@ -36,7 +36,6 @@ import SettingsScene from './components/SettingsComponent';
 import EngineerList from './components/EngineerList';
 import AdminList from './components/AdminList';
 import ShowMap from './components/scenes/ShowMap';
-import SitePlan from './components/scenes/SitePlan';
 import DocumentList from './components/scenes/DocumentList';
 import Responded from './components/scenes/Responded';
 import Pending from './components/scenes/Pending';
@@ -140,13 +139,6 @@ class Scenes extends Component {
           component={AdminList}
           key='AdminList'
           title='Call Admin'
-        />
-
-        <Scene
-
-          component={SitePlan}
-          key='SitePlan'
-          title='Site Plan'
         />
         <Scene
 
