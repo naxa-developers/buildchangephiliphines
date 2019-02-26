@@ -1,48 +1,17 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
 import Pdf from 'react-native-pdf';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
-import RNFetchBlob from 'react-native-fetch-blob';
+import checkAssets from './checkAssets';
 
 class ShowDocuments extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      source: {}
-    };
-  }
-
-  componentWillMount() {
-    RNFetchBlob.fs.exists('/storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines')
-        .then((exist) => {
-            console.log(exist);
-          if (exist) {
-            this.setState({
-              source: { uri: this.props.path, cache: true }
-            });
-        } else if (!exist) {
-          console.log('chiana');
-          this.setState({
-            source: { uri: this.props.path.replace('file:///storage/emulated/0/Android/data/com.naxa.buildchangephilippines/build_change_philippines', 'http://bccms.naxa.com.np'), cache: true }
-          });
-        }
-        })
-        .catch(() => {
-            console.log('error while checking file');
-        });
-  }
     render() {
-      console.log('pdf bhitra', this.props.path);
-        console.log('source', this.state.source);
-
-
         return (
             <View style={styles.container}>
                 <Pdf
-                    source={this.state.source}
+                    source={this.props.source}
                     onLoadComplete={(numberOfPages) => {
                         console.log(`number of pages: ${numberOfPages}`);
                     }}
@@ -66,15 +35,8 @@ class ShowDocuments extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('hare');
-  console.log(state);
-return {
-  selectedSchoolId: state.currentSelectedSchool.selectedSchoolId
-};
-};
 
-export default connect(mapStateToProps)(ShowDocuments);
+export default checkAssets(ShowDocuments);
 
 const styles = StyleSheet.create({
     container: {
