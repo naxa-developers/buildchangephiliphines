@@ -5,6 +5,7 @@ import PushNotification from 'react-native-push-notification';
 import Scenes from './src/Scenes';
 import { store } from './src/store';
 
+
 class App extends React.Component {
 
   constructor(props) {

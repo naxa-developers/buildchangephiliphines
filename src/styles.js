@@ -10,16 +10,16 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   input: {
     height: 50,
     backgroundColor: '#fff',
     marginHorizontal: 10,
     marginVertical: 5,
-   // paddingVertical: 5,
+    // paddingVertical: 5,
     // paddingHorizontal: 15,
-    width: window.width - 30,
+    width: window.width - 30
   },
   logo: {
     height: IMAGE_HEIGHT,
@@ -38,7 +38,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    backgroundColor: '#ffae',
+    backgroundColor: '#ffae'
   },
   buttonWrapper: {
     marginTop: 30,
@@ -52,6 +52,5 @@ export default StyleSheet.create({
     padding: 10,
     textAlign: 'center'
   },
-  form: {
-  }
+  form: {}
 });
