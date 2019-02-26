@@ -7,11 +7,29 @@ import checkAssets from './checkAssets';
 
 class ShowDocuments extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      source: {}
+    };
+  }
+
+  componentWillMount() {
+    if (this.props.assetsExist) {
+      this.setState({
+  source: { uri: this.props.path, cache: true }
+});
+} else {
+  this.setState({
+              source: { uri: this.props.path.replace(`file://${this.props.pathForExtracted}`, 'http://bccms.naxa.com.np'), cache: true }
+            });
+}
+  }
     render() {
         return (
             <View style={styles.container}>
                 <Pdf
-                    source={this.props.source}
+                    source={this.state.source}
                     onLoadComplete={(numberOfPages) => {
                         console.log(`number of pages: ${numberOfPages}`);
                     }}

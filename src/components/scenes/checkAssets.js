@@ -8,23 +8,17 @@ export default (ChildComponent) => {
     constructor() {
       super();
       this.state = {
-        source: {}
+        assetsExist: null
       };
     }
 
     componentWillMount() {
       RNFetchBlob.fs.exists(this.props.pathForExtracted)
           .then((exist) => {
-              console.log(exist);
             if (exist) {
-              this.setState({
-                source: { uri: this.props.path, cache: true }
-              });
+              this.setState({ assetsExist: exist });
           } else if (!exist) {
-            console.log('chiana');
-            this.setState({
-              source: { uri: this.props.path.replace(`file://${this.props.pathForExtracted}`, 'http://bccms.naxa.com.np'), cache: true }
-            });
+            this.setState({ assetsExist: !exist });
           }
           })
           .catch(() => {
@@ -33,14 +27,12 @@ export default (ChildComponent) => {
     }
     render() {
       return (
-        <ChildComponent source={this.state.source} value={this.props.value} />
-      )
+        <ChildComponent assetsExist={this.state.assetsExist} {...this.props} />
+      );
     }
   }
 
   const mapStateToProps = (state) => {
-    console.log('hare');
-    console.log(state);
     return {
       pathForExtracted: state.downloadInfo.pathForExtracted,
     };
