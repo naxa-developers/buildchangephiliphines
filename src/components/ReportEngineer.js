@@ -1,33 +1,41 @@
-import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert, TextInput, Image, Dimensions } from 'react-native';
+import React, { Component } from "react";
 import {
-  Button
-} from 'react-native-elements';
-import { connect } from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
-import { Actions } from 'react-native-router-flux';
-import { strings } from './../../locales/strings';
-import { saveToDraftsCollection, deleteFromDraftsCollection } from '../actions';
-
+  View,
+  ScrollView,
+  Text,
+  AsyncStorage,
+  Alert,
+  TextInput,
+  Image,
+  Dimensions
+} from "react-native";
+import { Button } from "react-native-elements";
+import { connect } from "react-redux";
+import ImagePicker from "react-native-image-picker";
+import { Actions } from "react-native-router-flux";
+import { strings } from "./../../locales/strings";
+import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 
 class ReportEngineer extends Component {
   state = {
     avatarSource: null,
-    comments: '',
+    comments: "",
     uploading: false,
     uri: null
   };
 
   componentWillMount() {
     this.getLocale();
-    const filtered = this.props.drafts.filter((draft) => {
-      return draft.subStepId === this.props.substep && draft.stepId === this.props.stepId && draft.siteId === this.props.siteId;
+    const filtered = this.props.drafts.filter(draft => {
+      return (
+        draft.subStepId === this.props.substep &&
+        draft.stepId === this.props.stepId &&
+        draft.siteId === this.props.siteId
+      );
     });
-    console.log('data', filtered);
     if (filtered.length !== 0) {
       this.setState({ comments: filtered[0].comment, uri: filtered[0].uri });
     }
-
   }
 
   selectPhotoTapped() {
@@ -41,17 +49,21 @@ class ReportEngineer extends Component {
     };
 
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
-        console.log('User cancelled photo picker');
+        console.log("User cancelled photo picker");
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log("ImagePicker Error: ", response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        console.log("User tapped custom button: ", response.customButton);
       } else {
         let source = { uri: response.uri };
-        this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep, comment: this.state.comments, uri: response.uri });
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          stepId: this.props.stepId,
+          subStepId: this.props.substep,
+          comment: this.state.comments,
+          uri: response.uri
+        });
         this.setState({ ...this.state, uri: response.uri });
 
         // You can also display the image using data:
@@ -65,62 +77,55 @@ class ReportEngineer extends Component {
   }
 
   async getLocale() {
-    return await AsyncStorage.getItem('locale').then((value) => {
+    return await AsyncStorage.getItem("locale").then(value => {
       strings.setLanguage(value);
     });
-}
+  }
 
   uploadComment(checklist) {
-    console.log('uploadCommentko_bhitra');
-    console.log(this.props);
-    //const { id } = checklist;
-
     if (!this.state.comments) {
       return;
     }
 
     this.setState({ ...this.state, uploading: true });
-    AsyncStorage.multiGet(['user_id', 'token']).then(user => {
+    AsyncStorage.multiGet(["user_id", "token"]).then(user => {
       let userID;
       let token;
 
-      if (user[0][0] === 'user_id') {
+      if (user[0][0] === "user_id") {
         userID = user[0][1];
-      } else if (user[1][0] === 'user_id') {
+      } else if (user[1][0] === "user_id") {
         userID = user[1][1];
       }
 
-      if (user[0][0] === 'token') {
+      if (user[0][0] === "token") {
         userID = user[0][1];
-      } else if (user[1][0] === 'token') {
+      } else if (user[1][0] === "token") {
         token = user[1][1];
       }
-      console.log(userID);
-      console.log(token);
 
-      const url = 'http://bccms.naxa.com.np/core/api/report/';
+      const url = "http://bccms.naxa.com.np/core/api/report/";
 
       const formdata = new FormData();
-      formdata.append('comment', this.state.comments);
-      formdata.append('user', userID);
-      formdata.append('substep', this.props.substep);
-        formdata.append('site', this.props.siteId)
-      formdata.append('step', this.props.stepId)
+      formdata.append("comment", this.state.comments);
+      formdata.append("user", userID);
+      formdata.append("substep", this.props.substep);
+      formdata.append("site", this.props.siteId);
+      formdata.append("step", this.props.stepId);
       //step ra site pani thapne
       if (this.state.uri !== null) {
-        formdata.append('photo', {
+        formdata.append("photo", {
           uri: this.state.uri,
-          type: 'image/jpeg',
-          name: 'comment.jpeg'
+          type: "image/jpeg",
+          name: "comment.jpeg"
         });
       }
 
-
       const req = {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Authorization: 'token ' + token,
-          'Content-Type': 'multipart/form-data'
+          Authorization: "token " + token,
+          "Content-Type": "multipart/form-data"
         },
 
         body: formdata
@@ -129,13 +134,22 @@ class ReportEngineer extends Component {
       fetch(url, req)
         .then(response => {
           if (response.ok) {
-            console.log('response ok');
             this.setState({ ...this.state, uploading: false });
-            this.setState({ ...this.state, comments: '', uri: null });
-            Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
-              { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
-            ]);
-            this.props.deleteFromDraftsCollection({ subStepId: this.props.substep });
+            this.setState({ ...this.state, comments: "", uri: null });
+            Alert.alert(
+              strings.event_upload_success_title,
+              strings.event_upload_sucess_text,
+              [
+                {
+                  text: strings.action_close,
+                  onPress: () => Actions.pop(),
+                  style: "cancel"
+                }
+              ]
+            );
+            this.props.deleteFromDraftsCollection({
+              subStepId: this.props.substep
+            });
             return response;
           }
 
@@ -146,13 +160,12 @@ class ReportEngineer extends Component {
             [
               {
                 text: strings.action_close,
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel'
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
               }
             ]
           );
 
-          console.log('response error');
           const error = new Error(response.statusText);
           error.response = response;
           throw error;
@@ -162,7 +175,6 @@ class ReportEngineer extends Component {
           console.log(json);
         })
         .catch(error => console.log(error));
-      console.log(req);
     });
   }
 
@@ -170,67 +182,83 @@ class ReportEngineer extends Component {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
 
-
-
   render() {
+    console.log("ReportEngineer Rendered");
     return (
-      <ScrollView style={{ backgroundColor: '#fff' }}>
+      <ScrollView style={{ backgroundColor: "#fff" }}>
         <View style={{ flex: 1 }}>
           <Text style={styles.centerHeader}>
             Please fill up the form and send your report
           </Text>
-          <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
-          <TextInput
-            editable
-            onChangeText={(comments) => {
-              console.log('text', comments);
-              this.props.saveToDraftsCollection({ siteId: this.props.siteId, stepId: this.props.stepId, subStepId: this.props.substep, comment: comments, uri: this.state.uri });
-              this.setState({ ...this.state, comments });
+          <View
+            style={{
+              margin: 15,
+              borderWidth: 1,
+              padding: 10,
+              paddingTop: 5,
+              borderColor: "rgba(0,0,0,.3)"
             }}
-            placeholder={strings.error_field_cannot_be_empty}
-            ref='comments'
-            returnKeyType='next'
-            value={this.state.comments}
-            autoCapitalize='none'
-            underlineColorAndroid='transparent'
-            style={{ textAlignVertical: 'top', minHeight: 100, lineHeight: 24, fontWeight: 'normal', fontSize: 16 }}
-            multiline
-            autoFocus
-          />
+          >
+            <TextInput
+              editable
+              onChangeText={comments => {
+                this.props.saveToDraftsCollection({
+                  siteId: this.props.siteId,
+                  stepId: this.props.stepId,
+                  subStepId: this.props.substep,
+                  comment: comments,
+                  uri: this.state.uri
+                });
+                this.setState({ ...this.state, comments });
+              }}
+              placeholder={strings.error_field_cannot_be_empty}
+              ref="comments"
+              returnKeyType="next"
+              value={this.state.comments}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              style={{
+                textAlignVertical: "top",
+                minHeight: 100,
+                lineHeight: 24,
+                fontWeight: "normal",
+                fontSize: 16
+              }}
+              multiline
+              autoFocus
+            />
           </View>
           <Button
             icon={{
-              name: 'camera',
+              name: "camera",
               size: 24,
-              color: 'white'
+              color: "white"
             }}
             onPress={this.selectPhotoTapped.bind(this)}
             title={strings.view_take_photo}
-            titleStyle={{ fontWeight: '700' }}
+            titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {this.state.uri && <Image
-            style={styles.image}
-            source={{ uri: this.state.uri }}
-          />
-          }
+          {this.state.uri && (
+            <Image style={styles.image} source={{ uri: this.state.uri }} />
+          )}
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
             title={strings.action_report}
-            loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
-            titleStyle={{ fontWeight: '700' }}
+            loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
+            titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
-              backgroundColor: '#8CC63E',
+              backgroundColor: "#8CC63E",
               marginTop: 10
             }}
           />
           <Button
             onPress={() => Actions.pop()}
             title={strings.action_cancel}
-            titleStyle={{ fontWeight: '700' }}
+            titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
-              backgroundColor: '#E8656A',
+              backgroundColor: "#E8656A",
               marginTop: 10
             }}
           />
@@ -245,35 +273,35 @@ const styles = {
   buttonStyle: {
     width: 200,
     height: 45,
-    borderColor: 'transparent',
+    borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 5
   },
   image: {
-     width: Dimensions.get('window').width - 30,
-     height: 200,
-     overflow: 'visible',
+    width: Dimensions.get("window").width - 30,
+    height: 200,
+    overflow: "visible",
     margin: 15,
     marginBottom: 0
   }
 };
 
-const mapStateToProps = (state) => {
-  console.log('ShowMapko_mapstatetoprops_bhitra');
+const mapStateToProps = state => {
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
 
-const found = sites.find(function(element) {
-  return element.id === selectedSchoolId;
-});
+  const found = sites.find(function(element) {
+    return element.id === selectedSchoolId;
+  });
 
-console.log('foundKO_value');
-console.log(found);
-return {
-  siteId: found.id,
-  userId: state.currentUserGroup.currentUserId,
-  drafts: state.drafts.drafts
-};
+  return {
+    siteId: found.id,
+    userId: state.currentUserGroup.currentUserId,
+    drafts: state.drafts.drafts
+  };
 };
 
-export default connect(mapStateToProps, { saveToDraftsCollection, deleteFromDraftsCollection })(ReportEngineer);
+export default connect(
+  mapStateToProps,
+  { saveToDraftsCollection, deleteFromDraftsCollection }
+)(ReportEngineer);

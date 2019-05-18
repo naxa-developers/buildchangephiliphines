@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { TextInput } from 'react-native';
-import styles from '../../styles';
+import React, { Component } from "react";
+import { TextInput } from "react-native";
+import styles from "../../styles";
 
 class Input extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -17,18 +16,17 @@ class Input extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <TextInput
         {...this.props}
         editable
-        onChangeText={(text) => {
+        onChangeText={text => {
           this.setState({ text });
           this.props.handleInputChange(text, this.props.name);
         }}
         style={styles.input}
         value={this.state.text}
-        autoCapitalize='none'
+        autoCapitalize="none"
       />
     );
   }

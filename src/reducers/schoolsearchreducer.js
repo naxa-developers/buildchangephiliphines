@@ -1,15 +1,15 @@
-
 const INITIAL_STATE = {
   hasTyped: false,
-  typedText: ''
+  typedText: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-
-    case 'intelli_search':
+    case "intelli_search":
       return {
-        ...state, hasTyped: true, typedText: action.payload
+        ...state,
+        hasTyped: true,
+        typedText: action.payload
       };
 
     default:

@@ -1,16 +1,13 @@
-
 const INITIAL_STATE = {
-  hasInternetConnection: null,
+  hasInternetConnection: null
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-
-    case 'check_online':
-      console.log('check_online_reducer_bhitra');
-      console.log({ ...state, hasInternetConnection: action.payload });
+    case "check_online":
       return {
-        ...state, hasInternetConnection: action.payload
+        ...state,
+        hasInternetConnection: action.payload
       };
 
     default:

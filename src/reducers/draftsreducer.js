@@ -3,8 +3,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("SAVE_DRAFT_TO_DRAFTS_COLLECTION", action);
-
   switch (action.type) {
     case "SAVE_DRAFT_TO_DRAFTS_COLLECTION":
       // return Object.assign({}, state, {

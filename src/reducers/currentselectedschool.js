@@ -1,13 +1,12 @@
 const initialState = {
-  selectedSchoolId: null,
+  selectedSchoolId: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-
-    case 'REMEMBER_SELECTED_SCHOOL':
+    case "REMEMBER_SELECTED_SCHOOL":
       return Object.assign({}, state, {
-        selectedSchoolId: action.payload,
+        selectedSchoolId: action.payload
       });
 
     default:

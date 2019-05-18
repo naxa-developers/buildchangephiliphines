@@ -28,19 +28,30 @@ class ReportSchool extends Component {
 
   componentWillMount() {
     this.getLocale();
-    const filtered = this.props.drafts.filter(draft => {
+    const filteredSite = this.props.drafts.find(draft => {
       return draft.siteId === this.props.siteId;
     });
-    console.log("data", filtered);
-    if (filtered.length !== 0) {
-      filtered.forEach(each => {
-        console.log("rap song");
-        if (!each.hasOwnProperty("stepId")) {
-          this.setState({ comments: each.comment, uri: each.uri });
-          console.log(each);
-        }
+    if (filteredSite) {
+      this.setState({
+        comment: filteredSite.comment,
+        image: filteredSite.image,
+        images: filteredSite.images
       });
     }
+    // this.setState({
+    //   comment: filteredSite.comment,
+    //   image: filteredSite.image,
+    //   images: filteredSite.images
+    // });
+    // if (filtered.length !== 0) {
+    //   filtered.forEach(each => {
+    //     console.log("rap song");
+    //     if (!each.hasOwnProperty("stepId")) {
+    //       this.setState({ comments: each.comment, uri: each.uri });
+    //       console.log(each);
+    //     }
+    //   });
+    // }
   }
 
   pickSingleWithCamera(cropping, mediaType = "photo") {
@@ -53,6 +64,17 @@ class ReportSchool extends Component {
     })
       .then(image => {
         console.log("received image", image);
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          comment: this.state.comment,
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime
+          },
+          images: []
+        });
         this.setState({
           image: {
             uri: image.path,
@@ -74,6 +96,19 @@ class ReportSchool extends Component {
       forceJpg: true
     })
       .then(images => {
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          comment: this.state.comment,
+          image: null,
+          images: images.map(i => {
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime
+            };
+          })
+        });
         this.setState({
           image: null,
           images: images.map(i => {
@@ -109,7 +144,7 @@ class ReportSchool extends Component {
   };
 
   renderImage = image => {
-    return <Image style={styles.image} source={image} />;
+    return <Image style={styles.image} source={{ uri: image.uri }} />;
   };
 
   async getLocale() {
@@ -122,7 +157,7 @@ class ReportSchool extends Component {
     console.log("uploadCommentko_bhitra");
     console.log(this.props);
 
-    if (!this.state.comments) {
+    if (!this.state.comment) {
       return;
     }
     console.log("hello check return");
@@ -148,13 +183,23 @@ class ReportSchool extends Component {
       const url = "http://bccms.naxa.com.np/core/api/site-report/";
 
       const formdata = new FormData();
-      formdata.append("comment", this.state.comments);
+      formdata.append("comment", this.state.comment);
       formdata.append("user", userID);
       formdata.append("site", this.props.siteId);
-      //step ra site pani thapne
-      if (this.state.uri !== null) {
-        formdata.append("photo", {
-          uri: this.state.uri,
+
+      if (this.state.images.length > 0) {
+        this.state.images.forEach((image, i) => {
+          formdata.append(`photo${i}`, {
+            uri: image.uri,
+            type: "image/jpeg",
+            name: "comment.jpeg"
+          });
+        });
+      }
+
+      if (this.state.image && Object.keys(this.state.image).length > 0) {
+        formdata.append(`photo`, {
+          uri: this.state.image.uri,
           type: "image/jpeg",
           name: "comment.jpeg"
         });
@@ -174,8 +219,15 @@ class ReportSchool extends Component {
         .then(response => {
           if (response.ok) {
             console.log("response ok");
-            this.setState({ ...this.state, uploading: false });
-            this.setState({ ...this.state, comments: "", uri: null });
+            // this.setState({ ...this.state, uploading: false });
+            // this.setState({ ...this.state, comments: "", uri: null });
+            this.setState({
+              ...this.state,
+              comments: "",
+              uploading: false,
+              image: null,
+              images: []
+            });
             Alert.alert(
               strings.event_upload_success_title,
               strings.event_upload_sucess_text,
@@ -213,7 +265,7 @@ class ReportSchool extends Component {
         })
         .then(response => response.json())
         .then(json => {
-          console.log(json);
+          console.log("json in comment upload", json);
         })
         .catch(error => console.log(error));
       console.log(req);
@@ -242,20 +294,20 @@ class ReportSchool extends Component {
           >
             <TextInput
               editable
-              onChangeText={comments => {
-                console.log("text", comments);
+              onChangeText={comment => {
+                console.log("text", comment);
                 this.props.saveToDraftsCollection({
                   siteId: this.props.siteId,
-                  comment: comments,
+                  comment: comment,
                   image: this.state.image,
                   images: this.state.images
                 });
-                this.setState({ ...this.state, comments });
+                this.setState({ ...this.state, comment });
               }}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
               returnKeyType="next"
-              value={this.state.comments}
+              value={this.state.comment}
               autoCapitalize="none"
               underlineColorAndroid="transparent"
               style={{
