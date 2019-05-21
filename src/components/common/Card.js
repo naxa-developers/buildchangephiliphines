@@ -1,30 +1,25 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from "react";
+import { View } from "react-native";
 
-const Card = (props) => {
-  return (
-    <View style={styles.cointainerStyle}>
-      {props.children}
-    </View>
-  );
+const Card = props => {
+  return <View style={styles.cointainerStyle}>{props.children}</View>;
 };
-
 
 const styles = {
   cointainerStyle: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderBottomWidth: 1,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 1,
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 10,
+    marginTop: 10
   }
 };
 

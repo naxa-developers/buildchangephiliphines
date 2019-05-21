@@ -1,19 +1,18 @@
-import { combineReducers } from 'redux';
-import SchoolReducer from './schoolsreducer';
-import GuidelineCategoryReducer from './guidelinecategoryreducer';
-import SearchReducer from './searchreducer';
-import SchoolSearchReducer from './schoolsearchreducer';
-import CheckOnline from './checkonline';
-import ActionQueue from './actionqueue';
-import IsConnected from './isconnected';
-import CurrentSelectedSchool from './currentselectedschool';
-import CurrentUserGroup from './currentusergroup';
-import CurrentSelectedAddress from './currentselectedaddress';
-import PdfData from './addressscenereducer';
-import ConstructionMaterial from './constructionmaterialreducer';
-import CheckDownlaodStatus from './checkdownloadstatus';
-import DraftsReducer from './draftsreducer';
-
+import { combineReducers } from "redux";
+import SchoolReducer from "./schoolsreducer";
+import GuidelineCategoryReducer from "./guidelinecategoryreducer";
+import SearchReducer from "./searchreducer";
+import SchoolSearchReducer from "./schoolsearchreducer";
+import CheckOnline from "./checkonline";
+import ActionQueue from "./actionqueue";
+import IsConnected from "./isconnected";
+import CurrentSelectedSchool from "./currentselectedschool";
+import CurrentUserGroup from "./currentusergroup";
+import CurrentSelectedAddress from "./currentselectedaddress";
+import PdfData from "./addressscenereducer";
+import ConstructionMaterial from "./constructionmaterialreducer";
+import CheckDownlaodStatus from "./checkdownloadstatus";
+import DraftsReducer from "./draftsreducer";
 
 export default combineReducers({
   schoolList: SchoolReducer,

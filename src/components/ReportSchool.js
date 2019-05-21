@@ -1,129 +1,215 @@
-import React, { Component } from 'react';
-import { View, ScrollView, Text, AsyncStorage, Alert, TextInput, Dimensions, Image } from 'react-native';
+import React, { Component } from "react";
 import {
-  Button
-} from 'react-native-elements';
-import { connect } from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
-import { Actions } from 'react-native-router-flux';
-import { strings } from './../../locales/strings';
-import { saveToDraftsCollection, deleteFromDraftsCollection } from '../actions';
-
+  View,
+  ScrollView,
+  Text,
+  AsyncStorage,
+  Alert,
+  TextInput,
+  Dimensions,
+  Image,
+  StyleSheet
+} from "react-native";
+import { Button } from "react-native-elements";
+import { connect } from "react-redux";
+import ImagePicker from "react-native-image-crop-picker";
+import { showMessage, hideMessage } from "react-native-flash-message";
+import { Actions } from "react-native-router-flux";
+import { strings } from "./../../locales/strings";
+import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 
 class ReportSchool extends Component {
   state = {
     avatarSource: null,
-    comments: '',
+    comment: "",
     uploading: false,
-    uri: null
+    image: {},
+    images: []
   };
 
   componentWillMount() {
     this.getLocale();
-    const filtered = this.props.drafts.filter((draft) => {
+    const filteredSite = this.props.drafts.filter(draft => {
       return draft.siteId === this.props.siteId;
     });
-    console.log('data', filtered);
-    if (filtered.length !== 0) {
-      filtered.forEach((each) => {
-        console.log('rap song');
-        if (!each.hasOwnProperty('stepId')) {
-          this.setState({ comments: each.comment, uri: each.uri });
-          console.log(each);
+    if (filteredSite.length > 0) {
+      filteredSite.forEach(site => {
+        if (!site.hasOwnProperty("stepId")) {
+          this.setState({
+            comment: site.comment,
+            image: site.image,
+            images: site.images
+          });
         }
       });
     }
+    // this.setState({
+    //   comment: filteredSite.comment,
+    //   image: filteredSite.image,
+    //   images: filteredSite.images
+    // });
+    // if (filtered.length !== 0) {
+    //   filtered.forEach(each => {
+    //     console.log("rap song");
+    //     if (!each.hasOwnProperty("stepId")) {
+    //       this.setState({ comments: each.comment, uri: each.uri });
+    //       console.log(each);
+    //     }
+    //   });
+    // }
   }
 
-  selectPhotoTapped() {
-    const options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
-      storageOptions: {
-        skipBackup: true
-      }
-    };
-
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        console.log('else bhitra', response);
-        let source = { uri: response.uri };
-        this.setState({ ...this.state, uri: response.uri });
-        this.props.saveToDraftsCollection({ siteId: this.props.siteId, comment: this.state.comments, uri: response.uri });
-        this.setState({ ...this.state, uri: response.uri });
-
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        this.setState({
-          avatarSource: source
+  pickSingleWithCamera(cropping, mediaType = "photo") {
+    ImagePicker.openCamera({
+      cropping: cropping,
+      width: 500,
+      height: 500,
+      includeExif: true,
+      mediaType
+    })
+      .then(image => {
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          comment: this.state.comment ? this.state.comment : "",
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime
+          },
+          images: []
         });
-      }
-    });
+        this.setState({
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime
+          },
+          images: []
+        });
+      })
+      .catch(e => alert(e));
   }
+
+  pickMultiple = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      waitAnimationEnd: false,
+      includeExif: true,
+      forceJpg: true
+    })
+      .then(images => {
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          comment: this.state.comment ? this.state.comment : "",
+          image: {},
+          images: images.map(i => {
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime
+            };
+          })
+        });
+        this.setState({
+          image: {},
+          images: images.map(i => {
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime
+            };
+          })
+        });
+      })
+      .catch(e => alert(e));
+  };
+
+  showAlert = () => {
+    Alert.alert("Select photo", null, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      {
+        text: "Take Photo...",
+        onPress: () => this.pickSingleWithCamera(false)
+      },
+      {
+        text: "Choose from Library...",
+        onPress: () => this.pickMultiple()
+      }
+    ]);
+  };
+
+  renderImage = image => {
+    return <Image style={styles.image} source={{ uri: image.uri }} />;
+  };
 
   async getLocale() {
-    return await AsyncStorage.getItem('locale').then((value) => {
+    return await AsyncStorage.getItem("locale").then(value => {
       strings.setLanguage(value);
     });
-}
+  }
 
   uploadComment() {
-    console.log('uploadCommentko_bhitra');
-    console.log(this.props);
-
-    if (!this.state.comments) {
+    if (!this.state.comment) {
       return;
     }
-    console.log('hello check return');
+
     this.setState({ ...this.state, uploading: true });
-    AsyncStorage.multiGet(['user_id', 'token']).then(user => {
+    AsyncStorage.multiGet(["user_id", "token"]).then(user => {
       let userID;
       let token;
 
-      if (user[0][0] === 'user_id') {
+      if (user[0][0] === "user_id") {
         userID = user[0][1];
-      } else if (user[1][0] === 'user_id') {
+      } else if (user[1][0] === "user_id") {
         userID = user[1][1];
       }
 
-      if (user[0][0] === 'token') {
+      if (user[0][0] === "token") {
         userID = user[0][1];
-      } else if (user[1][0] === 'token') {
+      } else if (user[1][0] === "token") {
         token = user[1][1];
       }
-      console.log(userID);
-      console.log(token);
 
-      const url = 'http://bccms.naxa.com.np/core/api/site-report/';
+      const url = "http://bccms.naxa.com.np/core/api/site-report/";
 
       const formdata = new FormData();
-      formdata.append('comment', this.state.comments);
-      formdata.append('user', userID);
-      formdata.append('site', this.props.siteId)
-      //step ra site pani thapne
-      if (this.state.uri !== null) {
-        formdata.append('photo', {
-          uri: this.state.uri,
-          type: 'image/jpeg',
-          name: 'comment.jpeg'
+      formdata.append("comment", this.state.comment);
+      formdata.append("user", userID);
+      formdata.append("site", this.props.siteId);
+
+      if (this.state.images.length > 0) {
+        this.state.images.forEach((image, i) => {
+          formdata.append(`photo${i}`, {
+            uri: image.uri,
+            type: "image/jpeg",
+            name: "comment.jpeg"
+          });
         });
       }
 
+      if (this.state.image && Object.keys(this.state.image).length > 0) {
+        formdata.append(`photo`, {
+          uri: this.state.image.uri,
+          type: "image/jpeg",
+          name: "comment.jpeg"
+        });
+      }
+
+      console.log("ReportSchool formdata", formdata);
+
       const req = {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Authorization: 'token ' + token,
-          'Content-Type': 'multipart/form-data'
+          Authorization: "token " + token,
+          "Content-Type": "multipart/form-data"
         },
 
         body: formdata
@@ -132,13 +218,29 @@ class ReportSchool extends Component {
       fetch(url, req)
         .then(response => {
           if (response.ok) {
-            console.log('response ok');
-            this.setState({ ...this.state, uploading: false });
-            this.setState({ ...this.state, comments: '', uri: null });
-            Alert.alert(strings.event_upload_success_title, strings.event_upload_sucess_text, [
-              { text: strings.action_close, onPress: () => Actions.pop(), style: 'cancel' }
-            ]);
-            this.props.deleteFromDraftsCollection({ siteId: this.props.siteId });
+            // this.setState({ ...this.state, uploading: false });
+            // this.setState({ ...this.state, comments: "", uri: null });
+            this.setState({
+              ...this.state,
+              comment: "",
+              uploading: false,
+              image: {},
+              images: []
+            });
+            Alert.alert(
+              strings.event_upload_success_title,
+              strings.event_upload_sucess_text,
+              [
+                {
+                  text: strings.action_close,
+                  onPress: () => Actions.pop(),
+                  style: "cancel"
+                }
+              ]
+            );
+            this.props.deleteFromDraftsCollection({
+              siteId: this.props.siteId
+            });
             return response;
           }
 
@@ -149,23 +251,21 @@ class ReportSchool extends Component {
             [
               {
                 text: strings.action_close,
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel'
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
               }
             ]
           );
 
-          console.log('response error');
           const error = new Error(response.statusText);
           error.response = response;
           throw error;
         })
         .then(response => response.json())
         .then(json => {
-          console.log(json);
+          console.log("json in comment upload", json);
         })
         .catch(error => console.log(error));
-      console.log(req);
     });
   }
 
@@ -173,67 +273,87 @@ class ReportSchool extends Component {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
 
-
-
   render() {
     return (
-      <ScrollView style={{ backgroundColor: '#fff' }}>
+      <ScrollView style={{ backgroundColor: "#fff" }}>
         <View style={{ flex: 1 }}>
           <Text style={styles.centerHeader}>
             Please fill up the form and send your report
           </Text>
-          <View style={{ margin: 15, borderWidth: 1, padding: 10, paddingTop: 5, borderColor: 'rgba(0,0,0,.3)' }}>
-          <TextInput
-            editable
-            onChangeText={(comments) => {
-              console.log('text', comments);
-              this.props.saveToDraftsCollection({ siteId: this.props.siteId, comment: comments, uri: this.state.uri })
-              this.setState({ ...this.state, comments });
+          <View
+            style={{
+              margin: 15,
+              borderWidth: 1,
+              padding: 10,
+              paddingTop: 5,
+              borderColor: "rgba(0,0,0,.3)"
             }}
-            placeholder={strings.error_field_cannot_be_empty}
-            ref='comments'
-            returnKeyType='next'
-            value={this.state.comments}
-            autoCapitalize='none'
-            underlineColorAndroid='transparent'
-            style={{ textAlignVertical: 'top', minHeight: 100, lineHeight: 24, fontWeight: 'normal', fontSize: 16 }}
-            multiline
-            autoFocus
-          />
+          >
+            <TextInput
+              editable
+              onChangeText={comment => {
+                this.props.saveToDraftsCollection({
+                  siteId: this.props.siteId,
+                  comment: comment,
+                  image: this.state.image,
+                  images: this.state.images
+                });
+                this.setState({ ...this.state, comment });
+              }}
+              placeholder={strings.error_field_cannot_be_empty}
+              ref="comments"
+              returnKeyType="next"
+              value={this.state.comment}
+              autoCapitalize="none"
+              underlineColorAndroid="transparent"
+              style={{
+                textAlignVertical: "top",
+                minHeight: 100,
+                lineHeight: 24,
+                fontWeight: "normal",
+                fontSize: 14
+              }}
+              multiline
+              autoFocus
+            />
           </View>
           <Button
             icon={{
-              name: 'camera',
+              name: "camera",
               size: 24,
-              color: 'white'
+              color: "white"
             }}
-            onPress={this.selectPhotoTapped.bind(this)}
+            onPress={this.showAlert}
             title={strings.view_take_photo}
-            titleStyle={{ fontWeight: '700' }}
+            titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {this.state.uri && <Image
-            style={styles.image}
-            source={{ uri: this.state.uri }}
-          />
-          }
+          {Object.keys(this.state.image).length > 0
+            ? this.renderImage(this.state.image)
+            : null}
+
+          {this.state.images
+            ? this.state.images.map(i => (
+                <View key={i.uri}>{this.renderImage(i)}</View>
+              ))
+            : null}
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
             title={strings.action_report}
-            loadingProps={{ size: 'large', color: 'rgba(111, 202, 186, 1)' }}
-            titleStyle={{ fontWeight: '700' }}
+            loadingProps={{ size: "large", color: "rgba(111, 202, 186, 1)" }}
+            titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
-              backgroundColor: '#8CC63E',
+              backgroundColor: "#8CC63E",
               marginTop: 10
             }}
           />
           <Button
             onPress={() => Actions.pop()}
             title={strings.action_cancel}
-            titleStyle={{ fontWeight: '700' }}
+            titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
-              backgroundColor: '#E8656A',
+              backgroundColor: "#E8656A",
               marginTop: 10
             }}
           />
@@ -241,40 +361,58 @@ class ReportSchool extends Component {
       </ScrollView>
     );
   }
+  componentWillUnmount() {
+    const imageArray = this.state.image
+      ? Object.keys(this.state.image)
+      : Object.keys({});
+    // const imageArray = Object.keys(this.state.image);
+    if (
+      this.state.comment.length > 0 ||
+      this.state.images.length > 0 ||
+      imageArray.length > 0
+    ) {
+      showMessage({
+        message: "Report Saved to Drafts",
+        type: "info"
+      });
+    }
+  }
 }
 
-const styles = {
+const mapStateToProps = state => {
+  const { sites } = state.schoolList.data;
+  const { selectedSchoolId } = state.currentSelectedSchool;
+  const found = sites.find(function(element) {
+    return element.id === selectedSchoolId;
+  });
+
+  return {
+    siteId: found.id,
+    userId: state.currentUserGroup.currentUserId,
+    drafts: state.drafts.drafts
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { saveToDraftsCollection, deleteFromDraftsCollection }
+)(ReportSchool);
+
+const styles = StyleSheet.create({
   centerHeader: { marginTop: 10, fontSize: 16, marginLeft: 15 },
   buttonStyle: {
     width: 200,
     height: 45,
-    borderColor: 'transparent',
+    borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 5
   },
   image: {
-     width: Dimensions.get('window').width - 30,
-     height: 200,
-     overflow: 'visible',
+    width: Dimensions.get("window").width - 30,
+    height: 250,
+    overflow: "visible",
     margin: 15,
-    marginBottom: 0
+    marginBottom: 10,
+    borderRadius: 8
   }
-};
-
-const mapStateToProps = (state) => {
-  console.log('reportform bhitra', state);
-  const { sites } = state.schoolList.data;
-  const { selectedSchoolId } = state.currentSelectedSchool;
-const found = sites.find(function(element) {
-  return element.id === selectedSchoolId;
 });
-console.log('foundKO_value');
-console.log(found);
-return {
-  siteId: found.id,
-  userId: state.currentUserGroup.currentUserId,
-  drafts: state.drafts.drafts
-};
-};
-
-export default connect(mapStateToProps, { saveToDraftsCollection, deleteFromDraftsCollection })(ReportSchool);
