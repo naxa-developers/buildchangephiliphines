@@ -36,6 +36,7 @@ class LibraryList extends Component {
   }
 
   render() {
+    console.log("LibraryList render");
     return (
       <ListView
         dataSource={this.dataSource}

@@ -72,6 +72,7 @@ class ListItem extends Component {
   }
 
   render() {
+    console.log("ListItem");
     const { titleStyle, subtitleStyle, cointainerStyle } = styles;
     const { step, local_step } = this.props.item;
 

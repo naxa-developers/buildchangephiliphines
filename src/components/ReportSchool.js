@@ -13,6 +13,7 @@ import {
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
@@ -20,22 +21,26 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportSchool extends Component {
   state = {
     avatarSource: null,
-    comments: "",
+    comment: "",
     uploading: false,
-    image: null,
+    image: {},
     images: []
   };
 
   componentWillMount() {
     this.getLocale();
-    const filteredSite = this.props.drafts.find(draft => {
+    const filteredSite = this.props.drafts.filter(draft => {
       return draft.siteId === this.props.siteId;
     });
-    if (filteredSite) {
-      this.setState({
-        comment: filteredSite.comment,
-        image: filteredSite.image,
-        images: filteredSite.images
+    if (filteredSite.length > 0) {
+      filteredSite.forEach(site => {
+        if (!site.hasOwnProperty("stepId")) {
+          this.setState({
+            comment: site.comment,
+            image: site.image,
+            images: site.images
+          });
+        }
       });
     }
     // this.setState({
@@ -63,10 +68,9 @@ class ReportSchool extends Component {
       mediaType
     })
       .then(image => {
-        console.log("received image", image);
         this.props.saveToDraftsCollection({
           siteId: this.props.siteId,
-          comment: this.state.comment,
+          comment: this.state.comment ? this.state.comment : "",
           image: {
             uri: image.path,
             width: image.width,
@@ -82,7 +86,7 @@ class ReportSchool extends Component {
             height: image.height,
             mime: image.mime
           },
-          images: null
+          images: []
         });
       })
       .catch(e => alert(e));
@@ -98,8 +102,8 @@ class ReportSchool extends Component {
       .then(images => {
         this.props.saveToDraftsCollection({
           siteId: this.props.siteId,
-          comment: this.state.comment,
-          image: null,
+          comment: this.state.comment ? this.state.comment : "",
+          image: {},
           images: images.map(i => {
             return {
               uri: i.path,
@@ -110,9 +114,8 @@ class ReportSchool extends Component {
           })
         });
         this.setState({
-          image: null,
+          image: {},
           images: images.map(i => {
-            console.log("received image", i);
             return {
               uri: i.path,
               width: i.width,
@@ -133,11 +136,11 @@ class ReportSchool extends Component {
         style: "cancel"
       },
       {
-        text: "Take a photo...",
+        text: "Take Photo...",
         onPress: () => this.pickSingleWithCamera(false)
       },
       {
-        text: "Choose photos...",
+        text: "Choose from Library...",
         onPress: () => this.pickMultiple()
       }
     ]);
@@ -154,13 +157,10 @@ class ReportSchool extends Component {
   }
 
   uploadComment() {
-    console.log("uploadCommentko_bhitra");
-    console.log(this.props);
-
     if (!this.state.comment) {
       return;
     }
-    console.log("hello check return");
+
     this.setState({ ...this.state, uploading: true });
     AsyncStorage.multiGet(["user_id", "token"]).then(user => {
       let userID;
@@ -177,8 +177,6 @@ class ReportSchool extends Component {
       } else if (user[1][0] === "token") {
         token = user[1][1];
       }
-      console.log(userID);
-      console.log(token);
 
       const url = "http://bccms.naxa.com.np/core/api/site-report/";
 
@@ -205,6 +203,8 @@ class ReportSchool extends Component {
         });
       }
 
+      console.log("ReportSchool formdata", formdata);
+
       const req = {
         method: "POST",
         headers: {
@@ -218,14 +218,13 @@ class ReportSchool extends Component {
       fetch(url, req)
         .then(response => {
           if (response.ok) {
-            console.log("response ok");
             // this.setState({ ...this.state, uploading: false });
             // this.setState({ ...this.state, comments: "", uri: null });
             this.setState({
               ...this.state,
-              comments: "",
+              comment: "",
               uploading: false,
-              image: null,
+              image: {},
               images: []
             });
             Alert.alert(
@@ -258,7 +257,6 @@ class ReportSchool extends Component {
             ]
           );
 
-          console.log("response error");
           const error = new Error(response.statusText);
           error.response = response;
           throw error;
@@ -268,7 +266,6 @@ class ReportSchool extends Component {
           console.log("json in comment upload", json);
         })
         .catch(error => console.log(error));
-      console.log(req);
     });
   }
 
@@ -295,7 +292,6 @@ class ReportSchool extends Component {
             <TextInput
               editable
               onChangeText={comment => {
-                console.log("text", comment);
                 this.props.saveToDraftsCollection({
                   siteId: this.props.siteId,
                   comment: comment,
@@ -332,7 +328,9 @@ class ReportSchool extends Component {
             titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {this.state.image ? this.renderImage(this.state.image) : null}
+          {Object.keys(this.state.image).length > 0
+            ? this.renderImage(this.state.image)
+            : null}
 
           {this.state.images
             ? this.state.images.map(i => (
@@ -363,17 +361,31 @@ class ReportSchool extends Component {
       </ScrollView>
     );
   }
+  componentWillUnmount() {
+    const imageArray = this.state.image
+      ? Object.keys(this.state.image)
+      : Object.keys({});
+    // const imageArray = Object.keys(this.state.image);
+    if (
+      this.state.comment.length > 0 ||
+      this.state.images.length > 0 ||
+      imageArray.length > 0
+    ) {
+      showMessage({
+        message: "Report Saved to Drafts",
+        type: "info"
+      });
+    }
+  }
 }
 
 const mapStateToProps = state => {
-  console.log("reportform bhitra", state);
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
   const found = sites.find(function(element) {
     return element.id === selectedSchoolId;
   });
-  console.log("foundKO_value");
-  console.log(found);
+
   return {
     siteId: found.id,
     userId: state.currentUserGroup.currentUserId,

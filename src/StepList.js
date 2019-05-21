@@ -6,6 +6,7 @@ import { CardSection, Card } from "../src/components/common";
 
 class StepList extends React.Component {
   render() {
+    console.log("Steplist render");
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={{ paddingTop: 10 }}>

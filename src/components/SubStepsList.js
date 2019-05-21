@@ -63,11 +63,15 @@ class SubStepsList extends Component {
     this.dataSource = ds.cloneWithRows(
       this.props.sub_steps.sort(compareValues("order", "asc"))
     );
+    console.log("dataSource", this.dataSource);
+    console.log("props sub_steps", this.props);
   }
   showImageViewer() {
+    console.log("showImageViewer");
     this.setState({ ...this.state, imageViewerShown: true });
   }
   render() {
+    console.log("SubStepsList render");
     const images = [
       {
         url:

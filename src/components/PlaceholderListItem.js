@@ -9,15 +9,16 @@ class PlaceholderListItem extends Component {
   onSiteTapped() {
     const { dispatch } = this.props;
     Actions.Select5({ title: this.props.rowData.name });
-    //Actions.jump('tabbar');
 
     dispatch(storeCurrentSelectedSchool({ schoolId: this.props.rowData.id }));
   }
 
   render() {
+    console.log("PlaceHolderListItem render");
     const { titleStyle, subtitleStyle, cointainerStyle } = styles;
-
-    const { name } = this.props.rowData;
+    // const { name } = this.props.rowData;
+    // console.log("PlaceHolderListItem props", this.props.rowData);
+    const { name, id } = this.props.rowData;
     const firstLetter = name.charAt(0);
 
     return (
@@ -31,6 +32,7 @@ class PlaceholderListItem extends Component {
 
             <Text style={subtitleStyle}>{this.props.rowData.address}</Text>
           </View>
+          <Circle text={id} />
         </CardSection>
       </TouchableOpacity>
     );

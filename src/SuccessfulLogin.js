@@ -24,7 +24,8 @@ import { strings } from "./../locales/strings";
 import { platformSpecificConfigForDownload } from "./downloadinfo";
 
 class SuccessfulLogin extends Component {
-  componentWillMount() {
+  // componentWillMount() {
+  componentDidMount() {
     this.getLocale();
     AsyncStorage.getItem("token").then(token => {
       this.props.tappedOnViewSchools(token);
@@ -69,7 +70,6 @@ class SuccessfulLogin extends Component {
                     })
                     .catch(error => {
                       this.props.setDownloadInfo({ hasDownloadStarted: false });
-                      console.log("RNFetchBlobko_error", error);
                     });
                 }
               })
@@ -114,6 +114,7 @@ class SuccessfulLogin extends Component {
   );
 
   render() {
+    console.log("SuccessFull Login render");
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>

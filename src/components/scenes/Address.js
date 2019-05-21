@@ -33,6 +33,7 @@ class Address extends React.Component {
   }
 
   render() {
+    console.log("Address scene");
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -47,7 +48,6 @@ class Address extends React.Component {
           <TouchableOpacity
             style={[styles.option, { marginBottom: 10 }]}
             onPress={() => {
-              //this.props.dispatch(storeAddress({ selectedAddress: 'Daram' }));
               this.props.storeAddress({ selectedAddress: "Daram" });
               Actions.Successful_Login();
             }}
@@ -62,7 +62,6 @@ class Address extends React.Component {
           <TouchableOpacity
             style={[styles.option, { marginBottom: 10 }]}
             onPress={() => {
-              //this.props.dispatch(storeAddress({ selectedAddress: 'Zumarraga' }));
               this.props.storeAddress({ selectedAddress: "Zumarraga" });
 
               Actions.Successful_Login();
@@ -108,7 +107,6 @@ class Address extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("address_ko_mapstatetoprops", state);
   return {
     isLoading: state.pdf.isLoading,
     currentUserGroup: state.currentUserGroup.currentUserGroup,

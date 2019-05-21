@@ -4,7 +4,7 @@ import { Alert, AppState } from "react-native";
 import PushNotification from "react-native-push-notification";
 import Scenes from "./src/Scenes";
 import { store } from "./src/store";
-
+import FlashMessage from "react-native-flash-message";
 class App extends React.Component {
   constructor(props) {
     super();
@@ -23,7 +23,10 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Scenes />
+        <React.Fragment>
+          <Scenes />
+          <FlashMessage position="top" />
+        </React.Fragment>
       </Provider>
     );
   }

@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import ImagePicker from "react-native-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
@@ -19,9 +20,10 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportForm extends Component {
   state = {
     avatarSource: null,
-    comments: "",
+    comment: "",
     uploading: false,
-    uri: null
+    image: {},
+    images: []
   };
 
   componentWillMount() {
@@ -35,47 +37,146 @@ class ReportForm extends Component {
     });
 
     if (filtered.length !== 0) {
-      this.setState({ comments: filtered[0].comment, uri: filtered[0].uri });
+      this.setState({
+        comment: filtered[0].comment,
+        image: filtered[0].image,
+        images: filtered[0].images
+      });
     }
   }
 
-  selectPhotoTapped() {
-    const options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
-      storageOptions: {
-        skipBackup: true
-      }
-    };
-
-    ImagePicker.showImagePicker(options, response => {
-      if (response.didCancel) {
-        console.log("User cancelled photo picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else if (response.customButton) {
-        console.log("User tapped custom button: ", response.customButton);
-      } else {
-        let source = { uri: response.uri };
+  pickSingleWithCamera(cropping, mediaType = "photo") {
+    ImagePicker.openCamera({
+      cropping: cropping,
+      width: 500,
+      height: 500,
+      includeExif: true,
+      mediaType
+    })
+      .then(image => {
         this.props.saveToDraftsCollection({
           siteId: this.props.siteId,
           stepId: this.props.stepId,
           subStepId: this.props.substep.id,
-          comment: this.state.comments,
-          uri: response.uri
+          comment: this.state.comment ? this.state.comment : "",
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime
+          },
+          images: []
         });
-        this.setState({ ...this.state, uri: response.uri });
-
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
         this.setState({
-          avatarSource: source
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime
+          },
+          images: []
         });
-      }
-    });
+      })
+      .catch(e => alert(e));
   }
+
+  pickMultiple = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      waitAnimationEnd: false,
+      includeExif: true,
+      forceJpg: true
+    })
+      .then(images => {
+        this.props.saveToDraftsCollection({
+          siteId: this.props.siteId,
+          stepId: this.props.stepId,
+          subStepId: this.props.substep.id,
+          comment: this.state.comment ? this.state.comment : "",
+          image: {},
+          images: images.map(i => {
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime
+            };
+          })
+        });
+        this.setState({
+          image: {},
+          images: images.map(i => {
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime
+            };
+          })
+        });
+      })
+      .catch(e => alert(e));
+  };
+
+  showAlert = () => {
+    Alert.alert("Select photo", null, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      {
+        text: "Take Photo...",
+        onPress: () => this.pickSingleWithCamera(false)
+      },
+      {
+        text: "Choose from Library...",
+        onPress: () => this.pickMultiple()
+      }
+    ]);
+  };
+
+  renderImage = image => {
+    return <Image style={styles.image} source={{ uri: image.uri }} />;
+  };
+
+  // selectPhotoTapped() {
+  //   const options = {
+  //     quality: 1.0,
+  //     maxWidth: 500,
+  //     maxHeight: 500,
+  //     storageOptions: {
+  //       skipBackup: true
+  //     }
+  //   };
+
+  //   ImagePicker.showImagePicker(options, response => {
+  //     if (response.didCancel) {
+  //       console.log("User cancelled photo picker");
+  //     } else if (response.error) {
+  //       console.log("ImagePicker Error: ", response.error);
+  //     } else if (response.customButton) {
+  //       console.log("User tapped custom button: ", response.customButton);
+  //     } else {
+  //       let source = { uri: response.uri };
+  //       this.props.saveToDraftsCollection({
+  //         siteId: this.props.siteId,
+  //         stepId: this.props.stepId,
+  //         subStepId: this.props.substep.id,
+  //         comment: this.state.comment,
+  //         uri: response.uri
+  //       });
+  //       this.setState({ ...this.state, uri: response.uri });
+
+  //       // You can also display the image using data:
+  //       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+  //       this.setState({
+  //         avatarSource: source
+  //       });
+  //     }
+  //   });
+  // }
 
   async getLocale() {
     return await AsyncStorage.getItem("locale").then(value => {
@@ -86,7 +187,7 @@ class ReportForm extends Component {
   uploadComment(checklist) {
     const { id } = checklist.substep;
 
-    if (!this.state.comments) {
+    if (!this.state.comment) {
       return;
     }
 
@@ -110,19 +211,39 @@ class ReportForm extends Component {
       const url = "http://bccms.naxa.com.np/core/api/report/";
 
       const formdata = new FormData();
-      formdata.append("comment", this.state.comments);
+      formdata.append("comment", this.state.comment);
       formdata.append("user", userID);
       formdata.append("substep", id);
       formdata.append("site", this.props.siteId);
       formdata.append("step", this.props.stepId);
       //step ra site pani thapne
-      if (this.state.uri !== null) {
-        formdata.append("photo", {
-          uri: this.state.uri,
+      // if (this.state.uri !== null) {
+      //   formdata.append("photo", {
+      //     uri: this.state.uri,
+      //     type: "image/jpeg",
+      //     name: "comment.jpeg"
+      //   });
+      // }
+
+      if (this.state.images.length > 0) {
+        this.state.images.forEach((image, i) => {
+          formdata.append(`photo${i}`, {
+            uri: image.uri,
+            type: "image/jpeg",
+            name: "comment.jpeg"
+          });
+        });
+      }
+
+      if (this.state.image && Object.keys(this.state.image).length > 0) {
+        formdata.append(`photo`, {
+          uri: this.state.image.uri,
           type: "image/jpeg",
           name: "comment.jpeg"
         });
       }
+
+      console.log("ReportForm formdata", formdata);
 
       const req = {
         method: "POST",
@@ -137,8 +258,13 @@ class ReportForm extends Component {
       fetch(url, req)
         .then(response => {
           if (response.ok) {
-            this.setState({ ...this.state, uploading: false });
-            this.setState({ ...this.state, comments: "", uri: null });
+            this.setState({
+              ...this.state,
+              uploading: false,
+              comment: "",
+              image: {},
+              images: []
+            });
             Alert.alert(
               strings.event_upload_success_title,
               strings.event_upload_sucess_text,
@@ -184,6 +310,7 @@ class ReportForm extends Component {
   }
 
   render() {
+    console.log("Report Form");
     let draftFound = false;
     const filtered = this.props.drafts.filter(draft => {
       return (
@@ -214,20 +341,21 @@ class ReportForm extends Component {
           >
             <TextInput
               editable
-              onChangeText={comments => {
+              onChangeText={comment => {
                 this.props.saveToDraftsCollection({
                   siteId: this.props.siteId,
                   stepId: this.props.stepId,
                   subStepId: this.props.substep.id,
-                  comment: comments,
-                  uri: this.state.uri
+                  comment: comment,
+                  image: this.state.image,
+                  images: this.state.images
                 });
-                this.setState({ ...this.state, comments });
+                this.setState({ ...this.state, comment });
               }}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
               returnKeyType="next"
-              value={this.state.comments}
+              value={this.state.comment}
               autoCapitalize="none"
               underlineColorAndroid="transparent"
               style={{
@@ -248,14 +376,20 @@ class ReportForm extends Component {
               size: 24,
               color: "white"
             }}
-            onPress={this.selectPhotoTapped.bind(this)}
+            onPress={this.showAlert}
             title={strings.view_take_photo}
             titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {this.state.uri && (
-            <Image style={styles.image} source={{ uri: this.state.uri }} />
-          )}
+          {Object.keys(this.state.image).length > 0
+            ? this.renderImage(this.state.image)
+            : null}
+
+          {this.state.images
+            ? this.state.images.map(i => (
+                <View key={i.uri}>{this.renderImage(i)}</View>
+              ))
+            : null}
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
               <Button
@@ -293,6 +427,23 @@ class ReportForm extends Component {
         </View>
       </ScrollView>
     );
+  }
+
+  componentWillUnmount() {
+    const imageArray = this.state.image
+      ? Object.keys(this.state.image)
+      : Object.keys({});
+    // const imageArray = Object.keys(this.state.image);
+    if (
+      this.state.comment.length > 0 ||
+      this.state.images.length > 0 ||
+      imageArray.length > 0
+    ) {
+      showMessage({
+        message: "Report Saved to Drafts",
+        type: "info"
+      });
+    }
   }
 }
 
