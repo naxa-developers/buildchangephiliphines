@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { checkInternetConnection } from "react-native-offline";
 import { storeAddress, openedAddressScene } from "../../actions";
 import { getLocalizedText } from "../../../locales/strings";
@@ -45,6 +46,12 @@ class Address extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.optionsContainer}>
+          <TouchableOpacity
+            style={styles.reportContainer}
+            onPress={() => Actions.DraftList()}
+          >
+            <Icon name={"file-text"} style={styles.iconStyle} />
+          </TouchableOpacity>
           <TouchableOpacity
             style={[styles.option, { marginBottom: 10 }]}
             onPress={() => {
@@ -189,5 +196,32 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20
+  },
+  reportContainer: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    zIndex: 3,
+    backgroundColor: "green",
+    borderRadius: 40,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 5
+  },
+
+  iconStyle: {
+    //color: 'rgba(0,0,0,.5)',
+    color: "white",
+    fontSize: 24,
+    width: 60,
+    height: 60,
+    lineHeight: 60,
+    borderRadius: 30,
+    //backgroundColor: 'rgba(255,255,255,.9)',
+    backgroundColor: "green",
+    textAlign: "center",
+    justifyContent: "center"
   }
 });

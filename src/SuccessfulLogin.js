@@ -26,6 +26,7 @@ import { platformSpecificConfigForDownload } from "./downloadinfo";
 class SuccessfulLogin extends Component {
   // componentWillMount() {
   componentDidMount() {
+    console.log("SuccessfulLogin Props", this.props);
     this.getLocale();
     AsyncStorage.getItem("token").then(token => {
       this.props.tappedOnViewSchools(token);
@@ -38,9 +39,14 @@ class SuccessfulLogin extends Component {
   }
 
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
-    });
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
+    } catch (err) {
+      console.log("getLocale Err in SuccessfulLogin", err);
+    }
   }
 
   downloadZip() {

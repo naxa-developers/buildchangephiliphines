@@ -46,6 +46,7 @@ class Page1 extends Component {
     });
   }
   onReportTapped() {
+    console.log("onReportTapped props", this.props);
     Actions.ReportForm({
       substep: this.props.substep,
       stepId: this.props.stepId
@@ -55,9 +56,14 @@ class Page1 extends Component {
     Actions.EngineerList();
   }
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
-    });
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
   }
   showImageViewer(id) {
     this.setState({ ...this.state, imageViewerShown: true, id: id });

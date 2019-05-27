@@ -8,12 +8,13 @@ import {
   TextInput,
   Dimensions,
   Image,
-  StyleSheet
+  StyleSheet,
+  Picker
 } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
@@ -21,8 +22,11 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportSchool extends Component {
   state = {
     avatarSource: null,
+    category: "progress",
+    type: "urgent",
     comment: "",
     uploading: false,
+    saving: false,
     image: {},
     images: []
   };
@@ -43,20 +47,6 @@ class ReportSchool extends Component {
         }
       });
     }
-    // this.setState({
-    //   comment: filteredSite.comment,
-    //   image: filteredSite.image,
-    //   images: filteredSite.images
-    // });
-    // if (filtered.length !== 0) {
-    //   filtered.forEach(each => {
-    //     console.log("rap song");
-    //     if (!each.hasOwnProperty("stepId")) {
-    //       this.setState({ comments: each.comment, uri: each.uri });
-    //       console.log(each);
-    //     }
-    //   });
-    // }
   }
 
   pickSingleWithCamera(cropping, mediaType = "photo") {
@@ -69,6 +59,7 @@ class ReportSchool extends Component {
     })
       .then(image => {
         this.props.saveToDraftsCollection({
+          draftUserId: this.props.userId,
           siteId: this.props.siteId,
           comment: this.state.comment ? this.state.comment : "",
           image: {
@@ -95,12 +86,14 @@ class ReportSchool extends Component {
   pickMultiple = () => {
     ImagePicker.openPicker({
       multiple: true,
+      maxFiles: 5,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true
     })
       .then(images => {
         this.props.saveToDraftsCollection({
+          draftUserId: this.props.userId,
           siteId: this.props.siteId,
           comment: this.state.comment ? this.state.comment : "",
           image: {},
@@ -151,16 +144,20 @@ class ReportSchool extends Component {
   };
 
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
-    });
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   uploadComment() {
     if (!this.state.comment) {
       return;
     }
-
     this.setState({ ...this.state, uploading: true });
     AsyncStorage.multiGet(["user_id", "token"]).then(user => {
       let userID;
@@ -184,10 +181,12 @@ class ReportSchool extends Component {
       formdata.append("comment", this.state.comment);
       formdata.append("user", userID);
       formdata.append("site", this.props.siteId);
+      formdata.append("category", this.state.category);
+      formdata.append("type", this.state.type);
 
       if (this.state.images.length > 0) {
         this.state.images.forEach((image, i) => {
-          formdata.append(`photo${i}`, {
+          formdata.append(`image${i}`, {
             uri: image.uri,
             type: "image/jpeg",
             name: "comment.jpeg"
@@ -196,14 +195,12 @@ class ReportSchool extends Component {
       }
 
       if (this.state.image && Object.keys(this.state.image).length > 0) {
-        formdata.append(`photo`, {
+        formdata.append(`image0`, {
           uri: this.state.image.uri,
           type: "image/jpeg",
           name: "comment.jpeg"
         });
       }
-
-      console.log("ReportSchool formdata", formdata);
 
       const req = {
         method: "POST",
@@ -218,8 +215,6 @@ class ReportSchool extends Component {
       fetch(url, req)
         .then(response => {
           if (response.ok) {
-            // this.setState({ ...this.state, uploading: false });
-            // this.setState({ ...this.state, comments: "", uri: null });
             this.setState({
               ...this.state,
               comment: "",
@@ -239,6 +234,7 @@ class ReportSchool extends Component {
               ]
             );
             this.props.deleteFromDraftsCollection({
+              draftUserId: this.props.userId,
               siteId: this.props.siteId
             });
             return response;
@@ -273,6 +269,46 @@ class ReportSchool extends Component {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
 
+  deleteDraft = () => {
+    const { siteId, userId } = this.props;
+    this.props.deleteFromDraftsCollection({
+      draftUserId: userId,
+      siteId
+    });
+    Actions.pop();
+    showMessage({
+      message: "Report Deleted",
+      type: "danger"
+    });
+  };
+
+  handleTextChange = comment => {
+    this.props.saveToDraftsCollection({
+      draftUserId: this.props.userId,
+      siteId: this.props.siteId,
+      comment: comment,
+      image: this.state.image,
+      images: this.state.images
+    });
+    this.state.comment.length > 1
+      ? this.setState({ ...this.state, comment, saving: true })
+      : this.setState({ ...this.state, comment, saving: false });
+  };
+
+  saveToDraft = () => {
+    const imageArray = Object.keys(this.state.image);
+    if (
+      this.state.comment.length > 0 ||
+      this.state.images.length > 0 ||
+      imageArray.length > 0
+    ) {
+      showMessage({
+        message: "Report Saved to Drafts",
+        type: "info"
+      });
+    }
+  };
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -291,15 +327,8 @@ class ReportSchool extends Component {
           >
             <TextInput
               editable
-              onChangeText={comment => {
-                this.props.saveToDraftsCollection({
-                  siteId: this.props.siteId,
-                  comment: comment,
-                  image: this.state.image,
-                  images: this.state.images
-                });
-                this.setState({ ...this.state, comment });
-              }}
+              onChangeText={comment => this.handleTextChange(comment)}
+              onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
               returnKeyType="next"
@@ -316,7 +345,40 @@ class ReportSchool extends Component {
               multiline
               autoFocus
             />
+            {this.state.saving && (
+              <Text style={{ color: "#777", fontSize: 12 }}> Saving...</Text>
+            )}
           </View>
+          <View style={{ marginLeft: 15 }}>
+            <Text>Report Category</Text>
+            <Picker
+              selectedValue={this.state.category}
+              style={{ height: 50, width: "100%" }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ category: itemValue })
+              }
+            >
+              <Picker.Item label="Progress Update" value="progress" />
+              <Picker.Item label="Issues and Concerns" value="issues" />
+              <Picker.Item label="Questions Queries" value="queries" />
+            </Picker>
+          </View>
+
+          <View style={{ marginLeft: 15 }}>
+            <Text>Report Type</Text>
+            <Picker
+              selectedValue={this.state.type}
+              style={{ height: 50, width: "100%" }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ type: itemValue })
+              }
+            >
+              <Picker.Item label="Urgent" value="urgent" />
+              <Picker.Item label="Alert" value="alert" />
+              <Picker.Item label="Update" value="update" />
+            </Picker>
+          </View>
+
           <Button
             icon={{
               name: "camera",
@@ -337,6 +399,7 @@ class ReportSchool extends Component {
                 <View key={i.uri}>{this.renderImage(i)}</View>
               ))
             : null}
+
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
             loading={this.state.uploading}
@@ -348,9 +411,14 @@ class ReportSchool extends Component {
               marginTop: 10
             }}
           />
+
           <Button
-            onPress={() => Actions.pop()}
-            title={strings.action_cancel}
+            onPress={
+              this.props.inDraft ? this.deleteDraft : () => Actions.pop()
+            }
+            title={
+              this.props.inDraft ? strings.action_delete : strings.action_cancel
+            }
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={{
               backgroundColor: "#E8656A",
@@ -361,20 +429,10 @@ class ReportSchool extends Component {
       </ScrollView>
     );
   }
+
   componentWillUnmount() {
-    const imageArray = this.state.image
-      ? Object.keys(this.state.image)
-      : Object.keys({});
-    // const imageArray = Object.keys(this.state.image);
-    if (
-      this.state.comment.length > 0 ||
-      this.state.images.length > 0 ||
-      imageArray.length > 0
-    ) {
-      showMessage({
-        message: "Report Saved to Drafts",
-        type: "info"
-      });
+    if (!this.props.inDraft) {
+      this.saveToDraft();
     }
   }
 }

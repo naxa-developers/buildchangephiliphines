@@ -25,7 +25,7 @@ class App extends React.Component {
       <Provider store={store}>
         <React.Fragment>
           <Scenes />
-          <FlashMessage position="top" />
+          <FlashMessage position="top" duration={1500} />
         </React.Fragment>
       </Provider>
     );

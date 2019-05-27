@@ -41,6 +41,7 @@ import DocumentList from "./components/scenes/DocumentList";
 import Responded from "./components/scenes/Responded";
 import Pending from "./components/scenes/Pending";
 import Rejected from "./components/scenes/Rejected";
+import DraftList from "./components/DraftList";
 
 import { strings, getLocalizedText } from "../locales/strings";
 import InternetStatus from "./components/scenes/InternetStatus";
@@ -93,9 +94,14 @@ class Scenes extends Component {
   }
 
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
-    });
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
+    } catch (err) {
+      console.log("getLocale Err", err);
+    }
   }
 
   render() {
@@ -225,6 +231,8 @@ class Scenes extends Component {
             )}
             back
           />
+
+          <Scene component={DraftList} key="DraftList" title="Drafts" />
           <Scene
             //initial
             key="Select2"

@@ -7,12 +7,13 @@ import {
   AsyncStorage,
   Alert,
   TextInput,
-  Image
+  Image,
+  Picker
 } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
@@ -20,8 +21,11 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportForm extends Component {
   state = {
     avatarSource: null,
+    category: "progress",
+    type: "urgent",
     comment: "",
     uploading: false,
+    saving: false,
     image: {},
     images: []
   };
@@ -55,6 +59,7 @@ class ReportForm extends Component {
     })
       .then(image => {
         this.props.saveToDraftsCollection({
+          draftUserId: this.props.currentUserId,
           siteId: this.props.siteId,
           stepId: this.props.stepId,
           subStepId: this.props.substep.id,
@@ -83,12 +88,14 @@ class ReportForm extends Component {
   pickMultiple = () => {
     ImagePicker.openPicker({
       multiple: true,
+      maxFiles: 5,
       waitAnimationEnd: false,
       includeExif: true,
       forceJpg: true
     })
       .then(images => {
         this.props.saveToDraftsCollection({
+          draftUserId: this.props.currentUserId,
           siteId: this.props.siteId,
           stepId: this.props.stepId,
           subStepId: this.props.substep.id,
@@ -136,52 +143,15 @@ class ReportForm extends Component {
     ]);
   };
 
-  renderImage = image => {
-    return <Image style={styles.image} source={{ uri: image.uri }} />;
-  };
-
-  // selectPhotoTapped() {
-  //   const options = {
-  //     quality: 1.0,
-  //     maxWidth: 500,
-  //     maxHeight: 500,
-  //     storageOptions: {
-  //       skipBackup: true
-  //     }
-  //   };
-
-  //   ImagePicker.showImagePicker(options, response => {
-  //     if (response.didCancel) {
-  //       console.log("User cancelled photo picker");
-  //     } else if (response.error) {
-  //       console.log("ImagePicker Error: ", response.error);
-  //     } else if (response.customButton) {
-  //       console.log("User tapped custom button: ", response.customButton);
-  //     } else {
-  //       let source = { uri: response.uri };
-  //       this.props.saveToDraftsCollection({
-  //         siteId: this.props.siteId,
-  //         stepId: this.props.stepId,
-  //         subStepId: this.props.substep.id,
-  //         comment: this.state.comment,
-  //         uri: response.uri
-  //       });
-  //       this.setState({ ...this.state, uri: response.uri });
-
-  //       // You can also display the image using data:
-  //       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-  //       this.setState({
-  //         avatarSource: source
-  //       });
-  //     }
-  //   });
-  // }
-
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
-    });
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   uploadComment(checklist) {
@@ -216,18 +186,12 @@ class ReportForm extends Component {
       formdata.append("substep", id);
       formdata.append("site", this.props.siteId);
       formdata.append("step", this.props.stepId);
-      //step ra site pani thapne
-      // if (this.state.uri !== null) {
-      //   formdata.append("photo", {
-      //     uri: this.state.uri,
-      //     type: "image/jpeg",
-      //     name: "comment.jpeg"
-      //   });
-      // }
+      formdata.append("category", this.state.category);
+      formdata.append("type", this.state.type);
 
       if (this.state.images.length > 0) {
         this.state.images.forEach((image, i) => {
-          formdata.append(`photo${i}`, {
+          formdata.append(`image${i}`, {
             uri: image.uri,
             type: "image/jpeg",
             name: "comment.jpeg"
@@ -236,14 +200,12 @@ class ReportForm extends Component {
       }
 
       if (this.state.image && Object.keys(this.state.image).length > 0) {
-        formdata.append(`photo`, {
+        formdata.append(`image0`, {
           uri: this.state.image.uri,
           type: "image/jpeg",
           name: "comment.jpeg"
         });
       }
-
-      console.log("ReportForm formdata", formdata);
 
       const req = {
         method: "POST",
@@ -276,7 +238,10 @@ class ReportForm extends Component {
                 }
               ]
             );
-            this.props.deleteFromDraftsCollection({ subStepId: id });
+            this.props.deleteFromDraftsCollection({
+              draftUserId: this.props.currentUserId,
+              subStepId: id
+            });
             return response;
           }
 
@@ -305,12 +270,43 @@ class ReportForm extends Component {
     });
   }
 
+  deleteDraft = () => {
+    const { id, currentUserId } = this.props.substep;
+    this.props.deleteFromDraftsCollection({
+      draftUserId: currentUserId,
+      subStepId: id
+    });
+    Actions.pop();
+    showMessage({
+      message: "Report Deleted",
+      type: "danger"
+    });
+  };
+
+  handleTextChange = comment => {
+    this.props.saveToDraftsCollection({
+      draftUserId: this.props.currentUserId,
+      siteId: this.props.siteId,
+      stepId: this.props.stepId,
+      subStepId: this.props.substep.id,
+      comment: comment,
+      image: this.state.image,
+      images: this.state.images
+    });
+    this.state.comment.length > 1
+      ? this.setState({ ...this.state, comment, saving: true })
+      : this.setState({ ...this.state, comment, saving: false });
+  };
+
   toggleUploadAnim() {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
 
+  renderImage = image => {
+    return <Image style={styles.image} source={{ uri: image.uri }} />;
+  };
+
   render() {
-    console.log("Report Form");
     let draftFound = false;
     const filtered = this.props.drafts.filter(draft => {
       return (
@@ -341,17 +337,8 @@ class ReportForm extends Component {
           >
             <TextInput
               editable
-              onChangeText={comment => {
-                this.props.saveToDraftsCollection({
-                  siteId: this.props.siteId,
-                  stepId: this.props.stepId,
-                  subStepId: this.props.substep.id,
-                  comment: comment,
-                  image: this.state.image,
-                  images: this.state.images
-                });
-                this.setState({ ...this.state, comment });
-              }}
+              onChangeText={comment => this.handleTextChange(comment)}
+              onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
               returnKeyType="next"
@@ -368,8 +355,42 @@ class ReportForm extends Component {
               multiline
               autoFocus
             />
+            {this.state.saving && (
+              <Text style={{ color: "#777", fontSize: 12, marginTop: 5 }}>
+                {" "}
+                Saving...
+              </Text>
+            )}
+          </View>
+          <View style={{ marginLeft: 15 }}>
+            <Text>Report Category</Text>
+            <Picker
+              selectedValue={this.state.category}
+              style={{ height: 50, width: "100%" }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ category: itemValue })
+              }
+            >
+              <Picker.Item label="Progress Update" value="progress" />
+              <Picker.Item label="Issues and Concerns" value="issues" />
+              <Picker.Item label="Questions Queries" value="queries" />
+            </Picker>
           </View>
 
+          <View style={{ marginLeft: 15 }}>
+            <Text>Report Type</Text>
+            <Picker
+              selectedValue={this.state.type}
+              style={{ height: 50, width: "100%" }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ type: itemValue })
+              }
+            >
+              <Picker.Item label="Urgent" value="urgent" />
+              <Picker.Item label="Alert" value="alert" />
+              <Picker.Item label="Update" value="update" />
+            </Picker>
+          </View>
           <Button
             icon={{
               name: "camera",
@@ -390,6 +411,7 @@ class ReportForm extends Component {
                 <View key={i.uri}>{this.renderImage(i)}</View>
               ))
             : null}
+
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
               <Button
@@ -409,10 +431,17 @@ class ReportForm extends Component {
                 }}
               />
             </View>
+
             <View style={{ flex: 1 }}>
               <Button
-                onPress={() => Actions.pop()}
-                title={strings.action_cancel}
+                onPress={
+                  this.props.inDraft ? this.deleteDraft : () => Actions.pop()
+                }
+                title={
+                  this.props.inDraft
+                    ? strings.action_delete
+                    : strings.action_cancel
+                }
                 titleStyle={{ fontWeight: "700" }}
                 containerStyle={{}}
                 buttonStyle={{
@@ -429,11 +458,8 @@ class ReportForm extends Component {
     );
   }
 
-  componentWillUnmount() {
-    const imageArray = this.state.image
-      ? Object.keys(this.state.image)
-      : Object.keys({});
-    // const imageArray = Object.keys(this.state.image);
+  saveToDraft = () => {
+    const imageArray = Object.keys(this.state.image);
     if (
       this.state.comment.length > 0 ||
       this.state.images.length > 0 ||
@@ -443,6 +469,11 @@ class ReportForm extends Component {
         message: "Report Saved to Drafts",
         type: "info"
       });
+    }
+  };
+  componentWillUnmount() {
+    if (!this.props.inDraft) {
+      this.saveToDraft();
     }
   }
 }
@@ -468,6 +499,7 @@ const styles = {
 const mapStateToProps = state => {
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
+  const { currentUserId } = state.currentUserGroup;
   const found = sites.find(function(element) {
     return element.id === selectedSchoolId;
   });
@@ -475,7 +507,8 @@ const mapStateToProps = state => {
   return {
     siteId: found.id,
     userId: state.currentUserGroup.currentUserId,
-    drafts: state.drafts.drafts
+    drafts: state.drafts.drafts,
+    currentUserId
   };
 };
 

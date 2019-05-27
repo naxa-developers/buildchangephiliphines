@@ -5,7 +5,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "SAVE_DRAFT_TO_DRAFTS_COLLECTION":
-      console.log("savetodraft reducer", action.payload);
       return Object.assign({}, state, {
         drafts: state.drafts
           .filter(draft => {
@@ -34,14 +33,19 @@ export default (state = initialState, action) => {
             ) {
               return true;
             } else {
-              return draft.siteId !== action.payload.siteId;
+              return (
+                draft.draftUserId === action.payload.draftUserId &&
+                draft.siteId !== action.payload.siteId
+              );
             }
           })
         });
       } else {
         return Object.assign({}, state, {
           drafts: state.drafts.filter(
-            draft => draft.subStepId !== action.payload.subStepId
+            draft =>
+              draft.draftUserId === action.payload.draftUserId &&
+              draft.subStepId !== action.payload.subStepId
           )
         });
       }

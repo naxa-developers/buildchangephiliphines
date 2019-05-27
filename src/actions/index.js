@@ -221,6 +221,9 @@ export const setDownloadInfo = status => {
 };
 
 export const saveToDraftsCollection = draft => {
+  if (draft.comment.length === 0) {
+    return { type: "DELETE_FROM_DRAFTS_COLLECTION", payload: draft };
+  }
   return { type: "SAVE_DRAFT_TO_DRAFTS_COLLECTION", payload: draft };
 };
 
