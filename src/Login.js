@@ -85,8 +85,9 @@ class Login extends Component {
   };
   sendToken(userId, authToken) {
     PushNotification.configure({
-      onRegister: function(token) {
+      onRegister: function (token) {
         const formdata = new FormData();
+        console.log("token", token)
         formdata.append("registration_id", token.token);
         formdata.append("active", true);
         formdata.append("type", "android");
@@ -107,7 +108,7 @@ class Login extends Component {
           })
           .catch(error => Alert.alert(error.message));
       },
-      onNotification: function(notification) {
+      onNotification: function (notification) {
         console.log("NOTIFICATION:", notification);
       },
       senderID: "6095782395",

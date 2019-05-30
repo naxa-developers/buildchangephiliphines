@@ -12,8 +12,10 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
-import ImagePicker from "react-native-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import { Actions } from "react-native-router-flux";
+import { showMessage } from "react-native-flash-message";
+import GestureRecognizer from 'react-native-swipe-gestures';
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 
@@ -25,11 +27,10 @@ class ReportEngineer extends Component {
     comment: "",
     uploading: false,
     saving: false,
-    image: {},
     images: []
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getLocale();
     const filtered = this.props.drafts.filter(draft => {
       return (
@@ -39,52 +40,14 @@ class ReportEngineer extends Component {
       );
     });
     if (filtered.length !== 0) {
-      // this.setState({ comments: filtered[0].comment, uri: filtered[0].uri });
       this.setState({
         comment: filtered[0].comment,
-        image: filtered[0].image,
+        category: filtered[0].category ? filtered[0].category : "progress",
+        type: filtered[0].type ? filtered[0].type : "urgent",
         images: filtered[0].images
       });
     }
   }
-
-  // selectPhotoTapped() {
-  //   const options = {
-  //     quality: 1.0,
-  //     maxWidth: 500,
-  //     maxHeight: 500,
-  //     storageOptions: {
-  //       skipBackup: true
-  //     }
-  //   };
-
-  //   ImagePicker.showImagePicker(options, response => {
-  //     if (response.didCancel) {
-  //       console.log("User cancelled photo picker");
-  //     } else if (response.error) {
-  //       console.log("ImagePicker Error: ", response.error);
-  //     } else if (response.customButton) {
-  //       console.log("User tapped custom button: ", response.customButton);
-  //     } else {
-  //       let source = { uri: response.uri };
-  //       this.props.saveToDraftsCollection({
-  //         siteId: this.props.siteId,
-  //         stepId: this.props.stepId,
-  //         subStepId: this.props.substep,
-  //         comment: this.state.comments,
-  //         uri: response.uri
-  //       });
-  //       this.setState({ ...this.state, uri: response.uri });
-
-  //       // You can also display the image using data:
-  //       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-  //       this.setState({
-  //         avatarSource: source
-  //       });
-  //     }
-  //   });
-  // }
 
   async getLocale() {
     try {
@@ -97,7 +60,25 @@ class ReportEngineer extends Component {
     }
   }
 
+  askForMorePhoto = () => {
+    Alert.alert("Do you want to take more photos ?", null, [
+      { text: "Yes", onPress: () => this.pickSingleWithCamera(false) },
+      {
+        text: "No",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      }
+    ]);
+  };
+
   pickSingleWithCamera(cropping, mediaType = "photo") {
+    if (this.state.images.length >= 5) {
+      showMessage({
+        message: "You can only select 5 images.",
+        type: "info"
+      });
+      return
+    }
     ImagePicker.openCamera({
       cropping: cropping,
       width: 500,
@@ -112,28 +93,44 @@ class ReportEngineer extends Component {
           stepId: this.props.stepId,
           subStepId: this.props.substep.id,
           comment: this.state.comment ? this.state.comment : "",
-          image: {
-            uri: image.path,
-            width: image.width,
-            height: image.height,
-            mime: image.mime
-          },
-          images: []
+          category: this.state.category,
+          type: this.state.type,
+          images: [
+            ...this.state.images,
+            {
+              uri: image.path,
+              width: image.width,
+              height: image.height,
+              mime: image.mime
+            }
+          ]
         });
-        this.setState({
-          image: {
-            uri: image.path,
-            width: image.width,
-            height: image.height,
-            mime: image.mime
+        this.setState(
+          {
+            images: [
+              ...this.state.images,
+              {
+                uri: image.path,
+                width: image.width,
+                height: image.height,
+                mime: image.mime
+              }
+            ]
           },
-          images: []
-        });
+          () => this.askForMorePhoto()
+        );
       })
       .catch(e => alert(e));
   }
 
   pickMultiple = () => {
+    if (this.state.images.length >= 5) {
+      showMessage({
+        message: "You can only select 5 images.",
+        type: "info"
+      });
+      return
+    }
     ImagePicker.openPicker({
       multiple: true,
       maxFiles: 5,
@@ -148,32 +145,38 @@ class ReportEngineer extends Component {
           stepId: this.props.stepId,
           subStepId: this.props.substep.id,
           comment: this.state.comment ? this.state.comment : "",
-          image: {},
-          images: images.map(i => {
-            return {
-              uri: i.path,
-              width: i.width,
-              height: i.height,
-              mime: i.mime
-            };
-          })
+          category: this.state.category,
+          type: this.state.type,
+          images: images
+            .map(i => {
+              return {
+                uri: i.path,
+                width: i.width,
+                height: i.height,
+                mime: i.mime
+              };
+            })
+            .concat(this.state.images)
+            .filter((image, i) => i < 5)
         });
         this.setState({
-          image: {},
-          images: images.map(i => {
-            return {
-              uri: i.path,
-              width: i.width,
-              height: i.height,
-              mime: i.mime
-            };
-          })
+          images: images
+            .map(i => {
+              return {
+                uri: i.path,
+                width: i.width,
+                height: i.height,
+                mime: i.mime
+              };
+            })
+            .concat(this.state.images)
+            .filter((image, i) => i < 5)
         });
       })
       .catch(e => alert(e));
   };
 
-  showAlert = () => {
+  selectPhoto = () => {
     Alert.alert("Select photo", null, [
       {
         text: "Cancel",
@@ -226,19 +229,11 @@ class ReportEngineer extends Component {
 
       if (this.state.images.length > 0) {
         this.state.images.forEach((image, i) => {
-          formdata.append(`image${i}`, {
+          formdata.append(`photo${i}`, {
             uri: image.uri,
             type: "image/jpeg",
             name: "comment.jpeg"
           });
-        });
-      }
-
-      if (this.state.image && Object.keys(this.state.image).length > 0) {
-        formdata.append(`image0`, {
-          uri: this.state.image.uri,
-          type: "image/jpeg",
-          name: "comment.jpeg"
         });
       }
 
@@ -259,7 +254,8 @@ class ReportEngineer extends Component {
               ...this.state,
               uploading: false,
               comment: "",
-              image: {},
+              category: "progress",
+              type: "urgent",
               images: []
             });
             Alert.alert(
@@ -322,23 +318,50 @@ class ReportEngineer extends Component {
     });
   };
 
-  handleTextChange = comment => {
+  handleTextChange = event => {
+    const { text } = event.nativeEvent
     this.props.saveToDraftsCollection({
       draftUserId: this.props.currentUserId,
       siteId: this.props.siteId,
       stepId: this.props.stepId,
       subStepId: this.props.substep.id,
-      comment: comment,
-      image: this.state.image,
+      comment: text,
+      category: this.state.category,
+      type: this.state.type,
       images: this.state.images
     });
-    this.state.comment.length > 1
-      ? this.setState({ ...this.state, comment, saving: true })
-      : this.setState({ ...this.state, comment, saving: false });
+    text.trim().length > 0
+      ? this.setState({ ...this.state, comment: text, saving: true })
+      : this.setState({ ...this.state, comment: text, saving: false });
   };
 
-  renderImage = image => {
-    return <Image style={styles.image} source={{ uri: image.uri }} />;
+  askForDelete = (i) => {
+    Alert.alert("Do you want delete the photo ?", null, [
+      { text: "Yes", onPress: () => this.deleteImg(i) },
+      {
+        text: "No",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      }
+    ]);
+
+  }
+
+  deleteImg = (i) => {
+    const filteredImages = this.state.images.filter((image, ind) => i !== ind);
+    this.setState({
+      images: filteredImages
+    })
+  }
+
+  renderImage = (image, i) => {
+    return (
+      <GestureRecognizer
+        onSwipeLeft={(i) => this.askForDelete(i)}
+        onSwipeRight={(i) => this.askForDelete(i)}
+      >
+        <Image style={styles.image} source={{ uri: image.uri }} />
+      </GestureRecognizer>)
   };
 
   render() {
@@ -360,7 +383,7 @@ class ReportEngineer extends Component {
           >
             <TextInput
               editable
-              onChangeText={comment => this.handleTextChange(comment)}
+              onChangeText={this.handleTextChange}
               onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
@@ -421,19 +444,17 @@ class ReportEngineer extends Component {
               size: 24,
               color: "white"
             }}
-            onPress={this.showAlert}
+            onPress={this.selectPhoto}
             title={strings.view_take_photo}
             titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {Object.keys(this.state.image).length > 0
-            ? this.renderImage(this.state.image)
-            : null}
+
 
           {this.state.images
             ? this.state.images.map(i => (
-                <View key={i.uri}>{this.renderImage(i)}</View>
-              ))
+              <View key={i.uri}>{this.renderImage(i)}</View>
+            ))
             : null}
           <Button
             onPress={this.uploadComment.bind(this, this.props)}
@@ -465,12 +486,7 @@ class ReportEngineer extends Component {
   }
 
   saveToDraft = () => {
-    const imageArray = Object.keys(this.state.image);
-    if (
-      this.state.comment.length > 0 ||
-      this.state.images.length > 0 ||
-      imageArray.length > 0
-    ) {
+    if (this.state.comment.length > 0) {
       showMessage({
         message: "Report Saved to Drafts",
         type: "info"
@@ -507,7 +523,7 @@ const mapStateToProps = state => {
   const { selectedSchoolId } = state.currentSelectedSchool;
   const { currentUserId } = state.currentUserGroup;
 
-  const found = sites.find(function(element) {
+  const found = sites.find(function (element) {
     return element.id === selectedSchoolId;
   });
 

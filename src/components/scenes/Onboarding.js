@@ -48,14 +48,13 @@ export default class Onboarding extends Component {
 
 
   onSkipBtnHandle = (index) => {
-    console.log(index);
     Actions.SecondPage();
   }
   onSlideChangeHandle = (index, total) => {
-    console.log(index, total);
+    // console.log(index, total);
   }
   nextBtnHandle = (index) => {
-    console.log(index);
+    // console.log(index);
   }
   doneBtnHandle = () => {
     Actions.SecondPage();

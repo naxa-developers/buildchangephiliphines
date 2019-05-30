@@ -120,7 +120,6 @@ class SuccessfulLogin extends Component {
   );
 
   render() {
-    console.log("SuccessFull Login render");
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -187,7 +186,7 @@ const mapStateToProps = state => {
     rowHasChanged: (r1, r2) => r1 !== r2
   });
 
-  const Daram = state.schoolList.data.sites.filter(function(school) {
+  const Daram = state.schoolList.data.sites.filter(function (school) {
     const schoolAddress = school.address.toUpperCase();
     return (
       schoolAddress.indexOf(

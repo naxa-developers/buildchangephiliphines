@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./locales/strings";
 
@@ -20,12 +21,41 @@ class Select extends Component {
   }
 
   async getLocale() {
-    return await AsyncStorage.getItem("locale").then(value => {
-      strings.setLanguage(value);
+    try {
+      const value = await AsyncStorage.getItem("locale");
+      if (value) {
+        strings.setLanguage(value);
+      }
       this.setState({
         isLoading: false
       });
-    });
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
+  checkUserVerification = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const response = await fetch("VERIFY_USER_URL", {
+        method: "GET",
+        headers: {
+          Authorization: "token " + token
+        }
+      });
+      const data = await response.json();
+      if (data.ok) {
+        Actions.Address()
+      } else {
+        showMessage({
+          message: "Verification Required",
+          description: "You need to be verified by our admin to access this feature. It takes couple of hours for the process.",
+          type: "info"
+        });
+      }
+    } catch (error) {
+      console.log("CheckUserVerification Error", error)
+    }
   }
 
   render() {
@@ -45,6 +75,7 @@ class Select extends Component {
           }}
         />
         <TouchableOpacity onPress={() => Actions.Address()} activeOpacity={0.6}>
+          {/* <TouchableOpacity onPress={this.checkUserVerification} activeOpacity={0.6}> */}
           <View
             style={{ position: "relative", height: (height - 56) / 2, width }}
           >
