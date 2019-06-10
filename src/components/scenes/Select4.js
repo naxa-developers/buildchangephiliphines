@@ -34,7 +34,7 @@ class Select4 extends Component {
         <View style={styles.backgroundContainer}>
           <Image
           style={styles.bgImage}
-          source={require('../../../app_images/Configuration.jpg')}
+          source={require('../../../app_images/configuration.jpg')}
           resizeMode={'stretch'}
           />
         </View>
@@ -47,7 +47,7 @@ class Select4 extends Component {
         <View style={styles.backgroundContainer}>
           <Image
           style={styles.bgImage}
-          source={require('../../../app_images/Connection.jpg')}
+          source={require('../../../app_images/connection.jpg')}
           resizeMode={'stretch'}
           />
         </View>

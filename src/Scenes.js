@@ -198,7 +198,7 @@ class Scenes extends Component {
             onRight={() => {
               Actions.SettingsScene();
             }}
-            rightButtonImage={require("../app_images/settingsicon.png")}
+            rightButtonImage={require("../app_images/settingsicon2.png")}
             rightButtonStyle={{ paddingLeft: 4 }}
           />
 
