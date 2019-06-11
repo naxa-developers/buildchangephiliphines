@@ -14,7 +14,7 @@ import {
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
-import GestureRecognizer from 'react-native-swipe-gestures';
+import GestureRecognizer from "react-native-swipe-gestures";
 import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
@@ -23,8 +23,8 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportSchool extends Component {
   state = {
     avatarSource: null,
-    category: "progress",
-    type: "urgent",
+    category: "0",
+    type: "Urgent",
     comment: "",
     uploading: false,
     saving: false,
@@ -42,8 +42,8 @@ class ReportSchool extends Component {
         if (!site.hasOwnProperty("stepId")) {
           this.setState({
             comment: site.comment,
-            category: site.category ? site.category : "progress",
-            type: site.type ? site.type : "urgent",
+            category: site.category ? site.category : "0",
+            type: site.type ? site.type : "Urgent",
             images: site.images
           });
         }
@@ -68,7 +68,7 @@ class ReportSchool extends Component {
         message: "You can only select 5 images.",
         type: "info"
       });
-      return
+      return;
     }
     ImagePicker.openCamera({
       cropping: cropping,
@@ -78,7 +78,7 @@ class ReportSchool extends Component {
       mediaType
     })
       .then(image => {
-        console.log("image", image)
+        console.log("image", image);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
@@ -119,7 +119,7 @@ class ReportSchool extends Component {
         message: "You can only select 5 images.",
         type: "info"
       });
-      return
+      return;
     }
     ImagePicker.openPicker({
       multiple: true,
@@ -129,8 +129,7 @@ class ReportSchool extends Component {
       forceJpg: true
     })
       .then(images => {
-
-        console.log("images", images)
+        console.log("images", images);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
@@ -184,8 +183,7 @@ class ReportSchool extends Component {
     ]);
   };
 
-
-  askForDelete = (i) => {
+  askForDelete = i => {
     Alert.alert("Do you want delete the photo ?", null, [
       { text: "Yes", onPress: () => this.deleteImg(i) },
       {
@@ -194,16 +192,16 @@ class ReportSchool extends Component {
         style: "cancel"
       }
     ]);
+  };
 
-  }
+  deleteImg = i => {
+    console.log("Delete Img called");
+    const filteredImages = this.state.images.filter((image, ind) => i !== ind);
 
-  deleteImg = (i) => {
-    const filteredImages = this.state.images.filter((image, ind) => i !== ind
-    );
     this.setState({
       images: filteredImages
-    })
-  }
+    });
+  };
 
   renderImage = (image, i) => {
     return (
@@ -212,7 +210,8 @@ class ReportSchool extends Component {
         onSwipeRight={() => this.askForDelete(i)}
       >
         <Image style={styles.image} source={{ uri: image.uri }} />
-      </GestureRecognizer>)
+      </GestureRecognizer>
+    );
   };
 
   async getLocale() {
@@ -257,11 +256,10 @@ class ReportSchool extends Component {
       formdata.append("type", this.state.type);
 
       if (this.state.images.length > 0) {
-        this.state.images.forEach((image, i) => {
-          formdata.append(`photo${i}`, {
+        this.state.images.forEach(image => {
+          formdata.append(`image`, {
             uri: image.uri,
-            type: "image/jpeg",
-            name: "comment.jpeg"
+            type: "image/jpeg"
           });
         });
       }
@@ -283,8 +281,8 @@ class ReportSchool extends Component {
               ...this.state,
               comment: "",
               uploading: false,
-              category: "progress",
-              type: "urgent",
+              category: "0",
+              type: "Urgent",
               images: []
             });
             Alert.alert(
@@ -326,7 +324,7 @@ class ReportSchool extends Component {
         .then(json => {
           console.log("json in comment upload", json);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log("error", error));
     });
   }
 
@@ -348,7 +346,7 @@ class ReportSchool extends Component {
   };
 
   handleTextChange = event => {
-    const { text } = event.nativeEvent
+    const { text } = event.nativeEvent;
     this.props.saveToDraftsCollection({
       draftUserId: this.props.userId,
       siteId: this.props.siteId,
@@ -389,7 +387,6 @@ class ReportSchool extends Component {
           >
             <TextInput
               editable
-              // onChangeText={comment => this.handleTextChange(comment)}
               onChange={this.handleTextChange}
               onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
@@ -421,9 +418,9 @@ class ReportSchool extends Component {
                 this.setState({ category: itemValue })
               }
             >
-              <Picker.Item label="Progress Update" value="progress" />
-              <Picker.Item label="Issues and Concerns" value="issues" />
-              <Picker.Item label="Questions Queries" value="queries" />
+              <Picker.Item label="Progress Update" value="0" />
+              <Picker.Item label="Issues and Concerns" value="1" />
+              <Picker.Item label="Questions Queries" value="2" />
             </Picker>
           </View>
 
@@ -436,9 +433,9 @@ class ReportSchool extends Component {
                 this.setState({ type: itemValue })
               }
             >
-              <Picker.Item label="Urgent" value="urgent" />
-              <Picker.Item label="Alert" value="alert" />
-              <Picker.Item label="Update" value="update" />
+              <Picker.Item label="Urgent" value="Urgent" />
+              <Picker.Item label="Alert" value="Alert" />
+              <Picker.Item label="Update" value="Update" />
             </Picker>
           </View>
 
@@ -456,8 +453,8 @@ class ReportSchool extends Component {
 
           {this.state.images
             ? this.state.images.map((img, i) => (
-              <View key={img.uri}>{this.renderImage(img, i)}</View>
-            ))
+                <View key={img.uri}>{this.renderImage(img, i)}</View>
+              ))
             : null}
 
           <Button
@@ -500,7 +497,7 @@ class ReportSchool extends Component {
 const mapStateToProps = state => {
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
-  const found = sites.find(function (element) {
+  const found = sites.find(function(element) {
     return element.id === selectedSchoolId;
   });
 

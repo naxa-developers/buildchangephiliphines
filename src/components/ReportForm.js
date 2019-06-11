@@ -15,15 +15,15 @@ import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
 import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
-import GestureRecognizer from 'react-native-swipe-gestures';
+import GestureRecognizer from "react-native-swipe-gestures";
 import { strings } from "./../../locales/strings";
 import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 
 class ReportForm extends Component {
   state = {
     avatarSource: null,
-    category: "progress",
-    type: "urgent",
+    category: "0",
+    type: "Urgent",
     comment: "",
     uploading: false,
     saving: false,
@@ -43,8 +43,8 @@ class ReportForm extends Component {
     if (filtered.length !== 0) {
       this.setState({
         comment: filtered[0].comment,
-        category: filtered[0].category ? filtered[0].category : "progress",
-        type: filtered[0].type ? filtered[0].type : "urgent",
+        category: filtered[0].category ? filtered[0].category : "0",
+        type: filtered[0].type ? filtered[0].type : "Urgent",
         images: filtered[0].images
       });
     }
@@ -67,7 +67,7 @@ class ReportForm extends Component {
         message: "You can only select 5 images.",
         type: "info"
       });
-      return
+      return;
     }
     ImagePicker.openCamera({
       cropping: cropping,
@@ -119,7 +119,7 @@ class ReportForm extends Component {
         message: "You can only select 5 images.",
         type: "info"
       });
-      return
+      return;
     }
     ImagePicker.openPicker({
       multiple: true,
@@ -219,7 +219,8 @@ class ReportForm extends Component {
         token = user[1][1];
       }
 
-      const url = "http://bccms.naxa.com.np/core/api/report/";
+      // const url = "http://bccms.naxa.com.np/core/api/report/";
+      const url = "http://bccms.naxa.com.np/core/api/report-image";
 
       const formdata = new FormData();
       formdata.append("comment", this.state.comment);
@@ -231,11 +232,11 @@ class ReportForm extends Component {
       formdata.append("type", this.state.type);
 
       if (this.state.images.length > 0) {
-        this.state.images.forEach((image, i) => {
-          formdata.append(`photo${i}`, {
+        this.state.images.forEach(image => {
+          formdata.append(`images`, {
             uri: image.uri,
-            type: "image/jpeg",
-            name: "comment.jpeg"
+            name: "comment.jpg",
+            type: "image/jpeg"
           });
         });
       }
@@ -257,8 +258,8 @@ class ReportForm extends Component {
               ...this.state,
               uploading: false,
               comment: "",
-              category: "progress",
-              type: "urgent",
+              category: "0",
+              type: "Urgent",
               images: []
             });
             Alert.alert(
@@ -300,7 +301,7 @@ class ReportForm extends Component {
         .then(json => {
           console.log(json);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log("error", error, url));
     });
   }
 
@@ -318,7 +319,7 @@ class ReportForm extends Component {
   };
 
   handleTextChange = event => {
-    const { text } = event.nativeEvent
+    const { text } = event.nativeEvent;
     this.props.saveToDraftsCollection({
       draftUserId: this.props.currentUserId,
       siteId: this.props.siteId,
@@ -334,12 +335,11 @@ class ReportForm extends Component {
       : this.setState({ ...this.state, comment: text, saving: false });
   };
 
-
   toggleUploadAnim() {
     this.setState({ ...this.state, uploading: !this.state.uploading });
   }
 
-  askForDelete = (i) => {
+  askForDelete = i => {
     Alert.alert("Do you want delete the photo ?", null, [
       { text: "Yes", onPress: () => this.deleteImg(i) },
       {
@@ -348,24 +348,24 @@ class ReportForm extends Component {
         style: "cancel"
       }
     ]);
+  };
 
-  }
-
-  deleteImg = (i) => {
+  deleteImg = i => {
     const filteredImages = this.state.images.filter((image, ind) => i !== ind);
     this.setState({
       images: filteredImages
-    })
-  }
+    });
+  };
 
   renderImage = (image, i) => {
     return (
       <GestureRecognizer
-        onSwipeLeft={(i) => this.askForDelete(i)}
-        onSwipeRight={(i) => this.askForDelete(i)}
+        onSwipeLeft={() => this.askForDelete(i)}
+        onSwipeRight={() => this.askForDelete(i)}
       >
         <Image style={styles.image} source={{ uri: image.uri }} />
-      </GestureRecognizer>)
+      </GestureRecognizer>
+    );
   };
 
   render() {
@@ -399,7 +399,7 @@ class ReportForm extends Component {
           >
             <TextInput
               editable
-              onChangeText={this.handleTextChange}
+              onChange={this.handleTextChange}
               onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
@@ -433,9 +433,9 @@ class ReportForm extends Component {
                 this.setState({ category: itemValue })
               }
             >
-              <Picker.Item label="Progress Update" value="progress" />
-              <Picker.Item label="Issues and Concerns" value="issues" />
-              <Picker.Item label="Questions Queries" value="queries" />
+              <Picker.Item label="Progress Update" value="0" />
+              <Picker.Item label="Issues and Concerns" value="1" />
+              <Picker.Item label="Questions Queries" value="2" />
             </Picker>
           </View>
 
@@ -448,9 +448,9 @@ class ReportForm extends Component {
                 this.setState({ type: itemValue })
               }
             >
-              <Picker.Item label="Urgent" value="urgent" />
-              <Picker.Item label="Alert" value="alert" />
-              <Picker.Item label="Update" value="update" />
+              <Picker.Item label="Urgent" value="Urgent" />
+              <Picker.Item label="Alert" value="Alert" />
+              <Picker.Item label="Update" value="Update" />
             </Picker>
           </View>
           <Button
@@ -466,9 +466,9 @@ class ReportForm extends Component {
           />
 
           {this.state.images
-            ? this.state.images.map(i => (
-              <View key={i.uri}>{this.renderImage(i)}</View>
-            ))
+            ? this.state.images.map((img, i) => (
+                <View key={img.uri}>{this.renderImage(img, i)}</View>
+              ))
             : null}
 
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -554,7 +554,7 @@ const mapStateToProps = state => {
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
   const { currentUserId } = state.currentUserGroup;
-  const found = sites.find(function (element) {
+  const found = sites.find(function(element) {
     return element.id === selectedSchoolId;
   });
 

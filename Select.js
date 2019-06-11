@@ -37,26 +37,38 @@ class Select extends Component {
   checkUserVerification = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const response = await fetch("VERIFY_USER_URL", {
-        method: "GET",
+
+      const formdata = new FormData();
+      formdata.append("token", token);
+
+      const req = {
+        method: "POST",
         headers: {
-          Authorization: "token " + token
-        }
-      });
-      const data = await response.json();
-      if (data.ok) {
-        Actions.Address()
+          "Content-Type": "multipart/form-data"
+        },
+        body: formdata
+      };
+
+      const response = await fetch(
+        "http://bccms.naxa.com.np/core/api/verify",
+        req
+      );
+      const json = await response.json();
+
+      if (json.data) {
+        Actions.Address();
       } else {
         showMessage({
           message: "Verification Required",
-          description: "You need to be verified by our admin to access this feature. It takes couple of hours for the process.",
+          description:
+            "You need to be verified by our admin to access this feature. It takes couple of hours for the process.",
           type: "info"
         });
       }
     } catch (error) {
-      console.log("CheckUserVerification Error", error)
+      console.log("CheckUserVerification Error", error);
     }
-  }
+  };
 
   render() {
     const { height, width } = Dimensions.get("window");
@@ -74,8 +86,12 @@ class Select extends Component {
             transform: [{ rotate: "4deg" }]
           }}
         />
+
         <TouchableOpacity onPress={() => Actions.Address()} activeOpacity={0.6}>
-          {/* <TouchableOpacity onPress={this.checkUserVerification} activeOpacity={0.6}> */}
+          {/* <TouchableOpacity
+          onPress={this.checkUserVerification}
+          activeOpacity={0.6}
+        > */}
           <View
             style={{ position: "relative", height: (height - 56) / 2, width }}
           >
