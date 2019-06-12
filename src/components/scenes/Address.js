@@ -34,7 +34,7 @@ class Address extends React.Component {
   }
 
   render() {
-    console.log("Address scene");
+
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>

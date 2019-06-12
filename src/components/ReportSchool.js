@@ -14,6 +14,7 @@ import {
 import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
+import GestureRecognizer from "react-native-swipe-gestures";
 import { showMessage } from "react-native-flash-message";
 import { Actions } from "react-native-router-flux";
 import { strings } from "./../../locales/strings";
@@ -22,16 +23,16 @@ import { saveToDraftsCollection, deleteFromDraftsCollection } from "../actions";
 class ReportSchool extends Component {
   state = {
     avatarSource: null,
-    category: "progress",
-    type: "urgent",
+    category: "0",
+    type: "Urgent",
     comment: "",
     uploading: false,
     saving: false,
-    image: {},
+    // image: {},
     images: []
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getLocale();
     const filteredSite = this.props.drafts.filter(draft => {
       return draft.siteId === this.props.siteId;
@@ -41,7 +42,8 @@ class ReportSchool extends Component {
         if (!site.hasOwnProperty("stepId")) {
           this.setState({
             comment: site.comment,
-            image: site.image,
+            category: site.category ? site.category : "0",
+            type: site.type ? site.type : "Urgent",
             images: site.images
           });
         }
@@ -49,7 +51,25 @@ class ReportSchool extends Component {
     }
   }
 
+  askForMorePhoto = () => {
+    Alert.alert("Do you want to take more photos ?", null, [
+      { text: "Yes", onPress: () => this.pickSingleWithCamera(false) },
+      {
+        text: "No",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      }
+    ]);
+  };
+
   pickSingleWithCamera(cropping, mediaType = "photo") {
+    if (this.state.images.length >= 5) {
+      showMessage({
+        message: "You can only select 5 images.",
+        type: "info"
+      });
+      return;
+    }
     ImagePicker.openCamera({
       cropping: cropping,
       width: 500,
@@ -58,32 +78,49 @@ class ReportSchool extends Component {
       mediaType
     })
       .then(image => {
+        console.log("image", image);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
           comment: this.state.comment ? this.state.comment : "",
-          image: {
-            uri: image.path,
-            width: image.width,
-            height: image.height,
-            mime: image.mime
-          },
-          images: []
+          category: this.state.category,
+          type: this.state.type,
+          images: [
+            ...this.state.images,
+            {
+              uri: image.path,
+              width: image.width,
+              height: image.height,
+              mime: image.mime
+            }
+          ]
         });
-        this.setState({
-          image: {
-            uri: image.path,
-            width: image.width,
-            height: image.height,
-            mime: image.mime
+        this.setState(
+          {
+            images: [
+              ...this.state.images,
+              {
+                uri: image.path,
+                width: image.width,
+                height: image.height,
+                mime: image.mime
+              }
+            ]
           },
-          images: []
-        });
+          () => this.askForMorePhoto()
+        );
       })
       .catch(e => alert(e));
   }
 
   pickMultiple = () => {
+    if (this.state.images.length >= 5) {
+      showMessage({
+        message: "You can only select 5 images.",
+        type: "info"
+      });
+      return;
+    }
     ImagePicker.openPicker({
       multiple: true,
       maxFiles: 5,
@@ -92,36 +129,43 @@ class ReportSchool extends Component {
       forceJpg: true
     })
       .then(images => {
+        console.log("images", images);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
           comment: this.state.comment ? this.state.comment : "",
-          image: {},
-          images: images.map(i => {
-            return {
-              uri: i.path,
-              width: i.width,
-              height: i.height,
-              mime: i.mime
-            };
-          })
+          category: this.state.category,
+          type: this.state.type,
+          images: images
+            .map(i => {
+              return {
+                uri: i.path,
+                width: i.width,
+                height: i.height,
+                mime: i.mime
+              };
+            })
+            .concat(this.state.images)
+            .filter((image, i) => i < 5)
         });
         this.setState({
-          image: {},
-          images: images.map(i => {
-            return {
-              uri: i.path,
-              width: i.width,
-              height: i.height,
-              mime: i.mime
-            };
-          })
+          images: images
+            .map(i => {
+              return {
+                uri: i.path,
+                width: i.width,
+                height: i.height,
+                mime: i.mime
+              };
+            })
+            .concat(this.state.images)
+            .filter((image, i) => i < 5)
         });
       })
       .catch(e => alert(e));
   };
 
-  showAlert = () => {
+  selectPhoto = () => {
     Alert.alert("Select photo", null, [
       {
         text: "Cancel",
@@ -139,8 +183,35 @@ class ReportSchool extends Component {
     ]);
   };
 
-  renderImage = image => {
-    return <Image style={styles.image} source={{ uri: image.uri }} />;
+  askForDelete = i => {
+    Alert.alert("Do you want delete the photo ?", null, [
+      { text: "Yes", onPress: () => this.deleteImg(i) },
+      {
+        text: "No",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      }
+    ]);
+  };
+
+  deleteImg = i => {
+    console.log("Delete Img called");
+    const filteredImages = this.state.images.filter((image, ind) => i !== ind);
+
+    this.setState({
+      images: filteredImages
+    });
+  };
+
+  renderImage = (image, i) => {
+    return (
+      <GestureRecognizer
+        onSwipeLeft={() => this.askForDelete(i)}
+        onSwipeRight={() => this.askForDelete(i)}
+      >
+        <Image style={styles.image} source={{ uri: image.uri }} />
+      </GestureRecognizer>
+    );
   };
 
   async getLocale() {
@@ -185,20 +256,11 @@ class ReportSchool extends Component {
       formdata.append("type", this.state.type);
 
       if (this.state.images.length > 0) {
-        this.state.images.forEach((image, i) => {
-          formdata.append(`image${i}`, {
+        this.state.images.forEach(image => {
+          formdata.append(`image`, {
             uri: image.uri,
-            type: "image/jpeg",
-            name: "comment.jpeg"
+            type: "image/jpeg"
           });
-        });
-      }
-
-      if (this.state.image && Object.keys(this.state.image).length > 0) {
-        formdata.append(`image0`, {
-          uri: this.state.image.uri,
-          type: "image/jpeg",
-          name: "comment.jpeg"
         });
       }
 
@@ -219,7 +281,8 @@ class ReportSchool extends Component {
               ...this.state,
               comment: "",
               uploading: false,
-              image: {},
+              category: "0",
+              type: "Urgent",
               images: []
             });
             Alert.alert(
@@ -261,7 +324,7 @@ class ReportSchool extends Component {
         .then(json => {
           console.log("json in comment upload", json);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log("error", error));
     });
   }
 
@@ -282,26 +345,23 @@ class ReportSchool extends Component {
     });
   };
 
-  handleTextChange = comment => {
+  handleTextChange = event => {
+    const { text } = event.nativeEvent;
     this.props.saveToDraftsCollection({
       draftUserId: this.props.userId,
       siteId: this.props.siteId,
-      comment: comment,
-      image: this.state.image,
+      comment: text,
+      category: this.state.category,
+      type: this.state.type,
       images: this.state.images
     });
-    this.state.comment.length > 1
-      ? this.setState({ ...this.state, comment, saving: true })
-      : this.setState({ ...this.state, comment, saving: false });
+    text.trim().length > 0
+      ? this.setState({ ...this.state, comment: text, saving: true })
+      : this.setState({ ...this.state, comment: text, saving: false });
   };
 
   saveToDraft = () => {
-    const imageArray = Object.keys(this.state.image);
-    if (
-      this.state.comment.length > 0 ||
-      this.state.images.length > 0 ||
-      imageArray.length > 0
-    ) {
+    if (this.state.comment.length > 0) {
       showMessage({
         message: "Report Saved to Drafts",
         type: "info"
@@ -327,7 +387,7 @@ class ReportSchool extends Component {
           >
             <TextInput
               editable
-              onChangeText={comment => this.handleTextChange(comment)}
+              onChange={this.handleTextChange}
               onBlur={() => this.setState({ saving: false })}
               placeholder={strings.error_field_cannot_be_empty}
               ref="comments"
@@ -358,9 +418,9 @@ class ReportSchool extends Component {
                 this.setState({ category: itemValue })
               }
             >
-              <Picker.Item label="Progress Update" value="progress" />
-              <Picker.Item label="Issues and Concerns" value="issues" />
-              <Picker.Item label="Questions Queries" value="queries" />
+              <Picker.Item label="Progress Update" value="0" />
+              <Picker.Item label="Issues and Concerns" value="1" />
+              <Picker.Item label="Questions Queries" value="2" />
             </Picker>
           </View>
 
@@ -373,9 +433,9 @@ class ReportSchool extends Component {
                 this.setState({ type: itemValue })
               }
             >
-              <Picker.Item label="Urgent" value="urgent" />
-              <Picker.Item label="Alert" value="alert" />
-              <Picker.Item label="Update" value="update" />
+              <Picker.Item label="Urgent" value="Urgent" />
+              <Picker.Item label="Alert" value="Alert" />
+              <Picker.Item label="Update" value="Update" />
             </Picker>
           </View>
 
@@ -385,18 +445,15 @@ class ReportSchool extends Component {
               size: 24,
               color: "white"
             }}
-            onPress={this.showAlert}
+            onPress={this.selectPhoto}
             title={strings.view_take_photo}
             titleStyle={{ fontWeight: "700" }}
             containerStyle={{ marginTop: 20 }}
           />
-          {Object.keys(this.state.image).length > 0
-            ? this.renderImage(this.state.image)
-            : null}
 
           {this.state.images
-            ? this.state.images.map(i => (
-                <View key={i.uri}>{this.renderImage(i)}</View>
+            ? this.state.images.map((img, i) => (
+                <View key={img.uri}>{this.renderImage(img, i)}</View>
               ))
             : null}
 

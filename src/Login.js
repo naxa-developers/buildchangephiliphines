@@ -87,6 +87,7 @@ class Login extends Component {
     PushNotification.configure({
       onRegister: function(token) {
         const formdata = new FormData();
+        console.log("token", token);
         formdata.append("registration_id", token.token);
         formdata.append("active", true);
         formdata.append("type", "android");

@@ -12,7 +12,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.rnfs.RNFSPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import com.imagepicker.ImagePickerPackage;
+// import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
@@ -44,7 +44,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new RNZipArchivePackage(),
             new RNFSPackage(),
             new ReactNativeLocalizationPackage(),
-            new ImagePickerPackage(),
+            // new ImagePickerPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
             new LinearGradientPackage()
