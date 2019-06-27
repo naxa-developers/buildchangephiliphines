@@ -30,11 +30,14 @@ allprojects {
     }
 }
 
+
+
 ext {
-    compileSdkVersion   = 26
-    targetSdkVersion    = 26
-    buildToolsVersion   = "27.0.3"
-    supportLibVersion   = "26.1.0"
-    googlePlayServicesVersion = "15.0.1"
-    androidMapsUtilsVersion = "0.5+"
+buildToolsVersion = "26.0.3"
+compileSdkVersion = 26
+targetSdkVersion = 26
+supportLibVersion = "26.1.0"
+googlePlayServicesVersion = "16.1.0"
+firebaseVersion = "17.3.4"
+
 }

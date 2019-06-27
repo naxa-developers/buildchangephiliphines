@@ -163,7 +163,7 @@ dependencies {
     }
    implementation 'com.google.android.gms:play-services-base:16.1.0'
 //    implementation 'com.google.android.gms:play-services-maps:10.0.1'
-    compile ("com.google.android.gms:play-services-maps:+") {
+    compile ("com.google.android.gms:play-services-maps:16.1.0") {
         force = false;
     }
     compile 'com.android.support:multidex:1.0.0'
