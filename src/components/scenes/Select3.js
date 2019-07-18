@@ -24,7 +24,6 @@ class Select3 extends Component {
     });
   }
   render() {
-    console.log("Select3 render");
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity

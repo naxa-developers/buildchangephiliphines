@@ -24,7 +24,6 @@ class ShowMap extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("ShowMapko_mapstatetoprops_bhitra");
   const { sites } = state.schoolList.data;
   const { selectedSchoolId } = state.currentSelectedSchool;
 
@@ -32,27 +31,8 @@ const mapStateToProps = state => {
     return element.id === selectedSchoolId;
   });
 
-  console.log("foundKO_value");
-  console.log(found);
   const str = found.location;
-  console.log(
-    "latitude",
-    parseFloat(
-      str
-        .split("(")
-        .pop()
-        .split(" ")[0]
-    )
-  );
-  console.log(
-    "longitude",
-    parseFloat(
-      str
-        .split(" ")
-        .pop()
-        .split(")")[0]
-    )
-  );
+
   return {
     selectedSchoolLocationData: {
       longitude: parseFloat(

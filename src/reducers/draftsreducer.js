@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
       });
 
     case "DELETE_FROM_DRAFTS_COLLECTION":
+      console.log("ation payload", action.payload);
       if (action.payload.hasOwnProperty("siteId")) {
         return Object.assign({}, state, {
           drafts: state.drafts.filter(draft => {
@@ -42,11 +43,12 @@ export default (state = initialState, action) => {
         });
       } else {
         return Object.assign({}, state, {
-          drafts: state.drafts.filter(
-            draft =>
+          drafts: state.drafts.filter(draft => {
+            return (
               draft.draftUserId === action.payload.draftUserId &&
               draft.subStepId !== action.payload.subStepId
-          )
+            );
+          })
         });
       }
 

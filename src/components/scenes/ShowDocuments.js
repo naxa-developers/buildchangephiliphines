@@ -49,8 +49,6 @@ class ShowDocuments extends React.Component {
       });
   }
   render() {
-    console.log("ShowDocument Render");
-
     return (
       <View style={styles.container}>
         <Pdf
@@ -82,8 +80,6 @@ class ShowDocuments extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("hare");
-  console.log(state);
   return {
     selectedSchoolId: state.currentSelectedSchool.selectedSchoolId
   };

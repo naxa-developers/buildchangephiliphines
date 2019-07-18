@@ -310,9 +310,12 @@ class ReportEngineer extends Component {
   }
 
   deleteDraft = () => {
-    const { id, currentUserId } = this.props.substep;
+    const {
+      substep: { id },
+      userId
+    } = this.props;
     this.props.deleteFromDraftsCollection({
-      draftUserId: currentUserId,
+      draftUserId: userId,
       subStepId: id
     });
     Actions.pop();

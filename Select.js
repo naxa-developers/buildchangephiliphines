@@ -55,7 +55,7 @@ class Select extends Component {
       );
       const json = await response.json();
 
-      if (json.data) {
+      if (json.data && json.status === 200) {
         Actions.Address();
       } else {
         showMessage({
@@ -72,6 +72,7 @@ class Select extends Component {
 
   render() {
     const { height, width } = Dimensions.get("window");
+    console.log("SElect render");
     return (
       <View style={{ position: "relative", overflow: "hidden" }}>
         <View
@@ -87,11 +88,10 @@ class Select extends Component {
           }}
         />
 
-        <TouchableOpacity onPress={() => Actions.Address()} activeOpacity={0.6}>
-          {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={this.checkUserVerification}
           activeOpacity={0.6}
-        > */}
+        >
           <View
             style={{ position: "relative", height: (height - 56) / 2, width }}
           >

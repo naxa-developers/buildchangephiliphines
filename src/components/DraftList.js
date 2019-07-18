@@ -19,7 +19,7 @@ class DraftList extends Component {
       </View>
     ) : (
       <View style={styles.containerStyle}>
-        <Text style={styles.subtitleStyle}>You have no reports in Draft</Text>
+        <Text style={styles.subtitleStyle}>You have no reports in Draft.</Text>
       </View>
     );
   }

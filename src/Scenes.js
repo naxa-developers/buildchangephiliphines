@@ -42,6 +42,7 @@ import Responded from "./components/scenes/Responded";
 import Pending from "./components/scenes/Pending";
 import Rejected from "./components/scenes/Rejected";
 import DraftList from "./components/DraftList";
+import NotificationList from "./components/NotificationList";
 
 import { strings, getLocalizedText } from "../locales/strings";
 import InternetStatus from "./components/scenes/InternetStatus";
@@ -230,6 +231,17 @@ class Scenes extends Component {
               "Where is your School?"
             )}
             back
+            onRight={() => {
+              Actions.NotificationList();
+            }}
+            rightButtonImage={require("../app_images/notification.png")}
+            rightButtonStyle={{ paddingLeft: 4 }}
+          />
+
+          <Scene
+            component={NotificationList}
+            key="NotificationList"
+            title="Notifications"
           />
 
           <Scene component={DraftList} key="DraftList" title="Drafts" />

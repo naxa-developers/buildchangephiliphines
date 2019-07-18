@@ -13,6 +13,7 @@ import PdfData from "./addressscenereducer";
 import ConstructionMaterial from "./constructionmaterialreducer";
 import CheckDownlaodStatus from "./checkdownloadstatus";
 import DraftsReducer from "./draftsreducer";
+import NotificationReducer from "./notificationReducer";
 
 export default combineReducers({
   schoolList: SchoolReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
   pdf: PdfData,
   constructionMaterial: ConstructionMaterial,
   downloadInfo: CheckDownlaodStatus,
-  drafts: DraftsReducer
+  drafts: DraftsReducer,
+  notifications: NotificationReducer
 });

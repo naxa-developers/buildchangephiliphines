@@ -78,7 +78,6 @@ class ReportSchool extends Component {
       mediaType
     })
       .then(image => {
-        console.log("image", image);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
@@ -129,7 +128,6 @@ class ReportSchool extends Component {
       forceJpg: true
     })
       .then(images => {
-        console.log("images", images);
         this.props.saveToDraftsCollection({
           draftUserId: this.props.userId,
           siteId: this.props.siteId,
@@ -195,7 +193,6 @@ class ReportSchool extends Component {
   };
 
   deleteImg = i => {
-    console.log("Delete Img called");
     const filteredImages = this.state.images.filter((image, ind) => i !== ind);
 
     this.setState({

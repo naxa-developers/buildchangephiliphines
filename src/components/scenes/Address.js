@@ -13,7 +13,11 @@ import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { checkInternetConnection } from "react-native-offline";
-import { storeAddress, openedAddressScene } from "../../actions";
+import {
+  storeAddress,
+  openedAddressScene,
+  getNotifications
+} from "../../actions";
 import { getLocalizedText } from "../../../locales/strings";
 
 class Address extends React.Component {
@@ -23,6 +27,7 @@ class Address extends React.Component {
         if (res) {
           AsyncStorage.getItem("token").then(token => {
             this.props.openedAddressScene(token);
+            this.props.getNotifications(token);
           });
         } else if (!res) {
           Alert.alert("No internet connection!");
@@ -34,7 +39,6 @@ class Address extends React.Component {
   }
 
   render() {
-
     if (this.props.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -123,7 +127,7 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { openedAddressScene, storeAddress }
+  { openedAddressScene, storeAddress, getNotifications }
 )(Address);
 
 const styles = StyleSheet.create({

@@ -33,8 +33,6 @@ class Select5 extends Component {
   }
 
   render() {
-    console.log("Select 5 render");
-    console.log("select 5 props", this.props);
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity

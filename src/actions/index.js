@@ -230,3 +230,21 @@ export const saveToDraftsCollection = draft => {
 export const deleteFromDraftsCollection = draft => {
   return { type: "DELETE_FROM_DRAFTS_COLLECTION", payload: draft };
 };
+
+export const getNotifications = token => {
+  return dispatch => {
+    fetch("http://bccms.naxa.com.np/core/api/feedback-notification/", {
+      method: "GET",
+      headers: {
+        Authorization: "token " + token
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        dispatch({ type: "GET_NOTIFICATIONS", payload: responseJson });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+};

@@ -46,7 +46,6 @@ class Page1 extends Component {
     });
   }
   onReportTapped() {
-    console.log("onReportTapped props", this.props);
     Actions.ReportForm({
       substep: this.props.substep,
       stepId: this.props.stepId
