@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "react": "16.3.1",
     "react-native": "^0.55.4",
     "react-native-app-intro": "https://github.com/merryjs/react-native-app-intro",
